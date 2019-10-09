@@ -28,35 +28,35 @@ const Header = () => (
 <ul className="main-nav" id="js-menu">
     <li>
     <Link href="/">
-      <a style={linkStyle}>Home</a>
+      <a style={linkStyle}>HOME</a>
     </Link>    
     </li>
     <li>
       <Link href="/about">
-        <a style={linkStyle}>About</a>
+        <a style={linkStyle}>ABOUT</a>
       </Link>    
     </li>
     <li>
       <Link href="/form_builder">
-        <a style={linkStyle}>Form Builder</a>
+        <a style={linkStyle}>FORM BUILDER</a>
       </Link>    
     </li>
     <li>
     <Link href="/">
-      <a style={linkStyle}>Pricing</a>
+      <a style={linkStyle}>PRICING</a>
     </Link>    
     </li>
     <li>
     <Link href="/">
-      <a style={linkStyle}>Glossary</a>
+      <a style={linkStyle}>GLOSSARY</a>
     </Link>    
     </li>
     <li>
     <Link href="/">
-      <a style={linkStyle}>Free/Basic Forms</a>
+      <a style={linkStyle}>FREE/BASIC FORMS</a>
     </Link>
-    <Link href="/">
-      <a style={linkStyle}>Login</a>
+    <Link href="/login">
+      <a style={linkStyle}>LOGIN</a>
     </Link>     
     </li>
 

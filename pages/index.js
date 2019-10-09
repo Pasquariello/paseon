@@ -1,15 +1,7 @@
 import Layout from '../components/MyLayout';
 import Link from 'next/link';
 
-// function getPosts() {
-//   return [
-//     { id: 'hello-nextjs', title: 'Hello Next.js' },
-//     { id: 'learn-nextjs', title: 'Learn Next.js is awesome' },
-//     { id: 'deploy-nextjs', title: 'Deploy apps with ZEIT' }
-//   ];
-// }
-
-export default function Blog() {
+export default function Index() {
 
  
   function initDivMouseOver()   {
@@ -32,159 +24,291 @@ export default function Blog() {
   return (
     <Layout>
 
+      <div id="mydiv" className="" style={{width:'100%', height:'700px'}} onMouseEnter={()=>console.log('hi')}>
+        <div style={{position: 'relative', margin: '50px 0 30px 30px', color: 'white', width: '40%', padding: '20px'}}>
+          <h1 style={{fontSize: "6em", margin:"0 0 10px 0"}}>PASEON</h1>
+          <p  style={{fontSize: '1.4em'}}>Easy, customizable, copy and past submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
+          <button className="action-button white-btn ">LEARN MORE</button>
+        </div>
+        <div>
+          <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{height: '100%', width: '100%',}}>
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style={{stopColor:"#f83600"}} />
+                <stop offset="100%" style={{stopColor:"#f9d423"}} />
+              </linearGradient>
+            </defs>
+            <g fill="url(#gradient)">
+              <path d=" M0,120 C200,100 300,150 500,140 L500,0 L0,0 Z " > </path>
+            </g>
+          </svg>
+        </div>
+      </div>
 
-      {/*  */}
-      {/* <div style={{position: 'relative', width:'100%', height:'500px', border: '1px solid blue'}}>
-      <div className="container">
-        <div className="innerContainer"><h1>Hello</h1></div>
-  <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet">
-    <path d="M0,200 C250,300 350,0 600,300 L500,00 L0,0 Z0" style={{stroke: 'none', fill:'red'}}></path>
-  </svg>
+    <div style={{width: '80%', marginLeft: '10%'}}>
+      <div className="grid-container grid-container--fit ">
+        <div className="grid-element dark-background">
+          <h1>COPY IT</h1>
+          <p>Simply copy one of several prebuilt paseaon form tags ready to go with all the functionality to start capturing and sending the information you need.</p>
+        </div>
+        <div className="grid-element dark-background">
+          <h1>PASTE IT</h1>
+          <p>Paste any Paseon form tag anywhere you need, no need to worry about writting your own backend code!  We've got you covered.</p>
+        </div>
+        </div>
+        <div className="grid-container grid-container--fit" >
+        <div className="grid-element dark-background">
+        <h1>SEND IT</h1>
+          <p>Simple as that! you are ready to start recieving information.  Go ahead and submit a test, then check your inbox to see the results.</p>
+        </div>
+        <div className="grid-element dark-background">
+        <h1>CUSTOMIZE IT</h1>
+          <p>All prebuilt forms are customizeable to suit your stylistic needs! Have your own form you want to use?  No prblem, simly nest it in the Paseon personal form tags.  All the backend logic is still handled for you.</p>
+        </div>
+      </div>
+    </div>
+
+
+      <div style={{marginTop: '200px',  width: '70%', marginLeft:'15%', fontSize: '1.1em', lineHeight: '1.4em'}}>
+
+        <div style={{marginTop: '320px', marginBottom: '300px', padding: '50px', backgroundColor: '#F1F1F1', textAlign: 'center', fontSize: '1.1em', lineHeight: '1.4em'}}>
+          <p>Paseon offers a suit a prebuilt forms, form building tools, and integegrations, to handle processing and sending form information to where you need it to go. Follow the steps below to see an example of our basic contact form.  </p> 
+          <p> To see other services, prebuilt forms or to learn how to use your own form that utilizes our backend to process and send information where you need it to go click the button below </p>
+          <button className="action-button black-btn">LEARN MORE</button>
+        </div>
+        <div className="grid-container grid-container--fit">
+          <div className="grid-element">
+            <p>Try a test submission! Add your email inbetween the quotes in the HTML below then fill out and submit the form.</p>
+            
+            {/* <div contenteditable="true" style={{border: '1px solid black', padding:'30px'}}>
+            This text can be edited by the user.
+            </div> */}
+
+            <div style={{backgroundColor: '#F1F1F1', padding: '30px'}}>
+
+            <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form </span> 
+            recipient_email="<span style={{backgroundColor: '#dcdcdc', padding: '2px', borderRadius: '5px'}} contentEditable="true" onChange={()=>console.log('hello')}>YOUR_EMAIL</span>"
+            <span style={{color:'#3498DB'}}> &gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form</span> <span style={{color:'#3498DB'}}>&gt;</span><br></br>
+            <br></br>
+            <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>script</span> src="https://MYCDN"<span style={{color:'#3498DB'}}>&gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>script</span>  <span style={{color:'#3498DB'}}>&gt;</span>
+
+
+            </div>
+
+          </div>
+          <div className="grid-element">
+            {/* TODO: replace with a actual interactive form */} 
+            <label>This will be sent to: </label>
+            <form>
+                <input 
+                    name="name"
+                    type="text" 
+                    placeholder="Your Name"
+                    required
+                    // .value="${this.form_obj.name}"
+                    // @input="${(e) => this.handleSetInputValues(e)}" 
+                ></input>
+                <input 
+                    name="from"
+                    type="text" 
+                    placeholder="Your Email"
+                    required
+                    // .value="${this.form_obj.from}"
+                    // @input="${(e) => this.handleSetInputValues(e)}" 
+                ></input>
+                <input 
+                    name="subject"
+                    type="text" 
+                    placeholder="Subject" 
+                    required
+                    // .value="${this.form_obj.subject}"
+                    // @input="${(e) => this.handleSetInputValues(e)}" 
+                ></input>
+                <textarea 
+                    name="body"
+                    rows="4" 
+                    cols="50" 
+                    placeholder="Talk to me Goose..." 
+                    required
+                    // .value="${this.form_obj.body}"
+                    // @input="${(e) => this.handleSetInputValues(e)}" 
+                ></textarea>
+                <input type="submit"></input>
+            </form>
+          </div>
+       
+
+        </div>
+        <div className="grid-container" style={{width: '60%', marginLeft: '20%', marginTop: '300px', fontSize: '1.1em', lineHeight: '1.4em'}}>
+        
+          <div className="grid-element">
+          <h1>Step 1</h1>
+          <p>Copy the following html tags.  Make sure to switch the bolded information to match the email address where you would like the contact information to be sent.</p>
+          <div style={{backgroundColor: '#DCDCDC', padding: '30px'}}>
+              {/* &lt;paseon-contact-form
+                recipient_email="<b>YOUR_EMAIL</b>"
+              &gt; &lt;/paseon-contact-form &gt;
+              &lt;script src="https://MYCDN">&lt;/script &gt; */}
+              <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form </span> 
+              recipient_email="<span style={{backgroundColor: '#dcdcdc', padding: '2px', borderRadius: '5px'}} contentEditable="true" onChange={()=>console.log('hello')}>YOUR_EMAIL</span>"
+              <span style={{color:'#3498DB'}}> &gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form</span> <span style={{color:'#3498DB'}}>&gt;</span><br></br>
+              <br></br>
+              <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>script</span> src="https://MYCDN"<span style={{color:'#3498DB'}}>&gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>script</span>  <span style={{color:'#3498DB'}}>&gt;</span>
+
+
+          </div>
+          <p style={{fontSize: '.75em'}}>Have a SPA and need an NPM install?<br></br>
+          Ignore the script tag and paste the following into your root directory</p> 
+          </div>
+
+          <div className="grid-element">
+
+          <h1>Step 2</h1>
+          <p>Paste the tags to wherever you need a contact form on your site! Our tags are supported by any CRM that will let you add custom HTML</p>
+          </div>
+          <div className="grid-element">
+          <h1>Step 3</h1>
+          <p>At this point you are ready to start recieving emails from your form submissions! Go ahead and send yourself a test email through the contact form.  You may need check the spam folder, if the email ends up there mark it as 'Not Spam' and all future emails will go straight into your inbox.</p>
 </div>
-</div> */}
-<div id="mydiv" className="" style={{width:'100%', height:'700px'}} onMouseEnter={()=>console.log('hi')}>
+<div className="grid-element">
 
-<div style={{position: 'relative', margin: '50px 0 30px 30px', color: 'white', width: '40%', padding: '20px'}}>
-<h1 style={{fontSize: "6em", margin:"0 0 10px 0"}}>PASEON</h1>
-<p  style={{fontSize: '1.2em'}}>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-<button className="action-button">LEARN MORE</button>
-</div>
-<div>
-  <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{height: '100%', width: '100%',}}>
-  <defs>
-    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-	  <stop offset="0%" style={{stopColor:"#f83600"}} />
-	  <stop offset="100%" style={{stopColor:"#f9d423"}} />
-    </linearGradient>
-  </defs>
-  <g fill="url(#gradient)">
+          <h1>Step 4</h1>
+          <p>Customize the labels, colors, and success message of your form by adding and editing the HTML attributes of the Paseon tags. </p>
+          <p>To see a list of options click the button below.</p>
+          <button className="action-button black-btn">Learn More</button>
+        </div>
+        </div>
+      </div>
 
-    <path d=" M0,120 C200,100 300,150 500,140 L500,0 L0,0 Z " > </path>
-    </g>
-  </svg>
-  
-</div>
+      <div style={{margin: '200px 0 0 0', height: '300px', width: '100%',backgroundImage: "linear-gradient(to right, #f9d423 0%, #f83600 100%)"}}>
+        
+      </div>
 
- 
-</div>
-
-
-
-<div className="grid-container grid-container--fill" style={{width: '70%', marginLeft:'15%'}}>
-  <div className="grid-element">
-    1 ro eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-  </div>
-  <div className="grid-element">
-    2 ro eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-  </div>
-  <div className="grid-element">
-    3 ro eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-  </div>
-  <div className="grid-element">
-    4 ro eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-  </div>
-
-</div>
-
-
-<div style={{marginTop: '200px', height: '650px', border: '1px solid black', width: '80%', marginLeft:'10%'}}>
-
-</div>
-
-<div style={{margin: '200px 0 0 0', height: '300px', width: '100%',backgroundImage: "linear-gradient(to right, #f9d423 0%, #f83600 100%)"}}>
-
-</div>
-{/* M0,180 C250,400 350,0 600,320 L500,00 L0,0 Z0 */}
-
-{/* M0.00,100.27 C216.83,240 304.30,8.39 500.00,109.03 L500.00,0.00 L0.00,0.00 Z */}
-
-{/* M0,200 C250,300 350,0 600,300 L500,00 L0,0 Z0 */}
-      {/* <h1>My Blog</h1>
-      <ul>
-        {getPosts().map(post => (
-          <li key={post.id}>
-            <Link href="/p/[id]" as={`/p/${post.id}`}>
-              <a>{post.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul> */}
       <style jsx>{`
+        // START WILL BE MOVED OUT - for interactive test form
+        input[type=text], select, textarea {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
 
-// 
-.action-button {
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  cursor:pointer;
-  padding: 20px;
-  color: white;
-  font-weight: heavy;
-  border: 3px solid white;
-  overflow: hidden;
-  outline:none;
-  background: linear-gradient(to right, #fff 0%, #fff 50%, Transparent 50%, Transparent 100%);
+        input[type=submit] {
+          width: 100%;
+          color: white;
+          background: rgb(2,0,36);
+          //background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(108,9,121,1) 39%, rgba(255,0,63,1) 100%);
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
 
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  transition: background-position 0.3s;
-}
-
-
-
-.action-button:hover {
-  background-position:0 0;
-  color: black;
-
-}
-
-.grid-container {
-  display: grid;
-}
-
-.grid-container--fill {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.grid-container--fit {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.grid-element {
-background-color: #E3E3E3;
-padding: 50px;
-color: #fff;
-border: 1px solid #fff;
-}
+        input[type=submit]:hover {
+          //background-color: #45a049;
+          opacity: 0.7;
+          
+        }
+        // END WILL BE MOVED OUT
 
 
+        .action-button {
+          background-color: Transparent;
+          background-repeat:no-repeat;
+          cursor:pointer;
+          padding: 20px;
+          font-weight: heavy;
+          overflow: hidden;
+          outline:none;
+          font-size: .75em;
+         
+        }
+
+        .white-btn {
+          color: white;
+          border: 3px solid white;
+          background: linear-gradient(to right, #fff 0%, #fff 50%, Transparent 50%, Transparent 100%);
+          background-size: 200% 100%;
+          background-position: 100% 0;
+          transition: background-position 0.3s;
+        }
+
+        .black-btn {
+          color: black;
+          border: 3px solid black;
+          background: linear-gradient(to right, #000 0%, #000 50%, Transparent 50%, Transparent 100%);
+          background-size: 200% 100%;
+          background-position: 100% 0;
+          transition: background-position 0.3s;
+        }
 
 
-.header {
-  grid-area: header;
-}
 
-.innerContainer{
-  position:absolute;
-  top:0;
-  width:100%;
-}
-svg {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
+        .white-btn:hover {
+          background-position:0 0;
+          color: black;
+        }
+
+        .black-btn:hover {
+          background-position:0 0;
+          color: white;
+        }
+
+        .grid-container {
+          display: grid;
+        }
+
+        .grid-container--fill {
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .grid-container--fit {
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-element {
+          padding: 50px;
+        }
+
+        .dark-background {
+          background-color: #36454f;
+          color: #fff;
+          border: 1px solid #fff;
+        }
 
 
-.container {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%;
-  vertical-align: middle;
-  overflow: hidden;
-}
+        
+        .header {
+          grid-area: header;
+        }
+
+        .innerContainer{
+          position:absolute;
+          top:0;
+          width:100%;
+        }
+
+        svg {
+          display: inline-block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+
+
+        .container {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+          padding-bottom: 100%;
+          vertical-align: middle;
+          overflow: hidden;
+        }
 
 
         h1,
@@ -209,7 +333,8 @@ svg {
         a:hover {
           opacity: 0.6;
         }
-      `}</style>
+      `}
+      </style>
     </Layout>
   );
 }
