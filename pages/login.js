@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import Layout from '../components/MyLayout'
 import { login } from '../utils/auth'
-//  const db = require('./api/db/Postgres').db();
+
 
 
 
@@ -20,7 +20,7 @@ function Login () {
     setUserData(Object.assign({}, userData, { error: '' }))
 
     const username = userData.username
-    let url = 'http://localhost:3001/emailService/login'
+    let url = 'http://localhost:3001/login/auth'
 
     try {
 
@@ -32,14 +32,15 @@ function Login () {
       })
       console.log('response', response)
       if (response.status === 200) {
+        console.log(response)
         console.log('success')
-        // const { token } = '111'
-        // await login({ token })
+        const { token } = await response.json()
+        await login({ token })
+        console.log('token', token)
       } else {
         console.log('Login failed.')
-        // https://github.com/developit/unfetch#caveats
-        // let error = new Error(response.statusText)
-        // error.response = response
+        let error = new Error(response.statusText)
+        error.response = response
         throw error
       }
     } catch (error) {

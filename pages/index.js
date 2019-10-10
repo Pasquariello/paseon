@@ -185,6 +185,13 @@ export default function Index() {
       </div>
 
       <style jsx>{`
+   p {
+    font-family: 'Montserrat', sans-serif;  
+  }
+  h1 h2 h3 {
+    font-family: 'Roboto', sans-serif;
+  }
+
         // START WILL BE MOVED OUT - for interactive test form
         input[type=text], select, textarea {
           width: 100%;

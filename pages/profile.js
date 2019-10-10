@@ -7,47 +7,39 @@ import { withAuthSync } from '../utils/auth'
 import getHost from '../utils/get-host'
 
 const Profile = props => {
-  const { name, login, bio, avatarUrl } = props.data
+  // const { name, login, bio, avatarUrl } = props.data
 
   return (
     <Layout>
-      <img src={avatarUrl} alt='Avatar' />
-      <h1>{name}</h1>
-      <p className='lead'>{login}</p>
-      <p>{bio}</p>
+    
+    <div>
+      <h3>Tools:</h3>
+      <hr></hr>
+      <ul>
+        <li>Form Builder</li>
+        <li>Hash Email</li>
+        <li>Archived Emails</li>
+        <li>My Forms</li>
+      </ul>
+    </div>
 
-      <style jsx>{`
-        img {
-          max-width: 200px;
-          border-radius: 0.5rem;
-        }
-        h1 {
-          margin-bottom: 0;
-        }
-        .lead {
-          margin-top: 0;
-          font-size: 1.5rem;
-          font-weight: 300;
-          color: #666;
-        }
-        p {
-          color: #6a737d;
-        }
-      `}</style>
+
+
     </Layout>
   )
 }
 
 Profile.getInitialProps = async ctx => {
-  console.log('ji tay', getHost(ctx.req))
   const { token } = nextCookie(ctx)
-
-  //const apiUrl = getHost(ctx.req) + '/api/profile'
-
-  const redirectOnError = () =>
+  console.log('pro', token)
+  const apiUrl = getHost(ctx.req) + '/profile'
+  console.log(apiUrl)
+  const redirectOnError = () => {
+    console.log('redirect on error')
     typeof window !== 'undefined'
       ? Router.push('/login')
       : ctx.res.writeHead(302, { Location: '/login' }).end()
+  }
 
   try {
     const response = await fetch(apiUrl, {
@@ -58,14 +50,16 @@ Profile.getInitialProps = async ctx => {
     })
 
     if (response.ok) {
-      const js = await response.json()
-      console.log('js', js)
-      return js
+      console.log('res good', response)
+      // const js = await response.json()
+      // console.log('js', js)
+      // return js
     } else {
       // https://github.com/developit/unfetch#caveats
       return await redirectOnError()
     }
   } catch (error) {
+    console.log('error', error)
     // Implementation or Network error
     return redirectOnError()
   }

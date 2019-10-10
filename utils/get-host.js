@@ -1,6 +1,7 @@
 // This is not production ready, (except with providers that ensure a secure host, like Now)
 // For production consider the usage of environment variables and NODE_ENV
 function getHost (req) {
+  console.log('hi')
     if (!req) return ''
   
     const { host } = req.headers

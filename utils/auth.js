@@ -4,25 +4,29 @@ import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
 
 export const login = ({ token }) => {
-  console.log('o')
-  cookie.set('token', token, { expires: 1 })
+  
+  console.log('in login', token)
+  cookie.set('token', token, { expires: 36000 })
   Router.push('/profile')
 }
 
 export const auth = ctx => {
+  console.log('in auth')
   const { token } = nextCookie(ctx)
-
+  console.log('tay token', token)
   /*
    * If `ctx.req` is available it means we are on the server.
    * Additionally if there's no token it means the user is not logged in.
    */
   if (ctx.req && !token) {
+    console.log('and ')
     ctx.res.writeHead(302, { Location: '/login' })
     ctx.res.end()
   }
 
   // We already checked for server. This should only happen on client.
   if (!token) {
+    console.log('!token')
     Router.push('/login')
   }
 
