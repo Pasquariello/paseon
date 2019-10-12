@@ -24,12 +24,21 @@ export default function Index() {
   return (
     <Layout>
 
-      <div id="mydiv" className="" style={{width:'100%', height:'700px'}} onMouseEnter={()=>console.log('hi')}>
-        <div style={{position: 'relative', margin: '50px 0 30px 30px', color: 'white', width: '40%', padding: '20px'}}>
+<div id="mydiv" className="" style={{width:'100%', height:'700px'}} onMouseEnter={()=>console.log('hi')}>
+
+      <div style={{display: 'flex'}}>
+        <div style={{position: 'relative', margin: '50px 100px 30px 30px', color: 'white', width: '40%', padding: '20px'}}>
           <h1 style={{fontSize: "6em", margin:"0 0 10px 0"}}>PASEON</h1>
           <p  style={{fontSize: '1.4em'}}>Easy, customizable, copy and past submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
           <button className="action-button white-btn ">LEARN MORE</button>
         </div>
+
+        <div style={{float: 'right', marginTop: '175px'}}>
+          <img width="500px" src='../static/images/undraw_updates_et2k.svg'></img>
+        </div>
+
+        </div>
+
         <div>
           <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{height: '100%', width: '100%',}}>
             <defs>

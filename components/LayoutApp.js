@@ -1,8 +1,38 @@
 import Head from 'next/head';
+import SideBar from '../components/SideBar';
+import Header from '../components/Header';
+import React, { useState } from 'react';
 
-const LayoutApp = props => (
 
-  <div style={{height: "100%"}}>
+
+
+// const LayoutApp  => (
+export default function LayoutApp (props) {
+
+
+const [sideBarWidth, setSideBarWidth] = useState('20%');
+const [bodyWidth, setbodyWidth] = useState('80%');
+
+function updateWidth() {
+  console.log('I was clicked')
+  if (sideBarWidth != 0){
+  let sideBarWidthNew = '0'
+  let bodyWidthNew = '100%'
+  setSideBarWidth(sideBarWidthNew)
+  setbodyWidth(sideBarWidthNew)
+
+
+  }else {
+    setSideBarWidth('20%')
+    setbodyWidth('80%')
+  }
+
+}
+
+
+return (
+
+  <div style={{height: '100%'}} className="wrapper">
      <Head>
           <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
           
@@ -16,12 +46,49 @@ const LayoutApp = props => (
               Paseon
           </title>
         </Head>
-    {props.children}
+          {/* <div style={{position: 'relative'}} className="col-sm-3"> */}
+            <SideBar/>
+          {/* </div> */}
+
+            {/* Sidebar */}
+   
+
+          <div id="content-wrapper" className="d-flex flex-column" style={{width: '100%', padding: '50px'}}>
+            {props.children}
+          </div>
+
+       
+
+
+
+
+
     <style jsx>
       {`
 
+
+.wrapper {
+  display: flex;
+}
+
+
+#content-wrapper{
+  width: 100%;
+overflow-x: hidden;
+      }
+
+      .flex-column {
+        flex-direction: column!important;
+    }
+
+    .d-flex {
+    display: flex!important;
+}
+
     body {
         height: 100%;
+        width: 100%;
+        overflow-x: none;
     }
 
       
@@ -31,10 +98,11 @@ const LayoutApp = props => (
       h1 h2 h3 {
         font-family: 'Roboto', sans-serif;
       }
+      
 
       `}
     </style>
   </div>
-);
+)};
 
-export default LayoutApp;
+// export default LayoutApp;
