@@ -24,23 +24,29 @@ export default function Index() {
   return (
     <Layout>
 {/* height:'700px', marginBottom:'200px' */}
-  <div className="headerContainer">
+  <div className="headerContainer" style={{width: '100%', position: 'relative', height: '700px', marginBottom: '200px'}}>
+  {/* <div className="headerContainerInner" style={{position: 'absolute', bottom: '0', top: '0'}}> */}
+
 {/* style={{display: 'flex', justifyContent: 'space-between'}} */}
-        <div className="row">
-          <div className="col-md-6 justify-content-md-center headerText">
+        <div className="" style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between'}} >
+          <div className="justify-content-md-center">
+            <div className="headerText">
             <h1>PASEON</h1>
             <p>Easy, customizable, copy and paste submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
             <button className="action-button white-btn ">LEARN MORE</button>
+            </div>
           </div>
 {/* float: 'right',  */}
-          <div  className="col-md-6 headerImg">
+          <div  className="headerImg" style={{position: 'absolute', right: '0'}}>
+          {/* <div style={{position: 'absolute'}}> */}
             <img className="img-fluid float-md-right" src='../static/images/undraw_updates_et2k.svg'></img>
+            {/* </div> */}
           </div>
 
         </div>
 
-        <div>
-            <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{height: '100%', width: '100%',}}>
+        {/* <div style={{height: '100%', border: '1px solid red'}}> */}
+            <svg width="100%" height="100%" viewBox="0 0 500 150" preserveAspectRatio="none" style={{height: '100%', width: '100%',}}>
               <defs>
                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" style={{stopColor:"#f83600"}} />
@@ -51,8 +57,10 @@ export default function Index() {
                 <path d=" M0,120 C200,100 300,150 500,140 L500,0 L0,0 Z " > </path>
               </g>
             </svg>
-        </div>
+        {/* </div> */}
+  {/* </div> */}
   </div>
+  
 
     <div style={{width: '80%', marginLeft: '10%'}}>
       <div className="grid-container grid-container--fit ">
@@ -212,16 +220,105 @@ export default function Index() {
     
   }
 
+
+.wave{
+  background:
+    linear-gradient(to right, sandybrown, chocolate);
+  height: 50px;
+  position: relative;
+}
+.wave::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-repeat: repeat;
+  height: 10px;
+  background-size: 20px 20px;
+  background-image:
+    radial-gradient(circle at 10px -5px, transparent 12px, maroon 13px);
+}
+
+.wave{
+  background:
+    linear-gradient(to right, sandybrown, chocolate);
+  height: 50px;
+  position: relative;
+}
+.wave::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-repeat: repeat;
+  height: 15px;
+  background-size: 40px 20px;
+  background-image:
+    radial-gradient(circle at 10px 15px, crimson 12px, transparent 13px);
+}
+<div class='wave'></div>
+ Run code snippetHide results
+Full page
+Combining the two gives us the desired effect:
+
+.wave{
+  background:
+    linear-gradient(to right, sandybrown, chocolate);
+  height: 50px;
+  position: relative;
+}
+.wave::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-repeat: repeat;
+  height: 10px;
+  background-size: 20px 20px;
+  background-image:
+    radial-gradient(circle at 10px -5px, transparent 12px, aquamarine 13px);
+}
+.wave::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-repeat: repeat;
+  height: 15px;
+  background-size: 40px 20px;
+  background-image:
+    radial-gradient(circle at 10px 15px, aquamarine 12px, transparent 13px);
+}
+
+
   .headerContainer{
+    // height: 1000px;
     margin-bottom: 200px;
+
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    // position: relative;
   }
 
 .headerText {
-  color: white;
-  position: relative;
+  // color: white;
+  // position: relative;
   padding: 50px 100px 50px 100px;
-  color: white;
+  // color: white;
   width: 40%;
+
+  position: absolute;
+  text-transform: uppercase;
+  top: 40%;
+  // left: 50%;
+  transform: translate(0%,-40%);
+  color: #fff;
 
 }
 
@@ -235,10 +332,11 @@ export default function Index() {
 
 .headerImg{
   margin-top: 175px;
+  
 }
 
 .headerImg img{
-  width: 500px;
+  width: 60%;
   margin-right: 100px;
 }
 
