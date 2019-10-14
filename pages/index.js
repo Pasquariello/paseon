@@ -29,7 +29,7 @@ export default function Index() {
         <div className="row">
           <div className="col-md-6 justify-content-md-center headerText">
             <h1>PASEON</h1>
-            <p>Easy, customizable, copy and past submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
+            <p>Easy, customizable, copy and paste submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
             <button className="action-button white-btn ">LEARN MORE</button>
           </div>
 {/* float: 'right',  */}
