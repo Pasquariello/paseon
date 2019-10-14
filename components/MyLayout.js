@@ -9,7 +9,7 @@ import Header from './Header';
 
 const Layout = props => (
 
-  <div>
+  <div id='myLayout'>
      <Head>
           <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
           
@@ -29,6 +29,10 @@ const Layout = props => (
       {`
 
 
+      #myLayout {
+        width: 100%;
+        overflow-x:hidden; 
+      }
       
       p {
         font-family: 'Montserrat', sans-serif;  

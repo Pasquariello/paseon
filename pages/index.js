@@ -4,55 +4,55 @@ import Link from 'next/link';
 export default function Index() {
 
  
-  function initDivMouseOver()   {
-     var div = document.getElementById("mydiv");
-     div.mouseIsOver = false;
-     div.onmouseover = function()   {
-        this.mouseIsOver = true;
-     };
-     div.onmouseout = function()   {
-        this.mouseIsOver = false;
-     }
-     div.onclick = function()   {
-        if (this.mouseIsOver)   {
-           console.log('here!')
-        }
-     }
-  }
+  // function initDivMouseOver()   {
+  //    var div = document.getElementById("mydiv");
+  //    div.mouseIsOver = false;
+  //    div.onmouseover = function()   {
+  //       this.mouseIsOver = true;
+  //    };
+  //    div.onmouseout = function()   {
+  //       this.mouseIsOver = false;
+  //    }
+  //    div.onclick = function()   {
+  //       if (this.mouseIsOver)   {
+  //          console.log('here!')
+  //       }
+  //    }
+  // }
   
 
   return (
     <Layout>
-
-<div id="mydiv" className="" style={{width:'100%', height:'700px'}} onMouseEnter={()=>console.log('hi')}>
-
-      <div style={{display: 'flex'}}>
-        <div style={{position: 'relative', margin: '50px 100px 30px 30px', color: 'white', width: '40%', padding: '20px'}}>
-          <h1 style={{fontSize: "6em", margin:"0 0 10px 0"}}>PASEON</h1>
-          <p  style={{fontSize: '1.4em'}}>Easy, customizable, copy and past submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
-          <button className="action-button white-btn ">LEARN MORE</button>
-        </div>
-
-        <div style={{float: 'right', marginTop: '175px'}}>
-          <img width="500px" src='../static/images/undraw_updates_et2k.svg'></img>
-        </div>
+{/* height:'700px', marginBottom:'200px' */}
+  <div className="headerContainer">
+{/* style={{display: 'flex', justifyContent: 'space-between'}} */}
+        <div className="row">
+          <div className="col-md-6 justify-content-md-center headerText">
+            <h1>PASEON</h1>
+            <p>Easy, customizable, copy and past submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
+            <button className="action-button white-btn ">LEARN MORE</button>
+          </div>
+{/* float: 'right',  */}
+          <div  className="col-md-6 headerImg">
+            <img className="img-fluid float-md-right" src='../static/images/undraw_updates_et2k.svg'></img>
+          </div>
 
         </div>
 
         <div>
-          <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{height: '100%', width: '100%',}}>
-            <defs>
-              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style={{stopColor:"#f83600"}} />
-                <stop offset="100%" style={{stopColor:"#f9d423"}} />
-              </linearGradient>
-            </defs>
-            <g fill="url(#gradient)">
-              <path d=" M0,120 C200,100 300,150 500,140 L500,0 L0,0 Z " > </path>
-            </g>
-          </svg>
+            <svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{height: '100%', width: '100%',}}>
+              <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style={{stopColor:"#f83600"}} />
+                  <stop offset="100%" style={{stopColor:"#f9d423"}} />
+                </linearGradient>
+              </defs>
+              <g fill="url(#gradient)">
+                <path d=" M0,120 C200,100 300,150 500,140 L500,0 L0,0 Z " > </path>
+              </g>
+            </svg>
         </div>
-      </div>
+  </div>
 
     <div style={{width: '80%', marginLeft: '10%'}}>
       <div className="grid-container grid-container--fit ">
@@ -146,11 +146,14 @@ export default function Index() {
             </form>
           </div>
        
-
         </div>
-        <div className="grid-container" style={{width: '60%', marginLeft: '20%', marginTop: '300px', fontSize: '1.1em', lineHeight: '1.4em'}}>
+        </div>
+        {/* width: '60%', marginLeft: '20%', */}
+        <div className="" style={{ width: '50%', marginLeft: '25%',  marginTop: '300px', fontSize: '1.1em', lineHeight: '1.4em'}}>
         
-          <div className="grid-element">
+          <div className="stepsRow">
+
+
           <h1>Step 1</h1>
           <p>Copy the following html tags.  Make sure to switch the bolded information to match the email address where you would like the contact information to be sent.</p>
           <div style={{backgroundColor: '#DCDCDC', padding: '30px'}}>
@@ -159,35 +162,38 @@ export default function Index() {
               &gt; &lt;/paseon-contact-form &gt;
               &lt;script src="https://MYCDN">&lt;/script &gt; */}
               <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form </span> 
-              recipient_email="<span style={{backgroundColor: '#dcdcdc', padding: '2px', borderRadius: '5px'}} contentEditable="true" onChange={()=>console.log('hello')}>YOUR_EMAIL</span>"
+              recipient_email="<span style={{backgroundColor: '#dcdcdc', padding: '2px', borderRadius: '5px'}} contentEditable="true">YOUR_EMAIL</span>"
               <span style={{color:'#3498DB'}}> &gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form</span> <span style={{color:'#3498DB'}}>&gt;</span><br></br>
               <br></br>
               <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>script</span> src="https://MYCDN"<span style={{color:'#3498DB'}}>&gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>script</span>  <span style={{color:'#3498DB'}}>&gt;</span>
-
 
           </div>
           <p style={{fontSize: '.75em'}}>Have a SPA and need an NPM install?<br></br>
           Ignore the script tag and paste the following into your root directory</p> 
           </div>
 
-          <div className="grid-element">
+          <div className="stepsRow">
 
           <h1>Step 2</h1>
           <p>Paste the tags to wherever you need a contact form on your site! Our tags are supported by any CRM that will let you add custom HTML</p>
           </div>
-          <div className="grid-element">
+          <div className="stepsRow">
+
           <h1>Step 3</h1>
           <p>At this point you are ready to start recieving emails from your form submissions! Go ahead and send yourself a test email through the contact form.  You may need check the spam folder, if the email ends up there mark it as 'Not Spam' and all future emails will go straight into your inbox.</p>
-</div>
-<div className="grid-element">
+          </div>
+
+          <div className="stepsRow">
 
           <h1>Step 4</h1>
           <p>Customize the labels, colors, and success message of your form by adding and editing the HTML attributes of the Paseon tags. </p>
           <p>To see a list of options click the button below.</p>
-          <button className="action-button black-btn">Learn More</button>
+             
+          <button style={{display: 'block'}} className="action-button black-btn">Learn More</button>
+
+          </div>
         </div>
-        </div>
-      </div>
+      {/* </div> */}
 
       <div style={{margin: '200px 0 0 0', height: '300px', width: '100%',backgroundImage: "linear-gradient(to right, #f9d423 0%, #f83600 100%)"}}>
         
@@ -199,6 +205,84 @@ export default function Index() {
   }
   h1 h2 h3 {
     font-family: 'Roboto', sans-serif;
+  }
+
+  .stepsRow {
+    padding: 50px 0 50px 0;
+    
+  }
+
+  .headerContainer{
+    margin-bottom: 200px;
+  }
+
+.headerText {
+  color: white;
+  position: relative;
+  padding: 50px 100px 50px 100px;
+  color: white;
+  width: 40%;
+
+}
+
+.headerText h1{
+  font-size: 6em;
+}
+
+.headerText p {
+  font-size: 1.2em;
+}
+
+.headerImg{
+  margin-top: 175px;
+}
+
+.headerImg img{
+  width: 500px;
+  margin-right: 100px;
+}
+
+@media (max-width: 768px) {
+  .headerText {
+    padding: 0 0 0 0;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 100px;
+    
+  
+  }
+  .headerText h1{
+    font-size: 3em;
+  }
+
+  .headerText p{
+    font-size: 1em;
+  }
+
+  .headerImg {
+    
+  width: 50%;
+  margin-top:50px;
+
+  margin-left: 25%; 
+  }
+
+  .headerImg img{
+    width: 500px;
+    margin-right: 0; 
+   }
+}
+
+
+  @media (max-width: 576px) { 
+    .headerContainer{
+      margin-bottom: 300px;
+    }
+
+    .headerImg {
+      display: none;
+    }
+  
   }
 
         // START WILL BE MOVED OUT - for interactive test form
