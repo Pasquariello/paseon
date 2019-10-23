@@ -221,78 +221,6 @@ export default function Index() {
   }
 
 
-.wave{
-  background:
-    linear-gradient(to right, sandybrown, chocolate);
-  height: 50px;
-  position: relative;
-}
-.wave::before{
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-repeat: repeat;
-  height: 10px;
-  background-size: 20px 20px;
-  background-image:
-    radial-gradient(circle at 10px -5px, transparent 12px, maroon 13px);
-}
-
-.wave{
-  background:
-    linear-gradient(to right, sandybrown, chocolate);
-  height: 50px;
-  position: relative;
-}
-.wave::after{
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-repeat: repeat;
-  height: 15px;
-  background-size: 40px 20px;
-  background-image:
-    radial-gradient(circle at 10px 15px, crimson 12px, transparent 13px);
-}
-<div class='wave'></div>
- Run code snippetHide results
-Full page
-Combining the two gives us the desired effect:
-
-.wave{
-  background:
-    linear-gradient(to right, sandybrown, chocolate);
-  height: 50px;
-  position: relative;
-}
-.wave::before{
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-repeat: repeat;
-  height: 10px;
-  background-size: 20px 20px;
-  background-image:
-    radial-gradient(circle at 10px -5px, transparent 12px, aquamarine 13px);
-}
-.wave::after{
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-repeat: repeat;
-  height: 15px;
-  background-size: 40px 20px;
-  background-image:
-    radial-gradient(circle at 10px 15px, aquamarine 12px, transparent 13px);
-}
 
 
   .headerContainer{
@@ -345,7 +273,11 @@ Combining the two gives us the desired effect:
     padding: 0 0 0 0;
     width: 50%;
     margin-left: 25%;
-    margin-top: 100px;
+    // margin-top: 100px;
+
+  //   top: 40%;
+  // // left: 50%;
+  // transform: translate(0%,-40%);
     
   
   }
