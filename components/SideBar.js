@@ -10,31 +10,31 @@ const SideBar = props => (
     <hr></hr>
   </div>
       <li className="sidebar-item" >
-        <Link href="/">
+        <Link href="/dashboard">
           <a className="nav-link">Dashboard</a>
         </Link>    
       </li>
-      <li className="  sidebar-item" >
-        <Link href="/">
+      <li className="sidebar-item" >
+        <Link href="/account">
           <a className="nav-link">Account Settings</a>
         </Link>    
       </li>
-      <li className="  sidebar-item" >
-        <Link href="/">
+      <li className="sidebar-item" >
+        <Link href="/managed_forms" as="my-forms">
           <a className="nav-link">My Forms</a>
         </Link>    
       </li>
-      <li className="  sidebar-item" >
-        <Link href="/">
+      <li className="sidebar-item" >
+        <Link href="/form_builder" as="form-builder">
           <a className="nav-link">Form Builder</a>
         </Link>    
       </li>
-      <li className="  sidebar-item" >
-        <Link href="/">
+      <li className="sidebar-item" >
+        <Link href="/email_archives" as="archived-emails">
           <a className="nav-link">Archived Emails</a>
         </Link>    
       </li>
-      <li className="  sidebar-item" >
+      <li className="sidebar-item" >
         <Link href="/">
           <a className="nav-link">Integrations</a>
         </Link>    

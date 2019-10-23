@@ -1,4 +1,6 @@
-import Layout from '../components/MyLayout';
+//import Layout from '../components/MyLayout';
+import LayoutApp from '../components/LayoutApp'
+
 import LeftBar from '../components/LeftBar';
 import SelectBuilder from '../components/SelectBuilder';
 import InputBuilder from '../components/InputBuilder';
@@ -190,7 +192,7 @@ function onDragEnd(result) {
 
   return (
     <>
-    <Layout>
+    <LayoutApp>
 
       <div className="flex-grid">
 <div className="col">
@@ -338,7 +340,7 @@ function onDragEnd(result) {
     }
     `}
 </style>
-    </Layout>
+    </LayoutApp>
     </>
   );
 }
