@@ -20,17 +20,17 @@ const SideBar = props => (
         </Link>    
       </li>
       <li className="sidebar-item" >
-        <Link href="/managed_forms" as="my-forms">
+        <Link href="/managed_forms">
           <a className="nav-link">My Forms</a>
         </Link>    
       </li>
       <li className="sidebar-item" >
-        <Link href="/form_builder" as="form-builder">
+        <Link href="/form_builder">
           <a className="nav-link">Form Builder</a>
         </Link>    
       </li>
       <li className="sidebar-item" >
-        <Link href="/email_archives" as="archived-emails">
+        <Link href="/email_archives">
           <a className="nav-link">Archived Emails</a>
         </Link>    
       </li>

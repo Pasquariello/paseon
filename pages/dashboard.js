@@ -3,9 +3,31 @@ import React, { useState } from 'react'
 // import fetch from 'isomorphic-unfetch'
 import LayoutApp from '../components/LayoutApp'
 import SideBar from '../components/SideBar';
-
+import QuickAnalytics from '../components/QuickAnalytics';
 
 function Dashboard () { 
+
+  const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
+
+    let quickAnalyticsData = [
+      {
+        title: 'TOTAL MONTHLY SUBMISSIONS',
+        body: '50%',
+
+      },
+      {
+        title: 'TOTAL FORMS MANAGED',
+        body: '6'
+      },
+      {
+        title: 'TOTAL MONTHLY SUBMISSIONS',
+        body: '50%'
+      },
+      {
+        title: 'TOTAL MONTHLY SUBMISSIONS',
+        body: '50%'
+      },
+    ]
 
     return (
         <LayoutApp>
@@ -14,99 +36,9 @@ function Dashboard () {
             <h3>Dashboard</h3> 
           </div>
 
-{/* Start quick analytics  */}
-          <div className="row"> 
-       
-
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Monthly Submissions</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style={{width: "50%", ariaValuenow:"50", ariaValuemin:"0", ariaValuemax:"100"}}></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Forms Managed</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">6</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            </div>
-{/* End quick analytics  */}
-
-
-
-
-
-
-
-
-
-
-
-
-
+          <QuickAnalytics
+            data={quickAnalyticsData}
+          />
 
           <div className="row"> 
 
