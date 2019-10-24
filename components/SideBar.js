@@ -77,7 +77,7 @@ export default function SideBar(props) {
 
 
     .sidenav-active {
-      width: 14rem;
+      width: 17rem;
       padding-right: 40px;
       transition: 0.5s;
 
