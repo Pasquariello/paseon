@@ -61,7 +61,7 @@ return (
         </Link>    
       </li>
       <li className="nav-item ">
-      <Link href="/">
+      <Link href="/pricing">
         <a className="nav-link">PRICING</a>
       </Link>    
       </li>
