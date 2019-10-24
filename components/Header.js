@@ -16,25 +16,7 @@ class Header extends React.Component {
     this.setState({isActive: !this.state.isActive})
     console.log('clicked',this.state.isActive  )
   }
-  
-  
-  // const [active, setActive] = useState(true)
-  
-  
-  
 
-// const Header = () => (
-  // <div>
-  //   <Link href="/">
-  //     <a style={linkStyle}>Home</a>
-  //   </Link>
-  //   <Link href="/about">
-  //     <a style={linkStyle}>About</a>
-  //   </Link>
-  //   <Link href="/form_builder">
-  //     <a style={linkStyle}>Form Builder</a>
-  //   </Link>
-  // </div>
 render(){
 return (
 <>

@@ -1,12 +1,31 @@
 import Link from 'next/link';
+import React, { useState } from 'react';
 
-const SideBar = props => (
 
 
- 
+
+
+// const SideBar = props => (
+export default function SideBar(props) {
+
+  // const [sidNavWidth, setsidNavWidth] = useState('14rem')
+
+
+  // function toggleWidth() {
+  //   if (sidNavWidth == '14rem') {
+  //     setsidNavWidth('6.5rem')
+  //   } else{
+  //     setsidNavWidth('14rem')
+
+  //   }
+  // }
+  
+
+  return(
     <ul className="border-right sidenav sidebar-ul">
     <div>
     <h2>Paseon</h2>
+    {/* <button onClick={toggleWidth}>O</button> */}
     <hr></hr>
   </div>
       <li className="sidebar-item" >
@@ -98,5 +117,5 @@ const SideBar = props => (
 
     </ul>
 
-);
-export default SideBar;
+)
+}
