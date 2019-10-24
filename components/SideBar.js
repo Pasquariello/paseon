@@ -8,24 +8,15 @@ import React, { useState } from 'react';
 // const SideBar = props => (
 export default function SideBar(props) {
 
-  // const [sidNavWidth, setsidNavWidth] = useState('14rem')
-
-
-  // function toggleWidth() {
-  //   if (sidNavWidth == '14rem') {
-  //     setsidNavWidth('6.5rem')
-  //   } else{
-  //     setsidNavWidth('14rem')
-
-  //   }
-  // }
+ 
   
 
   return(
-    <ul className="border-right sidenav sidebar-ul">
+    <>
+    <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right`}>
     <div>
+    <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
     <h2>Paseon</h2>
-    {/* <button onClick={toggleWidth}>O</button> */}
     <hr></hr>
   </div>
       <li className="sidebar-item" >
@@ -59,7 +50,7 @@ export default function SideBar(props) {
         </Link>    
       </li>
    
-  
+      </ul>
 
     <style jsx>{`
    .sidebar-item {
@@ -68,54 +59,97 @@ export default function SideBar(props) {
         margin-top: 15px;
         margin-bottom: 15px;
         display: block;
-
     }
+
 
     .sidebar-ul{
         list-style-type: none;
         padding-right: 40px;
+        
+    }
+
+    .sidenav-hidden{
+      width: 0rem;
+      padding-right: 0px;
+      transition: 0.5s;
+      padding-left: 0;
     }
 
 
+    .sidenav-active {
+      width: 14rem;
+      padding-right: 40px;
+      transition: 0.5s;
+
+     
+    }
+
     .sidenav {
-      // z-index: 1;
       top: 0;
       left: 0;
       overflow-x: hidden;
       padding-top: 20px;
-
-      width: 14rem
       min-height: 100vh;
+    }
+
+    .open-sidenav {
+      display: none
+    }
+
+    .openbtn-active {
+      display: block
+    }
+
+    .openbtn-close {
+      display: none
     }
 
 
     @media (max-width: 770px) {
-      .sidenav {
-        width: 6.5rem !important;
+      // .sidenav {
+      //   width: 6.5rem;
+      //   padding-left: 0px;
+
+      // }
+
+      // .sidenav-hidden{
+      //   width: 0rem;
+      //   padding-right: 0px;
+      // }
+  
+  
+      .sidenav-active {
+        width: 6.5rem;
+        padding-left: 0px;
       }
 
-      .sidebar-ul{
-        padding-left: 0px;
+      .sidebar-item {
+        font-size: .65rem;
+        display: block;
+      }
     }
 
-    .sidebar-item {
-      font-size: .65rem;
-    display: block;
-  }
-    }
+     @media (max-width: 525px) {
 
-    media (min-width: 771px)
-.sidebar {
-    width: 14rem!important;
-}
+    // .sidenav{
+    //   display: none;
+    // }
+
+     }
+
+
+
+
+    
+
+    
+
+
 
 
     `}
     </style>
-
-
-
-    </ul>
-
+   
+    </>
 )
 }
