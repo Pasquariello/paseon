@@ -4,7 +4,11 @@ import Layout from '../components/MyLayout';
 export default function About() {
   return (
     <>
+
       <Layout>
+      Im the About page <br/>
+      I dont work right now, but other pages such as the pricing page, home page and (most of) the dashboard pages do!
+        <div style={{display:'none'}}>
         <p>This is the about page</p>
         Form Submissions for all ocassions
         <p>Use Paseon for simple forms and form submissions without the need to write your own backend code.</p>
@@ -14,6 +18,7 @@ export default function About() {
         <p>Need to manage multiple form, archive emails, watch submission details, integrate with third party tools like MailChimp, Freshdesk, Jira and more? Create an account  </p>
         <p>Want to build smart and effectiv marketing campaigns?</p>
         <p>Paseon sign up forms will let you manage user subscriptions, import user information into third party tools like, Mailchimp, SendGrid, and other drip marketing tools.</p>
+        </div>
       </Layout>
     </>
   );

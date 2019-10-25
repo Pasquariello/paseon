@@ -91,7 +91,9 @@ export default function Index() {
         <div style={{marginTop: '320px', marginBottom: '300px', padding: '50px', backgroundColor: '#F1F1F1', textAlign: 'center', fontSize: '1.1em', lineHeight: '1.4em'}}>
           <p>Paseon offers a suit a prebuilt forms, form building tools, and integegrations, to handle processing and sending form information to where you need it to go. Follow the steps below to see an example of our basic contact form.  </p> 
           <p> To see other services, prebuilt forms or to learn how to use your own form that utilizes our backend to process and send information where you need it to go click the button below </p>
+          <Link href="/pricing">
           <button className="action-button black-btn">LEARN MORE</button>
+          </Link>
         </div>
         <div className="grid-container grid-container--fit">
           <div className="grid-element">
