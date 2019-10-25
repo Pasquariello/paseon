@@ -70,11 +70,11 @@ return (
           <div id="content-wrapper" className="d-flex flex-column" style={{width: '100%', padding: '50px'}}>
           <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button>
            
-<button className="navbar-toggler" onClick={toggleWidth} type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+{/* <button className="navbar-toggler" onClick={toggleWidth} type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 <span className={sideNavWidth ? 'active' : ''} style={{padding: '2px'}}>
 <div className="toggle-btn type11"></div>
 </span>
-</button>
+</button> */}
            
             {props.children}
           </div>
