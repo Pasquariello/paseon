@@ -16,7 +16,7 @@ export default function SideBar(props) {
     <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right`}>
     <div>
     <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
-    <h2>Paseon</h2>
+    <h2 className="logoFont">Paseon</h2>
     <hr></hr>
   </div>
       <li className="sidebar-item" >
@@ -104,6 +104,8 @@ export default function SideBar(props) {
       display: none
     }
 
+   
+
 
     @media (max-width: 770px) {
       // .sidenav {
@@ -126,6 +128,10 @@ export default function SideBar(props) {
       .sidebar-item {
         font-size: .65rem;
         display: block;
+      }
+      .logoFont{
+        font-size: 1rem;  
+        padding-left: 10px;
       }
     }
 
