@@ -15,8 +15,11 @@ class QuickAnalytics extends React.Component {
         .map(function() { return this.splice(0, size) }, this.props.data.slice());
         console.log(newArray)
         return(
-            <div className=""> 
-                
+            <div>
+            <a data-toggle="collapse" href="#multiCollapseExample1"  aria-expanded="true" aria-controls="multiCollapseExample1">Toggle Quick Analytics</a>
+
+            <div className="collapse multi-collapse show" id="multiCollapseExample1"> 
+
 
                 {   
 
@@ -27,7 +30,8 @@ class QuickAnalytics extends React.Component {
                        
                     {row.map((data, index) =>{
                             return (
-    
+                            
+
                                 <QuickAnalyticsCard
                                     cardCount={newArray[rowIndex].length}
                                     key={index}
@@ -47,6 +51,7 @@ class QuickAnalytics extends React.Component {
                 {/* <QuickAnalyticsCard
                     data={this.props.data}
                 /> */}
+            </div>
             </div>
         )
     }
