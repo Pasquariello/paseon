@@ -28,6 +28,7 @@ export default function ManagedForms() {
             recipient_Email: 'taylorpasq@gmail.com',
             recipient_Email_hashed: hashCode('Taylorpasq@gmail.com'),
             date_created: moment().format('LLL'),
+            url: 'elevationcompanies.com',
             form_type: {
                 type : 'basic_contact',
                 display : 'Basic Contact'
@@ -38,6 +39,7 @@ export default function ManagedForms() {
             recipient_Email: 'maverick@gmail.com',
             recipient_Email_hashed: hashCode('maverick@gmail.com',),
             date_created: moment().format('LLL'),
+            url: 'maverickkitchens.com',
             form_type: {
                 type : 'basic_contact',
                 display : 'Basic Contact'
@@ -48,6 +50,7 @@ export default function ManagedForms() {
             recipient_Email: 'dine@bittersweet.com',
             recipient_Email_hashed: hashCode('dine@bittersweet.com',),
             date_created: moment().format('LLL'),
+            url: 'bittersweetdenver.com/',
             form_type: {
                 type : 'basic_RSVP',
                 display : 'Basic RSVP'
@@ -75,6 +78,12 @@ export default function ManagedForms() {
             id: 'form_type', // Required because our accessor is not a string
             Header: 'Form Type',
             accessor: d => d.form_type.display, // Custom value accessors!
+        },
+        {
+            Header: 'URL',
+            accessor: 'url',
+            Cell: props =>  <Link prefetch={false} href={`http://${props.value}`}><a target="_blank">{`http://${props.value}`}</a></Link> // Custom cell components!
+
         },
         {
             Header: 'Date Created',
