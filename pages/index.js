@@ -205,10 +205,6 @@ export default function Index() {
         </div>
       {/* </div> */}
 
-      <div style={{margin: '200px 0 0 0', height: '300px', width: '100%',backgroundImage: "linear-gradient(to right, #f9d423 0%, #f83600 100%)"}}>
-        
-      </div>
-
       <style jsx>{`
    p {
     font-family: 'Montserrat', sans-serif;  

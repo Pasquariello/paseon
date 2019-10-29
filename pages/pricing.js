@@ -63,7 +63,7 @@ export default function Pricing() {
 
 <div style={{marginTop: '150px'}}>
 
-<div style={{textAlign: 'center', padding: '0px 150px 50px 150px'}}>
+<div style={{position:"relative", textAlign: 'center', padding: '0px 150px 50px 150px'}}>
     <h1 className="display-4">Plan Breakdown</h1>
     {/* <p className="lead">Lorem ipsum dolor sit amet, mel te prima assentior suscipiantur, et sumo ridens commodo nec. Vel no solet animal scaevola, et discere singulis aliquando vix, mentitum postulant constituam ei cum.</p> */}
 </div>

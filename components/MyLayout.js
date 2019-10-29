@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Header from './Header';
+import Footer from './Footer';
 
 // const layoutStyle = {
 //   margin: 20,
@@ -25,6 +26,8 @@ const Layout = props => (
         </Head>
     <Header />
     {props.children}
+
+<Footer/>
     <style jsx>
       {`
 
@@ -33,6 +36,8 @@ const Layout = props => (
         height: 100%;
         width: 100%;
         overflow-x:hidden; 
+        position: relative;
+        min-height: 100vh;
       }
       
       p {
