@@ -91,7 +91,8 @@ return (
 
       .wrapper {
         display: flex;
-        
+        //flex-wrap: wrap;
+   
       }
 
       .active{
@@ -104,7 +105,7 @@ return (
 
 
       #content-wrapper{
-        width: 100%;
+        //width: 100%;
         overflow-x: hidden;
         height: 100vh;
       }

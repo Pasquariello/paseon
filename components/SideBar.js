@@ -30,8 +30,8 @@ export default function SideBar(props) {
         </Link>    
       </li>
       <li className="sidebar-item" >
-        <Link href="/managed_forms">
-          <a className="nav-link">My Forms</a>
+        <Link href="/campaignManagment/campaigns">
+          <a className="nav-link">Campaigns</a>
         </Link>    
       </li>
       <li className="sidebar-item" >
@@ -77,7 +77,7 @@ export default function SideBar(props) {
 
 
     .sidenav-active {
-      width: 17rem;
+      width: 19rem;
       padding-right: 40px;
       transition: 0.5s;
 

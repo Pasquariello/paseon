@@ -1,13 +1,24 @@
-import Layout from '../components/MyLayout';
+import Layout from '../../components/MyLayout';
 import Link from 'next/link';
-import LayoutApp from '../components/LayoutApp'
-import QuickAnalytics from '../components/QuickAnalytics';
+import LayoutApp from '../../components/LayoutApp'
+import QuickAnalytics from '../../components/QuickAnalytics';
 import ReactTable from 'react-table';
 import moment from 'moment';
+import CampaignLink from '../../components/CampaingLink';
 
 
 
-export default function ManagedForms() {
+// const CampaignLink = props => (
+//     <>
+//     <script>console.log(props)</script>
+
+//       <Link href="/campaignManagment/[id]" as={`/campaignManagment/${props.id}`}>
+//         <a>{props.title}</a>
+//       </Link>
+// </>
+//   );
+
+export default function Campaigns() {
     let quickAnalyticsData = [
         {
           title: 'Contact Form',
@@ -24,6 +35,7 @@ export default function ManagedForms() {
     ///START grid faux data
     const data = [
         {
+            id: 1,
             name: 'Elevation Companies Contact Form',
             recipient_Email: 'taylorpasq@gmail.com',
             recipient_Email_hashed: hashCode('Taylorpasq@gmail.com'),
@@ -35,6 +47,7 @@ export default function ManagedForms() {
             }
         },
         {
+            id: 2,
             name: 'Maverick Contact Form',
             recipient_Email: 'maverick@gmail.com',
             recipient_Email_hashed: hashCode('maverick@gmail.com',),
@@ -46,6 +59,7 @@ export default function ManagedForms() {
             }
         },
         {
+            id: 3,
             name: 'BitterSweet RSVP Form',
             recipient_Email: 'dine@bittersweet.com',
             recipient_Email_hashed: hashCode('dine@bittersweet.com',),
@@ -59,11 +73,12 @@ export default function ManagedForms() {
     ]
 
 
-     
     const columns = [
         {
+            id: 'name',
             Header: 'Name',
-            accessor: 'name' // String-based value accessors!
+            accessor: 'name',
+            Cell: props => <CampaignLink id={props.original.id} title={props.value}/>
         }, 
         {
             Header: 'Recipient Email',
@@ -90,13 +105,11 @@ export default function ManagedForms() {
             accessor: 'date_created',
         }
     ]
-    ///END grid faux data
 
-   function hashCode(s) {
+    function hashCode(s) {
         return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
-      }
-    
-      console.log(hashCode('taylor'))
+    }
+    ///END grid faux data
 
     return (
         <LayoutApp>
@@ -114,8 +127,12 @@ export default function ManagedForms() {
                 </div>
             </div>
             
-
-            <h3>My Custom Forms:</h3>
+            <div className="row">
+            <h3>My Campaings:</h3> 
+                <Link href="/campaignManagment/newcampaign">
+                    <a>+ New</a>
+                </Link>
+            </div>
             <div style={{marginTop: '20px'}}>
             <ReactTable
                 data={data}
@@ -130,4 +147,17 @@ export default function ManagedForms() {
 
     )
 
+    
+
 }
+
+// Campaigns.getInitialProps = async function() {
+//     const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
+//     const data = await res.json();
+  
+//     console.log(`Show data fetched. Count: ${data.length}`);
+  
+//     return {
+//       shows: data.map(entry => entry.show)
+//     };
+//   };

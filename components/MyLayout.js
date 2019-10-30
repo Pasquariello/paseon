@@ -25,8 +25,9 @@ const Layout = props => (
           </title>
         </Head>
     <Header />
+    <div>
     {props.children}
-
+    </div>
 <Footer/>
     <style jsx>
       {`
