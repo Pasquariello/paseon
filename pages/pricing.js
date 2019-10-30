@@ -7,7 +7,7 @@ export default function Pricing() {
       <Layout>
     <div class="container">
 
-    <div style={{textAlign: 'center', padding: '150px 150px 75px 150px'}}>
+    <div style={{textAlign: 'center', padding: '150px 0 75px 0', width: '70%', marginLeft: '15%'}}>
     <h1 className="display-4">Get The Most Out of Your Forms</h1>
     <p className="lead">Lorem ipsum dolor sit amet, mel te prima assentior suscipiantur, et sumo ridens commodo nec. Vel no solet animal scaevola, et discere singulis aliquando vix, mentitum postulant constituam ei cum.</p>
     </div>

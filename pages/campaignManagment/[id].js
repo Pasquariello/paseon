@@ -110,7 +110,10 @@ function hashCode(s) {
 ///END grid faux data
 
 
-// TODO rename data one! 
+// TODO 
+// rename data one! 
+// table columns need to be form fields mapped to columns - make editable?
+// export button
 let  dataOne = data.filter(data => data.id == id)
 console.log('taylor', dataOne);
   return { id, dataOne, columns };
