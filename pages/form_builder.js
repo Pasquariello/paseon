@@ -207,8 +207,8 @@ function onDragEnd(result) {
         <button>Checkbox</button>
 <hr></hr>
         <label htmlFor="elem">New Element</label>
-        <select id="elem" name="elem" onChange={handleElemSelect}>
-          <option value="" defaultValue disabled >Choose here</option>
+        <select id="elem" name="elem" defaultValue="choose" onChange={handleElemSelect}>
+          <option value="choose" disabled >Choose here</option>
           <option value="text">Text Input</option>
           <option value="select">Select Dropdown</option>
           <option value="checkbox">Checkbox</option>

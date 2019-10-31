@@ -57,8 +57,8 @@ export default function Account() {
                         </div>
                         <div className="form-group col-md-4">
                         <label for="inputState">State</label>
-                        <select id="inputState" className="form-control">
-                            <option defaultValue>Choose...</option>
+                        <select id="inputState" defaultValue="choose" className="form-control">
+                            <option value="choose">Choose...</option>
                             <option>...</option>
                         </select>
                         </div>
