@@ -138,6 +138,7 @@ hello
     const renderCustomFormBuilder = () => {
         return (
             <>
+                <p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
                 <Form_Builder parentCallback={handleAddInput}/>
             </>
         )
@@ -156,10 +157,13 @@ hello
             })
         })
         return (
+            <>
+            <p>Visual representation of data collected with your new campaign.</p>
             <ReactTable
             //data={data}
             columns={build}
             /> 
+            </>
         )
     }
    
@@ -190,16 +194,11 @@ hello
                         </select>                    
                     </div>
                     <div>
-                        {campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : null}
-                        {campaignForm.fields.length}
-
-                        {campaignForm.fields.length > 0 ? 
-                           renderTable()
-                            
-                            : null
-                        }
-                    
                         {/* this will show the defualt form fields with each selection */}
+
+                        {campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : null}
+
+                        {campaignForm.fields.length ? renderTable() : null}
                     </div>
                     {/* <div className="form-group">
                         <label for="inputState">set additional form fields</label>
