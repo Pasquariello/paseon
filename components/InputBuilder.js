@@ -7,6 +7,7 @@ export default function InputBuilder(props) {
     const blankInput = {
         type: 'text',
         label: '',
+        name: '',
         value: '',
         required: false,
         placholder: '',
@@ -26,24 +27,32 @@ export default function InputBuilder(props) {
         // setSelectBuilderState({...selectBuilderState, values: myArray })
     }
 
-    function addInput() {
-        
+    function addInput(e) {
+        e.preventDefault();
+        console.log(e)
         let inputObj = inputBuilderState;
         setInputBuilderState(blankInput)
          props.parentCallback(inputObj)
+         console.log('inputObj', inputObj)
+    }
+
+    function handleChangeInput(e){
+        let  name = e.target.value.toLowerCase().split(" ").join("_")
+        setInputBuilderState({...inputBuilderState, label: e.target.value, name})
+        
     }
   
     return (
     <>
         <div>
             <div className="container">
-            <label htmlFor="setlabel">Give your select box a label...</label>
+            <label htmlFor="setlabel">Give your Input label...</label>
             <input
                 type="text"
                 id="setlabel"
                 name="label"
                 value={inputBuilderState.label}
-                onChange={e => setInputBuilderState({...inputBuilderState, label: e.target.value})}
+                onChange={handleChangeInput}
             >
             </input>
             {/* TODO: pass value - only after decide where this list needs to go */}
@@ -66,16 +75,8 @@ export default function InputBuilder(props) {
             </select>
 
 
-{/* I DONT THINK THIS IS NECESSARY */}
-            <label htmlFor="values">Set the values in your dropdown select<span style={{fontSize: '.75rem'}}>(separate each value with a comma)</span></label>
-            <input 
-                type="text" 
-                id="lnvaluesame" 
-                name="values"
-                value={inputBuilderState.values} 
-                onChange={e => setInputBuilderState({...inputBuilderState, value: e.target.value})}>
-    
-            </input>
+
+
 
             {/* <input type="submit" value="Submit"></input> */}
             {/* <button onClick={()=>props.parentCallback(selectBuilderState)}>Add +</button> */}

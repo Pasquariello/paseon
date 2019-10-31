@@ -4,7 +4,7 @@ import LayoutApp from '../../components/LayoutApp'
 import QuickAnalytics from '../../components/QuickAnalytics';
 import ReactTable from 'react-table';
 import moment from 'moment';
-import CampaignLink from '../../components/CampaingLink';
+import CampaignLink from '../../components/CampaignLink';
 
 
 
