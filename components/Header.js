@@ -56,7 +56,7 @@ return (
         </Link>    
       </li>
       <li className="nav-item ">
-        <Link href="/form_builder">
+        <Link href="/">
           <a className="nav-link">FORM BUILDER</a>
         </Link>    
       </li>

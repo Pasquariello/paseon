@@ -1,5 +1,5 @@
 //import Layout from '../components/MyLayout';
-import LayoutApp from '../LayoutApp'
+// import LayoutApp from '../LayoutApp'
 
 import LeftBar from '../LeftBar';
 import SelectBuilder from './SelectBuilder';
