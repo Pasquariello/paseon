@@ -38,6 +38,7 @@ export default function Form_Builder(props) {
 
 
 const blankInputTest = {
+  tag: '',
   type: 'text',
   label: '',
   value: '',
@@ -282,6 +283,12 @@ function onDragEnd(result) {
       {/* : null)} */}
 
       </FormSandBox>
+      {/* TODO: hook these up  */}
+      
+      {/* to see raw form with complete structure */}
+      <button>Raw Form</button>   
+      {/* to see the custom paseon form with attribute that points to correct saved form object */}
+      <button>Paseon Form</button>
       </div>
       </div>
 

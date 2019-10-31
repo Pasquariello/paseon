@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 
 //TODO: hook up required and placeholder
-export default function InputBuilder(props) {
+export default function CheckBoxBuilder(props) {
 
 //function buildSelect () {
     const blankInput = {

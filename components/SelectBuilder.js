@@ -5,9 +5,10 @@ export default function SelectBuilder(props) {
 
 //function buildSelect () {
     const blankSelect = {
+        tag: 'select',
         type: 'select',
         label: '',
-        values: [],
+        options: [],
         required: false,
     }
     const [selectBuilderState, setSelectBuilderState] = useState(blankSelect);
@@ -28,17 +29,34 @@ export default function SelectBuilder(props) {
 
     function handleSetValues(e) {
         console.log(e.target.value)
-        let myArray = e.target.value.split(',');
-        console.log('myArray ', myArray)
-        setSelectBuilderState({...selectBuilderState, values: myArray })
+        let optionsArray = e.target.value.split(',');
+        console.log('optionsArray ', optionsArray)
+        setSelectBuilderState({...selectBuilderState, options: optionsArray })
     }
 
-    function addSelect() {
-        
+    function addSelect(e) {
+        e.preventDefault();
+
         let selectObj = selectBuilderState;
         setSelectBuilderState(blankSelect)
         props.parentCallback(selectObj)
-        console.log(selectList)
+        //console.log(selectList)
+    }
+
+
+    // function addInput(e) {
+    //     e.preventDefault();
+    //     console.log(e)
+    //     let inputObj = inputBuilderState;
+    //     setInputBuilderState(blankInput)
+    //      props.parentCallback(inputObj)
+    //      console.log('inputObj', inputObj)
+    // }
+
+    function handleChangeInput(e, field){
+        let  name = e.target.value.toLowerCase().split(" ").join("_")
+        setInputBuilderState({...inputBuilderState, [field]: e.target.value, name})
+        
     }
   
     return (
@@ -60,7 +78,7 @@ export default function SelectBuilder(props) {
                 type="text" 
                 id="lnvaluesame" 
                 name="values"
-                value={selectBuilderState.values} 
+                value={selectBuilderState.options} 
                 onChange={e => handleSetValues(e)}></input>
 
             {/* <input type="submit" value="Submit"></input> */}
