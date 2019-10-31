@@ -5,7 +5,7 @@ export default function InputBuilder(props) {
 
 //function buildSelect () {
     const blankInput = {
-        type: '',
+        type: 'text',
         tag: 'input',
         label: '',
         name: '',
@@ -58,7 +58,7 @@ export default function InputBuilder(props) {
             </input>
             {/* TODO: pass value - only after decide where this list needs to go */}
             <label htmlFor="elem">Select Input type</label>
-            <select defaultValue="text" id="elem" name="elem" value={inputBuilderState.type} onChange={(e)=>handleChangeInput(e, 'type')}>
+            <select id="elem" name="elem" value={inputBuilderState.type} onChange={(e)=>handleChangeInput(e, 'type')}>
                 {/* <option value="choose" disabled >Choose here</option> */}
                 <option value="text">Text</option>
                 <option value="phone">Phone</option>

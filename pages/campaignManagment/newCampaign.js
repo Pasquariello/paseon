@@ -72,8 +72,17 @@ hello
 
     const handleFormChange = (e) => {
         console.log('taylor e', e.target.value)
-        setCampaignForm({...campaignForm, form_type: e.target.value})
-        console.log(campaignForm)
+        
+
+        if (e.target.value != 'custom'){
+            renderBasicForms(e.target.value);
+        } 
+        else {
+            // setCampaignForm({...campaignForm, form_type: e.target.value})
+
+            setCampaignForm({...campaignForm, form_type: e.target.value, fields:[]})
+        }
+
         
     }
     // const [campaignForm, setCampaignForm] = useState(
@@ -146,7 +155,86 @@ hello
 
     }
 
+    const renderBasicForms = (form) => {
+        console.log('hahahahahhza', form)
+        let basic_forms = {
+            basic_contact: { 
+                //form_type: 'basic_contact', 
+                // NOT ALL OF THESE KEYS ARE NECESSARY! THIS IS JUST FOR BUILDING THE DATA TABLE
+                fields: [
+                    {
+                        type: 'email',
+                        tag: 'input',
+                        label: 'Recipient Email',
+                        name: 'recipient_email',
+                    }, 
+                    {
+                        type: 'text',
+                        tag: 'input',
+                        label: 'Name',
+                        name: 'name',
+                    },
+                    {
+                        type: 'text',
+                        tag: 'input',
+                        label: 'Subject',
+                        name: 'subject',
+                    },
+                    {
+                        type: '',
+                        tag: 'textarea',
+                        label: 'Body',
+                        name: 'body',
+                    },
+                ],
+            },
+            basic_rsvp: { 
+                //form_type: 'basic_contact', 
+                // NOT ALL OF THESE KEYS ARE NECESSARY! THIS IS JUST FOR BUILDING THE DATA TABLE
+                fields: [
+                    {
+                        type: 'email',
+                        tag: 'input',
+                        label: 'test',
+                        name: 'test',
+                    }, 
+                    {
+                        type: 'text',
+                        tag: 'input',
+                        label: 'test',
+                        name: 'test',
+                    },
+                    {
+                        type: 'text',
+                        tag: 'input',
+                        label: 'test',
+                        name: 'test',
+                    },
+                    {
+                        type: '',
+                        tag: 'textarea',
+                        label: 'test',
+                        name: 'test',
+                    },
+                ],
+            },
+        }
+        
+    //     setExampleState({...exampleState,  masterField2: {
+    //         fieldOne: "c",
+    //         fieldTwo: {
+    //            fieldTwoOne: "d",
+    //            fieldTwoTwo: "e"
+    //            }
+    //         },
+    //    }})
+    
+        //return basic_forms[form].fields
+        setCampaignForm({...campaignForm, fields : basic_forms[form].fields, form_type: form});
+    }
+
     const renderCustomFormBuilder = () => {
+        console.log('IN CUSTOM')
         return (
             <>
                 <p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
@@ -155,23 +243,19 @@ hello
         )
     }
 
-    const renderTable = () => {
-        console.log('yo')
-
-        console.log('in columns')
+    const renderTable = (fields) => {
+        console.log('in columns', fields)
+        // TODO: rename? name columns and make a stateful value? 
         let build = []
-        // let build = [{
-        //     Header: 'Recipient Email',
-        //     accessor: 'recipient email'
 
-        // }]
-
-        campaignForm.fields.map(field => {
+        fields.map(field => {
             build.push({
                 Header: field.label,
-                accessor: field.label
-            })
-        })
+                accessor: field.label,
+            });
+        });
+
+        //TODO: turn this into its own function that takes in columns? 
         return (
             <>
             <p>Visual representation of data collected with your new campaign.</p>
@@ -182,6 +266,10 @@ hello
             </>
         )
     }
+
+
+        // campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : renderBasicForms(campaignForm.form_type)}
+    
    
     return (
         <LayoutApp>
@@ -201,20 +289,19 @@ hello
                     <div className="form-group">
                         <label htmlFor="inputState">Form Type</label>
                         <select id="inputState" className="form-control" value={campaignForm.form_type} onChange={handleFormChange}>
-                            <option defaultValue="choose">Choose...</option>
+                            <option value="choose">Choose...</option>
                             <option value="basic_contact">Basic Contact</option>
                             <option value="basic_rsvp">Basic RSVP</option>
                             <option value="basic_sign_up">Basic Sign Up</option>
                             <option value="basic_mailing_list">Basic Mailing List</option>
                             <option value="custom">Custom</option>
                         </select>                    
-                    </div>
-                    <div>
+            
                         {/* this will show the defualt form fields with each selection */}
 
-                        {campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : null}
-
-                        {campaignForm.fields.length ? renderTable() : null}
+                        {campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : null }
+                                               
+                        {campaignForm.fields.length ? renderTable(campaignForm.fields) : null}
                     </div>
                     {/* <div className="form-group">
                         <label for="inputState">set additional form fields</label>
