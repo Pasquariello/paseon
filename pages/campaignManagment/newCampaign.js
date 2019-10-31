@@ -6,6 +6,13 @@ import ReactTable from 'react-table';
 
 
 // export default function NewCampaign() 
+
+//TODO: 
+/* 
+move recipient email after select form type so users can choose to have a form submit to an email or not
+if user selects 'custom' have a checkbox for, 'will this campaign need to be emailed?' if yes, add recipient email
+    if not then just build out form and data table
+*/
    
  const NewCampaign = (props) =>  {
 
@@ -112,7 +119,11 @@ hello
 
     function columns(){
         console.log('in columns')
-        let build = []
+        let build = [{
+            Header: 'Recipient Email',
+            accessor: 'recipient email'
+
+        }]
 
         campaignForm.fields.map(field => {
             build.push({
@@ -149,6 +160,11 @@ hello
 
         console.log('in columns')
         let build = []
+        // let build = [{
+        //     Header: 'Recipient Email',
+        //     accessor: 'recipient email'
+
+        // }]
 
         campaignForm.fields.map(field => {
             build.push({

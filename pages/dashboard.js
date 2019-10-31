@@ -42,15 +42,15 @@ function Dashboard () {
 
           <div className="row"> 
 
-          <div class="col-md-6 mb-4">
+          <div className="col-md-6 mb-4">
 
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Create a New Campaign</h6>
+<div className="card shadow mb-4">
+  <div className="card-header py-3">
+    <h6 className="m-0 font-weight-bold text-primary">Create a New Campaign</h6>
   </div>
-  <div class="card-body">
-    <div class="text-center">
-      <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src="../static/images/undraw_master_plan_95wa.svg" alt=""></img>
+  <div className="card-body">
+    <div className="text-center">
+      <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src="../static/images/undraw_master_plan_95wa.svg" alt=""></img>
     </div>
     <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
     <a target="_blank" rel="nofollow" href="https://undraw.co/">See this cool link →</a>

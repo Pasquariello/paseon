@@ -58,7 +58,7 @@ export default function InputBuilder(props) {
             {/* TODO: pass value - only after decide where this list needs to go */}
             <label htmlFor="elem">Select Input type</label>
             <select id="elem" name="elem">
-                <option value="" selected disabled >Choose here</option>
+                <option value="" defaultValue disabled >Choose here</option>
                 <option value="text">Text</option>
                 <option value="select">Phone</option>
                 <option value="checkbox">Email</option>
