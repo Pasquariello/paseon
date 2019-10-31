@@ -129,7 +129,7 @@ export default function Campaigns() {
             
             <div className="row">
             <h3>My Campaings:</h3> 
-                <Link href="/campaignManagment/newcampaign">
+                <Link href="/campaignManagment/newCampaign">
                     <a>+ New</a>
                 </Link>
             </div>
