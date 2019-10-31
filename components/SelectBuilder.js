@@ -13,51 +13,29 @@ export default function SelectBuilder(props) {
     }
     const [selectBuilderState, setSelectBuilderState] = useState(blankSelect);
 
-    // const [selectList, setSelectList] = useState([...selectBuilderState]);
-    const blankCat = { name: '', age: '' };
-  const [selectList, setSelectList] = useState([
-    { ...selectBuilderState },
-  ]);
+    const [selectList, setSelectList] = useState([
+        { ...selectBuilderState },
+    ]);
   
-//   const addCat = () => {
-//     setCatState([...catState, { ...blankCat }]);
-//   };
-      
 
-
-//} 
-
-    function handleSetValues(e) {
-        console.log(e.target.value)
+    function handleSetSelectOptions(e) {
         let optionsArray = e.target.value.split(',');
-        console.log('optionsArray ', optionsArray)
         setSelectBuilderState({...selectBuilderState, options: optionsArray })
     }
 
     function addSelect(e) {
         e.preventDefault();
-
         let selectObj = selectBuilderState;
         setSelectBuilderState(blankSelect)
         props.parentCallback(selectObj)
-        //console.log(selectList)
     }
 
-
-    // function addInput(e) {
-    //     e.preventDefault();
-    //     console.log(e)
-    //     let inputObj = inputBuilderState;
-    //     setInputBuilderState(blankInput)
-    //      props.parentCallback(inputObj)
-    //      console.log('inputObj', inputObj)
-    // }
-
-    function handleChangeInput(e, field){
-        let  name = e.target.value.toLowerCase().split(" ").join("_")
-        setInputBuilderState({...inputBuilderState, [field]: e.target.value, name})
+    // Might need to move onChange events into this?
+    // function handleChangeInput(e, field){
+    //     let  name = e.target.value.toLowerCase().split(" ").join("_")
+    //     setInputBuilderState({...inputBuilderState, [field]: e.target.value, name})
         
-    }
+    // }
   
     return (
     <>
@@ -79,17 +57,13 @@ export default function SelectBuilder(props) {
                 id="lnvaluesame" 
                 name="values"
                 value={selectBuilderState.options} 
-                onChange={e => handleSetValues(e)}></input>
-
-            {/* <input type="submit" value="Submit"></input> */}
-            {/* <button onClick={()=>props.parentCallback(selectBuilderState)}>Add +</button> */}
+                onChange={e => handleSetSelectOptions(e)}></input>
             <button onClick={addSelect}>Add +</button>
 
             </div>
         </div>
         
         
-
         <style jsx>
             {`
             input[type=text] {
@@ -127,4 +101,3 @@ export default function SelectBuilder(props) {
   );
   
 }
-//   export default SelectBuilder;
