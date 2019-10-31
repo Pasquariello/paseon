@@ -1,11 +1,11 @@
 //import Layout from '../components/MyLayout';
-import LayoutApp from '../components/LayoutApp'
+import LayoutApp from '../LayoutApp'
 
-import LeftBar from '../components/LeftBar';
-import SelectBuilder from '../components/SelectBuilder';
-import InputBuilder from '../components/InputBuilder';
+import LeftBar from '../LeftBar';
+import SelectBuilder from './SelectBuilder';
+import InputBuilder from './InputBuilder';
 
-import FormSandBox from '../components/FormSandBox';
+import FormSandBox from '../FormSandBox';
 
 import React, { useState } from 'react';
 
@@ -190,6 +190,15 @@ function onDragEnd(result) {
       // do something with value in parent component, like save to state
     }
 
+    function clearList(e){
+      e.preventDefault();
+      setSelectList([]);
+
+      
+      // props.parentCallback(val)
+
+    }
+
 
 
     // var el = document.getElementById('items');
@@ -231,7 +240,7 @@ function onDragEnd(result) {
       <div className="col"  onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop}>
 
 <FormSandBox>
-<button onClick={()=>setSelectList([])}>x</button>
+<button onClick={(e)=>clearList(e)}>x</button>
 <button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
 {/* REORDER START */}
  {/* {(elem === 'select' ? */}
