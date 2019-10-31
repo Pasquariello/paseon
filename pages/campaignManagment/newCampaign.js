@@ -157,6 +157,7 @@ hello
 
     const renderBasicForms = (form) => {
         console.log('hahahahahhza', form)
+        // THIS WILL NEED TO BE FETCHED DATA AT SOME POINT
         let basic_forms = {
             basic_contact: { 
                 //form_type: 'basic_contact', 
@@ -220,21 +221,14 @@ hello
             },
         }
         
-    //     setExampleState({...exampleState,  masterField2: {
-    //         fieldOne: "c",
-    //         fieldTwo: {
-    //            fieldTwoOne: "d",
-    //            fieldTwoTwo: "e"
-    //            }
-    //         },
-    //    }})
-    
+        let fields = []
+        basic_forms[form] ? fields = basic_forms[form].fields : fields = [];
+        
         //return basic_forms[form].fields
-        setCampaignForm({...campaignForm, fields : basic_forms[form].fields, form_type: form});
+        setCampaignForm({...campaignForm, fields : fields, form_type: form});    
     }
 
     const renderCustomFormBuilder = () => {
-        console.log('IN CUSTOM')
         return (
             <>
                 <p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
