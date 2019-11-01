@@ -251,8 +251,9 @@ function onDragEnd(result) {
         
       </LeftBar>
       </div>
-      <div className="col"  onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop}>
-
+      <div className="col">
+        {/* DO I STILL NEED THIS ? */}
+{/* //onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop} */}
 <FormSandBox>
 <button onClick={(e)=>clearList(e)}>x</button>
 <button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
