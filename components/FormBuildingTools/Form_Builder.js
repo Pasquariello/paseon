@@ -195,7 +195,8 @@ function onDragEnd(result) {
       e.preventDefault();
       setSelectList([]);
       
-      // props.parentCallback(val)
+      // this will eventually be handled with REDUX ? or handle state in the parent component
+      props.removeSingle([])
 
     }
 
