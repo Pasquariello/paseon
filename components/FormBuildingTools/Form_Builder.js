@@ -179,11 +179,9 @@ function onDragEnd(result) {
     }
     
     function mycallback(val){
-      console.log('CLICKED ME', val)
       // setElem([...elem, {...val}])
       // setSelectList({...selectList, ...val });
       setSelectList([...selectList, { ...val }]);
-      console.log('ttown', selectList)
         //since list is being set here in form, maybe I pass this selectList to parentCallback instead of creating/setting state there too? 
         
 
@@ -202,10 +200,7 @@ function onDragEnd(result) {
 
     function removeOne(e, index, val) {
       e.preventDefault();
-      console.log('HELLO', val)
-      console.log(index)
       let newList = selectList.filter((item, i) =>  i != index)
-      console.log('newList', newList)
       setSelectList(newList);
 
       // this will eventually be handled with REDUX ? or handle state in the parent component
