@@ -1,11 +1,11 @@
 //import Layout from '../components/MyLayout';
-// import LayoutApp from '../LayoutApp'
+import LayoutApp from '../components/LayoutApp'
 
-import LeftBar from '../LeftBar';
-import SelectBuilder from './SelectBuilder';
-import InputBuilder from './InputBuilder';
+import LeftBar from '../components/LeftBar';
+import SelectBuilder from '../components/SelectBuilder';
+import InputBuilder from '../components/InputBuilder';
 
-import FormSandBox from '../FormSandBox';
+import FormSandBox from '../components/FormSandBox';
 
 import React, { useState } from 'react';
 
@@ -16,7 +16,6 @@ import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { resetServerContext } from 'react-beautiful-dnd';
 import { renderToString } from 'react-dom/server';
-import { func } from 'prop-types';
 
 // ...
 
@@ -39,7 +38,6 @@ export default function Form_Builder(props) {
 
 
 const blankInputTest = {
-  tag: '',
   type: 'text',
   label: '',
   value: '',
@@ -101,6 +99,7 @@ function drop(event) {
 function mouseEnter(buttonValue) {
   setIsMouseInside(true)
   console.log('hello', up)
+  console.log('ttttttt')
   // setSelectList([...selectList, { ...blankInputTest }]);
   // if (isMouseInside ){
   //   console.log('hello')
@@ -191,27 +190,6 @@ function onDragEnd(result) {
       // do something with value in parent component, like save to state
     }
 
-    function clearList(e){
-      e.preventDefault();
-      setSelectList([]);
-      
-      // props.parentCallback(val)
-
-    }
-
-    function removeOne(e, index, val) {
-      e.preventDefault();
-      console.log('HELLO', val)
-      console.log(index)
-      let newList = selectList.filter((item, i) =>  i != index)
-      console.log('newList', newList)
-      setSelectList(newList);
-
-      // this will eventually be handled with REDUX ? or handle state in the parent component
-      props.removeSingle(newList)
-
-
-    }
 
 
     // var el = document.getElementById('items');
@@ -253,7 +231,7 @@ function onDragEnd(result) {
       <div className="col"  onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop}>
 
 <FormSandBox>
-<button onClick={(e)=>clearList(e)}>x</button>
+<button onClick={()=>setSelectList([])}>x</button>
 <button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
 {/* REORDER START */}
  {/* {(elem === 'select' ? */}
@@ -279,8 +257,10 @@ function onDragEnd(result) {
                     >
                       {/* {item} */}
                       {/*  */}
+                      <button>x</button>
+                 
                       <div className="elemContainer">
-                        <button onClick={(e)=>removeOne(e, index, item)}>x</button>
+                    
                       <label>{item.label}</label>
           {(item.values ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
@@ -306,12 +286,6 @@ function onDragEnd(result) {
       {/* : null)} */}
 
       </FormSandBox>
-      {/* TODO: hook these up  */}
-      
-      {/* to see raw form with complete structure */}
-      <button>Raw Form</button>   
-      {/* to see the custom paseon form with attribute that points to correct saved form object */}
-      <button>Paseon Form</button>
       </div>
       </div>
 

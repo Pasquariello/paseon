@@ -16,7 +16,7 @@ class QuickAnalytics extends React.Component {
         console.log(newArray)
         return(
             <div>
-            <div style={{textAlign: 'right'}}>
+            <div style={{position: 'relative'}}>
             <a data-toggle="collapse" href="#multiCollapseExample1"  aria-expanded="true" aria-controls="multiCollapseExample1">Toggle Quick Analytics</a>
             </div>
             <div className="collapse multi-collapse show" id="multiCollapseExample1"> 

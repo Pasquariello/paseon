@@ -230,11 +230,27 @@ hello
         setCampaignForm({...campaignForm, fields : fields, form_type: form});    
     }
 
+    const removeSingle = (newFields) => {
+        console.log('newFields',newFields)
+        // e.preventDefault();
+        // console.log('HELLO', val)
+        // console.log(index)
+        // let newList = selectList.filter((item, i) =>  i != index)
+        // console.log('newList', newList)
+        // setSelectList(newList);
+  
+        // this will eventually be handled with REDUX ?
+        // props.parentCallback(val)
+        setCampaignForm({...campaignForm, fields : newFields});    
+
+  
+      }
+
     const renderCustomFormBuilder = () => {
         return (
             <>
                 <p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
-                <Form_Builder parentCallback={handleAddInput}/>
+                <Form_Builder parentCallback={handleAddInput} removeSingle={removeSingle}/>
             </>
         )
     }
