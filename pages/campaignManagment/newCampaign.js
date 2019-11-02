@@ -30,9 +30,9 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
     async function handleSubmit (e) {
     
         e.preventDefault()
-        console.log('hit handle submit!')
+        console.log('hit handle submit!', campaignForm)
         // setUserData(Object.assign({}, userData, { error: '' }))
-    
+        let form = campaignForm
         //const username = userData.username
         let url = 'http://localhost:3001/campaign/new_campaign'
     
@@ -42,7 +42,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            //body: JSON.stringify({ username })
+            body: JSON.stringify(campaignForm)
           })
           console.log('response', response)
           if (response.status === 200) {
