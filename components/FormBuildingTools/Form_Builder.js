@@ -279,9 +279,10 @@ function onDragEnd(result) {
                       <div className="elemContainer">
                         <button onClick={(e)=>removeOne(e, index, item)}>x</button>
                       <label>{item.label}</label>
-          {(item.values ? 
+                      {console.log(item)}
+          {(item.tag == 'select' ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
-            {item.values.map(value => {
+            {item.options.map(value => {
                 return (
                   <option>{value}</option>
                 )
