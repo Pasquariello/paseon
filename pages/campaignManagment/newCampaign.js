@@ -18,11 +18,6 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
     const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
 
-    let form = {
-    
-
-    }
-
     const [campaignForm, setCampaignForm] = useState(
         { 
             form_type: '', 
@@ -30,6 +25,50 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             fields: []
         }
     )
+
+
+    async function handleSubmit (e) {
+    
+        e.preventDefault()
+        console.log('hit handle submit!')
+        // setUserData(Object.assign({}, userData, { error: '' }))
+    
+        //const username = userData.username
+        let url = 'http://localhost:3001/campaign/new_campaign'
+    
+        try {
+            console.log('try', url)
+          const response = await fetch(url, {
+            
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            //body: JSON.stringify({ username })
+          })
+          console.log('response', response)
+          if (response.status === 200) {
+            console.log(response)
+            console.log('success')
+           
+          } else {
+            console.log('Post failed.')
+            let error = new Error(response.statusText)
+            error.response = response
+            throw error
+          }
+        } catch (error) {
+          console.error(
+            'You have an error in your code or there are Network issues.',
+            error
+          )
+    
+          const { response } = error
+        //   setUserData(
+        //     Object.assign({}, userData, {
+        //       error: response ? response.statusText : error.message
+        //     })
+        //   )
+        }
+      }
 
 
     const handleFormChange = (e) => {
@@ -246,7 +285,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 <div style={{marginBottom: '50px'}}>
                     <h3>New Campaign</h3>
                 </div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="inputEmail4">Campaign Name</label>
                         <input type="text" className="form-control" id="inputEmail4" placeholder="Campaign Name"></input>
