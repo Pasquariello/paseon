@@ -78,49 +78,11 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
         if (e.target.value != 'custom'){
             renderBasicForms(e.target.value);
         } 
-        else {
-            // setCampaignForm({...campaignForm, form_type: e.target.value})
-
+        else {            
             setCampaignForm({...campaignForm, form_type: e.target.value, fields:[]})
         }
-
-        
     }
 
-
-
-    const columnsOld = [
-        {
-            id: 'name',
-            Header: 'Name',
-            accessor: 'name',
-            //Cell: props => <CampaignLink id={props.original.id} title={props.value}/>
-        }, 
-        {
-            Header: 'Recipient Email',
-            accessor: 'recipient_Email',
-            //Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-        }, 
-        {
-            Header: 'Email Hash',
-            accessor: 'recipient_Email_hashed'
-        },
-        {
-            id: 'form_type', // Required because our accessor is not a string
-            Header: 'Form Type',
-            accessor: d => d.form_type.display, // Custom value accessors!
-        },
-        {
-            Header: 'URL',
-            accessor: 'url',
-            Cell: props =>  <Link prefetch={false} href={`http://${props.value}`}><a target="_blank">{`http://${props.value}`}</a></Link> // Custom cell components!
-
-        },
-        {
-            Header: 'Date Created',
-            accessor: 'date_created',
-        }
-    ]
 
     function columns(){
         console.log('in columns')
@@ -143,8 +105,8 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
     const handleAddInput = (obj) => {
         console.log('I made it to the top!', obj)
-        // add new filed object to campaingForm field array
-        //setSelectList([...selectList, { ...val }]);
+        // add new field object to campaingForm field array
+        // setSelectList([...selectList, { ...val }]);
         setCampaignForm({...campaignForm, fields:[...campaignForm.fields, obj]})
         console.log('Do I have what I need?', campaignForm);
         
