@@ -30,11 +30,9 @@ export default function InputBuilder(props) {
 
     function addInput(e) {
         e.preventDefault();
-        console.log(e)
         let inputObj = inputBuilderState;
         setInputBuilderState(blankInput)
-         props.parentCallback(inputObj)
-         console.log('inputObj', inputObj)
+        props.parentCallback(inputObj)
     }
 
     function handleChangeInput(e, field){

@@ -68,7 +68,6 @@ function mouseDown(e){
 function dragStart(event) {
   setButtonValue(blankInputTest);
 
-  console.log('oh')
   event
     .dataTransfer
     .setData('text/plain', event.target.id);
@@ -119,24 +118,15 @@ function mouseUp(){
   }
 }
 
-function entering(e) {
-  console.log('in you', e)
-  if (buttonValue && (up == true) ){
-    console.log('UP')
-  } 
-}
+// function entering(e) {
+//   if (buttonValue && (up == true) ){
+//   } 
+// }
   
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
 
-// constructor(props) {
-//   super(props);
-//   this.state = {
-//     items: getItems(10)
-//   };
-//   this.onDragEnd = this.onDragEnd.bind(this);
-// }
 
 const [items, setItem] = useState([])
 
