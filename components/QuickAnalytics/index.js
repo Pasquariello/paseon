@@ -13,7 +13,6 @@ class QuickAnalytics extends React.Component {
         let size = 4;
         var newArray = new Array(Math.ceil(cardCount / size)).fill("")
         .map(function() { return this.splice(0, size) }, this.props.data.slice());
-        console.log(newArray)
         return(
             <div>
             <div style={{position: 'relative'}}>

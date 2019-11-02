@@ -115,7 +115,6 @@ function hashCode(s) {
 // table columns need to be form fields mapped to columns - make editable?
 // export button
 let  dataOne = data.filter(data => data.id == id)
-console.log('taylor', dataOne);
   return { id, dataOne, columns };
 
 };

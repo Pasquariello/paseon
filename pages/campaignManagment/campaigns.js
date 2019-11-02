@@ -7,17 +7,6 @@ import moment from 'moment';
 import CampaignLink from '../../components/CampaignLink';
 
 
-
-// const CampaignLink = props => (
-//     <>
-//     <script>console.log(props)</script>
-
-//       <Link href="/campaignManagment/[id]" as={`/campaignManagment/${props.id}`}>
-//         <a>{props.title}</a>
-//       </Link>
-// </>
-//   );
-
 export default function Campaigns() {
     let quickAnalyticsData = [
         {
@@ -145,19 +134,5 @@ export default function Campaigns() {
             
         </LayoutApp>
 
-    )
-
-    
-
+    );
 }
-
-// Campaigns.getInitialProps = async function() {
-//     const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
-//     const data = await res.json();
-  
-//     console.log(`Show data fetched. Count: ${data.length}`);
-  
-//     return {
-//       shows: data.map(entry => entry.show)
-//     };
-//   };
