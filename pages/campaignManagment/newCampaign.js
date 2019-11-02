@@ -32,44 +32,6 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
     )
 
 
-
-    function renderFormHTML(form_type){
-        let form = {
-            basic_contact,
-            basic_rsvp,
-            basic_sign_up,
-        } 
-
-        const blankSelect = {
-            type: 'text',
-        }
-
-        const [selectBuilderState, setSelectBuilderState] = useState(blankSelect);
-        const [list, setList] = useState([]);
-
-       function addField (e){
-        e.preventDefault()
-        console.log('hello')
-            // let selectObj = selectBuilderState;
-            // setSelectBuilderState(blankSelect)
-            // props.parentCallback(selectObj)
-            // console.log(selectList)
-
-            setList([...setList, { }]);
-            console.log(list)
-        }
-
-
-
-        return(
-        
-            <>
-hello
-
-            </>
-        )
-    }
-
     const handleFormChange = (e) => {
         console.log('taylor e', e.target.value)
         
@@ -85,12 +47,7 @@ hello
 
         
     }
-    // const [campaignForm, setCampaignForm] = useState(
-    //     { 
-    //         form_type: '', 
-    //         recipient_email: '', 
-    //         fields: []
-    //     }
+
 
 
     const columnsOld = [
