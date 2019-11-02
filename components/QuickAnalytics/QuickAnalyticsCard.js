@@ -1,6 +1,5 @@
 // class QuickAnalyticsCard extends React.Component {
 export default function QuickAnalyticsCard(props) {
-        console.log(props.cardCount)
         let startWidth = 12 / props.cardCount;
         
         return(

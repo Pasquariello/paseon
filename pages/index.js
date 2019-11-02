@@ -3,23 +3,6 @@ import Link from 'next/link';
 
 export default function Index() {
 
- 
-  // function initDivMouseOver()   {
-  //    var div = document.getElementById("mydiv");
-  //    div.mouseIsOver = false;
-  //    div.onmouseover = function()   {
-  //       this.mouseIsOver = true;
-  //    };
-  //    div.onmouseout = function()   {
-  //       this.mouseIsOver = false;
-  //    }
-  //    div.onclick = function()   {
-  //       if (this.mouseIsOver)   {
-  //          console.log('here!')
-  //       }
-  //    }
-  // }
-  
 
   return (
     <Layout>
