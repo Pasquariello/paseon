@@ -79,7 +79,8 @@ function dragOver(event) {
 
 
 function drop(event) {
-  setSelectList([...selectList, { ...blankInputTest }]);
+  console.log('in drop')
+  //setSelectList([...selectList, { ...blankInputTest }]); TODO: REWORK THIS?
   setButtonValue()
   // const id = event
   //   .dataTransfer
@@ -113,7 +114,7 @@ function mouseLeave() {
 function mouseUp(){
   
   if(isMouseInside && buttonValue){
-      setSelectList([...selectList, { ...blankInputTest }]);
+      // setSelectList([...selectList, { ...blankInputTest }]);
       setButtonValue()
   }
 }
@@ -144,12 +145,14 @@ function onDragEnd(result) {
   }
 
   const items = reorder(
-    selectList,
+    props.fieldList,
     //this.state.items,
     result.source.index,
     result.destination.index
   );
-  setSelectList([...items])
+  props.removeSingle(items)
+
+  // setSelectList([...items]) pass this up? 
   // this.setState({
   //   items
   // });
@@ -160,7 +163,7 @@ function onDragEnd(result) {
 
     const [elem, setElem] = useState([]); 
 
-    const [selectList, setSelectList] = useState([]);
+   // const [selectList, setSelectList] = useState([]);
     
 
     function handleElemSelect(e){
@@ -169,9 +172,10 @@ function onDragEnd(result) {
     }
     
     function mycallback(val){
+      console.log('IN THIS dude')
       // setElem([...elem, {...val}])
       // setSelectList({...selectList, ...val });
-      setSelectList([...selectList, { ...val }]);
+     // setSelectList([...selectList, { ...val }]); // TAYLOR THIS IS WHERE I NEED TO BE DUDE!
         //since list is being set here in form, maybe I pass this selectList to parentCallback instead of creating/setting state there too? 
         
 
@@ -181,7 +185,8 @@ function onDragEnd(result) {
 
     function clearList(e){
       e.preventDefault();
-      setSelectList([]);
+      //setSelectList([]);
+
       
       // this will eventually be handled with REDUX ? or handle state in the parent component
       props.removeSingle([])
@@ -190,8 +195,8 @@ function onDragEnd(result) {
 
     function removeOne(e, index, val) {
       e.preventDefault();
-      let newList = selectList.filter((item, i) =>  i != index)
-      setSelectList(newList);
+      let newList = props.fieldList.filter((item, i) =>  i != index)
+      //setSelectList(newList);
 
       // this will eventually be handled with REDUX ? or handle state in the parent component
       props.removeSingle(newList)
@@ -252,7 +257,9 @@ function onDragEnd(result) {
               ref={provided.innerRef}
               // style={getListStyle(snapshot.isDraggingOver)}
             >
-              {selectList.map((item, index) => (
+              {/* {selectList.map((item, index) => ( */}
+                {props.fieldList.map((item, index) => (
+
                 <Draggable key={index} draggableId={`draggable${index}`} index={index}>
                   {(provided, snapshot) => (
                     <div

@@ -72,9 +72,6 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
 
     const handleFormChange = (e) => {
-        console.log('taylor e', e.target.value)
-        
-
         if (e.target.value != 'custom'){
             renderBasicForms(e.target.value);
         } 
@@ -207,7 +204,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
         return (
             <>
                 <p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
-                <Form_Builder parentCallback={handleAddInput} removeSingle={removeSingle}/>
+                <Form_Builder parentCallback={handleAddInput} removeSingle={removeSingle} fieldList={campaignForm.fields}/>
             </>
         )
     }

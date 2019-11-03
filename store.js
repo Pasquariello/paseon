@@ -30,6 +30,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         count: initialState.count
       }
+    case 'FORM_BUILDER':
+      return {
+        ...state,
+        balh
+      }
     default:
       return state
   }
