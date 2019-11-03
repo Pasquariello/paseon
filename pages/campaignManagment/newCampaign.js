@@ -116,7 +116,6 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
     
 
     const renderBasicForms = (form) => {
-        console.log('hahahahahhza', form)
         // THIS WILL NEED TO BE FETCHED DATA AT SOME POINT
         let basic_forms = {
             basic_contact: { 
