@@ -20,6 +20,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
     const [campaignForm, setCampaignForm] = useState(
         { 
+            campaign_name: '',
             form_type: '', 
             recipient_email: '', 
             fields: []
@@ -28,7 +29,6 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
 
     async function handleSubmit (e) {
-    
         e.preventDefault()
         console.log('hit handle submit!', campaignForm)
         // setUserData(Object.assign({}, userData, { error: '' }))
@@ -43,18 +43,21 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(campaignForm)
-          })
-          console.log('response', response)
-          if (response.status === 200) {
-            console.log(response)
-            console.log('success')
+          }).then(response => response.json())
+          .then(data => console.log('data', data))
+        //   .then((res)=>{
+        //       console.log('taylor', res)
+        //   }).then(response => console.log('items', response))
+        //   if (response.status === 200) {
+        //     console.log(response )
+        //     console.log('success')
            
-          } else {
-            console.log('Post failed.')
-            let error = new Error(response.statusText)
-            error.response = response
-            throw error
-          }
+        //   } else {
+        //     console.log('Post failed.')
+        //     let error = new Error(response.statusText)
+        //     error.response = response
+        //     throw error
+        //   }
         } catch (error) {
           console.error(
             'You have an error in your code or there are Network issues.',
@@ -246,7 +249,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="inputEmail4">Campaign Name</label>
-                        <input type="text" className="form-control" id="inputEmail4" placeholder="Campaign Name"></input>
+                        <input value={campaignForm.campaign_name} type="text" className="form-control" id="inputEmail4" placeholder="Campaign Name" onChange={(e) => setCampaignForm({...campaignForm, campaign_name: e.target.value})}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="recipient_email">Recipient Email</label>
