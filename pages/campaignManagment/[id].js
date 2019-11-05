@@ -11,25 +11,26 @@ export default function Campaign(props) {
 
         console.log('in columns', fields)
         // TODO: rename? name columns and make a stateful value? 
-        let build = []
+        let build = [];
 
         fields.map(field => {
             build.push(
                 {
                 Header: field.label,
-                accessor: field.label,
-                Cell: field.value
+                accessor: 'value',
+                //Cell: field.value
                 },
        
             );
         });
 
+        console.log(props.data.form_data)
         //TODO: turn this into its own function that takes in columns? 
         return (
             <>
                 <p>Visual representation of data collected with your new campaign.</p>
                 <ReactTable
-                // data={props}
+                data={props.data.form_data}
                 columns={build}
                 /> 
             </>
@@ -39,12 +40,12 @@ export default function Campaign(props) {
 
 return (
   <Layout>
-
-    <h3>{props.data[0].name}</h3>
+hello
+    {/* <h3>{props.data[0].name}</h3> */}
     {/* <h1>{props.show.name}</h1>
     <p>{props.show.summary.replace(/<[/]?p>/g, '')}</p>
     <img src={props.show.image.medium} /> */}
-    {props.data ? renderTable(props.data) : null}
+    {props.data ? renderTable(props.data.data_schema[0].fields) : null}
 
 
     {/* <ReactTable
@@ -56,6 +57,7 @@ return (
 }
 
 Campaign.getInitialProps = async function(context, props) {
+    console.log('um hello!')
     const {id} = context.query;
     console.log('my props', props)
     console.log('id', id)
@@ -64,7 +66,7 @@ Campaign.getInitialProps = async function(context, props) {
     const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${id}`);
     const data = await res.json();
     
-    console.log('data', data);
+    console.log('data!', data);
     
     // let  dataOne = data.filter(data => data.id == id)
     // return { id, dataOne, columns };
