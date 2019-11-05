@@ -13,16 +13,34 @@ export default function Campaign(props) {
         // TODO: rename? name columns and make a stateful value? 
         let build = [];
 
-        fields.map(field => {
+        props.data.form_data.map(field => {
+            console.log('loop field', field.label)
             build.push(
-                {
+               build =[ {
                 Header: field.label,
-                accessor: 'value',
-                //Cell: field.value
+                accessor: field.value,
+                Cell: props => <span className='number'>{props.label}</span> 
                 },
-       
+            ]
             );
-        });
+       });
+console.log('data_schema', props.data.data_schema)
+console.log('form_data', props.data.form_data)
+console.log('build', build)
+
+
+
+// const columns = Object.keys(props.data.data_schema[0].fields).map((key, id)=>{
+//     return {
+//       Header: key.label,
+//       accessor: key.label
+//     }
+//   })
+
+const columns = [{
+    
+}]
+
 
         console.log(props.data.form_data)
         //TODO: turn this into its own function that takes in columns? 
