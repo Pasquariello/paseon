@@ -11,46 +11,174 @@ export default function Campaign(props) {
 
         console.log('in columns', fields)
         // TODO: rename? name columns and make a stateful value? 
-        let build = [];
-
-        props.data.form_data.map(field => {
-            console.log('loop field', field.label)
-            build.push(
-               build =[ {
-                Header: field.label,
-                accessor: field.value,
-                Cell: props => <span className='number'>{props.label}</span> 
-                },
-            ]
-            );
-       });
 console.log('data_schema', props.data.data_schema)
 console.log('form_data', props.data.form_data)
-console.log('build', build)
 
 
-
-// const columns = Object.keys(props.data.data_schema[0].fields).map((key, id)=>{
-//     return {
-//       Header: key.label,
-//       accessor: key.label
-//     }
-//   })
-
-const columns = [{
-    
+let build = []
+let myObj = [{
+    name: 'taylor',
+    email: 'tay@pasq.net',
+    subject: 'looking to talk',
+    body: 'hello', 
 }]
 
+// const columns = props.data.data_schema[0].fields.map((key, id)=>{
+//     console.log('kkkkkkk', key)
+//     build.push(
+//         {
+//             id: `${id}`,
+//             Header: key.label,
+//             accessor: d => d.value
+//             }
+//     )
+//     // return {
+//     //   Header: key,
+//     //   accessor: key
+//     // }
+//   })
 
-        console.log(props.data.form_data)
+
+  let test = props.data.data_schema[0].fields.map((key, id)=>{
+
+
+      return {
+          [key.name]: props.data.form_data.filter(entry => entry.field == key.name ? entry.value : ''  )
+      }
+    // set.filter(function (entry) { return entry.color === "green"; });
+    // return props.data.form_data.map(elem => {
+
+    //     return {
+            
+    //         [
+    //     }
+    // })
+  })
+
+  console.log('test', test);
+
+//   const columns = test.map((key, id)=>{
+//     console.log('kkkkkkk', key)
+//     build.push(
+//         {
+//             id: `${id}`,
+//             Header: key,
+//             accessor: d => {console.log(d)}
+//             }
+//     )
+//     // return {
+//     //   Header: key,
+//     //   accessor: key
+//     // }
+//   })
+
+
+const columns = Object.keys(test).map((key, id)=>{
+    console.log(key)
+    build.push(
+        {
+            id: 'idk',
+            Header: 'test',
+            accessor: key
+            }
+    )
+    // return {
+    //   Header: key,
+    //   accessor: key
+    // }
+  })
+//   var results = set.filter(function (entry) { return entry.color === "green"; });
+
+
+// let columns2 = props.data.form_data.map(item =>{
+//     props.data.data_schema[0].fields.map(elem =>{
+//         console.log('elem', elem)
+//         console.log('item', item)
+
+//         return [
+//             {
+//                 id: item.id,
+//                 Header: elem.label,
+//                 accessor: d => d.value
+//             }
+//         ]
+//     })
+ 
+// })
+
+// props.data.form_data.map(obj => {
+//     if obj.submission_id ==
+// })
+
+
+
+//   console.log('selectedUser', selectedUser)
+
+// let myData = props.data.form_data
+// let columns = [
+//     {
+//         Header: 'Name',
+//         accessor: 'name'
+//     },
+//     {
+//         Header: 'Subject',
+//         accessor: 'subject'
+//     },
+//     {
+//         Header: 'Email',
+//         accessor: 'email'
+//     },
+//     {
+//         Header: 'Body',
+//         accessor: 'body'
+//     },
+// ] 
+// let b = []
+// let myColumns = props.data.form_data.map((elem, index) => {
+//     b.push( {
+//             id: index,
+//             Header: elem.field,
+//             accessor: 'value'
+//         })
+    
+// })
+
+// console.log(myColumns)
+
+
+// Object.keys()
+// let myArray =  props.data.data_schema[0].fields.map((elem, index) => {
+//     return props.data.form_data.map((item, index) => {
+//     let val = item.label
+//     console.log('HERE', val)
+//     return {
+//        [val] : item.value,
+//        title: val
+//     }
+// })
+// })
+
+
+// let myCols = myArray.map(elem => {
+//     console.log('ELEM', elem.key)
+//     return {
+//         Header: elem.title,
+//         accessor: elem.title
+//     }
+// })
+// console.log('MY COLS', myCols)
+
+// console.log('MY ARRAY', myArray)
+
+
         //TODO: turn this into its own function that takes in columns? 
         return (
             <>
                 <p>Visual representation of data collected with your new campaign.</p>
                 <ReactTable
-                data={props.data.form_data}
                 columns={build}
-                /> 
+                data={test}
+                 /> 
             </>
         )
     }
