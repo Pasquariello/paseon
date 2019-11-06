@@ -6,36 +6,41 @@ import CampaignLink from '../../components/CampaignLink';
 import Link from 'next/link';
 
 export default function Campaign(props) {
-
-    
     const renderTable = (fields) => {
+        console.log('FORM DATA', props.data.form_data)
+        let myArray = props.data.form_data.map(obj =>{
+            return obj.field_values
+        })
+        console.log('MY ARRAY', myArray)
 
-  console.log('FORM DATA', props.data.form_data)
-let myArray = props.data.form_data.map(obj =>{
-    return obj.field_values
-})
-console.log('MY ARRAY', myArray)
+        const columns = Object.keys(myArray[0]).map((key, i)=>{
+            console.log(key.i)
+            return {
+                id: `${i}`,
+                Header: key,
+                accessor: d => d.field_values[key]
+            }
+        })
 
+        let myObj = {}
+        props.data.form_data.forEach( (obj, index) => {
+            console.log('obj', obj.field)
+            let field =obj.field 
+            if(!myObj[field]){
+                myObj[field] = obj.value
+            }
+        })
 
+        console.log('myObj', myObj)
 
-const columns = Object.keys(myArray[0]).map((key, i)=>{
-    console.log(key.i)
-    return {
-      id: `${i}`,
-      Header: key,
-      accessor: d => d.field_values[key]
-    }
-  })
-
-
-        //TODO: turn this into its own function that takes in columns? 
+            //TODO: turn this into its own function that takes in columns? 
         return (
             <>
                 <p>Visual representation of data collected with your new campaign.</p>
                 <ReactTable
                 columns={columns}
                 data={props.data.form_data}
-                 /> 
+                /> 
             </>
         )
     }
