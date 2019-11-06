@@ -23,13 +23,35 @@ export default function Campaign(props) {
         })
 
         let myObj = {}
+        let testArray = [];
         props.data.form_data.forEach( (obj, index) => {
             console.log('obj', obj.field)
             let field =obj.field 
+            
+
             if(!myObj[field]){
                 myObj[field] = obj.value
             }
         })
+
+        var container = { }; // main object
+
+// add 100 sub-object values
+for(var i = 0; i < props.data.form_data.length; ++i) {
+ container['prop'+i ]  /*property name or key of choice*/
+         = { 'a':'something', 
+             'b':'somethingelse', 
+             'c': 2 * i
+           }; 
+}
+
+
+// THIS WILL BUILD DYNAMIC OBJECTS!
+for(var p in container) {
+ var innerObj = container[p];
+    console.log('INNER', innerObj)
+}
+console.log('container', container)
 
         console.log('myObj', myObj)
 
