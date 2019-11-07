@@ -57,10 +57,10 @@ console.log('schema t', props.data.data_schema)
 
 return (
   <Layout>
-hello
-    {/* <h3>{props.data[0].name}</h3> */}
-    {/* <h1>{props.show.name}</h1>
-    <p>{props.show.summary.replace(/<[/]?p>/g, '')}</p>
+    <p>Campaign Name:</p>
+    <h3>{props.data.data_schema[0].campaign_name}</h3>
+    <p>Date Created: {moment(props.data.data_schema[0].date_created).format('LLL')}</p>
+    {/*<p>{props.show.summary.replace(/<[/]?p>/g, '')}</p>
     <img src={props.show.image.medium} /> */}
     {props.data.form_data ? renderTable() : null}
 
@@ -79,90 +79,12 @@ Campaign.getInitialProps = async function(context, props) {
   // this will need to be a req to DB
     const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${id}`);
     const data = await res.json();
-    
-    
-    // let  dataOne = data.filter(data => data.id == id)
-    // return { id, dataOne, columns };
-    // return {data}
 
-
-  // return { show };
-
-  //START grid faux data
-//    const mdata = [
-//     {
-//         id: 1,
-//         name: {
-//             title : 'Name',
-//             value : 'Taylor',
-            
-//         },
-//         subject: {
-//             title : 'Subject',
-//             value : 'a quick hello',
-//         },
-//         body: {
-//             title : 'Body',
-//             value : 'This is me saying a quick hello, I hope all is well',
-//         }
-//     },
-
-    
-// ]
-
-// let cols2 = []
-// let cols = mdata.map((d, index) => {
-//     cols2.push({
-//         id: `${index}`,
-//         Header: props => {console.log(props)},
-//         accessor: props => {{console.log(props)}}
-//     })
-// })
-
-
-// const columns = [
-//     {
-//         id: 'name',
-//         Header: 'Name',
-//         accessor: 'name',
-//         Cell: props => <CampaignLink id={props.original.id} title={props.value}/>
-//     }, 
-//     {
-//         Header: 'Recipient Email',
-//         accessor: 'recipient_Email',
-//         Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-//     }, 
-//     {
-//         Header: 'Email Hash',
-//         accessor: 'recipient_Email_hashed'
-//     },
-//     {
-//         id: 'form_type', // Required because our accessor is not a string
-//         Header: 'Form Type',
-//         accessor: d => d.form_type.display, // Custom value accessors!
-//     },
-//     {
-//         Header: 'URL',
-//         accessor: 'url',
-//         Cell: props =>  <Link prefetch={false} href={`http://${props.value}`}><a target="_blank">{`http://${props.value}`}</a></Link> // Custom cell components!
-
-//     },
-//     {
-//         Header: 'Date Created',
-//         accessor: 'date_created',
-//     }
-// ]
-
-// function hashCode(s) {
-//   return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
-// }
-//END grid faux data
-
-return {data}
-// TODO 
-// rename data one! 
-// table columns need to be form fields mapped to columns - make editable?
-// export button
+    return {data}
+    // TODO 
+    // rename data one! 
+    // table columns need to be form fields mapped to columns - make editable?
+    // export button
 
 
 };
