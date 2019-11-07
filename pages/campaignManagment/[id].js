@@ -45,10 +45,9 @@ console.log('schema t', props.data.data_schema)
 //             //TODO: turn this into its own function that takes in columns? 
         return (
             <>
-                <p>Visual representation of data collected with your new campaign.</p>
                 <ReactTable
-                columns={columns}
-                data={props.data.form_data}
+                    columns={columns}
+                    data={props.data.form_data}
                 /> 
             </>
         )
