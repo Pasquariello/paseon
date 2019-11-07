@@ -6,43 +6,26 @@ import CampaignLink from '../../components/CampaignLink';
 import Link from 'next/link';
 
 export default function Campaign(props) {
+
     const renderTable = (fields) => {
-        console.log('FORM DATA', props.data.form_data)
+        
+        const columns = [];
+
         let myArray = props.data.form_data.map(obj =>{
             return obj.field_values
         })
         
-        console.log('MY ARRAY', myArray)
-console.log('schema t', props.data.data_schema)
-        const columns = [];
-    //     const columnData = props.data.form_data.map((key, i)=>{
-    //         console.log(key)
-    //         // obj.map((key, i)=>{
-    //         columns.push({
-    //             id: `${i}`,
-    //             Header: d => key.field_values.label,
-    //             accessor: d => key.field_values.value
-    //         })
-    //         //key.field_values.label,
-    //    // })
-    // })
 
-    const columnData = props.data.data_schema[0].schema.map((key, i)=>{
-        console.log(key)
-        // obj.map((key, i)=>{
-        columns.push({
-            id: `${i}`,
-            Header: d => key.label,
-            accessor: d => d.field_values[i].value
-            //d.field_values[0].field_values[0]
-            //console.log(d)
+        const columnData = props.data.data_schema[0].schema.map((key, i)=>{
+            columns.push({
+                id: `${i}`,
+                Header: d => key.label,
+                accessor: d => d.field_values[i].value
+            })
         })
-        //key.field_values.label,
-   // })
-})
 
 
-//             //TODO: turn this into its own function that takes in columns? 
+    //TODO: turn this into its own function that takes in columns? 
         return (
             <>
                 <ReactTable

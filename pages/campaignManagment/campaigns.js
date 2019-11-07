@@ -4,6 +4,7 @@ import LayoutApp from '../../components/LayoutApp'
 import QuickAnalytics from '../../components/QuickAnalytics';
 import ReactTable from 'react-table';
 import moment from 'moment';
+import 'moment-timezone';
 import CampaignLink from '../../components/CampaignLink';
 import fetch from 'isomorphic-unfetch';
 
@@ -35,7 +36,14 @@ export default function Campaigns(props) {
                     accessor: 'campaign_name',
                     Cell: props => <CampaignLink id={props.original.id} title={props.value}/>
 
-                }
+                },
+                {
+                    id: 'date_created',
+                    Header: 'Date Created',
+                    accessor: 'date_created',
+                    Cell: props => moment(props.value).format('LLL')
+
+                },
         ]
         
         //TODO: turn this into its own function that takes in columns? 
