@@ -62,7 +62,7 @@ hello
     {/* <h1>{props.show.name}</h1>
     <p>{props.show.summary.replace(/<[/]?p>/g, '')}</p>
     <img src={props.show.image.medium} /> */}
-    {props.data.form_data.length ? renderTable() : null}
+    {props.data.form_data ? renderTable() : null}
 
 
     {/* <ReactTable

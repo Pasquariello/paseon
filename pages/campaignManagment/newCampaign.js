@@ -123,34 +123,34 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 // NOT ALL OF THESE KEYS ARE NECESSARY! THIS IS JUST FOR BUILDING THE DATA TABLE
                 fields: [
                     {
-                        type: 'email',
-                        tag: 'input',
-                        label: 'Recipient Email',
-                        name: 'recipient_email',
-                        value: '',
+                        "type": "email",
+                        "tag": "input",
+                        "label": "Recipient Email",
+                        "name": "recipient_email",
+                        "value": ""
                     }, 
                     {
-                        type: 'text',
-                        tag: 'input',
-                        label: 'Name',
-                        name: 'name',
-                        value: '',
+                        "type": "text",
+                        "tag": "input",
+                        "label": "Name",
+                        "name": "name",
+                        "value": ""
                     },
                     {
-                        type: 'text',
-                        tag: 'input',
-                        label: 'Subject',
-                        name: 'subject',
-                        value: '',
+                        "type": "text",
+                        "tag": "input",
+                        "label": "Subject",
+                        "name": "subject",
+                        "value": ""
                     },
                     {
-                        type: '',
-                        tag: 'textarea',
-                        label: 'Body',
-                        name: 'body',
-                        value: '',
-                    },
-                ],
+                        "type": "",
+                        "tag": "textarea",
+                        "label": "Body",
+                        "name": "body",
+                        "value": ""
+                    }
+                ]
             },
             basic_rsvp: { 
                 //form_type: 'basic_contact', 
