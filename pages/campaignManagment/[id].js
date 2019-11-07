@@ -11,51 +11,38 @@ export default function Campaign(props) {
         let myArray = props.data.form_data.map(obj =>{
             return obj.field_values
         })
+        
         console.log('MY ARRAY', myArray)
+console.log('schema t', props.data.data_schema)
+        const columns = [];
+    //     const columnData = props.data.form_data.map((key, i)=>{
+    //         console.log(key)
+    //         // obj.map((key, i)=>{
+    //         columns.push({
+    //             id: `${i}`,
+    //             Header: d => key.field_values.label,
+    //             accessor: d => key.field_values.value
+    //         })
+    //         //key.field_values.label,
+    //    // })
+    // })
 
-        const columns = Object.keys(myArray[0]).map((key, i)=>{
-            console.log(key.i)
-            return {
-                id: `${i}`,
-                Header: key,
-                accessor: d => d.field_values[key]
-            }
+    const columnData = props.data.data_schema[0].schema.map((key, i)=>{
+        console.log(key)
+        // obj.map((key, i)=>{
+        columns.push({
+            id: `${i}`,
+            Header: d => key.label,
+            accessor: d => d.field_values[i].value
+            //d.field_values[0].field_values[0]
+            //console.log(d)
         })
-
-        let myObj = {}
-        let testArray = [];
-        props.data.form_data.forEach( (obj, index) => {
-            console.log('obj', obj.field)
-            let field =obj.field 
-            
-
-            if(!myObj[field]){
-                myObj[field] = obj.value
-            }
-        })
-
-        var container = { }; // main object
-
-// add 100 sub-object values
-for(var i = 0; i < props.data.form_data.length; ++i) {
- container['prop'+i ]  /*property name or key of choice*/
-         = { 'a':'something', 
-             'b':'somethingelse', 
-             'c': 2 * i
-           }; 
-}
+        //key.field_values.label,
+   // })
+})
 
 
-// THIS WILL BUILD DYNAMIC OBJECTS!
-for(var p in container) {
- var innerObj = container[p];
-    console.log('INNER', innerObj)
-}
-console.log('container', container)
-
-        console.log('myObj', myObj)
-
-            //TODO: turn this into its own function that takes in columns? 
+//             //TODO: turn this into its own function that takes in columns? 
         return (
             <>
                 <p>Visual representation of data collected with your new campaign.</p>
@@ -66,6 +53,7 @@ console.log('container', container)
             </>
         )
     }
+    
 
 
 return (
