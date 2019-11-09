@@ -4,8 +4,13 @@ import ReactTable from 'react-table';
 import moment from 'moment';
 import CampaignLink from '../../components/CampaignLink';
 import Link from 'next/link';
+import { CSVLink, CSVDownload } from "react-csv";
+import { useState } from 'react';
+
 
 export default function Campaign(props) {
+
+
 
     const renderTable = (fields) => {
         
@@ -24,10 +29,18 @@ export default function Campaign(props) {
             })
         })
 
-
     //TODO: turn this into its own function that takes in columns? 
         return (
             <>
+            <CSVLink
+                headers={columns}
+                data={props.data.form_data.map((data, i) => data.field_values)}
+                onClick={() => {
+                console.log("You click the link");
+                }}
+                >
+                Download me
+            </CSVLink>
                 <ReactTable
                     columns={columns}
                     data={props.data.form_data}
@@ -47,6 +60,9 @@ return (
     <p>Date Created: {moment(props.data.data_schema[0].date_created).format('LLL')}</p>
     {/*<p>{props.show.summary.replace(/<[/]?p>/g, '')}</p>
     <img src={props.show.image.medium} /> */}
+
+
+
     {props.data.form_data ? renderTable() : null}
 
 
