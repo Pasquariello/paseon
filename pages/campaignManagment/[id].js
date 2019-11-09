@@ -31,6 +31,7 @@ export default function Campaign(props) {
                 <ReactTable
                     columns={columns}
                     data={props.data.form_data}
+                    resolveData={data => data.map(row => row)}
                 /> 
             </>
         )
@@ -39,6 +40,7 @@ export default function Campaign(props) {
 
 
 return (
+
   <Layout>
     <p>Campaign Name:</p>
     <h3>{props.data.data_schema[0].campaign_name}</h3>
