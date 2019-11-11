@@ -53,7 +53,6 @@ const [up, setUp] = useState(false)
 const [isMouseInside, setIsMouseInside] = useState(false)
 
 function mouseDown(e){
-  console.log('dude', e)
 
   setButtonValue(blankInputTest);
   // e.currentTarget.style.border = "dashed";

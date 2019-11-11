@@ -1,7 +1,6 @@
 const postges = require('../config/keys.js');
 
 exports.db = () => {
-    console.log('ppppppppppppp')
     console.log(`Connecting`);
 
     let knex = require('knex')({
