@@ -26,6 +26,7 @@
     "react-beautiful-dnd": "^11.0.5",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-csv": "^1.1.2",
+    "react-csv-downloader": "^1.4.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
     "react-table": "^6.10.3",

@@ -8,14 +8,15 @@ import { CSVLink, CSVDownload } from "react-csv";
 import { useState } from 'react';
 
 
-export default function Campaign(props) {
 
+
+export default function Campaign(props) {
 
 
     const renderTable = (fields) => {
         
         const columns = [];
-
+        const headers = [];
         let myArray = props.data.form_data.map(obj =>{
             return obj.field_values
         })
@@ -29,18 +30,57 @@ export default function Campaign(props) {
             })
         })
 
-    //TODO: turn this into its own function that takes in columns? 
+        const headerData = props.data.data_schema[0].schema.map((item, i)=>{
+           
+            return {
+                label: item.label,
+                key: 'value'
+            }
+            
+        })
+
+        const headerz = [
+            { label: "First Name", key: "value" },
+            { label: "Last Name", key: "value" },
+            { label: "Email", key: "value" }
+          ];
+
+        const myheaders = [
+           
+          ];
+
+
+  //TODO: turn this into its own function that takes in columns? 
+    // kind of works data={props.data.form_data.map((data, i) => data.field_values.map(obj => obj.value))}
+    let csvArray = []
+    let csvData = props.data.form_data.map((data, i) => data.field_values.map(obj => {csvArray.push(obj)}))
+    // let csvData = props.data.form_data.map((data, i) => csvArray.push(data.field_values))
+
+
+// let anArray = []
+//     csvArray.map( arr => {
+//         arr.map(obj =>{
+//             console.log('tay', obj)
+//         })
+//     })
+
+
+    console.log(csvArray)
         return (
             <>
             <CSVLink
-                headers={columns}
-                data={props.data.form_data.map((data, i) => data.field_values)}
+                // headers={headerz}
+                data={csvArray}
+                // data={props.data.form_data.map((data, i) => data.field_values.map(obj => {obj}))}
+
                 onClick={() => {
                 console.log("You click the link");
                 }}
                 >
                 Download me
             </CSVLink>
+
+          
                 <ReactTable
                     columns={columns}
                     data={props.data.form_data}
@@ -89,3 +129,15 @@ Campaign.getInitialProps = async function(context, props) {
 
 
 };
+
+// {
+//     "name" : {
+//         "label": "Name",
+//         "value": "Taylor"
+//     },
+//     "age" : {
+//         "label": "Age",
+//         "value": "Taylor"
+//     }
+
+// }
