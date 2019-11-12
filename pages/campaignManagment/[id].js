@@ -21,14 +21,13 @@ export default function Campaign(props) {
             return obj.field_values
         })
         
-
         const columnData = props.data.data_schema[0].schema.map((key, i)=>{
             columns.push({
                 id: `${i}`,
                 Header: d => key.label,
                 accessor: d => d.field_values[i].value
-            })
-        })
+            });
+        });
 
         const headerData = props.data.data_schema[0].schema.map((item, i)=>{
            
@@ -39,16 +38,6 @@ export default function Campaign(props) {
             
         })
 
-        const headerz = [
-            { label: "First Name", key: "value" },
-            { label: "Last Name", key: "value" },
-            { label: "Email", key: "value" }
-          ];
-
-        const myheaders = [
-           
-          ];
-
 
   //TODO: turn this into its own function that takes in columns? 
     // kind of works data={props.data.form_data.map((data, i) => data.field_values.map(obj => obj.value))}
@@ -57,19 +46,11 @@ export default function Campaign(props) {
     // let csvData = props.data.form_data.map((data, i) => csvArray.push(data.field_values))
 
 
-// let anArray = []
-//     csvArray.map( arr => {
-//         arr.map(obj =>{
-//             console.log('tay', obj)
-//         })
-//     })
-
 
     console.log(csvArray)
         return (
             <>
             <CSVLink
-                // headers={headerz}
                 data={csvArray}
                 // data={props.data.form_data.map((data, i) => data.field_values.map(obj => {obj}))}
 
