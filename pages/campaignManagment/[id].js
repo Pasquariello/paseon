@@ -59,42 +59,42 @@ console.log(mykeys)
 
 
         
-  
-        
-        // const columnData = props.data.data_schema[0].schema.map((key, i)=>{
-        //     columns.push({
-        //         id: `${i}`,
-        //         Header: d => key.label,
-        //         //accessor: d => d.field_values[i].value
-        //     });
-        // });
+
     
 
-        const headerData = props.data.data_schema[0].schema.map((item, i)=>{
+        // const headerData = props.data.data_schema[0].schema.map((item, i)=>{
            
-            return {
-                label: item.label,
-                key: 'value'
-            }
+        //     return {
+        //         label: item.label,
+        //         key: 'value'
+        //     }
             
-        })
+        // })
+        const myData = []
+        const headerData = Object.keys(myschema).map((obj, i)=>{
+            console.log(obj)
+            console.log(i)
+            myData.push(props.data.form_data[0].field_values[i][obj])
+            headers.push({
+                label: obj,
+                key: `${obj}.value`
+            }); 
+        });
+
+        console.log('headers', headers)
+
+        console.log(props.data.form_data[0].field_values)
+
 
 
   //TODO: turn this into its own function that takes in columns? 
-    // kind of works data={props.data.form_data.map((data, i) => data.field_values.map(obj => obj.value))}
-    let csvArray = []
-    let csvData = props.data.form_data.map((data, i) => data.field_values.map(obj => {csvArray.push(obj)}))
-    // let csvData = props.data.form_data.map((data, i) => csvArray.push(data.field_values))
-
-
-
-    console.log(csvArray)
+ 
         return (
             <>
             <CSVLink
-                data={csvArray}
+                data={ props.data.form_data[0].field_values} // destructure this!
                 // data={props.data.form_data.map((data, i) => data.field_values.map(obj => {obj}))}
-
+                headers={headers}
                 onClick={() => {
                 console.log("You click the link");
                 }}
@@ -105,7 +105,7 @@ console.log(mykeys)
           
                 <ReactTable
                     columns={columns}
-                    data={ props.data.form_data[0].field_values}
+                    data={ props.data.form_data[0].field_values} //TODO destructure this!
                     resolveData={data => data.map(row => row)}
                 /> 
             </>
