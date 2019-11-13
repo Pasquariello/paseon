@@ -95,7 +95,7 @@ console.log(mykeys)
             console.log(i)
             myData.push(props.data.form_data[0].field_values[i][obj])
             headers.push({
-                label: obj,
+                label: myschema[obj].label,
                 key: `${obj}.value`
             }); 
         });
