@@ -41,21 +41,40 @@ export default function Campaign(props) {
 
         }
 
+        let myschema2 = [
+            {
+                label: 'name',
+                value: 'Tay'
+            },
+            {
+                label: 'age',
+                value: '28'
+            },
+
+        ]
+
         const mykeys = Object.keys(myschema).map(key => key)
 console.log(mykeys)
 
         const columnData = Object.keys(myschema).map((key, i)=>{
-            console.log(key)
+            console.log('key',key)
             console.log(i)
 
             columns.push({
                 id: `${i}`,
-                Header: key,//d => {console.log('key', key) ,key },
+                Header: myschema[key].label,
                 accessor: props => props[key].value
                  //{console.log('barley', props)}
                 //d => d.field_values[0][key].value, //console.log('bear',d), console.log('bear 2',d.field_values[i].name.value),
             }); //d.field_values[0][key].value
         });
+       
+
+
+        
+        
+        
+
 
 
         
