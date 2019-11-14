@@ -67,6 +67,7 @@ export default function Campaign(props) {
                     columns={columns}
                     data={ data} //TODO destructure this!
                     resolveData={data => data.map(row => row)}
+                    defaultPageSize ='5'
                 /> 
             </>
         )

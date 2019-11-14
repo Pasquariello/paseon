@@ -110,6 +110,7 @@ let val = []
             <ReactTable
             data={campaignListState}
             columns={columns}
+            defaultPageSize ='10'
             /> 
             </>
         )

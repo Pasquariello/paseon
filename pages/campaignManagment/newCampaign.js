@@ -244,6 +244,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             <ReactTable
             //data={data}
             columns={build}
+            defaultPageSize ='3'
             /> 
             </>
         )
