@@ -3,6 +3,7 @@ import LayoutApp from '../../components/LayoutApp';
 import React, { useState } from 'react';
 import Form_Builder from '../../components/FormBuildingTools/Form_Builder';
 import ReactTable from 'react-table';
+import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 
 
 // export default function NewCampaign() 
@@ -22,6 +23,8 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
         { 
             campaign_name: '',
             form_type: '', 
+            email_bool: 'no',
+            shareable: 'no',
             recipient_email: '', 
             fields: []
         }
@@ -65,11 +68,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
           )
     
           const { response } = error
-        //   setUserData(
-        //     Object.assign({}, userData, {
-        //       error: response ? response.statusText : error.message
-        //     })
-        //   )
+
         }
       }
 
@@ -253,6 +252,15 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
         // campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : renderBasicForms(campaignForm.form_type)}
     
+        const popover = (
+            <Popover id="popover-basic">
+              <Popover.Title as="h3">Popover right</Popover.Title>
+              <Popover.Content>
+                And here's some <strong>amazing</strong> content. It's very engaging.
+                right?
+              </Popover.Content>
+            </Popover>
+          );
    
     return (
         <LayoutApp>
@@ -262,13 +270,106 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="inputEmail4">Campaign Name</label>
-                        <input value={campaignForm.campaign_name} type="text" className="form-control" id="inputEmail4" placeholder="Campaign Name" onChange={(e) => setCampaignForm({...campaignForm, campaign_name: e.target.value})}></input>
+                        <label htmlFor="campaign_name">Campaign Name</label>
+                        <input value={campaignForm.campaign_name} type="text" className="form-control" id="campaign_name" placeholder="Campaign Name" onChange={(e) => setCampaignForm({...campaignForm, campaign_name: e.target.value})}></input>
                     </div>
+
+<fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">
+          Radios
+          
+
+
+<OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    {/* <Button variant="success">Click me to see</Button> */}
+    <button type="button" class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
+  </OverlayTrigger>
+
+      </legend>
+      <div class="col-sm-10">
+       
+        <div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="radio" 
+                name="gridRadios" 
+                id="gridRadios1" 
+                value="yes" 
+                checked={campaignForm.email_bool === 'yes'}
+                onChange={(e) => setCampaignForm({...campaignForm, email_bool: e.target.value})} 
+        ></input>
+          <label class="form-check-label" for="gridRadios1">
+            Yes
+          </label>
+        </div>
+
+        <div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="radio" 
+                name="gridRadios" 
+                id="gridRadios2" 
+                value="no" 
+                checked={campaignForm.email_bool === 'no'}
+                onChange={(e) => setCampaignForm({...campaignForm, email_bool: e.target.value})} 
+            ></input>
+          <label class="form-check-label" for="gridRadios2">
+            No
+          </label>
+        </div>
+
+      </div>
+    </div>
+</fieldset>
+
+
+                {campaignForm.email_bool === 'yes'  ?   
                     <div className="form-group">
                         <label htmlFor="recipient_email">Recipient Email</label>
                         <input value={campaignForm.recipient_email} onChange={(e) => setCampaignForm({...campaignForm, recipient_email: e.target.value})} type="text" className="form-control" id="recipient_email" placeholder="Recipient Email"></input>
                     </div>
+                : null }
+
+
+<fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+      <div class="col-sm-10">
+<div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="radio" 
+                name="gridRadios1" 
+                id="gridRadios11" 
+                value="yes" 
+                checked={campaignForm.shareable === 'yes'}
+                onChange={(e) => setCampaignForm({...campaignForm, shareable: e.target.value})} 
+        ></input>
+          <label class="form-check-label" for="gridRadios1">
+            Yes
+          </label>
+        </div>
+
+        <div class="form-check">
+            <input 
+                class="form-check-input" 
+                type="radio" 
+                name="gridRadios1" 
+                id="gridRadios12" 
+                value="no" 
+                checked={campaignForm.shareable === 'no'}
+                onChange={(e) => setCampaignForm({...campaignForm, shareable: e.target.value})} 
+            ></input>
+          <label class="form-check-label" for="gridRadios2">
+            No
+          </label>
+        </div>
+
+      </div>
+    </div>
+</fieldset>
+
                     <div className="form-group">
                         <label htmlFor="inputState">Form Type</label>
                         <select id="inputState" className="form-control" value={campaignForm.form_type} onChange={handleFormChange}>
@@ -299,7 +400,33 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
             </div>
        
+            <style jsx>{`
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+
+
+`}</style>
+
         </LayoutApp>
+
 
     )  
     
