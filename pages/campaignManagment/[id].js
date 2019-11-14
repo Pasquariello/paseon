@@ -16,23 +16,24 @@ export default function Campaign(props) {
 
     const renderTable = (fields) => {
         
-        let response_schema = props.data.data_schema[0].response_schema;
+        // let response_schema = props.data.data_schema[0].response_schema;
         let data = props.data.form_data.length ? props.data.form_data[0].field_values : []
-
+        // let file_name = props.data.data_schema[0].campaign_name;
+        const {response_schema, campaign_name } = props.data.data_schema[0]
         //NEEED THIS FOR IT TO WORK! - todo add schema to DB ?  
         // - keep the schema column we have in order to preserve the form make a new column for schema to look like this
         // KEEP THIS
-        let myschema = {
-            "name": {
-                "label": "name",
-                "value": ""
-            },
-            "age":{
-                "label": "age",
-                "value": ""
-            }
+        // let myschema = {
+        //     "name": {
+        //         "label": "name",
+        //         "value": ""
+        //     },
+        //     "age":{
+        //         "label": "age",
+        //         "value": ""
+        //     }
 
-        }
+        // }
 
         const columns = Object.keys(response_schema).map((key, i)=>{
             return {
@@ -54,12 +55,13 @@ export default function Campaign(props) {
         return (
             <>
             <CSVLink
-                data={ data} // destructure this!
-                // data={props.data.form_data.map((data, i) => data.field_values.map(obj => {obj}))}
+                data={ data}
                 headers={headers}
-                onClick={() => {
-                console.log("You click the link");
-                }}
+                filename={campaign_name}
+
+                // onClick={() => {
+                // console.log("You click the link");
+                // }}
                 >
                 Download me
             </CSVLink>
