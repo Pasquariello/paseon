@@ -43,7 +43,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(campaignForm)
-          }).then(response => response.json())
+          }).then(response => response)
           .then(data => console.log('data', data))
         //   .then((res)=>{
         //       console.log('taylor', res)

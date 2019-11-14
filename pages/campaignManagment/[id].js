@@ -30,14 +30,14 @@ export default function Campaign(props) {
         //NEEED THIS FOR IT TO WORK! - todo add schema to DB ?  
         // - keep the schema column we have in order to preserve the form make a new column for schema to look like this
         let myschema = {
-            name: {
-                label: 'name',
-                value: ''
+            "name": {
+                "label": "name",
+                "value": ""
             },
-            age:{
-                label: 'age',
-                value: ''
-            },
+            "age":{
+                "label": "age",
+                "value": ""
+            }
 
         }
 
@@ -89,11 +89,9 @@ console.log(mykeys)
         //     }
             
         // })
-        const myData = []
         const headerData = Object.keys(myschema).map((obj, i)=>{
             console.log(obj)
             console.log(i)
-            myData.push(props.data.form_data[0].field_values[i][obj])
             headers.push({
                 label: myschema[obj].label,
                 key: `${obj}.value`
@@ -102,16 +100,16 @@ console.log(mykeys)
 
         console.log('headers', headers)
 
-        console.log(props.data.form_data[0].field_values)
+        // console.log(props.data.form_data[0].field_values)
 
 
-
+ let data = props.data.form_data.length ? props.data.form_data[0].field_values : []
   //TODO: turn this into its own function that takes in columns? 
  
         return (
             <>
             <CSVLink
-                data={ props.data.form_data[0].field_values} // destructure this!
+                data={ data} // destructure this!
                 // data={props.data.form_data.map((data, i) => data.field_values.map(obj => {obj}))}
                 headers={headers}
                 onClick={() => {
@@ -124,7 +122,7 @@ console.log(mykeys)
           
                 <ReactTable
                     columns={columns}
-                    data={ props.data.form_data[0].field_values} //TODO destructure this!
+                    data={ data} //TODO destructure this!
                     resolveData={data => data.map(row => row)}
                 /> 
             </>
