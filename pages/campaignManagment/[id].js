@@ -25,7 +25,8 @@ export default function Campaign(props) {
         console.log('props.data.form_data', props.data.form_data)
 
         console.log('props.data.data_schema[0]', props.data.data_schema[0])
-
+        let response_schema = props.data.data_schema[0].response_schema;
+        console.log('response_schema', response_schema)
         
         //NEEED THIS FOR IT TO WORK! - todo add schema to DB ?  
         // - keep the schema column we have in order to preserve the form make a new column for schema to look like this
@@ -53,16 +54,16 @@ export default function Campaign(props) {
 
         ]
 
-        const mykeys = Object.keys(myschema).map(key => key)
+        const mykeys = Object.keys(response_schema).map(key => key)
 console.log(mykeys)
 
-        const columnData = Object.keys(myschema).map((key, i)=>{
+        const columnData = Object.keys(response_schema).map((key, i)=>{
             console.log('key',key)
             console.log(i)
 
             columns.push({
                 id: `${i}`,
-                Header: myschema[key].label,
+                Header: response_schema[key].label,
                 accessor: props => props[key].value
                  //{console.log('barley', props)}
                 //d => d.field_values[0][key].value, //console.log('bear',d), console.log('bear 2',d.field_values[i].name.value),
@@ -89,11 +90,11 @@ console.log(mykeys)
         //     }
             
         // })
-        const headerData = Object.keys(myschema).map((obj, i)=>{
+        const headerData = Object.keys(response_schema).map((obj, i)=>{
             console.log(obj)
             console.log(i)
             headers.push({
-                label: myschema[obj].label,
+                label: response_schema[obj].label,
                 key: `${obj}.value`
             }); 
         });
