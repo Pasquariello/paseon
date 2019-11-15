@@ -99,4 +99,4 @@ Campaign.getInitialProps = async function(context, props) {
     // table columns need to be form fields mapped to columns - make editable?
 };
 
-export default withAuthSync(Campaign)
+export default withAuthSync(Campaign);

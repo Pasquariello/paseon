@@ -4,7 +4,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const initialState = {
   lastUpdate: 0,
   light: false,
-  count: 0
+  count: 0,
+  current_user: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,10 +31,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         count: initialState.count
       }
-    case 'FORM_BUILDER':
+    case 'LOGIN':
+      console.log('signed in called')
       return {
         ...state,
-        balh
+        current_user: initialState.current_user
       }
     default:
       return state

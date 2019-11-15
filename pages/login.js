@@ -4,12 +4,17 @@ import Link from 'next/link'
 import Layout from '../components/MyLayout'
 import { login } from '../utils/auth'
 
+import { useDispatch } from 'react-redux'
+import { withRedux } from '../lib/redux'
+
+
 
 
 
 
 
 function Login () {
+  const dispatch = useDispatch()
 
 
   const [userData, setUserData] = useState({ username: '', error: '' })
@@ -34,7 +39,8 @@ function Login () {
       if (response.status === 200) {
         console.log(response)
         console.log('success')
-        const { token } = await response.json()
+        const { token, payload } = await response.json()
+        console.log('payload', payload)
         await login({ token })
         console.log('token', token)
       } else {
@@ -111,7 +117,23 @@ function Login () {
   )
 }
 
-export default Login
+Login.getInitialProps = ({ reduxStore }) => {
+  // Tick the time once, so we'll have a
+  // valid time before first render
+  const { dispatch } = reduxStore
+  dispatch({
+    type: 'LOGIN',
+    current_user: 2
+    //light: typeof window === 'object',
+    //lastUpdate: Date.now(),
+  })
+
+  return {}
+}
+
+export default withRedux(Login)
+
+// export default Login
 
 
 

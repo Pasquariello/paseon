@@ -65,6 +65,7 @@ return (
               Paseon
           </title>
         </Head>
+
             <SideBar
               sideNavWidth={sideNavWidth}
               navBtn={navBtn}
@@ -197,9 +198,11 @@ return (
   </div>
 )};
 
+//  I DONT KNOW IF I NEED THIS OR NOT
+//  DOUBLE CHECK https://jasonraimondi.com/posts/secure-a-next-js-application-with-jwt-and-a-private-route-higher-order-component/ 
+//  TO SEE IF THEY ARE USING GETINITPROPS EVERYWHERE 
 
 LayoutApp.getInitialProps = async ctx => {
-  console.log('hello')
   const { token } = nextCookie(ctx)
   console.log('pro', token)
   const apiUrl = getHost(ctx.req) + '/dashboard'
