@@ -53,7 +53,7 @@ function Campaigns(props) {
           if (response.status === 200) {
             console.log(response)
             console.log('success')
-let val = []
+          let val = []
             idList.map((id, i) => {
                  val = campaignListState.filter(campaign =>  campaign.id !=  id)
             
@@ -133,7 +133,7 @@ let val = []
             
             <div className="row">
             <h3>My Campaings:</h3> 
-                <Link href="/campaignManagment/newCampaign">
+                <Link href="/campaignManagment/new_campaign">
                     <a>+ New</a>
                 </Link>
             </div>

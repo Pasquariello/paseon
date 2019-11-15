@@ -255,7 +255,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
     
         const popover = (
             <Popover id="popover-basic">
-              <Popover.Title as="h3">Popover right</Popover.Title>
+              <Popover.Title as="h3">Info</Popover.Title>
               <Popover.Content>
                 And here's some <strong>amazing</strong> content. It's very engaging.
                 right?
@@ -275,24 +275,23 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                         <input value={campaignForm.campaign_name} type="text" className="form-control" id="campaign_name" placeholder="Campaign Name" onChange={(e) => setCampaignForm({...campaignForm, campaign_name: e.target.value})}></input>
                     </div>
 
-<fieldset class="form-group">
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">
-          Radios
+<fieldset className="form-group">
+    <div className="row">
+      <legend className="col-form-label col-sm-2 pt-0">
+          Send Responses to an Email Address
           
 
 
 <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-    {/* <Button variant="success">Click me to see</Button> */}
-    <button type="button" class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
+    <button type="button" className="btn btn-info btn-circle">i<i className="fa fa-check"></i></button>
   </OverlayTrigger>
 
       </legend>
-      <div class="col-sm-10">
+      <div className="col-sm-10">
        
-        <div class="form-check">
+        <div className="form-check">
             <input 
-                class="form-check-input" 
+                className="form-check-input" 
                 type="radio" 
                 name="gridRadios" 
                 id="gridRadios1" 
@@ -300,14 +299,14 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.email_bool === 'yes'}
                 onChange={(e) => setCampaignForm({...campaignForm, email_bool: e.target.value})} 
         ></input>
-          <label class="form-check-label" for="gridRadios1">
+          <label className="form-check-label" for="gridRadios1">
             Yes
           </label>
         </div>
 
-        <div class="form-check">
+        <div className="form-check">
             <input 
-                class="form-check-input" 
+                className="form-check-input" 
                 type="radio" 
                 name="gridRadios" 
                 id="gridRadios2" 
@@ -315,7 +314,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.email_bool === 'no'}
                 onChange={(e) => setCampaignForm({...campaignForm, email_bool: e.target.value})} 
             ></input>
-          <label class="form-check-label" for="gridRadios2">
+          <label className="form-check-label" for="gridRadios2">
             No
           </label>
         </div>
@@ -333,13 +332,21 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 : null }
 
 
-<fieldset class="form-group">
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-      <div class="col-sm-10">
-<div class="form-check">
+<fieldset className="form-group">
+    <div className="row">
+      <legend className="col-form-label col-sm-2 pt-0">
+        Does this form need to be shareable
+
+        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+            <button type="button" className="btn btn-info btn-circle">i<i className="fa fa-check"></i></button>
+        </OverlayTrigger>
+
+
+        </legend>
+      <div className="col-sm-10">
+<div className="form-check">
             <input 
-                class="form-check-input" 
+                className="form-check-input" 
                 type="radio" 
                 name="gridRadios1" 
                 id="gridRadios11" 
@@ -347,14 +354,14 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.shareable === 'yes'}
                 onChange={(e) => setCampaignForm({...campaignForm, shareable: e.target.value})} 
         ></input>
-          <label class="form-check-label" for="gridRadios1">
+          <label className="form-check-label" for="gridRadios1">
             Yes
           </label>
         </div>
 
-        <div class="form-check">
+        <div className="form-check">
             <input 
-                class="form-check-input" 
+                className="form-check-input" 
                 type="radio" 
                 name="gridRadios1" 
                 id="gridRadios12" 
@@ -362,7 +369,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.shareable === 'no'}
                 onChange={(e) => setCampaignForm({...campaignForm, shareable: e.target.value})} 
             ></input>
-          <label class="form-check-label" for="gridRadios2">
+          <label className="form-check-label" for="gridRadios2">
             No
           </label>
         </div>
