@@ -32,7 +32,6 @@ export default function Campaigns(props) {
 
 
     const deleteCampaigns = async () => {
-        console.log('delete front end')
 
     
         // event.preventDefault()
@@ -54,7 +53,6 @@ export default function Campaigns(props) {
             console.log('success')
 let val = []
             idList.map((id, i) => {
-                console.log('in map', id, i)
                  val = campaignListState.filter(campaign =>  campaign.id !=  id)
             
             })
