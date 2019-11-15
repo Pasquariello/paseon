@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Form_Builder from '../../components/FormBuildingTools/Form_Builder';
 import ReactTable from 'react-table';
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
+import { withAuthSync } from '../../utils/auth'
 
 
 // export default function NewCampaign() 
@@ -433,4 +434,4 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
 }
 
-export default NewCampaign;
+export default withAuthSync(NewCampaign);

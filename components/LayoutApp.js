@@ -1,13 +1,19 @@
 import Head from 'next/head';
-import SideBar from '../components/SideBar';
-import Header from '../components/Header';
+import SideBar from './SideBar';
+import Header from './Header';
 import React, { useState } from 'react';
+import { logout } from '../utils/auth';
+
+import Router from 'next/router'
+import fetch from 'isomorphic-unfetch'
+import nextCookie from 'next-cookies'
+import getHost from '../utils/get-host'
 
 
 
 
 // const LayoutApp  => (
-export default function LayoutApp (props) {
+const LayoutApp = props => {
 
 
 // const [sideBarWidth, setSideBarWidth] = useState('20%');
@@ -69,7 +75,7 @@ return (
 
           <div id="content-wrapper" className="d-flex flex-column" style={{width: '100%', padding: '50px'}}>
           <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button>
-           
+           <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning`} onClick={()=>logout()}>Logout</button>
 {/* <button className="navbar-toggler" onClick={toggleWidth} type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 <span className={sideNavWidth ? 'active' : ''} style={{padding: '2px'}}>
 <div className="toggle-btn type11"></div>
@@ -191,4 +197,42 @@ return (
   </div>
 )};
 
-// export default LayoutApp;
+
+LayoutApp.getInitialProps = async ctx => {
+  console.log('hello')
+  const { token } = nextCookie(ctx)
+  console.log('pro', token)
+  const apiUrl = getHost(ctx.req) + '/dashboard'
+  console.log(apiUrl)
+  const redirectOnError = () => {
+    console.log('redirect on error')
+    typeof window !== 'undefined'
+      ? Router.push('/login')
+      : ctx.res.writeHead(302, { Location: '/login' }).end()
+  }
+
+  try {
+    const response = await fetch(apiUrl, {
+      credentials: 'include',
+      headers: {
+        Authorization: JSON.stringify({ token })
+      }
+    })
+
+    if (response.ok) {
+      console.log('res good', response)
+      // const js = await response.json()
+      // console.log('js', js)
+      // return js
+    } else {
+      // https://github.com/developit/unfetch#caveats
+      return await redirectOnError()
+    }
+  } catch (error) {
+    console.log('error', error)
+    // Implementation or Network error
+    return redirectOnError()
+  }
+}
+
+export default LayoutApp;

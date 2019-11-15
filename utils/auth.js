@@ -7,7 +7,7 @@ export const login = ({ token }) => {
   
   console.log('in login', token)
   cookie.set('token', token, { expires: 36000 })
-  Router.push('/profile')
+  Router.push('/dashboard')
 }
 
 export const auth = ctx => {
@@ -34,6 +34,7 @@ export const auth = ctx => {
 }
 
 export const logout = () => {
+  console.log('logOut')
   cookie.remove('token')
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now())

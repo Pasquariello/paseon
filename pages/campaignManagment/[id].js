@@ -7,10 +7,11 @@ import Link from 'next/link';
 import { CSVLink, CSVDownload } from "react-csv";
 import { useState } from 'react';
 
+import { withAuthSync } from '../../utils/auth'
 
 
 
-export default function Campaign(props) {
+function Campaign(props) {
 
 
 
@@ -97,3 +98,5 @@ Campaign.getInitialProps = async function(context, props) {
     // TODO 
     // table columns need to be form fields mapped to columns - make editable?
 };
+
+export default withAuthSync(Campaign)

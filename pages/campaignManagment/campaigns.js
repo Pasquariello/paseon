@@ -9,9 +9,11 @@ import CampaignLink from '../../components/CampaignLink';
 import fetch from 'isomorphic-unfetch';
 import React, { useState } from 'react';
 
+import { withAuthSync } from '../../utils/auth'
 
 
-export default function Campaigns(props) {
+
+function Campaigns(props) {
 
 
     let quickAnalyticsData = [
@@ -164,3 +166,6 @@ Campaigns.getInitialProps = async function(context) {
       campaignList: data
     };
 }
+
+
+export default withAuthSync(Campaigns)

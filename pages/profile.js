@@ -30,6 +30,7 @@ const Profile = props => {
 }
 
 Profile.getInitialProps = async ctx => {
+  console.log('hello')
   const { token } = nextCookie(ctx)
   console.log('pro', token)
   const apiUrl = getHost(ctx.req) + '/profile'

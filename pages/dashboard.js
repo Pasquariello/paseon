@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import LayoutApp from '../components/LayoutApp'
 import SideBar from '../components/SideBar';
 import QuickAnalytics from '../components/QuickAnalytics';
+import { withAuthSync } from '../utils/auth'
+
 
 function Dashboard () { 
 
@@ -120,5 +122,7 @@ function Dashboard () {
             </LayoutApp>
   )
   }
+  
+export default withAuthSync(Dashboard)
 
-  export default Dashboard;
+  // export default Dashboard;
