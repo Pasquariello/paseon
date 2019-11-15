@@ -253,16 +253,19 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
         // campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : renderBasicForms(campaignForm.form_type)}
     
-        const popover = (
+         const popover = (text) => (
             <Popover id="popover-basic">
               <Popover.Title as="h3">Info</Popover.Title>
               <Popover.Content>
-                And here's some <strong>amazing</strong> content. It's very engaging.
-                right?
+                  {text}
               </Popover.Content>
             </Popover>
           );
    
+
+          let email_bool_text = 'Email boolean text';
+          let shareable_text = 'Shareable text';
+
     return (
         <LayoutApp>
             <div>
@@ -282,9 +285,9 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
           
 
 
-<OverlayTrigger trigger="click" placement="right" overlay={popover}>
+<OverlayTrigger trigger="click" placement="right" overlay={popover(email_bool_text)} text={email_bool_text}>
     <button type="button" className="btn btn-info btn-circle">i<i className="fa fa-check"></i></button>
-  </OverlayTrigger>
+</OverlayTrigger>
 
       </legend>
       <div className="col-sm-10">
@@ -337,7 +340,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
       <legend className="col-form-label col-sm-2 pt-0">
         Does this form need to be shareable
 
-        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <OverlayTrigger trigger="click" placement="right" overlay={popover(shareable_text)}>
             <button type="button" className="btn btn-info btn-circle">i<i className="fa fa-check"></i></button>
         </OverlayTrigger>
 
