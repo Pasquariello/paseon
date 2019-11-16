@@ -302,7 +302,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.email_bool === 'yes'}
                 onChange={(e) => setCampaignForm({...campaignForm, email_bool: e.target.value})} 
         ></input>
-          <label className="form-check-label" for="gridRadios1">
+          <label className="form-check-label" htmlFor="gridRadios1">
             Yes
           </label>
         </div>
@@ -317,7 +317,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.email_bool === 'no'}
                 onChange={(e) => setCampaignForm({...campaignForm, email_bool: e.target.value})} 
             ></input>
-          <label className="form-check-label" for="gridRadios2">
+          <label className="form-check-label" htmlFor="gridRadios2">
             No
           </label>
         </div>
@@ -357,7 +357,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.shareable === 'yes'}
                 onChange={(e) => setCampaignForm({...campaignForm, shareable: e.target.value})} 
         ></input>
-          <label className="form-check-label" for="gridRadios1">
+          <label className="form-check-label" htmlFor="gridRadios1">
             Yes
           </label>
         </div>
@@ -372,7 +372,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
                 checked={campaignForm.shareable === 'no'}
                 onChange={(e) => setCampaignForm({...campaignForm, shareable: e.target.value})} 
             ></input>
-          <label className="form-check-label" for="gridRadios2">
+          <label className="form-check-label" htmlFor="gridRadios2">
             No
           </label>
         </div>
