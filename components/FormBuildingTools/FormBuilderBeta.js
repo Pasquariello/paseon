@@ -113,6 +113,98 @@ function onDragEnd(result) {
 <div className="col">
       <LeftBar>
 
+      <hr></hr>
+        <label htmlFor="elem">Frequently Used</label>
+
+        <div className="row"> 
+
+     
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">First Name</p>
+          </div>  
+        </div>
+        </div>
+
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">Last Name</p>
+          </div>  
+        </div>
+        </div>
+
+        </div>
+        <div className="row"> 
+
+
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">Phone Number</p>
+          </div>  
+        </div>
+        </div>
+
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">Email</p>
+          </div>  
+        </div>
+        </div>
+
+        </div>
+        <div className="row"> 
+
+
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">Street Address</p>
+          </div>  
+        </div>
+        </div>
+
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">City</p>
+          </div>  
+        </div>
+        </div>
+        
+        </div>
+        <div className="row">
+
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">State/Region</p>
+          </div>  
+        </div>
+        </div>
+
+        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="card">
+          <div className="card-header">
+            <p className="card-text">Zip Code</p>
+          </div>  
+        </div>
+        </div>
+
+      </div>    
+
+
+
+
+
+
+
+
+
+
 <hr></hr>
         <label htmlFor="elem">New Element</label>
 
@@ -218,7 +310,8 @@ function onDragEnd(result) {
 
         
       </LeftBar>
-      </div>
+</div>
+
       <div className="col">
         {/* DO I STILL NEED THIS ? */}
 {/* //onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop} */}
