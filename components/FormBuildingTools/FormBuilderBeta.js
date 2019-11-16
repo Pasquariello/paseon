@@ -37,6 +37,104 @@ const reorder = (list, startIndex, endIndex) => {
 export default function FormBuilderBeta(props) {
 
 
+/////////////////////////////////////////
+////////START INPUT OBJECTSSSSSS/////////
+/////////////////////////////////////////
+
+// todo: put all into an array and map to make elements? 
+// might have a problem with bootstrap
+const first_name_obj = {
+  type: 'text',
+  tag: 'input',
+  label: 'First Name',
+  name: 'first_name',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
+const last_name_obj = {
+  type: 'text',
+  tag: 'input',
+  label: 'Last Name',
+  name: 'last_name',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
+const phone_number_obj = {
+  type: 'tel',
+  tag: 'input',
+  label: 'Phone Number',
+  name: 'phone_number',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
+const email_obj = {
+  type: 'email',
+  tag: 'input',
+  label: 'Email',
+  name: 'email',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
+const street_address_obj = {
+  type: 'text',
+  tag: 'input',
+  label: 'Street Address',
+  name: 'street_address',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
+const city_obj = {
+  type: 'text',
+  tag: 'input',
+  label: 'City',
+  name: 'city',
+  value: '',
+  required: false,
+  placholder: '',
+}
+//todo: change for select
+const state_region_obj = {
+  type: 'text',
+  tag: 'input',
+  label: 'State/Region',
+  name: 'state_region',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
+const zip_code_obj = {
+  type: 'text',
+  tag: 'input',
+  label: 'Zip Code',
+  name: 'zip_code_obj',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
+
+///////////////////////////////////////
+////////END INPUT OBJECTSSSSSS/////////
+///////////////////////////////////////
+
+
+/////state values
+const [campaignForm, setCampaignForm] = useState(
+  { 
+      fields: []
+  }
+)
  
 
 
@@ -54,7 +152,7 @@ function onDragEnd(result) {
   }
 
   const items = reorder(
-    props.fieldList,
+    fieldList,
     //this.state.items,
     result.source.index,
     result.destination.index
@@ -101,9 +199,13 @@ function onDragEnd(result) {
     }
 
 
-    function addToForm () {
-      console.log('hello from addToForm')
+    function addToForm (input_obj) {
+      console.log('hello from addToForm', input_obj)
+      setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
+
     }
+
+    const fieldList = campaignForm.fields;
 
 
   return (
@@ -119,7 +221,7 @@ function onDragEnd(result) {
         <div className="row"> 
 
      
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(first_name_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">First Name</p>
@@ -127,7 +229,7 @@ function onDragEnd(result) {
         </div>
         </div>
 
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(last_name_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">Last Name</p>
@@ -139,7 +241,7 @@ function onDragEnd(result) {
         <div className="row"> 
 
 
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(phone_number_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">Phone Number</p>
@@ -147,7 +249,7 @@ function onDragEnd(result) {
         </div>
         </div>
 
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(email_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">Email</p>
@@ -159,7 +261,7 @@ function onDragEnd(result) {
         <div className="row"> 
 
 
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(state_region_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">Street Address</p>
@@ -167,7 +269,7 @@ function onDragEnd(result) {
         </div>
         </div>
 
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(city_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">City</p>
@@ -178,7 +280,7 @@ function onDragEnd(result) {
         </div>
         <div className="row">
 
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(state_region_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">State/Region</p>
@@ -186,7 +288,7 @@ function onDragEnd(result) {
         </div>
         </div>
 
-        <div className="col-md-6 mb-4" onClick={addToForm}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(zip_code_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">Zip Code</p>
@@ -318,8 +420,60 @@ function onDragEnd(result) {
 <FormSandBox>
 <button onClick={(e)=>clearList(e)}>x</button>
 <button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
+{/* REORDER START */}
+ {/* {(elem === 'select' ? */}
+<DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              // style={getListStyle(snapshot.isDraggingOver)}
+            >
+              {/* {selectList.map((item, index) => ( */}
+                {fieldList.map((item, index) => (
 
-</FormSandBox>
+                <Draggable key={index} draggableId={`draggable${index}`} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      // style={getItemStyle(
+                      //   snapshot.isDragging,
+                      //   provided.draggableProps.style
+                      // )}
+                    >
+                      {/* {item} */}
+                      {/*  */}
+                      <div className="elemContainer">
+                        <button onClick={(e)=>removeOne(e, index, item)}>x</button>
+                      <label>{item.label}</label>
+                      {console.log(item)}
+          {(item.tag == 'select' ? 
+          <select id="elem" name="elem" onChange={handleElemSelect}>
+            {item.options.map(value => {
+                return (
+                  <option>{value}</option>
+                )
+              
+              })} 
+          </select>
+          : <input type={item.type} ></input> )}
+          </div>
+                      {/*  */}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      {/* : null)} */}
+
+      </FormSandBox>
       {/* TODO: hook these up  */}
       
       {/* to see raw form with complete structure */}

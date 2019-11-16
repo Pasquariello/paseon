@@ -177,7 +177,7 @@ function onDragEnd(result) {
      // setSelectList([...selectList, { ...val }]); // TAYLOR THIS IS WHERE I NEED TO BE DUDE!
         //since list is being set here in form, maybe I pass this selectList to parentCallback instead of creating/setting state there too? 
         
-
+      console.log(val)
       props.parentCallback(val)
       // do something with value in parent component, like save to state
     }
