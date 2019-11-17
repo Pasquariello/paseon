@@ -1,3 +1,9 @@
+import { useEffect } from 'react'
+import Router from 'next/router'
+import nextCookie from 'next-cookies'
+import cookie from 'js-cookie'
+
+
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -34,6 +40,7 @@ import {
       case LOGOUT:
       case DELETE_ACCOUNT:
         //localStorage.removeItem("token");
+        cookie.remove('token')
         return {
           ...state,
          // token: null,
@@ -42,12 +49,14 @@ import {
         };
   
       case LOGIN_SUCCESS:
+        console.log('reucer success', payload)
+        cookie.set('token', payload.token, { expires: 36000 })
        // localStorage.setItem("token", payload.token);
         return {
           ...state,
           ...payload,
           isAuthenticated: true,
-          loading: false
+        //   loading: false
         };
   
       case USER_LOADED:

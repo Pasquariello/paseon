@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 // import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import Layout from '../components/MyLayout'
-import { login } from '../utils/auth'
+ import { login } from '../utils/auth'
 
 import { useDispatch } from 'react-redux'
 import { withRedux } from '../lib/redux'
+// import { login } from '../redux/actions/auth'
+import Router from 'next/router'
 
 
 
@@ -23,8 +25,9 @@ function Login () {
     
     event.preventDefault()
     setUserData(Object.assign({}, userData, { error: '' }))
-
     const username = userData.username
+    console.log('hi', username)
+
     let url = 'http://localhost:3001/login/auth'
 
     try {
@@ -37,12 +40,19 @@ function Login () {
       })
       console.log('response', response)
       if (response.status === 200) {
-        console.log(response)
         console.log('success')
-        const { token, payload } = await response.json()
-        console.log('payload', payload)
-        await login({ token })
-        console.log('token', token)
+        const { token } = await response.json()
+        // console.log('payload', payload)
+        //await login({ token })
+
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+        payload: token
+        });
+
+        // TODO: causing a weird flash
+        Router.push('/dashboard')
+        // console.log('token', token)
       } else {
         console.log('Login failed.')
         let error = new Error(response.statusText)
@@ -120,13 +130,13 @@ function Login () {
 Login.getInitialProps = ({ reduxStore }) => {
   // Tick the time once, so we'll have a
   // valid time before first render
-  const { dispatch } = reduxStore
-  dispatch({
-    type: 'LOGIN',
-    current_user: 2
-    //light: typeof window === 'object',
-    //lastUpdate: Date.now(),
-  })
+  // const { dispatch } = reduxStore
+  // dispatch({
+  //   type: 'LOGIN',
+  //   current_user: 2
+  //   //light: typeof window === 'object',
+  //   //lastUpdate: Date.now(),
+  // })
 
   return {}
 }

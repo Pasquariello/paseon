@@ -2,11 +2,21 @@ import { useEffect } from 'react'
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
+// import { login_action } from '../redux/actions/auth'
 
 export const login = ({ token }) => {
+  console.log('old')
+  //   dispatch({
+  //   type: 'LOGIN',
+  //   current_user: 2
+  //   //light: typeof window === 'object',
+  //   //lastUpdate: Date.now(),
+  // })
+  
   
   console.log('in login', token)
   cookie.set('token', token, { expires: 36000 })
+
   Router.push('/dashboard')
 }
 

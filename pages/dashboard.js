@@ -9,24 +9,24 @@ import QuickAnalytics from '../components/QuickAnalytics';
 import { withAuthSync } from '../utils/auth';
 
 import { useSelector, shallowEqual } from 'react-redux';
+import { auth } from '../utils/auth'
 
-
-const getUserInfo = () => {
-  return useSelector(
-    state => ({
-      current_user: state.current_user,
-    }),
-    shallowEqual
-  )
-}
+// const getUserInfo = () => {
+//   return useSelector(
+//     state => ({
+//       current_user: state.current_user,
+//     }),
+//     shallowEqual
+//   )
+// }
 
 
 function Dashboard () { 
 
   const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
-  const { current_user } = getUserInfo()
+  // const { current_user } = getUserInfo()
 
-  console.log('current_user', current_user)
+  //console.log('current_user', current_user)
 
 
 
@@ -142,6 +142,13 @@ function Dashboard () {
             </LayoutApp>
   )
   }
+
+  Dashboard.getInitialProps = async (ctx) => {
+    auth(ctx)
+
+  }
+
+
   
 export default withRedux(Dashboard)
   // export default Dashboard;
