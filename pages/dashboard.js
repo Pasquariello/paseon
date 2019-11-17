@@ -2,14 +2,34 @@
 import React, { useState } from 'react'
 // import fetch from 'isomorphic-unfetch'
 import LayoutApp from '../components/LayoutApp'
+import { withRedux } from '../lib/redux';
+
 import SideBar from '../components/SideBar';
 import QuickAnalytics from '../components/QuickAnalytics';
-import { withAuthSync } from '../utils/auth'
+import { withAuthSync } from '../utils/auth';
+
+import { useSelector, shallowEqual } from 'react-redux';
+
+
+const getUserInfo = () => {
+  return useSelector(
+    state => ({
+      current_user: state.current_user,
+    }),
+    shallowEqual
+  )
+}
 
 
 function Dashboard () { 
 
   const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
+  const { current_user } = getUserInfo()
+
+  console.log('current_user', current_user)
+
+
+
 
     let quickAnalyticsData = [
       {
@@ -123,6 +143,5 @@ function Dashboard () {
   )
   }
   
-export default withAuthSync(Dashboard)
-
+export default withRedux(Dashboard)
   // export default Dashboard;
