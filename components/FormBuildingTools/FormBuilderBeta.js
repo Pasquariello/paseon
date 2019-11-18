@@ -9,6 +9,8 @@ import FormSandBox from '../FormSandBox';
 
 import React, { useState } from 'react';
 
+import classNames from 'classnames'
+
 
 /////////////////////////////
 /////////////////////////////
@@ -138,6 +140,10 @@ const [campaignForm, setCampaignForm] = useState(
 const [editItemDetails, setEditItemDetails] = useState()
 
 const [itemToMove, setItemToMove] = useState();
+
+const [activeDropZone, setActiveDropZone] = useState();
+
+const [initDrag, setInitDrag] = useState();
  
 
 
@@ -210,20 +216,38 @@ function onDragEnd(result) {
 
 
 //////// DRAG FUNCTIONS
-    function dragOver(event) {
+    function dragOver(event, index) {
       event.preventDefault();
+      setActiveDropZone(index)
+      console.log('dragging over!', activeDropZone, index);
+    }
+
+    function dragLeave(event, index){
+      event.preventDefault();
+      setActiveDropZone(null)
+      console.log('dragging OUT!', activeDropZone, index);
     }
 
     function dragStart(event, index) {
       setItemToMove(index)
+      setInitDrag(true);
       console.log(itemToMove)
       event
         .dataTransfer
         .setData('text/plain', event.target.id);
     }
 
+    function dragEnd(event, index) {
+      setInitDrag(false);
+      console.log('initDrag', initDrag)
+      // event
+      //   .dataTransfer
+      //   .setData('text/plain', event.target.id);
+    }
+
     function drop(event, index) {
       console.log('DROP')
+      setActiveDropZone(null)
 
       //currently swaps just want to move 1
       // TODO: IS THIS MUTATING STATE!?!?!? 
@@ -257,12 +281,40 @@ function onDragEnd(result) {
 
     function dropzone(index) {
 
+      let classes = classNames(
+
+        {
+          'hoverDropZone': activeDropZone == index,
+          'dropZoned': initDrag
+        }
+      );
       return (
+        <>
         <div 
-        onDragOver={(event) => dragOver(event)}
-        onDrop= {(event) => drop(event, index)}
-        style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+        className=  {classes}
+        onDragOver={(event) => dragOver(event, index)}
+        onDragLeave={(event) => dragLeave(event, index)}
+        onDrop = {(event) => drop(event, index)}
+        //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+        //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
       ></div>
+  <style jsx>
+    {`
+ .dropZoned {
+  min-height: 10px;  
+  width: 100%;
+  border: 1px dashed blue;
+}
+
+.hoverDropZone {
+  background-color: pink;
+  min-height: 10px; 
+  width:100%;
+  border: 1px dashed blue;
+}
+    `}
+    </style>
+      </>
       )
     }
 
@@ -493,6 +545,7 @@ function onDragEnd(result) {
                       id='draggableSpan'
                       draggable='true'
                       onDragStart={(event) =>  dragStart(event, index)}
+                      onDragEnd={(event) =>  dragEnd(event, index)}
                         style={{padding: '10px'}}
                         className={editItemDetails == index ? 'elemContainer' : ''}
                         onMouseEnter={() => setEditItemDetails(index)}
@@ -571,6 +624,8 @@ function onDragEnd(result) {
         background-color: #f2f2f2;
         padding: 20px;
     }
+    
+   
 
     .elemContainer {
       // border-radius: 5px;
