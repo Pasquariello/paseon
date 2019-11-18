@@ -446,7 +446,7 @@ function onDragEnd(result) {
                     >
                       {/* {item} */}
                       {/*  */}
-                      <div className="elemContainer">
+                      <div className="elemContainer" onMouseEnter={() => console.log('enter')} onClick={() => console.log('hi')}>
                         <button onClick={(e)=>removeOne(e, index, item)}>x</button>
                       <label>{item.label}</label>
                       {console.log(item)}
@@ -522,12 +522,12 @@ function onDragEnd(result) {
         padding: 20px;
     }
 
-    .elemContainer {
-      border-radius: 5px;
-      background-color: #f2f2f2;
-      padding: 20px;
-      margin: 10px;
-    }
+    // .elemContainer {
+    //   border-radius: 5px;
+    //   background-color: #f2f2f2;
+    //   padding: 20px;
+    //   margin: 10px;
+    // }
     
     .flex-grid {
       display: flex;
