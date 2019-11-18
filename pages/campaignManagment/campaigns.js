@@ -8,12 +8,18 @@ import 'moment-timezone';
 import CampaignLink from '../../components/CampaignLink';
 import fetch from 'isomorphic-unfetch';
 import React, { useState } from 'react';
+import { withRedux } from '../../lib/redux';
+import { auth } from '../../utils/auth';
+
+
 
 import { withAuthSync } from '../../utils/auth'
 
 
 
 function Campaigns(props) {
+
+
 
 
     let quickAnalyticsData = [
@@ -153,11 +159,25 @@ function Campaigns(props) {
     
 }
 
-Campaigns.getInitialProps = async function(context) {
+Campaigns.getInitialProps = async function(ctx) {
     console.log(
         'hello from init props'
     )
-    const res = await fetch('http://localhost:3001/campaign/get_campaigns');
+
+    const { id } = ctx.query;
+      console.log('ID', id)
+    let myID = auth(ctx)
+    console.log('AUTH AUTH AUTH', myID)
+    let idTest = null
+    // console.log('reduxStore 111', ctx.reduxStore.getState())
+    // console.log('reduxStore', ctx.reduxStore.getState().auth.user)
+    if (ctx.reduxStore.getState().auth.user){
+      idTest = ctx.reduxStore.getState().auth.user.id
+    } else {
+      idTest = myID
+    }
+    const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${idTest}`);
+    //const res = await fetch('http://localhost:3001/campaign/get_campaigns');
     const data = await res.json();
     console.log('resolved');
     
@@ -168,4 +188,4 @@ Campaigns.getInitialProps = async function(context) {
 }
 
 
-export default withAuthSync(Campaigns)
+export default withRedux(Campaigns)

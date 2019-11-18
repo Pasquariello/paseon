@@ -41,13 +41,20 @@ function Login () {
       console.log('response', response)
       if (response.status === 200) {
         console.log('success')
-        const { token } = await response.json()
-        // console.log('payload', payload)
+        const { token, userData } = await response.json()
+
+         console.log('payload', userData)
         //await login({ token })
 
         dispatch({
-          type: 'LOGIN_SUCCESS',
+        type: 'LOGIN_SUCCESS',
         payload: token
+        });
+
+        
+        dispatch({
+          type: 'USER_LOADED',
+          payload: userData
         });
 
         // TODO: causing a weird flash
@@ -128,6 +135,7 @@ function Login () {
 }
 
 Login.getInitialProps = ({ reduxStore }) => {
+  console.log('reduxStore',reduxStore)
   // Tick the time once, so we'll have a
   // valid time before first render
   // const { dispatch } = reduxStore

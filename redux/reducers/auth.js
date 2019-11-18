@@ -49,8 +49,8 @@ import {
         };
   
       case LOGIN_SUCCESS:
-        console.log('reucer success', payload)
-        cookie.set('token', payload.token, { expires: 36000 })
+        console.log('LOGIN_SUCCESS reducer success', payload)
+        cookie.set('token', payload, { expires: 36000 })
        // localStorage.setItem("token", payload.token);
         return {
           ...state,
@@ -60,11 +60,12 @@ import {
         };
   
       case USER_LOADED:
+        console.log('USER_LOADED reducer success', payload)
+        cookie.set('userId', payload.id, { expires: 36000 })
         return {
           ...state,
           user: payload,
-          isAuthenticated: true,
-          loading: false
+        //   loading: false
         };
   
       default:

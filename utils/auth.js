@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
+import { compose } from 'redux'
 // import { login_action } from '../redux/actions/auth'
 
 export const login = ({ token }) => {
@@ -21,15 +22,21 @@ export const login = ({ token }) => {
 }
 
 export const auth = ctx => {
+// TODO reset store!!!!
   console.log('in auth')
-  const { token } = nextCookie(ctx)
+  // const name = ctx.cookie.get('name')
+  // console.log('tay name', name)
+
+  const { token, userId } = nextCookie(ctx)
   console.log('tay token', token)
+  console.log('tay token id', userId)
+
   /*
    * If `ctx.req` is available it means we are on the server.
    * Additionally if there's no token it means the user is not logged in.
    */
   if (ctx.req && !token) {
-    console.log('and ')
+    console.log('IFFFFFF ')
     ctx.res.writeHead(302, { Location: '/login' })
     ctx.res.end()
   }
@@ -40,7 +47,7 @@ export const auth = ctx => {
     Router.push('/login')
   }
 
-  return token
+  return userId
 }
 
 export const logout = () => {

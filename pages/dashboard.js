@@ -11,14 +11,14 @@ import { withAuthSync } from '../utils/auth';
 import { useSelector, shallowEqual } from 'react-redux';
 import { auth } from '../utils/auth'
 
-// const getUserInfo = () => {
-//   return useSelector(
-//     state => ({
-//       current_user: state.current_user,
-//     }),
-//     shallowEqual
-//   )
-// }
+const getUserInfo = () => {
+  return useSelector(
+    state => ({
+      isAuthenticated: state.isAuthenticated,
+    }),
+    shallowEqual
+  )
+}
 
 
 function Dashboard () { 
@@ -144,7 +144,8 @@ function Dashboard () {
   }
 
   Dashboard.getInitialProps = async (ctx) => {
-    auth(ctx)
+    //check if page is authorized
+    auth(ctx)  
 
   }
 
