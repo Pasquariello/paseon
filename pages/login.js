@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { withRedux } from '../lib/redux'
 // import { login } from '../redux/actions/auth'
 import Router from 'next/router'
+import { func } from 'prop-types'
 
 
 
@@ -37,35 +38,58 @@ function Login () {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
-      })
-      console.log('response', response)
-      if (response.status === 200) {
-        console.log('success')
-        const { token, userData } = await response.json()
+      }).then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Login failed.')
+              let error = new Error(response.statusText)
+              error.response = response
+              throw error
+          }
 
-         console.log('payload', userData)
-        //await login({ token })
+          response.json().then(function(data){
+            console.log('DATA', data)
 
-        dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: token
-        });
+            dispatch({
+              type: 'LOGIN_SUCCESS',
+              payload: data
+            });
+
+
+            Router.push('/dashboard')
+
+          })
+        }
+      )
+      // if (response.status !== 200) {
+      //   console.log('problem')
+        // console.log('success')
+        // const { token, userData } = await response.json()
+
+        //  console.log('payload', userData)
+        // //await login({ token })
+
+        // dispatch({
+        // type: 'LOGIN_SUCCESS',
+        // payload: token
+        // });
 
         
-        dispatch({
-          type: 'USER_LOADED',
-          payload: userData
-        });
+        // dispatch({
+        //   type: 'USER_LOADED',
+        //   payload: userData
+        // });
 
         // TODO: causing a weird flash
-        Router.push('/dashboard')
+        // Router.push('/dashboard')
         // console.log('token', token)
-      } else {
-        console.log('Login failed.')
-        let error = new Error(response.statusText)
-        error.response = response
-        throw error
-      }
+     // } 
+      // else {
+      //   console.log('Login failed.')
+      //   let error = new Error(response.statusText)
+      //   error.response = response
+      //   throw error
+      // }
     } catch (error) {
       console.error(
         'You have an error in your code or there are Network issues.',
