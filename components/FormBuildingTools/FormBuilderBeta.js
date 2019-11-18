@@ -136,6 +136,8 @@ const [campaignForm, setCampaignForm] = useState(
   }
 )
 const [editItemDetails, setEditItemDetails] = useState()
+
+const [itemToMove, setItemToMove] = useState();
  
 
 
@@ -204,6 +206,50 @@ function onDragEnd(result) {
       console.log('hello from addToForm', input_obj)
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
 
+    }
+
+
+//////// DRAG FUNCTIONS
+    function dragOver(event) {
+      event.preventDefault();
+    }
+
+    function dragStart(event, index) {
+      setItemToMove(index)
+      console.log(itemToMove)
+      event
+        .dataTransfer
+        .setData('text/plain', event.target.id);
+    }
+
+    function drop(event, index) {
+      console.log('DROP')
+
+      // TODO: IS THIS MUTATING STATE!?!?!?
+      console.log('not tmp',campaignForm.fields)
+      let array = campaignForm.fields
+      var tmp = array[index];
+      console.log('tmp', tmp)
+      console.log('itemToMove', itemToMove)
+  array[index] = array[itemToMove];
+  array[itemToMove] = tmp;
+  setCampaignForm({...campaignForm, fields:array}) 
+
+  // setCampaignForm({...campaignForm, fields:tmp})
+
+
+      // const id = event
+      //   .dataTransfer
+      //   .getData('text');
+    
+      // const draggableElement = document.getElementById(id);
+      // const dropzone = event.target;
+      
+      // dropzone.appendChild(draggableElement);
+    
+      event
+        .dataTransfer
+        .clearData();
     }
 
     const fieldList = campaignForm.fields;
@@ -422,37 +468,28 @@ function onDragEnd(result) {
 <button onClick={(e)=>clearList(e)}>x</button>
 <button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
 {/* REORDER START */}
- {/* {(elem === 'select' ? */}
-<DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              // style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {/* {selectList.map((item, index) => ( */}
-                {fieldList.map((item, index) => (
 
-                <Draggable key={index} draggableId={`draggable${index}`} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      // style={getItemStyle(
-                      //   snapshot.isDragging,
-                      //   provided.draggableProps.style
-                      // )}
-                    >
-                      {/* {item} */}
-                      {/*  */}
+        
+                {fieldList.map((item, index) => (  
+
+      <div>
                       <div 
+                        onDragOver={(event) => dragOver(event)}
+                        onDrop= {(event) => drop(event, index)}
+                        style={{minHeight: '5px', width:'100%', border: '1px solid green'}}
+                      ></div>
+
+                      <div 
+                      id='draggableSpan'
+                      draggable='true'
+                      onDragStart={(event) =>  dragStart(event, index)}
+                        style={{padding: '10px'}}
                         className={editItemDetails == index ? 'elemContainer' : ''}
                         onMouseEnter={() => setEditItemDetails(index)}
                         onMouseLeave={() => setEditItemDetails(null)}  
                         onClick={() => console.log('hi')}>
                         {/* <button onClick={(e)=>removeOne(e, index, item)}>x</button> */}
+                      
                       <label>{item.label}</label>
                       {console.log(item)}
           {(item.tag == 'select' ? 
@@ -461,25 +498,22 @@ function onDragEnd(result) {
                 return (
                   <option>{value}</option>
                 )
-              
+                
               })} 
           </select>
           : <input type={item.type} ></input> )}
           </div>
-                      {/*  */}
-                    </div>
-                  )}
-                </Draggable>
+          <div style={{height: '5px', width:'100%', backgroundColor: 'green'}}></div>
+<br></br>
+
+</div>
+
               ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      {/* : null)} */}
+              
+
 
       </FormSandBox>
-      {/* TODO: hook these up  */}
+     {/* TODO: hook these up  */}
       
       {/* to see raw form with complete structure */}
       <button>Raw Form</button>   
@@ -528,10 +562,11 @@ function onDragEnd(result) {
     }
 
     .elemContainer {
-      border-radius: 5px;
+      // border-radius: 5px;
+      border: 1px solid blue;
       background-color: #f2f2f2;
-      padding: 20px;
-      margin: 10px;
+      // padding: 20px;
+      // margin: 10px;
     }
     
     .flex-grid {
