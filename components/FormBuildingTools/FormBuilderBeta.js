@@ -227,26 +227,27 @@ function onDragEnd(result) {
 
       //currently swaps just want to move 1
       // TODO: IS THIS MUTATING STATE!?!?!? 
-      console.log('not tmp',campaignForm.fields)
-      let array = campaignForm.fields
-      var tmp = array[index];
-      console.log('tmp', tmp)
-      console.log('itemToMove', itemToMove)
-      array[index] = array[itemToMove];
-      array[itemToMove] = tmp;
-  setCampaignForm({...campaignForm, fields:array}) 
+  //     console.log('not tmp',campaignForm.fields)
+  //     let array = campaignForm.fields
+  //     var tmp = array[index];
+  //     console.log('tmp', tmp)
+  //     console.log('itemToMove', itemToMove)
+  //     array[index] = array[itemToMove];
+  //     array[itemToMove] = tmp;
+  // setCampaignForm({...campaignForm, fields:array}) 
 
-  // setCampaignForm({...campaignForm, fields:tmp})
+        let arr = campaignForm.fields
+        
+        // arr.splice(index, 0, arr[itemToMove]);
+        // setCampaignForm({...campaignForm, fields:arr}) 
 
 
-      // const id = event
-      //   .dataTransfer
-      //   .getData('text');
-    
-      // const draggableElement = document.getElementById(id);
-      // const dropzone = event.target;
-      
-      // dropzone.appendChild(draggableElement);
+        var element = arr[itemToMove];
+        arr.splice(itemToMove, 1);
+        arr.splice(index, 0, element);
+
+        setCampaignForm({...campaignForm, fields:arr}) 
+
     
       event
         .dataTransfer
@@ -496,11 +497,11 @@ function onDragEnd(result) {
                         className={editItemDetails == index ? 'elemContainer' : ''}
                         onMouseEnter={() => setEditItemDetails(index)}
                         onMouseLeave={() => setEditItemDetails(null)}  
-                        onClick={() => console.log('hi')}>
+                        onClick={() => console.log('hi', index)}>
                         {/* <button onClick={(e)=>removeOne(e, index, item)}>x</button> */}
                       
                       <label>{item.label}</label>
-                      {console.log(item)}
+                      {/* {console.log(item)} */}
           {(item.tag == 'select' ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
             {item.options.map(value => {
