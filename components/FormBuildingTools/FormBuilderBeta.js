@@ -135,6 +135,7 @@ const [campaignForm, setCampaignForm] = useState(
       fields: []
   }
 )
+const [editItemDetails, setEditItemDetails] = useState()
  
 
 
@@ -157,7 +158,7 @@ function onDragEnd(result) {
     result.source.index,
     result.destination.index
   );
-  props.removeSingle(items)
+  // props.removeSingle(items)
 
 
 }
@@ -446,8 +447,12 @@ function onDragEnd(result) {
                     >
                       {/* {item} */}
                       {/*  */}
-                      <div className="elemContainer" onMouseEnter={() => console.log('enter')} onClick={() => console.log('hi')}>
-                        <button onClick={(e)=>removeOne(e, index, item)}>x</button>
+                      <div 
+                        className={editItemDetails == index ? 'elemContainer' : ''}
+                        onMouseEnter={() => setEditItemDetails(index)}
+                        onMouseLeave={() => setEditItemDetails(null)}  
+                        onClick={() => console.log('hi')}>
+                        {/* <button onClick={(e)=>removeOne(e, index, item)}>x</button> */}
                       <label>{item.label}</label>
                       {console.log(item)}
           {(item.tag == 'select' ? 
@@ -522,12 +527,12 @@ function onDragEnd(result) {
         padding: 20px;
     }
 
-    // .elemContainer {
-    //   border-radius: 5px;
-    //   background-color: #f2f2f2;
-    //   padding: 20px;
-    //   margin: 10px;
-    // }
+    .elemContainer {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      margin: 10px;
+    }
     
     .flex-grid {
       display: flex;
