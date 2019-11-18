@@ -225,14 +225,15 @@ function onDragEnd(result) {
     function drop(event, index) {
       console.log('DROP')
 
-      // TODO: IS THIS MUTATING STATE!?!?!?
+      //currently swaps just want to move 1
+      // TODO: IS THIS MUTATING STATE!?!?!? 
       console.log('not tmp',campaignForm.fields)
       let array = campaignForm.fields
       var tmp = array[index];
       console.log('tmp', tmp)
       console.log('itemToMove', itemToMove)
-  array[index] = array[itemToMove];
-  array[itemToMove] = tmp;
+      array[index] = array[itemToMove];
+      array[itemToMove] = tmp;
   setCampaignForm({...campaignForm, fields:array}) 
 
   // setCampaignForm({...campaignForm, fields:tmp})
@@ -250,6 +251,18 @@ function onDragEnd(result) {
       event
         .dataTransfer
         .clearData();
+    }
+
+
+    function dropzone(index) {
+
+      return (
+        <div 
+        onDragOver={(event) => dragOver(event)}
+        onDrop= {(event) => drop(event, index)}
+        style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+      ></div>
+      )
     }
 
     const fieldList = campaignForm.fields;
@@ -473,11 +486,7 @@ function onDragEnd(result) {
                 {fieldList.map((item, index) => (  
 
       <div>
-                      <div 
-                        onDragOver={(event) => dragOver(event)}
-                        onDrop= {(event) => drop(event, index)}
-                        style={{minHeight: '5px', width:'100%', border: '1px solid green'}}
-                      ></div>
+                    {dropzone(index)}
 
                       <div 
                       id='draggableSpan'
@@ -503,7 +512,6 @@ function onDragEnd(result) {
           </select>
           : <input type={item.type} ></input> )}
           </div>
-          <div style={{height: '5px', width:'100%', backgroundColor: 'green'}}></div>
 <br></br>
 
 </div>
@@ -526,6 +534,8 @@ function onDragEnd(result) {
 
       <style jsx>
     {`
+
+
 
     p {
       font-size: 10px;
