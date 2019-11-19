@@ -228,10 +228,13 @@ function onDragEnd(result) {
       console.log('dragging OUT!', activeDropZone, index);
     }
 
+ 
+
     function dragStart(event, index) {
       setItemToMove(index)
       setInitDrag(true);
       console.log(itemToMove)
+      
       event
         .dataTransfer
         .setData('text/plain', event.target.id);
@@ -288,6 +291,7 @@ function onDragEnd(result) {
           'dropZoned': initDrag
         }
       );
+
       return (
         <>
         <div 
@@ -298,28 +302,40 @@ function onDragEnd(result) {
         //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
         //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
       ></div>
-  <style jsx>
-    {`
- .dropZoned {
-  min-height: 10px;  
-  width: 100%;
-  border: 1px dashed blue;
-}
+        <style jsx>
+        {`
+          .dropZoned {
+            min-height: 10px;  
+            width: 100%;
+            border: 1px dashed blue;
+          }
 
-.hoverDropZone {
-  background-color: pink;
-  min-height: 10px; 
-  width:100%;
-  border: 1px dashed blue;
-}
-    `}
-    </style>
-      </>
-      )
+          .hoverDropZone {
+            background-color: pink;
+            min-height: 10px; 
+            width:100%;
+            border: 1px dashed blue;
+          }
+        `}
+        </style>
+        </>
+        )
     }
 
     const fieldList = campaignForm.fields;
+    
+    function buildContainerClasses(index) {
+    return classNames(
+      'elemContainer',
 
+      {
+        'elemContainerHighlight': editItemDetails == index,
+
+        // 'hoverDropZone': activeDropZone == index,
+        // 'dropZoned': initDrag
+      }
+    );
+}
 
   return (
     <>
@@ -547,12 +563,12 @@ function onDragEnd(result) {
                       onDragStart={(event) =>  dragStart(event, index)}
                       onDragEnd={(event) =>  dragEnd(event, index)}
                         style={{padding: '10px'}}
-                        className={editItemDetails == index ? 'elemContainer' : ''}
+                        className={buildContainerClasses(index)}
                         onMouseEnter={() => setEditItemDetails(index)}
                         onMouseLeave={() => setEditItemDetails(null)}  
                         onClick={() => console.log('hi', index)}>
                         {/* <button onClick={(e)=>removeOne(e, index, item)}>x</button> */}
-                      
+                 
                       <label>{item.label}</label>
                       {/* {console.log(item)} */}
           {(item.tag == 'select' ? 
@@ -595,7 +611,7 @@ function onDragEnd(result) {
       font-size: 10px;
     }
 
-    input[type=text], select {
+    input, select {
         padding: 12px 20px;
         margin: 8px 0;
         display: block;
@@ -625,14 +641,17 @@ function onDragEnd(result) {
         padding: 20px;
     }
     
-   
 
     .elemContainer {
-      // border-radius: 5px;
+      margin: 20px;
+    }
+   
+
+    .elemContainerHighlight {
+      margin: 20px;
       border: 1px solid blue;
       background-color: #f2f2f2;
-      // padding: 20px;
-      // margin: 10px;
+  
     }
     
     .flex-grid {
