@@ -18,6 +18,7 @@ import {states} from '../../utils/states';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { resetServerContext } from 'react-beautiful-dnd';
 import { renderToString } from 'react-dom/server';
+import { func } from 'prop-types';
 
 // ...
 
@@ -126,6 +127,23 @@ const zip_code_obj = {
 }
 
 
+const single_text_obj = {
+  type: 'text',
+  tag: 'input',
+  label: {
+    name: 'Label',
+    value: ''
+  },
+  placholder: {
+    name: 'Placeholder',
+    value: ''
+  },
+  name: '',
+  value: '',
+  required: false,
+}
+
+
 ///////////////////////////////////////
 ////////END INPUT OBJECTSSSSSS/////////
 ///////////////////////////////////////
@@ -194,6 +212,63 @@ const [initDrag, setInitDrag] = useState();
     function addToForm (input_obj) {
       console.log('hello from addToForm', input_obj)
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
+
+    }
+
+    const [editToggle, setEditToggle] = useState(false)
+    function openEdit(){
+      setEditToggle(!editToggle)
+    }
+
+    function editInputView() {
+      
+      // maybe pass in an object that is the schema for each type?
+      // rememnber addToForm with no arg passed in created an empty field in the field list!
+      return (
+        <>
+        <h1>EDIT VIEW!</h1>
+        <form>
+
+          <div class="form-group">
+            <label for="cust_label">Label</label>
+            <input 
+              type="text"
+              class="form-control" 
+              id="cust_label" 
+              placeholder="Enter Custom Label"
+              ></input>
+          </div>
+
+          <div class="form-group">
+            <label for="cust_placeholder">Placeholder</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="cust_placeholder" 
+              placeholder="Enter Custom Placeholder"></input>
+          </div>
+
+          <div class="form-group">
+            <label for="cust_default">Default</label>
+            <input 
+              type="text"
+              class="form-control" 
+              id="cust_default" 
+              placeholder="Enter Custom Label"
+              ></input>
+          </div>
+
+          <div class="custom-control custom-switch">
+            <label class="custom-control-label" for="customSwitch1">Make This Field  Require</label>
+            <br></br>
+            <input type="checkbox" class="custom-control-input" id="customSwitch1"></input>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        </>
+      )
 
     }
 
@@ -317,13 +392,14 @@ const [initDrag, setInitDrag] = useState();
     );
 }
 
+
   return (
     <>
 
       <div className="flex-grid">
 <div className="col">
       <LeftBar>
-
+        {editToggle ? editInputView() : null}
       <hr></hr>
         <label htmlFor="elem">Frequently Used</label>
 
@@ -421,7 +497,7 @@ const [initDrag, setInitDrag] = useState();
 
     <div className="row"> 
 
-      <div className="col-md-4 mb-4" onClick={addToForm}>
+      <div className="col-md-4 mb-4" onClick={openEdit}>
         <div className="card mb-4">
             <div className="card-body">
                 <p className="card-title">Single Line</p>
