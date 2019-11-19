@@ -35,7 +35,7 @@ export default function SideBar(props) {
         </Link>    
       </li>
       <li className="sidebar-item" >
-        <Link href="/form_builder">
+        <Link href="/zTestPage">
           <a className="nav-link">Form Builder</a>
         </Link>    
       </li>

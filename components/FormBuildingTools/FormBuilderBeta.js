@@ -214,6 +214,13 @@ function onDragEnd(result) {
 
     }
 
+    function removeOne(e, index, val) {
+      e.preventDefault();
+      let newList = campaignForm.fields.filter((item, i) =>  i != index)
+      setCampaignForm({...campaignForm, fields:newList}) 
+
+    }
+
 
 //////// DRAG FUNCTIONS
     function dragOver(event, index) {
@@ -243,30 +250,13 @@ function onDragEnd(result) {
     function dragEnd(event, index) {
       setInitDrag(false);
       console.log('initDrag', initDrag)
-      // event
-      //   .dataTransfer
-      //   .setData('text/plain', event.target.id);
+  
     }
 
     function drop(event, index) {
       console.log('DROP')
-      setActiveDropZone(null)
-
-      //currently swaps just want to move 1
-      // TODO: IS THIS MUTATING STATE!?!?!? 
-  //     console.log('not tmp',campaignForm.fields)
-  //     let array = campaignForm.fields
-  //     var tmp = array[index];
-  //     console.log('tmp', tmp)
-  //     console.log('itemToMove', itemToMove)
-  //     array[index] = array[itemToMove];
-  //     array[itemToMove] = tmp;
-  // setCampaignForm({...campaignForm, fields:array}) 
-
-        let arr = campaignForm.fields
-        
-        // arr.splice(index, 0, arr[itemToMove]);
-        // setCampaignForm({...campaignForm, fields:arr}) 
+      setActiveDropZone(null);
+      let arr = campaignForm.fields; //TODO rename
 
 
         var element = arr[itemToMove];
@@ -575,7 +565,7 @@ function onDragEnd(result) {
                         onMouseEnter={() => setEditItemDetails(index)}
                         onMouseLeave={() => setEditItemDetails(null)}  
                         onClick={() => console.log('hi', index)}>
-                        {/* <button onClick={(e)=>removeOne(e, index, item)}>x</button> */}
+                        <button onClick={(e)=>removeOne(e, index, item)}>x</button>
                  
                       <label style={{fontSize: '11px'}}>{item.label}</label>
                       {/* {console.log(item)} */}
