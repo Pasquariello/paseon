@@ -41,7 +41,7 @@ console.log('STATES', states)
 /////////////////////////////////////////
 ////////START INPUT OBJECTSSSSSS/////////
 /////////////////////////////////////////
-
+let state_names = states.map(state => state.name);
 // todo: put all into an array and map to make elements? 
 // might have a problem with bootstrap
 const first_name_obj = {
@@ -106,10 +106,11 @@ const city_obj = {
 //todo: change for select
 const state_region_obj = {
   type: 'text',
-  tag: 'input',
+  tag: 'select',
   label: 'State/Region',
   name: 'state_region',
   value: '',
+  options: state_names,
   required: false,
   placholder: '',
 }
@@ -396,7 +397,7 @@ function onDragEnd(result) {
         <div className="row"> 
 
 
-        <div className="col-md-6 mb-4" onClick={() => addToForm(state_region_obj)}>
+        <div className="col-md-6 mb-4" onClick={() => addToForm(street_address_obj)}>
         <div className="card">
           <div className="card-header">
             <p className="card-text">Street Address</p>
@@ -581,6 +582,7 @@ function onDragEnd(result) {
           {(item.tag == 'select' ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
             {item.options.map(value => {
+              console.log('item',item)
                 return (
                   <option>{value}</option>
                 )
