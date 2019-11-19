@@ -314,7 +314,7 @@ function onDragEnd(result) {
           .dropZoneHide {
             min-height: 10px;  
             width: 100%;
-            visibility: hiddedn;
+            visibility: hidden;
           }
 
           .hoverDropZone {
@@ -562,6 +562,7 @@ function onDragEnd(result) {
                 {fieldList.map((item, index) => (  
 
       <div>
+          
                     {dropzone(index)}
 
                       <div 
@@ -576,7 +577,7 @@ function onDragEnd(result) {
                         onClick={() => console.log('hi', index)}>
                         {/* <button onClick={(e)=>removeOne(e, index, item)}>x</button> */}
                  
-                      <label>{item.label}</label>
+                      <label style={{fontSize: '11px'}}>{item.label}</label>
                       {/* {console.log(item)} */}
           {(item.tag == 'select' ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
@@ -589,7 +590,6 @@ function onDragEnd(result) {
           </select>
           : <input type={item.type} ></input> )}
           </div>
-<br></br>
 
 </div>
 
@@ -619,7 +619,8 @@ function onDragEnd(result) {
     }
 
     input, select {
-        padding: 12px 20px;
+        width: 100%;
+        padding: 5px 20px;
         margin: 8px 0;
         display: block;
         border: 1px solid #ccc;
@@ -650,12 +651,12 @@ function onDragEnd(result) {
     
 
     .elemContainer {
-      margin: 20px;
+      margin: 10px;
     }
    
 
     .elemContainerHighlight {
-      margin: 20px;
+      margin: 10px;
       border: 1px solid blue;
       background-color: #f2f2f2;
       cursor: grab;
