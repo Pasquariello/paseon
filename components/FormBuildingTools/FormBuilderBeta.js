@@ -10,7 +10,7 @@ import FormSandBox from '../FormSandBox';
 import React, { useState } from 'react';
 
 import classNames from 'classnames'
-
+import {states} from '../../utils/states';
 
 /////////////////////////////
 /////////////////////////////
@@ -18,7 +18,6 @@ import classNames from 'classnames'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { resetServerContext } from 'react-beautiful-dnd';
 import { renderToString } from 'react-dom/server';
-import { func } from 'prop-types';
 
 // ...
 
@@ -37,7 +36,7 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function FormBuilderBeta(props) {
-
+console.log('STATES', states)
 
 /////////////////////////////////////////
 ////////START INPUT OBJECTSSSSSS/////////
