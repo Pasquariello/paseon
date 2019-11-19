@@ -147,29 +147,6 @@ const [initDrag, setInitDrag] = useState();
  
 
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-function onDragEnd(result) {
-  // dropped outside the list
-  if (!result.destination) {
-    return;
-  }
-
-  const items = reorder(
-    fieldList,
-    //this.state.items,
-    result.source.index,
-    result.destination.index
-  );
-  // props.removeSingle(items)
-
-
-}
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
@@ -178,7 +155,13 @@ function onDragEnd(result) {
 
     
 
-    
+    function showPaseonTag() {
+
+      console.log('<h1>hell this is a form</h1>')
+
+      
+
+    }
 
     function handleElemSelect(e){
       setElem(e.target.value)
@@ -594,9 +577,39 @@ function onDragEnd(result) {
       {/* to see raw form with complete structure */}
       <button>Raw Form</button>   
       {/* to see the custom paseon form with attribute that points to correct saved form object */}
-      <button>Paseon Form</button>
+      {/* <button>Paseon Form</button> */}
+      <button type="button" data-toggle="modal" data-target="#exampleModal">
+        Paseon Form
+      </button>
       </div>
       </div>
+
+{/* START MODAL - TODO PUT INTO OWN COMPONENT*/}
+      {/* <!-- Button trigger modal --> */}
+
+
+{/* <!-- Modal --> */}
+<div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Paseon Tags</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        This is your paseon form tag.  Please copy and past the following HTML to anywhere in your site that you would like to launch this campaign
+      
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{/* END MODAL */}
 
 {/* REORDER END */}
 
