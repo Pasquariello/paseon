@@ -285,10 +285,10 @@ function onDragEnd(result) {
     function dropzone(index) {
 
       let classes = classNames(
-
         {
           'hoverDropZone': activeDropZone == index,
-          'dropZoned': initDrag
+          'dropZone': initDrag,
+          'dropZoneHide' :!initDrag
         }
       );
 
@@ -304,10 +304,17 @@ function onDragEnd(result) {
       ></div>
         <style jsx>
         {`
-          .dropZoned {
+          .dropZone {
             min-height: 10px;  
             width: 100%;
             border: 1px dashed blue;
+            visibility: visible;
+          }
+
+          .dropZoneHide {
+            min-height: 10px;  
+            width: 100%;
+            visibility: hiddedn;
           }
 
           .hoverDropZone {
@@ -651,6 +658,7 @@ function onDragEnd(result) {
       margin: 20px;
       border: 1px solid blue;
       background-color: #f2f2f2;
+      cursor: grab;
   
     }
     
