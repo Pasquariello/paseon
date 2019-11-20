@@ -263,8 +263,8 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
           );
    
 
-          let email_bool_text = 'Email boolean text';
-          let shareable_text = 'Shareable text';
+          let email_bool_text = 'Do the submissions of this form need to be sent to an email?';
+          let shareable_text = 'Will you be sending this form directly to your users to fill out?';
 
     return (
         <LayoutApp>
