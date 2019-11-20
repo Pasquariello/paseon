@@ -658,7 +658,7 @@ let lastElem = campaignForm.fields.length - 1
                         className={buildContainerClasses(index)}
                         onMouseEnter={() => setEditItemDetails(index)}
                         onMouseLeave={() => setEditItemDetails(null)}  
-                        onClick={() => console.log('hi', index)}>
+                      >
                         <button onClick={(e)=>removeOne(e, index, item)}>x</button>
                  
                       <label style={{fontSize: '11px'}}>{item.label}</label>
