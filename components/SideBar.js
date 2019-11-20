@@ -1,19 +1,18 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-
-
-
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown'
 
 
 // const SideBar = props => (
 export default function SideBar(props) {
 
- 
+
   
 
   return(
     <>
-    <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right`}>
+    {/* <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right`}>
     <div>
     <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
     <h2 className="logoFont">Paseon</h2>
@@ -50,7 +49,56 @@ export default function SideBar(props) {
         </Link>    
       </li>
    
-      </ul>
+      </ul> */}
+      <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right flex-column`}>
+      <div>
+    <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
+    <h2 className="logoFont">Paseon</h2>
+    <hr></hr>
+  </div>
+      <li className="sidebar-item" >
+        <Link href="/dashboard">
+          <a className="nav-link">Dashboard</a>
+        </Link>    
+      </li>
+      <li className="sidebar-item" >
+        <Link href="/account">
+          <a className="nav-link">Account Settings</a>
+        </Link>    
+      </li>
+      <li className="sidebar-item" >
+        <Link href="/campaignManagment/campaigns">
+          <a className="nav-link">Campaigns</a>
+        </Link>    
+      </li>
+      <li className="sidebar-item" >
+        <Link href="/zTestPage">
+          <a className="nav-link">Form Builder</a>
+        </Link>    
+      </li>
+      <li className="sidebar-item" >
+        <Link href="/email_archives">
+          <a className="nav-link">Archived Emails</a>
+        </Link>    
+      </li>
+      <li className="sidebar-item" >
+        <Link href="/">
+          <a className="nav-link">Integrations</a>
+        </Link>    
+      </li>
+      <NavDropdown title="Campaigns" id="nav-dropdown" className="sidebar-item">
+      <NavDropdown.Item eventKey="4.2">
+        <Link href="/campaignManagment/new_campaign">
+          <a className="nav-link">New</a>
+        </Link>    
+        </NavDropdown.Item>
+        <NavDropdown.Item eventKey="4.1">
+        <Link href="/campaignManagment/campaigns">
+          <a className="nav-link">Manage Existing Campaigns</a>
+        </Link>    
+        </NavDropdown.Item>
+      </NavDropdown>
+    </ul>
 
     <style jsx>{`
    .sidebar-item {
@@ -59,6 +107,7 @@ export default function SideBar(props) {
         margin-top: 15px;
         margin-bottom: 15px;
         display: block;
+        color: pink
     }
 
 
