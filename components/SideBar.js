@@ -66,11 +66,18 @@ export default function SideBar(props) {
           <a className="nav-link">Account Settings</a>
         </Link>    
       </li>
-      <li className="sidebar-item" >
-        <Link href="/campaignManagment/campaigns">
-          <a className="nav-link">Campaigns</a>
+      <NavDropdown title="Campaigns" id="nav-dropdown" className="sidebar-item">
+      <NavDropdown.Item eventKey="4.2">
+        <Link href="/campaignManagment/new_campaign">
+          <a className="nav-link">New</a>
         </Link>    
-      </li>
+        </NavDropdown.Item>
+        <NavDropdown.Item eventKey="4.1">
+        <Link href="/campaignManagment/campaigns">
+          <a className="nav-link">Manage Existing Campaigns</a>
+        </Link>    
+        </NavDropdown.Item>
+      </NavDropdown>
       <li className="sidebar-item" >
         <Link href="/zTestPage">
           <a className="nav-link">Form Builder</a>
@@ -86,18 +93,7 @@ export default function SideBar(props) {
           <a className="nav-link">Integrations</a>
         </Link>    
       </li>
-      <NavDropdown title="Campaigns" id="nav-dropdown" className="sidebar-item">
-      <NavDropdown.Item eventKey="4.2">
-        <Link href="/campaignManagment/new_campaign">
-          <a className="nav-link">New</a>
-        </Link>    
-        </NavDropdown.Item>
-        <NavDropdown.Item eventKey="4.1">
-        <Link href="/campaignManagment/campaigns">
-          <a className="nav-link">Manage Existing Campaigns</a>
-        </Link>    
-        </NavDropdown.Item>
-      </NavDropdown>
+
     </ul>
 
     <style jsx>{`
