@@ -126,6 +126,16 @@ const zip_code_obj = {
   placholder: '',
 }
 
+const blank_obj = { 
+  type: 'text',
+  tag: 'input',
+  label: '',
+  name: '',
+  value: '',
+  required: false,
+  placholder: '',
+}
+
 
 const single_text_obj = {
   type: 'text',
@@ -216,17 +226,40 @@ const [initDrag, setInitDrag] = useState();
     }
 
     const [editToggle, setEditToggle] = useState(false)
-    function openEdit(){
+    
+    function openEdit(input_obj){
+      addToForm (input_obj)
       setEditToggle(!editToggle)
     }
 
-    function editInputView() {
+    function editInputView(index) {
+
+      let edit_obj = campaignForm.fields[index]
+
+      // const [array, setArray] = useState([
+      // {'id': 0, text: '0'},
+      // {'id': 1, text: '1'},
+      // {'id': 2, text: '2'}
+      // ]);
+
+      // ... somewhere else.
+      let copy = []
+      copy = [...campaignForm.fields ]
+      console.log('Copy  of Entire Array', copy)
+      // copy[index].text = '3' 
+      // setArray(copy)
       
       // maybe pass in an object that is the schema for each type?
       // rememnber addToForm with no arg passed in created an empty field in the field list!
       return (
         <>
-        <h1>EDIT VIEW!</h1>
+        <div>
+        <label htmlFor="elem">Edit</label>
+        <div style={{float: 'right'}} onClick={()=>setEditToggle(false) }>
+        <button>x</button>
+        </div>
+        </div>
+        <hr></hr>
         <form>
 
           <div class="form-group">
@@ -259,9 +292,10 @@ const [initDrag, setInitDrag] = useState();
           </div>
 
           <div class="custom-control custom-switch">
-            <label class="custom-control-label" for="customSwitch1">Make This Field  Require</label>
-            <br></br>
+     
             <input type="checkbox" class="custom-control-input" id="customSwitch1"></input>
+            <label class="custom-control-label" for="customSwitch1">Make This Field  Require</label>
+
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -392,6 +426,7 @@ const [initDrag, setInitDrag] = useState();
     );
 }
 
+let lastElem = campaignForm.fields.length - 1
 
   return (
     <>
@@ -399,7 +434,7 @@ const [initDrag, setInitDrag] = useState();
       <div className="flex-grid">
 <div className="col">
       <LeftBar>
-        {editToggle ? editInputView() : null}
+        {editToggle ? editInputView(lastElem) : null}
       <hr></hr>
         <label htmlFor="elem">Frequently Used</label>
 
@@ -497,7 +532,7 @@ const [initDrag, setInitDrag] = useState();
 
     <div className="row"> 
 
-      <div className="col-md-4 mb-4" onClick={openEdit}>
+      <div className="col-md-4 mb-4" onClick={()=>openEdit(blank_obj)}>
         <div className="card mb-4">
             <div className="card-body">
                 <p className="card-title">Single Line</p>
