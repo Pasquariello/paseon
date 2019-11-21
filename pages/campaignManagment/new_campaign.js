@@ -284,8 +284,8 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
       <legend className="col-form-label col-sm-2 pt-0">
           Send Responses to an Email Address
       </legend>
-      <OverlayTrigger trigger="click" placement="right" overlay={popover(email_bool_text)} text={email_bool_text}>
-    <button type="button" className="btn btn-info btn-circle">i<i className="fa fa-check"></i></button>
+            <OverlayTrigger trigger="click" placement="right" overlay={popover(email_bool_text)} text={email_bool_text}>
+    <button type="button" className="btn btn-info btn-circle">?<i className="fa fa-check"></i></button>
 </OverlayTrigger>
       <div className="col-sm-10">
        
@@ -336,13 +336,13 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
     <div className="row">
       <legend className="col-form-label col-sm-2 pt-0">
         Does this form need to be shareable
-
+        </legend>
         <OverlayTrigger trigger="click" placement="right" overlay={popover(shareable_text)}>
-            <button type="button" className="btn btn-info btn-circle">i<i className="fa fa-check"></i></button>
+            <button type="button" className="btn btn-info btn-circle">?<i className="fa fa-check"></i></button>
         </OverlayTrigger>
 
 
-        </legend>
+  
       <div className="col-sm-10">
 <div className="form-check">
             <input 
@@ -421,15 +421,15 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 }
 
 .btn-circle {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     margin: 15px;
 
-    // padding: 6px 0px;
+    padding: 2px 0px;
     border-radius: 15px;
     // text-align: center;
     font-size: 10px;
-    line-height: 1.42857;
+   // line-height: 1.42857;
 }
 
 
