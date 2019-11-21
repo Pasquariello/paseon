@@ -280,16 +280,13 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
 <fieldset className="form-group">
     <div className="row">
+        
       <legend className="col-form-label col-sm-2 pt-0">
           Send Responses to an Email Address
-          
-
-
-<OverlayTrigger trigger="click" placement="right" overlay={popover(email_bool_text)} text={email_bool_text}>
+      </legend>
+      <OverlayTrigger trigger="click" placement="right" overlay={popover(email_bool_text)} text={email_bool_text}>
     <button type="button" className="btn btn-info btn-circle">i<i className="fa fa-check"></i></button>
 </OverlayTrigger>
-
-      </legend>
       <div className="col-sm-10">
        
         <div className="form-check">
@@ -414,9 +411,10 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             <style jsx>{`
 
 .btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
+    width: 20px;
+    height: 20px;
+    // padding: 10px 16px;
+    margin: 5px;
     border-radius: 35px;
     font-size: 24px;
     line-height: 1.33;
@@ -425,10 +423,12 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 .btn-circle {
     width: 30px;
     height: 30px;
-    padding: 6px 0px;
+    margin: 15px;
+
+    // padding: 6px 0px;
     border-radius: 15px;
-    text-align: center;
-    font-size: 12px;
+    // text-align: center;
+    font-size: 10px;
     line-height: 1.42857;
 }
 
