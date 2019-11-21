@@ -16,7 +16,7 @@ import { func } from 'prop-types'
 
 
 
-function Login () {
+function Register () {
   const dispatch = useDispatch()
 
 
@@ -108,30 +108,39 @@ function Login () {
   return (
     <Layout>
       <div className='login'>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor='username'>Username</label>
+      <form>
 
-          <input
-            type='text'
-            id='username'
-            name='username'
-            value={userData.username}
-            onChange={event =>
-              setUserData(
-                Object.assign({}, userData, { username: event.target.value })
-              )
-            }
-          />
-
-          <button type='submit'>Login</button>
-
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                        <label for="inputFirstName">First Name</label>
+                        <input type="text" className="form-control" id="inputFirstName" placeholder="First Name"></input>
+                        </div>
+                        <div className="form-group col-md-6">
+                        <label for="inputLastName">Last Name</label>
+                        <input type="text" className="form-control" id="inputLastName" placeholder="Last Name"></input>
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" className="form-control" id="inputEmail4" placeholder="Email"></input>
+                    </div>
+                    <div className="form-group">
+                        <label for="inputPassword1">Password</label>
+                        <input type="password" className="form-control" id="inputPassword1" placeholder="Password"></input>
+                    </div>
+                    <div className="form-group">
+                        <label for="inputPassword2">Re-Enter Password</label>
+                        <input type="password" className="form-control" id="inputPassword2" placeholder="Password"></input>
+                    </div>
+                    <div className="form-group">
+                        <label for="inputCompany">Company</label>
+                        <input type="text" className="form-control" id="inputCompany" placeholder="Company"></input>
+                    </div>
+           
+       
+{/* */}
           {userData.error && <p className='error'>Error: {userData.error}</p>}
         </form>
-
-        <Link href="/register">
-          <a>Regiseter</a>
-        </Link>
-        
       </div>
       <style jsx>{`
         .login {
@@ -163,7 +172,7 @@ function Login () {
   )
 }
 
-Login.getInitialProps = ({ reduxStore }) => {
+Register.getInitialProps = ({ reduxStore }) => {
   console.log('reduxStore',reduxStore)
   // Tick the time once, so we'll have a
   // valid time before first render
@@ -178,7 +187,7 @@ Login.getInitialProps = ({ reduxStore }) => {
   return {}
 }
 
-export default withRedux(Login)
+export default withRedux(Register)
 
 // export default Login
 
