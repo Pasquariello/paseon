@@ -11,19 +11,19 @@ import Footer from './Footer';
 const Layout = props => (
 
   <div id='myLayout'>
-     <Head>
-          <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
+     {/* <Head> */}
+          {/* <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
 
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
-
+ */}
+{/* 
           <title>
               Paseon
-          </title>
-        </Head>
+          </title> */}
+        {/* </Head> */}
     <Header />
     <div>
     {props.children}

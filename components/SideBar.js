@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown'
+
+
+
 
 
 // const SideBar = props => (
@@ -66,18 +67,6 @@ export default function SideBar(props) {
           <a className="nav-link">Account Settings</a>
         </Link>    
       </li>
-      <NavDropdown title="Campaigns" id="nav-dropdown" className="sidebar-item">
-      <NavDropdown.Item eventKey="4.2">
-        <Link href="/campaignManagment/new_campaign">
-          <span className="nav-link">New</span>
-        </Link>    
-        </NavDropdown.Item>
-        <NavDropdown.Item eventKey="4.1">
-        <Link href="/campaignManagment/campaigns">
-          <span className="nav-link">Manage Existing Campaigns</span>
-        </Link>    
-        </NavDropdown.Item>
-      </NavDropdown>
       <li className="sidebar-item" >
         <Link href="/zTestPage">
           <a className="nav-link">Form Builder</a>
@@ -93,6 +82,23 @@ export default function SideBar(props) {
           <a className="nav-link">Integrations</a>
         </Link>    
       </li>
+      <span className="sidebar-item" >
+      <a className="nav-link" data-toggle="collapse" href="#campaignOptionCollapse"  aria-expanded="true" aria-controls="campaignOptionCollapse">Campaigns</a>
+
+      <div className="collapse multi-collapse hide" id="campaignOptionCollapse"> 
+      <li className="sidebar-item" >
+        <Link  href="/campaignManagment/new_campaign">
+          <a className="nav-link">New</a>
+        </Link>    
+      </li>
+      <li className="sidebar-item" >
+        <Link  href="/campaignManagment/campaigns">
+          <a className="nav-link">Existing</a>
+        </Link>    
+      </li>
+      </div>
+      </span>
+
 
     </ul>
 
@@ -103,7 +109,6 @@ export default function SideBar(props) {
         margin-top: 15px;
         margin-bottom: 15px;
         display: block;
-        color: pink
     }
 
 

@@ -23,7 +23,7 @@ export default function QuickAnalyticsCard(props) {
                         </div>
                         </div>
                         <div className="col-auto">
-                        <i className="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        {/* <i className="fas fa-clipboard-list fa-2x text-gray-300"></i> */}
                         </div>
                     </div>
                     </div>

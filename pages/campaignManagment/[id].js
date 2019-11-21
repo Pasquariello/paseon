@@ -7,9 +7,8 @@ import Link from 'next/link';
 import { CSVLink, CSVDownload } from "react-csv";
 import { useState } from 'react';
 
-import { withAuthSync } from '../../utils/auth'
-
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileCsv } from '@fortawesome/free-solid-svg-icons'
 
 function Campaign(props) {
 
@@ -60,7 +59,9 @@ function Campaign(props) {
                 headers={headers}
                 filename={campaign_name}
             >
-                Download me
+                Download me 
+                <FontAwesomeIcon fixedWidth size="1x" icon={faFileCsv} />
+
             </CSVLink>
 
           
@@ -99,4 +100,4 @@ Campaign.getInitialProps = async function(context, props) {
     // table columns need to be form fields mapped to columns - make editable?
 };
 
-export default withAuthSync(Campaign);
+export default Campaign;

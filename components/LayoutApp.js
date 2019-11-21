@@ -52,8 +52,8 @@ function toggleWidth() {
 return (
 
   <div  className="wrapper">
-     <Head>
-          <link rel="stylesheet" href="node_modules/react-table/react-table.css"></link>
+     {/* <Head> */}
+          {/* <link rel="stylesheet" href="node_modules/react-table/react-table.css"></link>
           <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
           <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
           
@@ -63,8 +63,8 @@ return (
 
           <title>
               Paseon
-          </title>
-        </Head>
+          </title> */}
+        {/* </Head> */}
 
             <SideBar
               sideNavWidth={sideNavWidth}
