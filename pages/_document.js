@@ -19,7 +19,7 @@ export default class extends Document {
 
 
             <title>
-                WTF
+                Paseon
             </title>
 
 
