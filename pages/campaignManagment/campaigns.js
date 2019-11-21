@@ -116,7 +116,7 @@ function Campaigns(props) {
             <ReactTable
             data={campaignListState}
             columns={columns}
-            defaultPageSize ='10'
+            defaultPageSize ={10}
             /> 
             </>
         )
