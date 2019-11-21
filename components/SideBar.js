@@ -69,12 +69,12 @@ export default function SideBar(props) {
       <NavDropdown title="Campaigns" id="nav-dropdown" className="sidebar-item">
       <NavDropdown.Item eventKey="4.2">
         <Link href="/campaignManagment/new_campaign">
-          <a className="nav-link">New</a>
+          <span className="nav-link">New</span>
         </Link>    
         </NavDropdown.Item>
         <NavDropdown.Item eventKey="4.1">
         <Link href="/campaignManagment/campaigns">
-          <a className="nav-link">Manage Existing Campaigns</a>
+          <span className="nav-link">Manage Existing Campaigns</span>
         </Link>    
         </NavDropdown.Item>
       </NavDropdown>

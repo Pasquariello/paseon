@@ -36,7 +36,6 @@ export const auth = ctx => {
    * Additionally if there's no token it means the user is not logged in.
    */
   if (ctx.req && !token) {
-    console.log('IFFFFFF ')
     ctx.res.writeHead(302, { Location: '/login' })
     ctx.res.end()
   }
@@ -47,7 +46,8 @@ export const auth = ctx => {
     Router.push('/login')
   }
 
-  return userId
+  console.log('IN AUTH', userId)
+  return userId;
 }
 
 export const logout = () => {

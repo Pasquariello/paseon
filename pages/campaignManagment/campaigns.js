@@ -160,28 +160,26 @@ function Campaigns(props) {
 }
 
 Campaigns.getInitialProps = async function(ctx) {
-    console.log(
-        'hello from init props'
-    )
 
-    const { id } = ctx.query;
-      console.log('ID', id)
-    let myID = auth(ctx)
-    console.log('AUTH AUTH AUTH', myID)
-    let idTest = null
-    // console.log('reduxStore 111', ctx.reduxStore.getState())
-    // console.log('reduxStore', ctx.reduxStore.getState().auth.user)
-    if (ctx.reduxStore.getState().auth.user){
-      idTest = ctx.reduxStore.getState().auth.user.id
-    } else {
-      idTest = myID
-    }
-    const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${idTest}`);
-    //const res = await fetch('http://localhost:3001/campaign/get_campaigns');
+    
+    // let idTest = null;
+
+    //  TODO - DO I NEED THIS????
+    // if (ctx.reduxStore.getState().auth.user){
+    //   idTest = ctx.reduxStore.getState().auth.user.id
+    // } else {
+    //   idTest = userId
+    // }
+    // console.log('idTest', idTest);
+
+    const userId = auth(ctx);
+
+    const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
     const data = await res.json();
     console.log('resolved');
     
     console.log('I got: ',data);
+
     return {
       campaignList: data
     };
