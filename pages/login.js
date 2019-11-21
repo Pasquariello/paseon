@@ -129,9 +129,9 @@ function Login () {
         </form>
 
         <Link href="/register">
-          <a>Regiseter</a>
+          <a>Register</a>
         </Link>
-        
+
       </div>
       <style jsx>{`
         .login {

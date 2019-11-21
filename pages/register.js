@@ -109,7 +109,6 @@ function Register () {
     <Layout>
       <div className='login'>
       <form>
-
                     <div className="form-row">
                         <div className="form-group col-md-6">
                         <label for="inputFirstName">First Name</label>
@@ -136,7 +135,7 @@ function Register () {
                         <label for="inputCompany">Company</label>
                         <input type="text" className="form-control" id="inputCompany" placeholder="Company"></input>
                     </div>
-           
+            <button type="submit">Register</button>
        
 {/* */}
           {userData.error && <p className='error'>Error: {userData.error}</p>}
@@ -144,7 +143,7 @@ function Register () {
       </div>
       <style jsx>{`
         .login {
-          max-width: 340px;
+          max-width: 700px;
           margin: 0 auto;
           padding: 1rem;
           border: 1px solid #ccc;

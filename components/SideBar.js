@@ -83,7 +83,7 @@ export default function SideBar(props) {
         </Link>    
       </li>
       <span className="sidebar-item" >
-      <a className="nav-link" data-toggle="collapse" href="#campaignOptionCollapse"  aria-expanded="true" aria-controls="campaignOptionCollapse">Campaigns</a>
+      <a className="nav-link" data-toggle="collapse" href="#campaignOptionCollapse"  aria-expanded="true" aria-controls="campaignOptionCollapse">Campaigns <span style={{fontSize: '12px'}}>&#x25BC;</span></a>
 
       <div className="collapse multi-collapse hide" id="campaignOptionCollapse"> 
       <li className="sidebar-item" >
