@@ -324,7 +324,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 </fieldset>
 
 
-                {campaignForm.email_bool === 'yes'  ?   
+                {campaignForm.email_bool === 'yes'  ? 
                     <div className="form-group">
                         <label htmlFor="recipient_email">Recipient Email</label>
                         <input value={campaignForm.recipient_email} onChange={(e) => setCampaignForm({...campaignForm, recipient_email: e.target.value})} type="text" className="form-control" id="recipient_email" placeholder="Recipient Email"></input>

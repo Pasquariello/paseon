@@ -68,7 +68,7 @@ import {
   export const login = async(userData) => {
   //export async function login_action (userData) {
 
-   console.log('in action login_action')
+    console.log('in action login_action')
     const {username} = userData
     let url = 'http://localhost:3001/login/auth'
 
@@ -79,18 +79,10 @@ import {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username })
-      })
-      console.log('response', response)
+      });
+      
       if (response.status === 200) {
-        console.log(response)
-        console.log('success')
-        //const { token, payload } = await response.json()
-        let data = await response.json();
-        console.log('data', data)
-        //console.log('payload', payload)
-        //await login({ token })
-        //console.log('token', token)
-
+        let data = await response.json(); 
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data
@@ -111,47 +103,8 @@ import {
         error
       )
 
-      const { response } = error
-    //   setUserData(
-    //     Object.assign({}, userData, {
-    //       error: response ? response.statusText : error.message
-    //     })
-    //   )
     }
    
-   
-   
-   
-   
-   
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // };
-  
-    // const body = JSON.stringify({ email, password });
-    // try {
-    //   const res = await axios.post("/api/auth", body, config);
-  
-    //   dispatch({
-    //     type: LOGIN_SUCCESS,
-    //     payload: res.data
-    //   });
-  
-    //   dispatch(loadUser());
-    // } catch (error) {
-    //   const errors = error.response.data.errors;
-  
-    //   if (errors) {
-    //       console.log('error')
-    //     //errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
-    //   }
-  
-    //   dispatch({
-    //     type: LOGIN_FAIL
-    //   });
-    // }
   };
   
   // Logout
