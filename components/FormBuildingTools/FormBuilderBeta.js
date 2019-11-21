@@ -172,6 +172,8 @@ const [itemToMove, setItemToMove] = useState();
 const [activeDropZone, setActiveDropZone] = useState();
 
 const [initDrag, setInitDrag] = useState();
+
+
  
 
 
@@ -710,8 +712,10 @@ let lastElem = campaignForm.fields.length - 1
         </button>
       </div>
       <div className="modal-body">
-        This is your paseon form tag.  Please copy and past the following HTML to anywhere in your site that you would like to launch this campaign
-      
+        <p>Copy and paste the below HTML anywhere you would like to display your new custom campaign.</p>
+      &lt; PaseonForms &#47;&gt;
+      <br></br>
+      &lt; Script &gt;  &lt;&#47; Script &gt;      
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
