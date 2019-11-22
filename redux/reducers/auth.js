@@ -26,6 +26,7 @@ import {
     const { type, payload } = action;
     switch (type) {
       case REGISTER_SUCCESS:
+        console.log('REGISTER SUCCESS')
         //localStorage.setItem("token", payload.token);
         return {
           ...state,

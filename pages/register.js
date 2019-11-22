@@ -12,24 +12,28 @@ import { func } from 'prop-types'
 
 
 
-
-
-
-
 function Register () {
   const dispatch = useDispatch()
 
-
-  const [userData, setUserData] = useState({ username: '', error: '' })
+  const [userData, setUserData] = useState({
+      firstname: '',
+      lastname: '',
+      password1: '',
+      password2: '',
+      email: '',
+      company: ''
+  })
 
   async function handleSubmit (event) {
     
     event.preventDefault()
-    setUserData(Object.assign({}, userData, { error: '' }))
-    const username = userData.username
-    console.log('hi', username)
 
-    let url = 'http://localhost:3001/login/auth'
+    setUserData(Object.assign({}, userData, { error: '' }))
+    
+    const username = userData.username
+    console.log('userData', userData)
+
+    let url = 'http://localhost:3001/register/'
 
     try {
 
@@ -37,7 +41,7 @@ function Register () {
         
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username })
+        body: JSON.stringify(userData)
       }).then(
         function(response) {
           if (response.status !== 200) {
@@ -51,45 +55,16 @@ function Register () {
             console.log('DATA', data)
 
             dispatch({
-              type: 'LOGIN_SUCCESS',
+              type: 'REGISTER_SUCCESS',
               payload: data
             });
 
 
             Router.push('/dashboard')
 
-          })
+          });
         }
-      )
-      // if (response.status !== 200) {
-      //   console.log('problem')
-        // console.log('success')
-        // const { token, userData } = await response.json()
-
-        //  console.log('payload', userData)
-        // //await login({ token })
-
-        // dispatch({
-        // type: 'LOGIN_SUCCESS',
-        // payload: token
-        // });
-
-        
-        // dispatch({
-        //   type: 'USER_LOADED',
-        //   payload: userData
-        // });
-
-        // TODO: causing a weird flash
-        // Router.push('/dashboard')
-        // console.log('token', token)
-     // } 
-      // else {
-      //   console.log('Login failed.')
-      //   let error = new Error(response.statusText)
-      //   error.response = response
-      //   throw error
-      // }
+      );
     } catch (error) {
       console.error(
         'You have an error in your code or there are Network issues.',
@@ -105,35 +80,69 @@ function Register () {
     }
   }
 
+  function setFormValuesToState(e, state_key){
+    setUserData({...userData, [state_key]: e.target.value})
+    console.log('on change userData', userData)
+  }
+
   return (
     <Layout>
       <div className='login'>
-      <form>
+      <form onSubmit={handleSubmit}>
                     <div className="form-row">
                         <div className="form-group col-md-6">
                         <label for="inputFirstName">First Name</label>
-                        <input type="text" className="form-control" id="inputFirstName" placeholder="First Name"></input>
+                        <input 
+                            onChange={(e) => setFormValuesToState(e, 'firstname')}
+                            type="text" className="form-control" 
+                            id="inputFirstName" 
+                            placeholder="First Name"></input>
                         </div>
                         <div className="form-group col-md-6">
                         <label for="inputLastName">Last Name</label>
-                        <input type="text" className="form-control" id="inputLastName" placeholder="Last Name"></input>
+                        <input 
+                            onChange={(e) => setFormValuesToState(e, 'lastname')}
+                            type="text" 
+                            className="form-control" 
+                            id="inputLastName" 
+                            placeholder="Last Name"></input>
                         </div>
                     </div>
                     <div className="form-row">
                         <label for="inputEmail4">Email</label>
-                        <input type="email" className="form-control" id="inputEmail4" placeholder="Email"></input>
+                        <input 
+                            onChange={(e) => setFormValuesToState(e, 'email')}
+                            type="email" 
+                            className="form-control" 
+                            id="inputEmail4" 
+                            placeholder="Email"></input>
                     </div>
                     <div className="form-group">
                         <label for="inputPassword1">Password</label>
-                        <input type="password" className="form-control" id="inputPassword1" placeholder="Password"></input>
+                        <input 
+                            onChange={(e) => setFormValuesToState(e, 'password1')}
+                            type="password" 
+                            className="form-control" 
+                            id="inputPassword1" 
+                            placeholder="Password"></input>
                     </div>
                     <div className="form-group">
                         <label for="inputPassword2">Re-Enter Password</label>
-                        <input type="password" className="form-control" id="inputPassword2" placeholder="Password"></input>
+                        <input
+                            onChange={(e) => setFormValuesToState(e, 'password2')}
+                            type="password" 
+                            className="form-control" 
+                            id="inputPassword2" 
+                            placeholder="Password"></input>
                     </div>
                     <div className="form-group">
                         <label for="inputCompany">Company</label>
-                        <input type="text" className="form-control" id="inputCompany" placeholder="Company"></input>
+                        <input 
+                            onChange={(e) => setFormValuesToState(e, 'company')}
+                            type="text" 
+                            className="form-control" 
+                            id="inputCompany" 
+                            placeholder="Company"></input>
                     </div>
             <button type="submit">Register</button>
        
