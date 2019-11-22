@@ -11,6 +11,9 @@ import { withAuthSync } from '../utils/auth';
 import { useSelector, shallowEqual } from 'react-redux';
 import { auth } from '../utils/auth'
 
+
+import TestChart from '../components/TESTCHART';
+
 const getUserInfo = () => {
   return useSelector(
     state => ({
@@ -117,12 +120,16 @@ function Dashboard () {
 
 {/*  */}
 
+<TestChart/>
 <div className="row"> 
             <div className="col-md-6">
                     
 
               <div className="card mb-4">
                 <div className="card-body">
+
+                 
+
                   <h5 className="card-title">Card title</h5>
                   <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
                   <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
