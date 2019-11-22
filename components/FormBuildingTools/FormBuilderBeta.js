@@ -316,25 +316,26 @@ const [initDrag, setInitDrag] = useState();
 
 
     function transfromJSONtoHTML() {
-        let my_arry = [
-          {
-            tag: 'input',
-            type: 'text',
-            label: 'test label'
-          },
-          {
-            tag: 'input',
-            type: 'email',
-            label: 'test label',
-            placeholder: 'taylor@pasq.net'
-          },
-          {
-            tag: 'input',
-            type: 'email',
-            label: 'test label',
-            placeholder: 'taylor@pasq.net'
-          }
-        ]
+      // TEST DATA
+        // let my_arry = [
+        //   {
+        //     tag: 'input',
+        //     type: 'text',
+        //     label: 'test label'
+        //   },
+        //   {
+        //     tag: 'input',
+        //     type: 'email',
+        //     label: 'test label',
+        //     placeholder: 'taylor@pasq.net'
+        //   },
+        //   {
+        //     tag: 'input',
+        //     type: 'email',
+        //     label: 'test label',
+        //     placeholder: 'taylor@pasq.net'
+        //   }
+        // ]
 
         // / = &sol;
         // < = &lt;
@@ -345,13 +346,13 @@ const [initDrag, setInitDrag] = useState();
           {`<form>`} <br></br>
           
         
-          {my_arry.map(field => {
+          {campaignForm.fields.map(field => {
                        
                        
                 return (
-                <div>
+                <div>&nbsp; {/* ADDS SPACE*/}
                  {`
-                 <${field.tag} type='${field.type}>
+                 <${field.tag} type="${field.type}"></${field.tag}>
                 `}
                 <br></br>
                 </div>
@@ -500,7 +501,7 @@ let elems = transfromJSONtoHTML()
         {editToggle ? editInputView(lastElem) : null}
       <hr></hr>
 
-     {elems}
+     
 
 
         <label htmlFor="elem">Frequently Used</label>
@@ -777,10 +778,11 @@ let elems = transfromJSONtoHTML()
         </button>
       </div>
       <div className="modal-body">
-        <p>Copy and paste the below HTML anywhere you would like to display your new custom campaign.</p>
+      {elems}
+        {/* <p>Copy and paste the below HTML anywhere you would like to display your new custom campaign.</p>
       &lt; PaseonForms &#47;&gt;
       <br></br>
-      &lt; Script &gt;  &lt;&#47; Script &gt;      
+      &lt; Script &gt;  &lt;&#47; Script &gt;       */}
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
