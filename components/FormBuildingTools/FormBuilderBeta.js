@@ -340,18 +340,37 @@ const [initDrag, setInitDrag] = useState();
         // < = &lt;
         // > = &gt;
 
-        let my_html = 
+        return ( 
+        <div>
+          {`<form>`} <br></br>
+          
+        
+          {my_arry.map(field => {
+                       
+                       
+                return (
+                <div>
+                 {`
+                 <${field.tag} type='${field.type}>
+                `}
+                <br></br>
+                </div>
+              ) 
+        
+            
+            
+            })  }
+            
+          
+        
+          {`</form>`}
 
-        `<form>
-          ${my_arry.map(field => {
-            return `<${field.tag} type="${field.type}"></${field.tag}>`
-          }).join("")}
-        </form>`
+        </div>
 
-
-        return my_html
+        )
 
     }
+
 
     
 
