@@ -37,7 +37,6 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 export default function FormBuilderBeta(props) {
-console.log('STATES', states)
 
 /////////////////////////////////////////
 ////////START INPUT OBJECTSSSSSS/////////
@@ -316,6 +315,47 @@ const [initDrag, setInitDrag] = useState();
     }
 
 
+    function transfromJSONtoHTML() {
+        let my_arry = [
+          {
+            tag: 'input',
+            type: 'text',
+            label: 'test label'
+          },
+          {
+            tag: 'input',
+            type: 'email',
+            label: 'test label',
+            placeholder: 'taylor@pasq.net'
+          },
+        ]
+
+        // / = &sol;
+        // < = &lt;
+        // > = &gt;
+
+        let my_html = 
+        `<form>
+
+          ${my_arry.map(field => {
+          
+          return ` < ${field.tag} type="${field.type}" > < ${field.tag} / >` 
+
+
+
+        })}
+
+        </form>`
+
+      return my_html
+        
+
+
+    }
+
+    
+
+
 //////// DRAG FUNCTIONS
     function dragOver(event, index) {
       event.preventDefault();
@@ -364,6 +404,7 @@ const [initDrag, setInitDrag] = useState();
         .dataTransfer
         .clearData();
     }
+
 
 
     function dropzone(index) {
@@ -428,8 +469,9 @@ const [initDrag, setInitDrag] = useState();
     );
 }
 
-let lastElem = campaignForm.fields.length - 1
 
+let lastElem = campaignForm.fields.length - 1
+let elems = transfromJSONtoHTML()
   return (
     <>
 
@@ -438,6 +480,9 @@ let lastElem = campaignForm.fields.length - 1
       <LeftBar>
         {editToggle ? editInputView(lastElem) : null}
       <hr></hr>
+
+     {elems}
+
         <label htmlFor="elem">Frequently Used</label>
 
         <div className="row"> 
