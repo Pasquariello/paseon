@@ -6,6 +6,7 @@ import victory from "victory";
 import {
   VictoryBar,
   VictoryChart,
+  Bar,
   VictoryLine,
   VictoryPie,
 } from "victory";
@@ -41,9 +42,9 @@ class TestChart extends React.Component {
             scale={{ x: "time" }}
           >
             <VictoryBar
-            //   dataComponent={
-            //     <Bar events={{ onMouseOver: handleMouseOver }}/>
-            //   }
+              dataComponent={
+                <Bar events={{ onMouseOver: handleMouseOver }}/>
+              }
               style={this.state.style}
               data={[
                 { x: new Date(1986, 1, 1), y: 2 },
