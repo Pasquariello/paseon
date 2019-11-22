@@ -328,6 +328,12 @@ const [initDrag, setInitDrag] = useState();
             label: 'test label',
             placeholder: 'taylor@pasq.net'
           },
+          {
+            tag: 'input',
+            type: 'email',
+            label: 'test label',
+            placeholder: 'taylor@pasq.net'
+          }
         ]
 
         // / = &sol;
@@ -335,21 +341,15 @@ const [initDrag, setInitDrag] = useState();
         // > = &gt;
 
         let my_html = 
+
         `<form>
-
           ${my_arry.map(field => {
-          
-          return ` < ${field.tag} type="${field.type}" > < ${field.tag} / >` 
-
-
-
-        })}
-
+            return `<${field.tag} type="${field.type}"></${field.tag}>`
+          }).join("")}
         </form>`
 
-      return my_html
-        
 
+        return my_html
 
     }
 
@@ -482,6 +482,7 @@ let elems = transfromJSONtoHTML()
       <hr></hr>
 
      {elems}
+
 
         <label htmlFor="elem">Frequently Used</label>
 
