@@ -26,7 +26,9 @@ import {
     const { type, payload } = action;
     switch (type) {
       case REGISTER_SUCCESS:
-        console.log('REGISTER SUCCESS')
+        console.log('REGISTER reducer success', payload)
+        cookie.set('token', payload.token, { expires: 36000 })
+        cookie.set('userId', payload.payload.id, { expires: 36000 })
         //localStorage.setItem("token", payload.token);
         return {
           ...state,

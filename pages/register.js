@@ -44,6 +44,7 @@ function Register () {
         body: JSON.stringify(userData)
       }).then(
         function(response) {
+            console.log('STATUS', response.status)
           if (response.status !== 200) {
             console.log('Login failed.')
               let error = new Error(response.statusText)
@@ -52,6 +53,7 @@ function Register () {
           }
 
           response.json().then(function(data){
+            
             console.log('DATA', data)
 
             dispatch({
