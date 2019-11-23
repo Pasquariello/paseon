@@ -30,6 +30,13 @@ function Register () {
 
     if (userData.password1 !== userData.password2){
       console.log('no match')
+      
+      setUserData(
+        Object.assign({}, userData, {
+          error: "Passwords Do Not Match"
+        })
+      )
+
       return;
     }
 
