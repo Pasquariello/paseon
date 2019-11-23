@@ -26,7 +26,12 @@ function Register () {
 
   async function handleSubmit (event) {
     
-    event.preventDefault()
+    event.preventDefault();
+
+    if (userData.password1 !== userData.password2){
+      console.log('no match')
+      return;
+    }
 
     setUserData(Object.assign({}, userData, { error: '' }))
     

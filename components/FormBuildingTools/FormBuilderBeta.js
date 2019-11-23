@@ -352,6 +352,7 @@ const [initDrag, setInitDrag] = useState();
                 return (
                 <div>&nbsp; {/* ADDS SPACE*/}
                  {`
+                 <label>${field.label}</label>
                  <${field.tag} type="${field.type}"></${field.tag}>
                 `}
                 <br></br>
@@ -492,6 +493,7 @@ const [initDrag, setInitDrag] = useState();
 
 let lastElem = campaignForm.fields.length - 1
 let elems = transfromJSONtoHTML()
+console.log(elems)
   return (
     <>
 
@@ -500,9 +502,6 @@ let elems = transfromJSONtoHTML()
       <LeftBar>
         {editToggle ? editInputView(lastElem) : null}
       <hr></hr>
-
-     
-
 
         <label htmlFor="elem">Frequently Used</label>
 
@@ -705,6 +704,12 @@ let elems = transfromJSONtoHTML()
       <div className="col">
         {/* DO I STILL NEED THIS ? */}
 {/* //onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop} */}
+    <button>Raw Form</button>   
+      {/* to see the custom paseon form with attribute that points to correct saved form object */}
+      {/* <button>Paseon Form</button> */}
+      <button type="button" data-toggle="modal" data-target="#exampleModal">
+        Paseon Form
+      </button>
 <FormSandBox>
 <button onClick={(e)=>clearList(e)}>x</button>
 <button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
@@ -754,12 +759,11 @@ let elems = transfromJSONtoHTML()
      {/* TODO: hook these up  */}
       
       {/* to see raw form with complete structure */}
-      <button>Raw Form</button>   
-      {/* to see the custom paseon form with attribute that points to correct saved form object */}
-      {/* <button>Paseon Form</button> */}
+      {/* <button>Raw Form</button>   
+    
       <button type="button" data-toggle="modal" data-target="#exampleModal">
         Paseon Form
-      </button>
+      </button> */}
       </div>
       </div>
 
@@ -778,7 +782,9 @@ let elems = transfromJSONtoHTML()
         </button>
       </div>
       <div className="modal-body">
+
       {elems}
+
         {/* <p>Copy and paste the below HTML anywhere you would like to display your new custom campaign.</p>
       &lt; PaseonForms &#47;&gt;
       <br></br>
