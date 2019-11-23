@@ -98,7 +98,7 @@ function Register () {
       <form onSubmit={handleSubmit}>
                     <div className="form-row">
                         <div className="form-group col-md-6">
-                        <label for="inputFirstName">First Name</label>
+                        <label htmlFor="inputFirstName">First Name</label>
                         <input 
                             onChange={(e) => setFormValuesToState(e, 'firstname')}
                             type="text" className="form-control" 
@@ -106,7 +106,7 @@ function Register () {
                             placeholder="First Name"></input>
                         </div>
                         <div className="form-group col-md-6">
-                        <label for="inputLastName">Last Name</label>
+                        <label htmlFor="inputLastName">Last Name</label>
                         <input 
                             onChange={(e) => setFormValuesToState(e, 'lastname')}
                             type="text" 
@@ -116,7 +116,7 @@ function Register () {
                         </div>
                     </div>
                     <div className="form-row">
-                        <label for="inputEmail4">Email</label>
+                        <label htmlFor="inputEmail4">Email</label>
                         <input 
                             onChange={(e) => setFormValuesToState(e, 'email')}
                             type="email" 
@@ -125,7 +125,7 @@ function Register () {
                             placeholder="Email"></input>
                     </div>
                     <div className="form-group">
-                        <label for="inputPassword1">Password</label>
+                        <label htmlFor="inputPassword1">Password</label>
                         <input 
                             onChange={(e) => setFormValuesToState(e, 'password1')}
                             type="password" 
@@ -134,7 +134,7 @@ function Register () {
                             placeholder="Password"></input>
                     </div>
                     <div className="form-group">
-                        <label for="inputPassword2">Re-Enter Password</label>
+                        <label htmlFor="inputPassword2">Re-Enter Password</label>
                         <input
                             onChange={(e) => setFormValuesToState(e, 'password2')}
                             type="password" 
@@ -143,7 +143,7 @@ function Register () {
                             placeholder="Password"></input>
                     </div>
                     <div className="form-group">
-                        <label for="inputCompany">Company</label>
+                        <label htmlFor="inputCompany">Company</label>
                         <input 
                             onChange={(e) => setFormValuesToState(e, 'company')}
                             type="text" 
