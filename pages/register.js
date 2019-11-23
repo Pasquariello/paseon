@@ -28,6 +28,8 @@ function Register () {
     
     event.preventDefault();
 
+
+
     if (userData.password1 !== userData.password2){
       console.log('no match')
       
@@ -110,7 +112,8 @@ function Register () {
                             onChange={(e) => setFormValuesToState(e, 'firstname')}
                             type="text" className="form-control" 
                             id="inputFirstName" 
-                            placeholder="First Name"></input>
+                            placeholder="First Name"
+                            required></input>
                         </div>
                         <div className="form-group col-md-6">
                         <label htmlFor="inputLastName">Last Name</label>
@@ -119,7 +122,8 @@ function Register () {
                             type="text" 
                             className="form-control" 
                             id="inputLastName" 
-                            placeholder="Last Name"></input>
+                            placeholder="Last Name"
+                            required></input>
                         </div>
                     </div>
                     <div className="form-row">
@@ -129,7 +133,8 @@ function Register () {
                             type="email" 
                             className="form-control" 
                             id="inputEmail4" 
-                            placeholder="Email"></input>
+                            placeholder="Email"
+                            required></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputPassword1">Password</label>
@@ -138,7 +143,8 @@ function Register () {
                             type="password" 
                             className="form-control" 
                             id="inputPassword1" 
-                            placeholder="Password"></input>
+                            placeholder="Password"
+                            required></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputPassword2">Re-Enter Password</label>
@@ -147,7 +153,8 @@ function Register () {
                             type="password" 
                             className="form-control" 
                             id="inputPassword2" 
-                            placeholder="Password"></input>
+                            placeholder="Password"
+                            required></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputCompany">Company</label>
