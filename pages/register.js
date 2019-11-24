@@ -8,7 +8,9 @@ import { useDispatch } from 'react-redux'
 import { withRedux } from '../lib/redux'
 // import { login } from '../redux/actions/auth'
 import Router from 'next/router'
-import { func } from 'prop-types'
+
+import {Elements, StripeProvider} from 'react-stripe-elements';
+import CheckoutForm from '../components/stripe/CheckoutForm';
 
 
 
@@ -170,6 +172,20 @@ function Register () {
 {/* */}
           {userData.error && <p className='error'>Error: {userData.error}</p>}
         </form>
+
+{/* STRIPE */}
+     <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+        <div className="example">
+          <h1>React Stripe Elements Example</h1>
+          <Elements>
+            <CheckoutForm />
+          </Elements>
+        </div>
+      </StripeProvider>
+{/* STRIPE */}
+
+
+
       </div>
       <style jsx>{`
         .login {

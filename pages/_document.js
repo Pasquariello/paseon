@@ -25,7 +25,15 @@ export default class extends Document {
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+          {/* PAYPAL */}
+          <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+          {/* <script src="https://www.paypalobjects.com/api/checkout.js" /> */}
+          <script src="https://www.paypal.com/sdk/js?client-id=AaJMejIDjhumOr48XsycjfvQegxAku1dHdrA0DNfkqFSg7bFFkpJTnnwyaLIGUFsPijWx1g51gxp9F-5&currency=USD" data-namespace="paypal_sdk"></script>
 
+
+
+{/* Stripe */}
+    <script src="https://js.stripe.com/v3/"></script>
 
             <title>
                 Paseon
