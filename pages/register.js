@@ -9,13 +9,13 @@ import { withRedux } from '../lib/redux'
 // import { login } from '../redux/actions/auth'
 import Router from 'next/router'
 
-import {Elements, StripeProvider} from 'react-stripe-elements';
-import CheckoutForm from '../components/stripe/CheckoutForm';
+import Stripe from '../components/stripe'
 
 
 
 function Register () {
   const dispatch = useDispatch()
+  
 
   const [userData, setUserData] = useState({
       firstname: '',
@@ -106,6 +106,10 @@ function Register () {
   return (
     <Layout>
       <div className='login'>
+
+
+<Stripe/>
+
       <form onSubmit={handleSubmit}>
                     <div className="form-row">
                         <div className="form-group col-md-6">
@@ -174,14 +178,17 @@ function Register () {
         </form>
 
 {/* STRIPE */}
-     <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+    {/* <StripeProvider 
+      apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx" 
+      stripe={this.state.stripe}
+    >
         <div className="example">
           <h1>React Stripe Elements Example</h1>
           <Elements>
             <CheckoutForm />
           </Elements>
         </div>
-      </StripeProvider>
+      </StripeProvider> */}
 {/* STRIPE */}
 
 
