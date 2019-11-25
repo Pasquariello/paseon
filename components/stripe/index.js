@@ -10,7 +10,7 @@ class Stripe extends React.Component {
     componentDidMount() {
       // Create Stripe instance in componentDidMount
       // (componentDidMount only fires in browser/DOM environment)
-      this.setState({stripe: window.Stripe('pk_test_12345')});
+      this.setState({stripe: window.Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx')});
     }
     render() {
       return (
