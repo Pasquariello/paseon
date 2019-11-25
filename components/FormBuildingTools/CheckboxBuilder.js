@@ -23,9 +23,6 @@ export default function CheckBoxBuilder(props) {
 
     function handleSetValues(e) {
         console.log(e.target.value)
-        // let myArray = e.target.value.split(',');
-        // console.log('myArray ', myArray)
-        // setSelectBuilderState({...selectBuilderState, values: myArray })
     }
 
     function addInput(e) {
