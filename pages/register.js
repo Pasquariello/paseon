@@ -9,8 +9,6 @@ import { withRedux } from '../lib/redux'
 // import { login } from '../redux/actions/auth'
 import Router from 'next/router'
 
-import Stripe from '../components/stripe'
-
 
 
 function Register () {
@@ -107,9 +105,6 @@ function Register () {
     <Layout>
       <div className='login'>
 
-
-<Stripe/>
-
       <form onSubmit={handleSubmit}>
                     <div className="form-row">
                         <div className="form-group col-md-6">
@@ -177,21 +172,6 @@ function Register () {
           {userData.error && <p className='error'>Error: {userData.error}</p>}
         </form>
 
-{/* STRIPE */}
-    {/* <StripeProvider 
-      apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx" 
-      stripe={this.state.stripe}
-    >
-        <div className="example">
-          <h1>React Stripe Elements Example</h1>
-          <Elements>
-            <CheckoutForm />
-          </Elements>
-        </div>
-      </StripeProvider> */}
-{/* STRIPE */}
-
-
 
       </div>
       <style jsx>{`
@@ -235,6 +215,7 @@ Register.getInitialProps = ({ reduxStore }) => {
   //   //light: typeof window === 'object',
   //   //lastUpdate: Date.now(),
   // })
+
 
   return {}
 }
