@@ -173,7 +173,7 @@ Campaigns.getInitialProps = async function(ctx) {
     // console.log('idTest', idTest);
 
     const userId = auth(ctx);
-  console.log(userId)
+  console.log('IDDDDD', userId)
     const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
     const data = await res.json();
     console.log('resolved');

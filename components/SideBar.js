@@ -78,6 +78,11 @@ export default function SideBar(props) {
         </Link>    
       </li>
       <li className="sidebar-item" >
+        <Link href="/Analytics">
+          <a className="nav-link">Analytics</a>
+        </Link>    
+      </li>
+      <li className="sidebar-item" >
         <Link href="/">
           <a className="nav-link">Integrations</a>
         </Link>    
