@@ -107,6 +107,11 @@ function Campaigns(props) {
                     Cell: props => moment(props.value).format('LLL')
 
                 },
+                {
+                  id: 'response_count',
+                  Header: 'Response Count',
+                  accessor: 'jsonb_array_length',
+              },
         ]
         console.log('state', campaignListState)
         //TODO: turn this into its own function that takes in columns? 
