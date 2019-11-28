@@ -97,7 +97,7 @@ function Campaigns(props) {
                     id: 'name',
                     Header: 'Name',
                     accessor: 'campaign_name',
-                    Cell: props => <CampaignLink id={props.original.id} title={props.value}/>
+                    Cell: props => <CampaignLink id={props.original.id} title={props.value} directory="campaignManagment"/>
 
                 },
                 {

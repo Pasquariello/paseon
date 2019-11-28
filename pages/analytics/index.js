@@ -3,6 +3,7 @@ import Layout from '../../components/LayoutApp';
 import PieChart from '../../components/Charts/pieChart';
 import { auth } from '../../utils/auth'
 import campaigns from '../campaignManagment/campaigns';
+import CampaignLink from '../../components/CampaignLink';
 
 
 const Analytics = props => (
@@ -10,7 +11,15 @@ const Analytics = props => (
 
     <h2>Analytics</h2>
 
+    {props.data.map(campaign => {
+      console.log(campaign)
+      return (
+        <CampaignLink id={campaign.id} title={campaign.campaign_name} directory="analytics"/>
+      )
+    })}
+
     <PieChart data={props.dataArray}/>
+
 
   </Layout>
 );
@@ -33,6 +42,8 @@ Analytics.getInitialProps = async function(ctx, props) {
     //       ]
 
 
+    
+
     const userId = auth(ctx);
     const res = await fetch(`http://localhost:3001/campaign/analytics/${userId}`);
     const data = await res.json();
@@ -45,7 +56,7 @@ Analytics.getInitialProps = async function(ctx, props) {
         return {x: campaign.campaign_name, y:campaign.jsonb_array_length}
     })
 
-    return {dataArray: dataArray}
+    return {dataArray, data}
  
     // TODO 
     // table columns need to be form fields mapped to columns - make editable?
