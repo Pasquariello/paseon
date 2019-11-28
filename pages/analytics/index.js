@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
-import Layout from '../components/LayoutApp';
-import PieChart from '../components/Charts/pieChart';
-import { auth } from '../utils/auth'
-import campaigns from './campaignManagment/campaigns';
+import Layout from '../../components/LayoutApp';
+import PieChart from '../../components/Charts/pieChart';
+import { auth } from '../../utils/auth'
+import campaigns from '../campaignManagment/campaigns';
 
 
 const Analytics = props => (
