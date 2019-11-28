@@ -34,12 +34,15 @@ Analytics.getInitialProps = async function(ctx, props) {
 
 
     const userId = auth(ctx);
-    const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
+    const res = await fetch(`http://localhost:3001/campaign/analytics/${userId}`);
     const data = await res.json();
 
     let dataArray = data.map(campaign => {
         console.log('campaign_name', campaign.campaign_name)
-        return {x: campaign.campaign_name, y:campaign.count}
+        
+        //let response_count = !campaign.jsonb_array_length ? 0 : campaign.jsonb_array_length
+        
+        return {x: campaign.campaign_name, y:campaign.jsonb_array_length}
     })
 
     return {dataArray: dataArray}
