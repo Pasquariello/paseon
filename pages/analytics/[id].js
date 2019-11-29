@@ -2,6 +2,7 @@ import Layout from '../../components/LayoutApp';
 import fetch from 'isomorphic-unfetch';
 import ReactTable from 'react-table';
 import moment from 'moment';
+import TimeBarChart from '../../components/Charts/timeBarChart';
 
 function Campaign_Analytics(props) {
 
@@ -10,6 +11,7 @@ return (
 
   <Layout>
       HELLO
+      <TimeBarChart/>
   </Layout>
 );
 }

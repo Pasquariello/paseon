@@ -2,7 +2,6 @@ import Layout from '../../components/LayoutApp';
 import fetch from 'isomorphic-unfetch';
 import ReactTable from 'react-table';
 import moment from 'moment';
-import CampaignLink from '../../components/CampaignLink';
 import Link from 'next/link';
 import { CSVLink, CSVDownload } from "react-csv";
 import { useState } from 'react';
