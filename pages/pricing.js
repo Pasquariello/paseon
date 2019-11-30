@@ -1,7 +1,25 @@
 import Layout from '../components/MyLayout';
+import { useState, useEffect } from "react";
 
 
-export default function Pricing() {
+const Pricing = props => {
+  const [stripe, setStripe] = useState(null);
+
+  useEffect(
+    () => setStripe(window.Stripe(process.env.STRIPE_PUBLISHABLE_KEY)),
+    []
+  );
+
+  const goToCheckout = () => {
+    stripe
+      .redirectToCheckout({
+        sessionId: props.sessionId
+      })
+      .then(function(result) {
+        console.log(result.error.message);
+      });
+  };
+
   return (
     <>
       <Layout>
@@ -25,7 +43,12 @@ export default function Pricing() {
               <li>Email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" className="btn btn-lg btn-block btn-outline-primary">Get Started</button>
+            <button 
+              type="button" 
+              className="btn btn-lg btn-block btn-outline-primary"
+              onClick={goToCheckout}
+              >Get Started
+            </button>
           </div>
         </div>
         <div className="card mb-4 box-shadow">
@@ -40,7 +63,11 @@ export default function Pricing() {
               <li>Priority email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" className="btn btn-lg btn-block btn-primary">Get started</button>
+            <button 
+              type="button" 
+              className="btn btn-lg btn-block btn-primary"
+              >Get started
+            </button>
           </div>
         </div>
         <div className="card mb-4 box-shadow">
@@ -55,7 +82,10 @@ export default function Pricing() {
               <li>Phone and email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" className="btn btn-lg btn-block btn-primary">Contact us</button>
+            <button 
+              type="button" 
+              className="btn btn-lg btn-block btn-primary">Contact us
+            </button>
           </div>
         </div>
       </div>
@@ -72,6 +102,7 @@ export default function Pricing() {
     <thead>
         <tr>
             <th scope="col"></th>
+            <th scope="col">FREE</th>
             <th scope="col">$15/Month</th>
             <th scope="col">$40/Month</th>
             <th scope="col">$75/Month</th>
@@ -80,6 +111,7 @@ export default function Pricing() {
     <tbody>
         <tr>
             <th scope="row">Managable Forms</th>
+            <td>5</td>
             <td>10</td>
             <td>20</td>
             <td>100</td>
@@ -87,6 +119,7 @@ export default function Pricing() {
         <tr>
             <th scope="row">Monthly Email Services/Submissions</th>
             <td>50</td>
+            <td>100</td>
             <td>1000</td>
             <td>5000</td>
         </tr>
@@ -99,12 +132,14 @@ export default function Pricing() {
         <tr>
             <th scope="row">Archive</th>
             <td>30 days</td>
+            <td>90 days</td>
             <td>120 days</td>
             <td>356 days</td>
         </tr>
         <tr>
             <th scope="row">Shareable Templates</th>
-            <td>x</td>
+            <td></td>
+            <td></td>
             <td>x</td>
             <td>x</td>
         </tr>
@@ -113,9 +148,11 @@ export default function Pricing() {
             <td>x</td>
             <td>x</td>
             <td>x</td>
+            <td>x</td>
         </tr>
         <tr>
             <th scope="row">Prebuilt Forms</th>
+            <td>x</td>
             <td>x</td>
             <td>x</td>
             <td>x</td>
@@ -130,6 +167,7 @@ export default function Pricing() {
             <th scope="row">Support</th>
             <td>Email</td>
             <td>Email</td>
+            <td>Email</td>
             <td>Priority</td>
         </tr>
         <tr>
@@ -137,15 +175,18 @@ export default function Pricing() {
             <td>x</td>
             <td>x</td>
             <td>x</td>
+            <td>x</td>
         </tr>
         <tr>
             <th scope="row">Anaytics</th>
+            <td></td>
             <td>x</td>
             <td>x</td>
             <td>x</td>
         </tr>
         <tr>
-            <th scope="row">Mobile Friendly</th>
+            <th scope="row">Mobile Friendly Forms</th>
+            <td>x</td>
             <td>x</td>
             <td>x</td>
             <td>x</td>
@@ -154,10 +195,12 @@ export default function Pricing() {
             <th scope="row">No Label Forms</th>
             <td></td>
             <td></td>
+            <td></td>
             <td>x</td>
         </tr>
         <tr>
             <th scope="row">Customer Success</th>
+            <td></td>
             <td></td>
             <td></td>
             <td>x</td>
@@ -170,3 +213,14 @@ export default function Pricing() {
     </>
   );
 }
+
+Pricing.getInitialProps = async function({ req }) {
+  const res = await fetch(`http://localhost:3000/api/build-checkout`);
+  const data = await res.json();
+
+  return {
+    sessionId: data.id
+  };
+};
+
+export default Pricing;
