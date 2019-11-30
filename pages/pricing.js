@@ -137,9 +137,9 @@ const Pricing = props => {
             <td>356 days</td>
         </tr>
         <tr>
-            <th scope="row">Shareable Templates</th>
-            <td></td>
-            <td></td>
+            <th scope="row">Mobile Friendly Forms</th>
+            <td>x</td>
+            <td>x</td>
             <td>x</td>
             <td>x</td>
         </tr>
@@ -185,9 +185,9 @@ const Pricing = props => {
             <td>x</td>
         </tr>
         <tr>
-            <th scope="row">Mobile Friendly Forms</th>
-            <td>x</td>
-            <td>x</td>
+            <th scope="row">Shareable Templates</th>
+            <td></td>
+            <td></td>
             <td>x</td>
             <td>x</td>
         </tr>
