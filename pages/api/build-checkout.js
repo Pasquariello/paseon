@@ -5,10 +5,10 @@ export default async (req, res) => {
     payment_method_types: ["card"],
     line_items: [
       {
-        name: "Basic Subscriptions",
-        description: "Basic ... ",
+        name: "Basic Subscription",
+        description: "Basic .. ",
         images: ["https://example.com/t-shirt.png"],
-        amount: 500,
+        amount: 1500,
         currency: "usd",
         quantity: 1
       }
