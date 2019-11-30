@@ -49,22 +49,22 @@ export default function Index() {
     <div style={{width: '80%', marginLeft: '10%'}}>
       <div className="grid-container grid-container--fit ">
         <div className="grid-element dark-background">
-          <h1>COPY IT</h1>
-          <p>Simply copy one of several prebuilt paseaon form tags ready to go with all the functionality to start capturing and sending the information you need.</p>
+          <h1>EMBED IT</h1>
+          <p>Get started in 2 minutes by placing our custom Paseon HTML tags anywhere you need a form to instantly start gathering submission data.</p>
         </div>
         <div className="grid-element dark-background">
-          <h1>PASTE IT</h1>
-          <p>Paste any Paseon form tag anywhere you need, no need to worry about writting your own backend code!  We've got you covered.</p>
+          <h1>SHARE IT</h1>
+          <p>Need to send forms to your audiance? Set up professional brandable form templates that can eaisly be shared.</p>
         </div>
         </div>
         <div className="grid-container grid-container--fit" >
         <div className="grid-element dark-background">
-        <h1>SEND IT</h1>
-          <p>Simple as that! you are ready to start recieving information.  Go ahead and submit a test, then check your inbox to see the results.</p>
+        <h1>MANAGE IT</h1>
+          <p>Use the Paseon dashboard to manage all your different forms, submissions, and analyitcs. Stay on top of the data that drives your business.</p>
         </div>
         <div className="grid-element dark-background">
-        <h1>CUSTOMIZE IT</h1>
-          <p>All prebuilt forms are customizeable to suit your stylistic needs! Have your own form you want to use?  No prblem, simly nest it in the Paseon personal form tags.  All the backend logic is still handled for you.</p>
+        <h1>BUILD IT</h1>
+          <p>Use the Paseon form building tool to eaily drag and drop form elements to build beautiful professional forms right away. Want to write your own forms? All Paseon forms accpet HTML so anyone on your team can easily get started creating the forms you need.  Simply embed your form inside the Paseon HTML tags and you're good to go!</p>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@ export default function Index() {
       <div style={{marginTop: '200px',  width: '70%', marginLeft:'15%', fontSize: '1.1em', lineHeight: '1.4em'}}>
 
         <div style={{marginTop: '320px', marginBottom: '300px', padding: '50px', backgroundColor: '#F1F1F1', textAlign: 'center', fontSize: '1.1em', lineHeight: '1.4em'}}>
-          <p>Paseon offers a suit a prebuilt forms, form building tools, and integegrations, to handle processing and sending form information to where you need it to go. Follow the steps below to see an example of our basic contact form.  </p> 
+          <p>Paseon offers a suit a prebuilt forms, form building tools, and integegrations, to handle processing and sending form information to where you need it to go. Manage submission data, view submission analytics and export the data to use however you need! Follow the steps below to see an example of our basic contact form.  </p> 
           <p> To see other services, prebuilt forms or to learn how to use your own form that utilizes our backend to process and send information where you need it to go click the button below </p>
           <Link href="/pricing">
           <button className="action-button black-btn">LEARN MORE</button>
