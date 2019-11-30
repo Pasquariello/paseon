@@ -38,10 +38,10 @@ const Pricing = props => {
           <div className="card-body">
             <h1 className="card-title pricing-card-title">$15 <small className="text-muted">/ mo</small></h1>
             <ul className="list-unstyled mt-3 mb-4">
-              <li>10 users included</li>
-              <li>2 GB of storage</li>
+              <li>10 Forms</li>
+              <li>90 days of storage</li>
+              <li>100 Email Submissions</li>
               <li>Email support</li>
-              <li>Help center access</li>
             </ul>
             <button 
               type="button" 
@@ -58,10 +58,10 @@ const Pricing = props => {
           <div className="card-body">
             <h1 className="card-title pricing-card-title">$40 <small className="text-muted">/ mo</small></h1>
             <ul className="list-unstyled mt-3 mb-4">
-              <li>20 users included</li>
-              <li>10 GB of storage</li>
-              <li>Priority email support</li>
-              <li>Help center access</li>
+              <li>20 Forms</li>
+              <li>120 days of storage</li>
+              <li>1000 Email Submissions</li>
+              <li>Email support</li>
             </ul>
             <button 
               type="button" 
@@ -77,10 +77,10 @@ const Pricing = props => {
           <div className="card-body">
             <h1 className="card-title pricing-card-title">$75 <small className="text-muted">/ mo</small></h1>
             <ul className="list-unstyled mt-3 mb-4">
-              <li>30 users included</li>
-              <li>15 GB of storage</li>
-              <li>Phone and email support</li>
-              <li>Help center access</li>
+              <li>100 Forms</li>
+              <li>365 days of storage</li>
+              <li>5000 Email Submissions</li>
+              <li>Priority support</li>
             </ul>
             <button 
               type="button" 
