@@ -15,17 +15,17 @@ export default function Pricing() {
       <div className="card-deck mb-3 text-center">
         <div className="card mb-4 box-shadow">
           <div className="card-header">
-            <h4 className="my-0 font-weight-normal">Free</h4>
+            <h4 className="my-0 font-weight-normal">Basic</h4>
           </div>
           <div className="card-body">
-            <h1 className="card-title pricing-card-title">$0 <small className="text-muted">/ mo</small></h1>
+            <h1 className="card-title pricing-card-title">$15 <small className="text-muted">/ mo</small></h1>
             <ul className="list-unstyled mt-3 mb-4">
               <li>10 users included</li>
               <li>2 GB of storage</li>
               <li>Email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" className="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+            <button type="button" className="btn btn-lg btn-block btn-outline-primary">Get Started</button>
           </div>
         </div>
         <div className="card mb-4 box-shadow">
@@ -33,7 +33,7 @@ export default function Pricing() {
             <h4 className="my-0 font-weight-normal">Pro</h4>
           </div>
           <div className="card-body">
-            <h1 className="card-title pricing-card-title">$10 <small className="text-muted">/ mo</small></h1>
+            <h1 className="card-title pricing-card-title">$40 <small className="text-muted">/ mo</small></h1>
             <ul className="list-unstyled mt-3 mb-4">
               <li>20 users included</li>
               <li>10 GB of storage</li>
@@ -48,7 +48,7 @@ export default function Pricing() {
             <h4 className="my-0 font-weight-normal">Enterprise</h4>
           </div>
           <div className="card-body">
-            <h1 className="card-title pricing-card-title">$35 <small className="text-muted">/ mo</small></h1>
+            <h1 className="card-title pricing-card-title">$75 <small className="text-muted">/ mo</small></h1>
             <ul className="list-unstyled mt-3 mb-4">
               <li>30 users included</li>
               <li>15 GB of storage</li>
@@ -72,44 +72,92 @@ export default function Pricing() {
     <thead>
         <tr>
             <th scope="col"></th>
-            <th scope="col">Free</th>
-            <th scope="col">$10/Month Basic</th>
-            <th scope="col">$35/Month Gold</th>
+            <th scope="col">$15/Month</th>
+            <th scope="col">$40/Month</th>
+            <th scope="col">$75/Month</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <th scope="row">Benefit 1</th>
+            <th scope="row">Managable Forms</th>
+            <td>10</td>
+            <td>20</td>
+            <td>100</td>
+        </tr>
+        <tr>
+            <th scope="row">Monthly Email Services/Submissions</th>
+            <td>50</td>
+            <td>1000</td>
+            <td>5000</td>
+        </tr>
+        {/* <tr>
+            <th scope="row">File Uploads</th>
+            <td></td>
+            <td>2GB</td>
+            <td>10GB</td>
+        </tr> */}
+        <tr>
+            <th scope="row">Archive</th>
+            <td>30 days</td>
+            <td>120 days</td>
+            <td>356 days</td>
+        </tr>
+        <tr>
+            <th scope="row">Shareable Templates</th>
             <td>x</td>
             <td>x</td>
             <td>x</td>
         </tr>
         <tr>
-            <th scope="row">Benefit 2</th>
+            <th scope="row">Custom Embedable Forms</th>
             <td>x</td>
             <td>x</td>
             <td>x</td>
         </tr>
         <tr>
-            <th scope="row">Benefit 3</th>
+            <th scope="row">Prebuilt Forms</th>
+            <td>x</td>
+            <td>x</td>
+            <td>x</td>
+        </tr>
+        {/* <tr>
+            <th scope="row">Custom Email templates</th>
+            <td>5</td>
+            <td>10</td>
+            <td>20</td>
+        </tr> */}
+        <tr>
+            <th scope="row">Support</th>
+            <td>Email</td>
+            <td>Email</td>
+            <td>Priority</td>
+        </tr>
+        <tr>
+            <th scope="row">Form Building Tool</th>
+            <td>x</td>
+            <td>x</td>
+            <td>x</td>
+        </tr>
+        <tr>
+            <th scope="row">Anaytics</th>
+            <td>x</td>
+            <td>x</td>
+            <td>x</td>
+        </tr>
+        <tr>
+            <th scope="row">Mobile Friendly</th>
+            <td>x</td>
+            <td>x</td>
+            <td>x</td>
+        </tr>
+        <tr>
+            <th scope="row">No Label Forms</th>
+            <td></td>
             <td></td>
             <td>x</td>
-            <td>x</td>
         </tr>
         <tr>
-            <th scope="row">Benefit 4</th>
-            <td></td>
-            <td>x</td>
-            <td>x</td>
-        </tr>
-        <tr>
-            <th scope="row">Benefit 5</th>
-            <td></td>
-            <td></td>
-            <td>x</td>
-        </tr>
-        <tr>
-            <th scope="row">Benefit 6</th>
+            <th scope="row">Customer Success</th>
             <td></td>
             <td></td>
             <td>x</td>
