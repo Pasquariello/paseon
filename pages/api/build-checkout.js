@@ -23,13 +23,18 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 
 export default async (req, res) => {
-  const session1 = await stripe.checkout.sessions.create({
+  let paymentImag = ''
+  let sessions = [];
+
+  const basic_plan_session = await stripe.checkout.sessions.create({
     client_reference_id: 'basic',
     payment_method_types: ['card'],
+   
     subscription_data: {
       items: [
         {
           plan: 'plan_GHYBg5qcDFyUQQ', //BASIC
+
         }
     ],
     },
@@ -37,7 +42,7 @@ export default async (req, res) => {
     cancel_url: 'https://example.com/cancel',
   });
 
-  const session2 = await stripe.checkout.sessions.create({
+  const pro_plan_session = await stripe.checkout.sessions.create({
     client_reference_id: 'pro',
     payment_method_types: ['card'],
     subscription_data: {
@@ -51,7 +56,8 @@ export default async (req, res) => {
     cancel_url: 'https://example.com/cancel',
   });
 
-  let sessions = [session1, session2]
+
+  sessions.push(basic_plan_session, pro_plan_session);
 
 
   res.json(sessions);

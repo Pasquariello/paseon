@@ -2,11 +2,7 @@ import React, { useState } from 'react'
 // import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import Layout from '../components/MyLayout'
- import { login } from '../utils/auth'
 
-import { useDispatch } from 'react-redux'
-import { withRedux } from '../lib/redux'
-// import { login } from '../redux/actions/auth'
 import Router from 'next/router'
 
 
@@ -15,8 +11,7 @@ import Router from 'next/router'
 
 
 
-function Login () {
-  const dispatch = useDispatch()
+function Reset () {
 
 
   const [userData, setUserData] = useState({ username: '', error: '' })
@@ -29,7 +24,7 @@ function Login () {
     const username = userData.username
     console.log('hi', username)
 
-    let url = 'http://localhost:3001/login/auth'
+    let url = 'http://localhost:3001/login/resetLink'
 
     try {
 
@@ -42,7 +37,7 @@ function Login () {
       }).then(
         function(response) {
           if (response.status !== 200) {
-            console.log('Login failed.')
+            console.log('RESET LINK failed.')
               let error = new Error(response.statusText)
               error.response = response
               throw error
@@ -50,15 +45,6 @@ function Login () {
 
           response.json().then(function(data){
             console.log('DATA', data)
-
-            dispatch({
-              type: 'LOGIN_SUCCESS',
-              payload: data
-            });
-
-
-            Router.push('/dashboard')
-
           })
         }
       )
@@ -82,8 +68,11 @@ function Login () {
       
       <div className='login' style={{overflow: 'auto'}}>
         <form onSubmit={handleSubmit}>
+        <div style={{textAlign: 'center'}}>
+          <h3>Trouble Logging in?</h3>
+          <p>Enter your username to reset your passord</p>
+        </div>
           <label htmlFor='username'>Username</label>
-
           <input
             type='text'
             id='username'
@@ -96,23 +85,12 @@ function Login () {
             }
           />
 
-          <button type='submit'>Login</button>
+          <button type='submit'>Send Login Link</button>
 
           {userData.error && <p className='error'>Error: {userData.error}</p>}
         </form>
           
-        <div style={{float: 'left'}}>
-        <Link href="/register">
-          <a>Register</a>
-        </Link>
-        </div>
-
-        <div style={{float: 'right'}}>
-        <Link href="/reset">
-          <a>Forgot Password</a>
-        </Link>
-        </div>
-        {/* <div style={{clear: 'both'}}></div> */}
+    
 
 
       </div>
@@ -146,41 +124,9 @@ function Login () {
   )
 }
 
-Login.getInitialProps = ({ reduxStore }) => {
-  console.log('reduxStore',reduxStore)
-  // Tick the time once, so we'll have a
-  // valid time before first render
-  // const { dispatch } = reduxStore
-  // dispatch({
-  //   type: 'LOGIN',
-  //   current_user: 2
-  //   //light: typeof window === 'object',
-  //   //lastUpdate: Date.now(),
-  // })
+Reset.getInitialProps = () => {
 
   return {}
 }
 
-export default withRedux(Login)
-
-// export default Login
-
-
-
-// function ProfilePage({ profile }) {
-//   return (
-//     <>
-//       <div>
-//         <img src={profile.avatar} />
-//         <h1>{profile.name}</h1>
-//         <p>{profile.address}</p>
-//         <p>{profile.email}</p>
-//         <Link href="/">
-//           <a>← Back to profiles</a>
-//         </Link>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default ProfilePage
+export default Reset;

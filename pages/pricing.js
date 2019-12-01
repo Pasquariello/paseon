@@ -11,23 +11,13 @@ const Pricing = props => {
   );
 
   const goToCheckout = (plan_id) => {
-     let sessionId = props.data.filter(obj => obj.client_reference_id === plan_id)
-    console.log('sessionID', sessionId)
-      console.log('props.sessionId', props.sessionId)
+     
+    let sessionId = props.data.filter(obj => obj.client_reference_id === plan_id)
+ 
     stripe
       .redirectToCheckout({
         sessionId:sessionId[0].id//props.sessionId // sessionId[0].id, // was props.sessionId
       })
-      //   .redirectToCheckout({
-      //   items: [{
-      //     // Define the product and plan in the Dashboard first, and use the plan
-      //     // ID in your client-side code.
-      //     plan: 'plan_GHYDJPvzC8Rn6P',
-      //     quantity: 1
-      //   }],
-      //   successUrl: 'https://www.example.com/success',
-      //   cancelUrl: 'https://www.example.com/cancel'
-      // })
       .then(function(result) {
         console.log(result.error.message);
       });
