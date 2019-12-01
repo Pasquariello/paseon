@@ -10,11 +10,24 @@ const Pricing = props => {
     []
   );
 
-  const goToCheckout = () => {
+  const goToCheckout = (plan_id) => {
+     let sessionId = props.data.filter(obj => obj.client_reference_id === plan_id)
+    console.log('sessionID', sessionId)
+      console.log('props.sessionId', props.sessionId)
     stripe
       .redirectToCheckout({
-        sessionId: props.sessionId
+        sessionId:sessionId[0].id//props.sessionId // sessionId[0].id, // was props.sessionId
       })
+      //   .redirectToCheckout({
+      //   items: [{
+      //     // Define the product and plan in the Dashboard first, and use the plan
+      //     // ID in your client-side code.
+      //     plan: 'plan_GHYDJPvzC8Rn6P',
+      //     quantity: 1
+      //   }],
+      //   successUrl: 'https://www.example.com/success',
+      //   cancelUrl: 'https://www.example.com/cancel'
+      // })
       .then(function(result) {
         console.log(result.error.message);
       });
@@ -46,7 +59,7 @@ const Pricing = props => {
             <button 
               type="button" 
               className="btn btn-lg btn-block btn-outline-primary"
-              onClick={goToCheckout}
+              onClick={() => goToCheckout('basic')}
               >Get Started
             </button>
           </div>
@@ -66,6 +79,7 @@ const Pricing = props => {
             <button 
               type="button" 
               className="btn btn-lg btn-block btn-primary"
+              onClick={() => goToCheckout('pro')}
               >Get started
             </button>
           </div>
@@ -218,7 +232,10 @@ Pricing.getInitialProps = async function({ req }) {
   const res = await fetch(`http://localhost:3000/api/build-checkout`);
   const data = await res.json();
 
+  console.log('DATA', data)
+
   return {
+    data: data,
     sessionId: data.id
   };
 };
