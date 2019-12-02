@@ -1,8 +1,17 @@
 import Layout from '../../components/LayoutApp';
 import fetch from 'isomorphic-unfetch';
-import ReactTable from 'react-table';
 import moment from 'moment';
 import TimeBarChart from '../../components/Charts/timeBarChart';
+
+
+import {
+  useTable,
+  useGroupBy,
+  useFilters,
+  useSortBy,
+  useExpanded,
+  usePagination,
+} from 'react-table'
 
 function Campaign_Analytics(props) {
 

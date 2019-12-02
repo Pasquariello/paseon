@@ -2,9 +2,18 @@ import Link from 'next/link';
 import LayoutApp from '../../components/LayoutApp';
 import React, { useState } from 'react';
 import Form_Builder from '../../components/FormBuildingTools/Form_Builder';
-import ReactTable from 'react-table';
+// import ReactTable from 'react-table';
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import { withAuthSync } from '../../utils/auth'
+
+import {
+    useTable,
+    useGroupBy,
+    useFilters,
+    useSortBy,
+    useExpanded,
+    usePagination,
+  } from 'react-table'
 
 
 // export default function NewCampaign() 

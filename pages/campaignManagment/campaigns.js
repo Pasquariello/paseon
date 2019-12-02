@@ -2,7 +2,7 @@ import Layout from '../../components/MyLayout';
 import Link from 'next/link';
 import LayoutApp from '../../components/LayoutApp'
 import QuickAnalytics from '../../components/QuickAnalytics';
-import ReactTable from 'react-table';
+// import ReactTable from 'react-table';
 import moment from 'moment';
 import 'moment-timezone';
 import CampaignLink from '../../components/CampaignLink';
@@ -10,7 +10,16 @@ import fetch from 'isomorphic-unfetch';
 import React, { useState } from 'react';
 import { withRedux } from '../../lib/redux';
 import { auth } from '../../utils/auth';
+import Table from '../../components/Table'
 
+import {
+  useTable,
+  useGroupBy,
+  useFilters,
+  useSortBy,
+  useExpanded,
+  usePagination,
+} from 'react-table'
 
 
 import { withAuthSync } from '../../utils/auth'
@@ -85,26 +94,28 @@ function Campaigns(props) {
 
     
     const renderTable = () => {
+      console.log('PROPS', props)
         const columns = [
                 {
                     id: 'select',
                     Header: '',
                     accessor: 'id',
-                    Cell: props => <input onChange={() => setIdList([props.original.id])} type="checkbox"></input>
+                    // Cell: props => <input onChange={() => setIdList([props.original.id])} type="checkbox"></input>
 
                 },
                 {
                     id: 'name',
                     Header: 'Name',
                     accessor: 'campaign_name',
-                    Cell: props => <CampaignLink id={props.original.id} title={props.value} directory="campaignManagment"/>
+                    Cell: props => {console.log('HELLO', props)
+                     return <CampaignLink id={props.cell.row.original.id} title={props.cell.value} directory="campaignManagment"/>}//<CampaignLink id={props.original.id} title={props.value} directory="campaignManagment"/>
 
                 },
                 {
                     id: 'date_created',
                     Header: 'Date Created',
                     accessor: 'date_created',
-                    Cell: props => moment(props.value).format('LLL')
+                    // Cell: props => moment(props.value).format('LLL')
 
                 },
                 {
@@ -118,11 +129,14 @@ function Campaigns(props) {
         return (
             <>
             <p>Visual representation of data collected with your new campaign.</p>
-            <ReactTable
+            {/* <ReactTable
             data={campaignListState}
             columns={columns}
             defaultPageSize ="10"
-            /> 
+            />  */}
+
+          <Table columns={columns} data={campaignListState} />
+
             </>
         )
     }
@@ -189,6 +203,48 @@ Campaigns.getInitialProps = async function(ctx) {
       campaignList: data
     };
 }
+
+
+// function Table ({columns, data}) {
+//   const {
+//     getTableProps,
+//     getTableBodyProps,
+//     headerGroups,
+//     rows,
+//     prepareRow,
+//   } = useTable({
+//     columns,
+//     data,
+//   })
+
+//   // Render the UI for your table
+//   return (
+//     <table {...getTableProps()}>
+//       <thead>
+//         {headerGroups.map(headerGroup => (
+//           <tr {...headerGroup.getHeaderGroupProps()}>
+//             {headerGroup.headers.map(column => (
+//               <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+//             ))}
+//           </tr>
+//         ))}
+//       </thead>
+//       <tbody {...getTableBodyProps()}>
+//         {rows.map(
+//           (row, i) => {
+//             prepareRow(row);
+//             return (
+//               <tr {...row.getRowProps()}>
+//                 {row.cells.map(cell => {
+//                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+//                 })}
+//               </tr>
+//             )}
+//         )}
+//       </tbody>
+//     </table>
+//   )
+// }
 
 
 export default withRedux(Campaigns)

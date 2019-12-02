@@ -1,6 +1,6 @@
 import Layout from '../../components/LayoutApp';
 import fetch from 'isomorphic-unfetch';
-import ReactTable from 'react-table';
+// import ReactTable from 'react-table';
 import moment from 'moment';
 import Link from 'next/link';
 import { CSVLink, CSVDownload } from "react-csv";
@@ -8,6 +8,16 @@ import { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileCsv } from '@fortawesome/free-solid-svg-icons'
+
+
+import {
+    useTable,
+    useGroupBy,
+    useFilters,
+    useSortBy,
+    useExpanded,
+    usePagination,
+  } from 'react-table'
 
 function Campaign(props) {
 
