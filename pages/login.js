@@ -19,7 +19,7 @@ function Login () {
   const dispatch = useDispatch()
 
 
-  const [userData, setUserData] = useState({ username: '', error: '' })
+  const [userData, setUserData] = useState({ username: '', password: '', error: '' })
 
 
   async function handleSubmit (event) {
@@ -37,7 +37,7 @@ function Login () {
         
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username })
+        body: JSON.stringify(userData)
         
       }).then(
         function(response) {
@@ -82,7 +82,7 @@ function Login () {
       
       <div className='login' style={{overflow: 'auto'}}>
         <form onSubmit={handleSubmit}>
-          <label htmlFor='username'>Username</label>
+          <label htmlFor='username'>Username / Email</label>
 
           <input
             type='text'
@@ -95,6 +95,20 @@ function Login () {
               )
             }
           />
+
+<label htmlFor='username'>Password</label>
+
+<input
+  type='password'
+  id='password'
+  name='password'
+  value={userData.password}
+  onChange={event =>
+    setUserData(
+      Object.assign({}, userData, { password: event.target.value })
+    )
+  }
+/>
 
           <button type='submit'>Login</button>
 
