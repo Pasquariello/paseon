@@ -108,7 +108,7 @@ function Login () {
         </div>
 
         <div style={{float: 'right'}}>
-        <Link href="/reset">
+        <Link href="/reset/forgotPassword">
           <a>Forgot Password</a>
         </Link>
         </div>

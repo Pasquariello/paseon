@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
-import Layout from '../components/MyLayout'
+import Layout from '../../components/MyLayout'
 
 import Router from 'next/router'
 
@@ -11,7 +11,7 @@ import Router from 'next/router'
 
 
 
-function Reset () {
+function ForgotPassword () {
 
 
   const [userData, setUserData] = useState({ username: '', error: '' })
@@ -44,7 +44,12 @@ function Reset () {
           }
 
           response.json().then(function(data){
-            console.log('DATA', data)
+           
+            setUserData(
+              Object.assign({}, userData, {
+                message: data.msg
+              })
+            );
           })
         }
       )
@@ -57,7 +62,7 @@ function Reset () {
       const { response } = error
       setUserData(
         Object.assign({}, userData, {
-          error: response ? response.statusText : error.message
+          message: response ? response.statusText : error.message
         })
       )
     }
@@ -86,14 +91,14 @@ function Reset () {
           />
 
           <button type='submit'>Send Login Link</button>
-
-          {userData.error && <p className='error'>Error: {userData.error}</p>}
-        </form>
           
-    
+        </form>
+        
+        {userData.message && <p className='success'>{userData.message}</p>}
 
 
       </div>
+
       <style jsx>{`
         .login {
           max-width: 340px;
@@ -124,9 +129,9 @@ function Reset () {
   )
 }
 
-Reset.getInitialProps = () => {
+// ForgotPassword.getInitialProps = () => {
 
-  return {}
-}
+//   return {}
+// }
 
-export default Reset;
+export default ForgotPassword;
