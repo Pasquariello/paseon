@@ -9,6 +9,7 @@ import { useState } from 'react'
 function ResetForm(props) {
 
     const [userData, setUserData] = useState({ 
+        id: props.data.id,
         password1: '',
         password2: ''
     })
@@ -34,11 +35,10 @@ function ResetForm(props) {
     
         setUserData(Object.assign({}, userData, { error: '' }))
         
-        const username = userData.username
         console.log('userData', userData)
     // NEEDS WORK
         let url = 'http://localhost:3001/account/reset_password'
-        return
+        // return
         try {
     
           const response = await fetch(url, {
