@@ -1,5 +1,6 @@
 import Layout from '../components/MyLayout';
 import { useState, useEffect } from "react";
+import fetch from 'isomorphic-unfetch';
 
 
 const Pricing = props => {
