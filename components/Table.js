@@ -1,43 +1,69 @@
 import React from 'react'
-// import styled from 'styled-components'
-import { useTable, utils } from 'react-table'
+import styled from 'styled-components'
+import { useTable , useResizeColumns} from 'react-table'
 
 
-// const Styles = styled.div`
-//   padding: 1rem;
+const Styles = styled.div`
+  padding: 1rem;
 
-//   .user {
-//     background-color: blue;
-//     color: white;
-//   }
+  .table {
+    display: inline-block;
+    border-spacing: 0;
+    border: 1px solid black;
 
-//   table {
-//     border-spacing: 0;
-//     border: 1px solid black;
+    .tr {
+      :last-child {
+        .td {
+          border-bottom: 0;
+        }
+      }
+    }
 
-//     tr {
-//       :last-child {
-//         td {
-//           border-bottom: 0;
-//         }
-//       }
-//     }
+    .th,
+    .td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
 
-//     th,
-//     td {
-//       margin: 0;
-//       padding: 0.5rem;
-//       border-bottom: 1px solid black;
-//       border-right: 1px solid black;
+      ${'' /* In this example we use an absolutely position resizer,
+       so this is required. */}
+      position: relative;
 
-//       :last-child {
-//         border-right: 0;
-//       }
-//     }
-//   }
-// `
+      :last-child {
+        border-right: 0;
+      }
 
+      ${'' /* The resizer styles! */}
+
+      .resizer {
+        display: inline-block;
+        background: blue;
+        width: 5px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translateX(50%);
+        z-index: 1;
+
+        &.isResizing {
+          background: red;
+        }
+      }
+    }
+  }
+`
 function Table ({columns, data}) {
+    const defaultColumn = React.useMemo(
+        () => ({
+          minWidth: 20,
+          width: 150,
+          maxWidth: 500,
+        }),
+        []
+      )
+    
   const {
     getTableProps,
     getTableBodyProps,
@@ -47,7 +73,10 @@ function Table ({columns, data}) {
   } = useTable({
     columns,
     data,
-  })
+    defaultColumn
+  },
+    useResizeColumns
+  )
 
   // Render the UI for your table
   return (

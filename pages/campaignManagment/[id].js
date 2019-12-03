@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileCsv } from '@fortawesome/free-solid-svg-icons'
+import Table from '../../components/Table'
 
 
 import {
@@ -74,12 +75,14 @@ function Campaign(props) {
             </CSVLink>
 
           
-                <ReactTable
+                {/* <ReactTable
                     columns={columns}
                     data={ data} //TODO destructure this!
                     resolveData={data => data.map(row => row)}
                     defaultPageSize={5}
-                /> 
+                />  */}
+                <Table columns={columns} data={data} />
+
             </>
         )
     }

@@ -12,14 +12,6 @@ import { withRedux } from '../../lib/redux';
 import { auth } from '../../utils/auth';
 import Table from '../../components/Table'
 
-import {
-  useTable,
-  useGroupBy,
-  useFilters,
-  useSortBy,
-  useExpanded,
-  usePagination,
-} from 'react-table'
 
 
 import { withAuthSync } from '../../utils/auth'
