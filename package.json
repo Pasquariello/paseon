@@ -32,6 +32,7 @@
     "react-csv": "^1.1.2",
     "react-csv-downloader": "^1.4.0",
     "react-dom": "^16.9.0",
+    "react-ga": "^2.7.0",
     "react-redux": "^7.1.0",
     "react-stripe-elements": "^6.0.1",
     "react-stripe-elements-universal": "^1.2.0-3",
