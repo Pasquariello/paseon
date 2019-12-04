@@ -2,9 +2,13 @@ import Layout from '../components/MyLayout';
 import Link from 'next/link';
 import LayoutApp from '../components/LayoutApp'
 import QuickAnalytics from '../components/QuickAnalytics';
+import { auth } from '../utils/auth';
+import fetch from 'isomorphic-unfetch';
+import { withRedux } from '../lib/redux';
 
 
-export default function Account() {
+
+ function Account() {
     let quickAnalyticsData = [
         {
           title: 'Account Type',
@@ -75,3 +79,18 @@ export default function Account() {
     )
 
 }
+
+Account.getInitialProps = async ctx => {
+    auth(ctx) 
+
+
+    // TODO add check for user in redux if no user then fetch
+    // const userId = auth(ctx);
+
+
+    return {
+
+    };
+  }
+
+  export default withRedux(Account)

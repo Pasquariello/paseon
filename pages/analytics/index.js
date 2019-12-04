@@ -4,6 +4,7 @@ import PieChart from '../../components/Charts/pieChart';
 import { auth } from '../../utils/auth'
 import campaigns from '../campaignManagment/campaigns';
 import CampaignLink from '../../components/CampaignLink';
+import { withRedux } from '../../lib/redux';
 
 
 const Analytics = props => (
@@ -24,7 +25,7 @@ const Analytics = props => (
   </Layout>
 );
 
-Analytics.getInitialProps = async function(ctx, props) {
+Analytics.getInitialProps = async function(ctx) {
     // auth(ctx);
     
     
@@ -62,4 +63,4 @@ Analytics.getInitialProps = async function(ctx, props) {
     // table columns need to be form fields mapped to columns - make editable?
 };
 
-export default Analytics;
+export default withRedux(Analytics);

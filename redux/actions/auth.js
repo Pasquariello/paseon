@@ -15,6 +15,7 @@ import {
   
   // Register
   export const register = ({ name, email, password }) => async dispatch => {
+    console.log('IN REGISTER ACTION')
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -30,7 +31,7 @@ import {
         payload: res.data
       });
   
-      dispatch(loadUser());
+      //dispatch(loadUser());
     } catch (error) {
       const errors = error.response.data.errors;
   
@@ -87,6 +88,50 @@ import {
     }
    
   };
+
+  //Load User
+  export const loadUser = async(id) => {
+    //export async function login_action (userData) {
+  
+      console.log('in action login_action')
+      // const {id} = userData
+      let url = `http://localhost:3001/account/get_acct_details/${id}`
+  
+      try {
+  
+        const response = await fetch(url, {
+          
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData)
+        });
+        
+        if (response.status === 200) {
+          let data = await response.json(); 
+          console.log('user data action', data)
+          dispatch({
+              type: USER_LOADED,
+              payload: data
+            });
+  
+        } else {
+          dispatch({
+              type: LOGIN_FAIL
+            });
+          console.log('Login failed.')
+          let error = new Error(response.statusText)
+          error.response = response
+          throw error
+        }
+      } catch (error) {
+        console.error(
+          'You have an error in your code or there are Network issues.',
+          error
+        )
+  
+      }
+     
+    };
   
   // Logout
   export const logout = () => async dispatch => {

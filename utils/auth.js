@@ -4,6 +4,8 @@ import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
 import { compose } from 'redux'
 // import { login_action } from '../redux/actions/auth'
+import { useDispatch } from 'react-redux'
+
 
 export const login = ({ token }) => {
 
@@ -13,15 +15,82 @@ export const login = ({ token }) => {
   Router.push('/dashboard')
 }
 
-export const auth = ctx => {
-// TODO reset store!!!!
-  console.log('in auth')
-  // const name = ctx.cookie.get('name')
-  // console.log('tay name', name)
 
+
+export const getUserData  = async (ctx) =>  {
+  // let dispatch = useDispatch()
+  const { userId } = nextCookie(ctx)
+  let url = 'http://localhost:3001/account/get_acct_details'
+  // let url = 'http://localhost:3001/account/reset_password'
+  try {
+
+    const response = await fetch(url, {
+      
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({id: userId})
+      
+    }).then(
+      function(response) {
+
+        if (response.status !== 200) {
+            let error = new Error(response.statusText)
+            error.response = response
+            throw error
+        }
+
+        response.json().then(function(data){
+          console.log('DATA FROM GET USER', data)
+
+          const { dispatch } = ctx.reduxStore;
+
+          dispatch({
+            type: 'USER_LOADED',
+            payload: data
+          });
+
+        })
+      }
+    )
+  } catch (error) {
+    console.error('You have an error in your code or there are Network issues.',error)
+
+    const { response } = error
+   
+  }
+}
+
+
+
+
+
+export const auth = ctx => {
+ 
   const { token, userId } = nextCookie(ctx)
+
+  if (!ctx.reduxStore.getState().user.user){
+    console.log('no user')
+    getUserData(ctx)
+  } else {
+    console.log(ctx.reduxStore.getState().user.user)
+  }
+
+
   console.log('tay token', token)
   console.log('tay token id', userId)
+
+  // //// NEW
+  // let dispatch = useDispatch() 
+  // if (ctx.reduxStore.getState().auth.user){
+  //   console.log('IN IF')
+  //     idTest = ctx.reduxStore.getState().auth.user.id
+  //   } else {
+  //     console.log('IN ELSE')
+
+  //     dispatch(loadUser(userId))
+  //   }
+  // ///END NEW
+  
 
   /*
    * If `ctx.req` is available it means we are on the server.

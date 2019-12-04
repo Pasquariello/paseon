@@ -1,5 +1,6 @@
 import QuickAnalyticsCard from './QuickAnalyticsCard';
 import QuickAnalyticsRow from './QuickAnalyticsRow';
+import auth from '../../redux/reducers/auth';
 
 class QuickAnalytics extends React.Component {
     
@@ -57,4 +58,5 @@ class QuickAnalytics extends React.Component {
     }
 
 }
+
 export default QuickAnalytics;

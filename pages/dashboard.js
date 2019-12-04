@@ -8,8 +8,8 @@ import SideBar from '../components/SideBar';
 import QuickAnalytics from '../components/QuickAnalytics';
 import { withAuthSync } from '../utils/auth';
 
-import { useSelector, shallowEqual } from 'react-redux';
-import { auth } from '../utils/auth'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { auth, getUserData } from '../utils/auth'
 
 
 import TestChart from '../components/TESTCHART';
@@ -164,6 +164,9 @@ function Dashboard () {
   Dashboard.getInitialProps = async (ctx) => {
     //check if page is authorized
     auth(ctx)  
+
+    console.log('STATE REDUX',ctx.reduxStore.getState())
+
 
   }
 

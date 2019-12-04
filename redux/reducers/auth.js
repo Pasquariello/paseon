@@ -60,16 +60,17 @@ import {
           ...state,
           ...payload,
           isAuthenticated: true,
+          user: payload.userData
         //   loading: false
         };
   
-      case USER_LOADED:
-        console.log('USER_LOADED reducer success', payload)
-        return {
-          ...state,
-          user: payload,
-        //   loading: false
-        };
+      // case USER_LOADED:
+      //   console.log('USER_LOADED reducer success', payload)
+      //   return {
+      //     ...state,
+      //     user: payload,
+      //   //   loading: false
+      //   };
   
       default:
         return state;
