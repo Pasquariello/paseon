@@ -17,14 +17,13 @@ export const login = ({ token }) => {
 
 
 export const getUserData  = async (ctx) =>  {
-  console.log('====== IN getUserData')
-  // let dispatch = useDispatch()
+
   const { userId } = nextCookie(ctx)
   let url = 'http://localhost:3001/account/get_acct_details'
-  // let url = 'http://localhost:3001/account/reset_password'
+  
   try {
 
-    const response = await fetch(url, {
+    await fetch(url, {
       
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -63,39 +62,7 @@ export const getUserData  = async (ctx) =>  {
 
 
 export const auth = async ctx => {
-  console.log('IN AUTH UTIL ===== ')
   const { token, userId } = nextCookie(ctx)
-
-
-// let userData = null
-//   if (!ctx.reduxStore.getState().user.user){
-//     console.log('no user')
-//      userData =  getUserData(ctx)
-//      console.log('userData ===== ', userData)
-//   } else {
-//     userData = ctx.reduxStore.getState().user.user
-//     console.log(ctx.reduxStore.getState().user.user)
-//     console.log('else userdata', userData)
-
-//   }
-  
-
-  console.log('tay token', token)
-  console.log('tay token id', userId)
-
-  // //// NEW
-  // let dispatch = useDispatch() 
-  // if (ctx.reduxStore.getState().auth.user){
-  //   console.log('IN IF')
-  //     idTest = ctx.reduxStore.getState().auth.user.id
-  //   } else {
-  //     console.log('IN ELSE')
-
-  //     dispatch(loadUser(userId))
-  //   }
-  // ///END NEW
-  
-
   /*
    * If `ctx.req` is available it means we are on the server.
    * Additionally if there's no token it means the user is not logged in.
