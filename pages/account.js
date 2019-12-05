@@ -5,7 +5,9 @@ import QuickAnalytics from '../components/QuickAnalytics';
 import { auth, getUserData } from '../utils/auth';
 import fetch from 'isomorphic-unfetch';
 import { withRedux } from '../lib/redux';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import {states} from '../utils/states';
+
 
 
  function Account(props) {
@@ -14,6 +16,9 @@ import React, { useState } from 'react'
 
     const [userState, setUserState] = useState(props.user)
     console.log('userState', userState)
+
+    let state_names = states.map(state => state.name);
+
 
     let quickAnalyticsData = [
         {
@@ -94,7 +99,9 @@ import React, { useState } from 'react'
                             defaultValue="choose" 
                             className="form-control">
                                 <option value="choose">Choose...</option>
-                                <option>...</option>
+                                {state_names.map(state_opt => {
+                                    return <option value={state_opt}>{state_opt}</option>
+                                })}
                         </select>
                         </div>
                         <div className="form-group col-md-2">
