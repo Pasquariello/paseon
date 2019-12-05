@@ -2,13 +2,19 @@ import Layout from '../components/MyLayout';
 import Link from 'next/link';
 import LayoutApp from '../components/LayoutApp'
 import QuickAnalytics from '../components/QuickAnalytics';
-import { auth } from '../utils/auth';
+import { auth, getUserData } from '../utils/auth';
 import fetch from 'isomorphic-unfetch';
 import { withRedux } from '../lib/redux';
+import React, { useState } from 'react'
 
 
+ function Account(props) {
 
- function Account() {
+    const [idList, setIdList] = useState([]);
+
+    const [userState, setUserState] = useState(props.user)
+    console.log('userState', userState)
+
     let quickAnalyticsData = [
         {
           title: 'Account Type',
@@ -28,6 +34,7 @@ import { withRedux } from '../lib/redux';
           body: '50%'
         },
       ]
+
     return (
         <LayoutApp>
             <QuickAnalytics
@@ -39,7 +46,7 @@ import { withRedux } from '../lib/redux';
                     <div className="form-row">
                         <div className="form-group col-md-6">
                         <label for="inputEmail4">Email</label>
-                        <input type="email" className="form-control" id="inputEmail4" placeholder="Email"></input>
+                        <input value={userState.email} type="email" className="form-control" id="inputEmail4" placeholder="Email"></input>
                         </div>
                         <div className="form-group col-md-6">
                         <label for="inputPassword4">Password</label>
@@ -48,7 +55,7 @@ import { withRedux } from '../lib/redux';
                     </div>
                     <div className="form-group">
                         <label for="inputCompany">Company</label>
-                        <input type="text" className="form-control" id="inputCompany" placeholder="TaylorPasqLLC"></input>
+                        <input value={userState.company}  type="text" className="form-control" id="inputCompany" placeholder="Company"></input>
                     </div>
                     <div className="form-group">
                         <label for="inputAddress2">Address 2</label>
@@ -80,16 +87,22 @@ import { withRedux } from '../lib/redux';
 
 }
 
-Account.getInitialProps = async ctx => {
-    auth(ctx) 
+Account.getInitialProps = async (ctx) => {
+     auth(ctx)
 
+    if  (!ctx.reduxStore.getState().user.user){
+        await getUserData(ctx)
+
+        console.log('================== ME ================== ', ctx.reduxStore.getState().user.user)
+
+    }
+     
 
     // TODO add check for user in redux if no user then fetch
     // const userId = auth(ctx);
 
-
     return {
-
+        user: ctx.reduxStore.getState().user.user
     };
   }
 

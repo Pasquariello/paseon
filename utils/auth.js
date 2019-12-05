@@ -16,8 +16,8 @@ export const login = ({ token }) => {
 }
 
 
-
 export const getUserData  = async (ctx) =>  {
+  console.log('====== IN getUserData')
   // let dispatch = useDispatch()
   const { userId } = nextCookie(ctx)
   let url = 'http://localhost:3001/account/get_acct_details'
@@ -31,27 +31,25 @@ export const getUserData  = async (ctx) =>  {
       body: JSON.stringify({id: userId})
       
     }).then(
-      function(response) {
-
+      async function(response) {
         if (response.status !== 200) {
             let error = new Error(response.statusText)
             error.response = response
             throw error
         }
 
-        response.json().then(function(data){
+        await response.json().then(function(data){
           console.log('DATA FROM GET USER', data)
-
           const { dispatch } = ctx.reduxStore;
 
           dispatch({
             type: 'USER_LOADED',
             payload: data
           });
-
         })
       }
     )
+    
   } catch (error) {
     console.error('You have an error in your code or there are Network issues.',error)
 
@@ -64,17 +62,23 @@ export const getUserData  = async (ctx) =>  {
 
 
 
-export const auth = ctx => {
- 
+export const auth = async ctx => {
+  console.log('IN AUTH UTIL ===== ')
   const { token, userId } = nextCookie(ctx)
 
-  if (!ctx.reduxStore.getState().user.user){
-    console.log('no user')
-    getUserData(ctx)
-  } else {
-    console.log(ctx.reduxStore.getState().user.user)
-  }
 
+// let userData = null
+//   if (!ctx.reduxStore.getState().user.user){
+//     console.log('no user')
+//      userData =  getUserData(ctx)
+//      console.log('userData ===== ', userData)
+//   } else {
+//     userData = ctx.reduxStore.getState().user.user
+//     console.log(ctx.reduxStore.getState().user.user)
+//     console.log('else userdata', userData)
+
+//   }
+  
 
   console.log('tay token', token)
   console.log('tay token id', userId)

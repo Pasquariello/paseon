@@ -27,7 +27,7 @@ import {
     switch (type) {
   
       case USER_LOADED:
-        console.log('USER_LOADED reducer success', payload)
+        //console.log('USER_LOADED reducer success', payload)
         return {
           ...state,
           user: payload,
