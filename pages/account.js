@@ -126,9 +126,6 @@ Account.getInitialProps = async (ctx) => {
 
     if  (!ctx.reduxStore.getState().user.user){
         await getUserData(ctx)
-
-        console.log('================== ME ================== ', ctx.reduxStore.getState().user.user)
-
     }
      
 
