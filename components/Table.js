@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useTable , useResizeColumns} from 'react-table'
+import { useTable , useResizeColumns, useBlockLayout} from 'react-table'
 
 
 const Styles = styled.div`
   padding: 1rem;
 
-  .table {
+  table {
     display: inline-block;
     border-spacing: 0;
     border: 1px solid black;
 
-    .tr {
+    tr {
       :last-child {
         .td {
           border-bottom: 0;
@@ -19,8 +19,8 @@ const Styles = styled.div`
       }
     }
 
-    .th,
-    .td {
+    th,
+    td {
       margin: 0;
       padding: 0.5rem;
       border-bottom: 1px solid black;
@@ -64,28 +64,35 @@ function Table ({columns, data}) {
         []
       )
     
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({
-    columns,
-    data,
-    defaultColumn
-  },
-    useResizeColumns
-  )
+      const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+      } = useTable(
+        {
+          columns,
+          data,
+          defaultColumn,
+        },
+        useResizeColumns
+      )
 
   // Render the UI for your table
   return (
-    <table className="table" {...getTableProps()}>
+    <table className="table table-striped" {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <tr {...headerGroup.getHeaderGroupProps()} >
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              <th {...column.getHeaderProps()}>
+                 <div
+                  {...column.getResizerProps()}
+                  className={`resizer ${column.isResizing ? 'isResizing' : ''}`}
+                />
+                {column.render('Header') }
+                </th>
             ))}
           </tr>
         ))}

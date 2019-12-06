@@ -263,43 +263,43 @@ const [initDrag, setInitDrag] = useState();
         <hr></hr>
         <form>
 
-          <div class="form-group">
+          <div className="form-group">
             <label for="cust_label">Label</label>
             <input 
               type="text"
-              class="form-control" 
+              className="form-control" 
               id="cust_label" 
               placeholder="Enter Custom Label"
               ></input>
           </div>
 
-          <div class="form-group">
+          <div className="form-group">
             <label for="cust_placeholder">Placeholder</label>
             <input 
               type="text" 
-              class="form-control" 
+              className="form-control" 
               id="cust_placeholder" 
               placeholder="Enter Custom Placeholder"></input>
           </div>
 
-          <div class="form-group">
+          <div className="form-group">
             <label for="cust_default">Default</label>
             <input 
               type="text"
-              class="form-control" 
+              clclassNameass="form-control" 
               id="cust_default" 
               placeholder="Enter Custom Label"
               ></input>
           </div>
 
-          <div class="custom-control custom-switch">
+          <div className="custom-control custom-switch">
      
-            <input type="checkbox" class="custom-control-input" id="customSwitch1"></input>
-            <label class="custom-control-label" for="customSwitch1">Make This Field  Require</label>
+            <input type="checkbox" className="custom-control-input" id="customSwitch1"></input>
+            <label className="custom-control-label" for="customSwitch1">Make This Field  Require</label>
 
           </div>
 
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary">Submit</button>
         </form>
 
         </>
