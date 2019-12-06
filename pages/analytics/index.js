@@ -45,7 +45,7 @@ Analytics.getInitialProps = async function(ctx) {
 
     
 
-    const userId = auth(ctx);
+    const userId = await auth(ctx);
     const res = await fetch(`http://localhost:3001/campaign/analytics/${userId}`);
     const data = await res.json();
 

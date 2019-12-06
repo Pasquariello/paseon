@@ -7,6 +7,7 @@ class QuickAnalytics extends React.Component {
     constructor(props) {
         super(props);
     }
+
     
     render(){
         let cardCount = this.props.data.length;

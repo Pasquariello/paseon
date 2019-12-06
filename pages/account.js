@@ -52,7 +52,7 @@ import {states} from '../utils/states';
                         <div className="form-group col-md-6">
                         <label htmlFor="inputEmail4">Email</label>
                         <input 
-                            value={userState.email} 
+                            value={userState.email ? userState.email : ''} 
                             type="email" 
                             className="form-control" 
                             id="inputEmail4" 
@@ -70,7 +70,7 @@ import {states} from '../utils/states';
                     <div className="form-group">
                         <label htmlFor="inputCompany">Company</label>
                         <input 
-                            value={userState.company}  
+                            value={userState.company ? userState.company : ''}  
                             type="text" 
                             className="form-control" 
                             id="inputCompany" 
