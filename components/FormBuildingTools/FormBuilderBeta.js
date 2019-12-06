@@ -15,10 +15,13 @@ import {states} from '../../utils/states';
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { resetServerContext } from 'react-beautiful-dnd';
 import { renderToString } from 'react-dom/server';
-import { func } from 'prop-types';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
+
 
 // ...
 
@@ -51,6 +54,7 @@ const first_name_obj = {
   name: 'first_name',
   value: '',
   required: false,
+  default: '', // LAST SPOT TOUCH
   placholder: '',
 }
 
@@ -139,11 +143,9 @@ const blank_obj = {
 const single_text_obj = {
   type: 'text',
   tag: 'input',
-  label: {
-    name: 'Label',
-    value: ''
-  },
-  placholder: {
+  label: '',
+  placeholder: '',
+  placholder2: {
     name: 'Placeholder',
     value: ''
   },
@@ -151,6 +153,7 @@ const single_text_obj = {
   value: '',
   required: false,
 }
+
 
 
 ///////////////////////////////////////
@@ -166,11 +169,17 @@ const [campaignForm, setCampaignForm] = useState(
 )
 const [editItemDetails, setEditItemDetails] = useState()
 
-const [itemToMove, setItemToMove] = useState();
+const [itemToMoveIndex, setItemToMoveIndex] = useState();
 
 const [activeDropZone, setActiveDropZone] = useState();
 
 const [initDrag, setInitDrag] = useState();
+
+const [selected, setSelected] = useState()
+
+
+
+const [fieldAction, setFieldAction] = useState();
 
 
  
@@ -212,7 +221,6 @@ const [initDrag, setInitDrag] = useState();
     function clearList(e){
       e.preventDefault();
       //setSelectList([]);
-
       
       // this will eventually be handled with REDUX ? or handle state in the parent component
       props.removeSingle([])
@@ -221,20 +229,31 @@ const [initDrag, setInitDrag] = useState();
 
 
     function addToForm (input_obj) {
-      console.log('hello from addToForm', input_obj)
+      
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
-
+      setEditToggle()
     }
 
-    const [editToggle, setEditToggle] = useState(false)
+    const [editToggle, setEditToggle] = useState()
     
     function openEdit(input_obj){
       addToForm (input_obj)
-      setEditToggle(!editToggle)
+      
+
+      let lastElem;
+      if (campaignForm.fields.length  > 0) {
+        lastElem = campaignForm.fields.length - 1
+      } else {
+        lastElem = 0
+      }
+      
+      setEditToggle(lastElem)
     }
 
-    function editInputView(index) {
-
+    function editInputView() {
+      
+      console.log('um hello', selected)
+      let index = editToggle
       let edit_obj = campaignForm.fields[index]
 
       // const [array, setArray] = useState([
@@ -247,6 +266,10 @@ const [initDrag, setInitDrag] = useState();
       let copy = []
       copy = [...campaignForm.fields ]
       console.log('Copy  of Entire Array', copy)
+
+      let toEditField = copy[index];
+
+
       // copy[index].text = '3' 
       // setArray(copy)
       
@@ -255,8 +278,8 @@ const [initDrag, setInitDrag] = useState();
       return (
         <>
         <div>
-        <label htmlFor="elem">Edit</label>
-        <div style={{float: 'right'}} onClick={()=>setEditToggle(false) }>
+      <label htmlFor="elem">Edit {copy[index].label} </label>
+        <div style={{float: 'right'}} onClick={()=>setEditToggle() }>
         <button>x</button>
         </div>
         </div>
@@ -270,6 +293,7 @@ const [initDrag, setInitDrag] = useState();
               className="form-control" 
               id="cust_label" 
               placeholder="Enter Custom Label"
+              value={copy[index].label}
               ></input>
           </div>
 
@@ -279,14 +303,16 @@ const [initDrag, setInitDrag] = useState();
               type="text" 
               className="form-control" 
               id="cust_placeholder" 
-              placeholder="Enter Custom Placeholder"></input>
+              placeholder="Enter Custom Placeholder"
+              value={copy[index].placeholder}
+            ></input>
           </div>
 
           <div className="form-group">
             <label for="cust_default">Default</label>
             <input 
               type="text"
-              clclassNameass="form-control" 
+              className="form-control" 
               id="cust_default" 
               placeholder="Enter Custom Label"
               ></input>
@@ -294,7 +320,19 @@ const [initDrag, setInitDrag] = useState();
 
           <div className="custom-control custom-switch">
      
-            <input type="checkbox" className="custom-control-input" id="customSwitch1"></input>
+            <input 
+              onChange={()=> {
+                  copy[index].required = !copy[index].required
+                  setCampaignForm({...campaignForm, fields:copy})
+
+                }
+              
+              } 
+              value={copy[index].required}
+              type="checkbox" 
+              className="custom-control-input" 
+              id="customSwitch1"
+            ></input>
             <label className="custom-control-label" for="customSwitch1">Make This Field  Require</label>
 
           </div>
@@ -308,7 +346,9 @@ const [initDrag, setInitDrag] = useState();
     }
 
     function removeOne(e, index, val) {
+
       e.preventDefault();
+      setEditToggle()
       let newList = campaignForm.fields.filter((item, i) =>  i != index)
       setCampaignForm({...campaignForm, fields:newList}) 
 
@@ -393,9 +433,9 @@ const [initDrag, setInitDrag] = useState();
  
 
     function dragStart(event, index) {
-      setItemToMove(index)
+      setItemToMoveIndex(index)
       setInitDrag(true);
-      console.log(itemToMove)
+      console.log('TAAYY', itemToMoveIndex)
       
       event
         .dataTransfer
@@ -414,8 +454,8 @@ const [initDrag, setInitDrag] = useState();
       let arr = campaignForm.fields; //TODO rename
 
 
-        var element = arr[itemToMove];
-        arr.splice(itemToMove, 1);
+        var element = arr[itemToMoveIndex];
+        arr.splice(itemToMoveIndex, 1);
         arr.splice(index, 0, element);
 
         setCampaignForm({...campaignForm, fields:arr}) 
@@ -493,14 +533,13 @@ const [initDrag, setInitDrag] = useState();
 
 let lastElem = campaignForm.fields.length - 1
 let elems = transfromJSONtoHTML()
-console.log(elems)
   return (
     <>
 
       <div className="flex-grid">
-<div className="col">
+        <div className="col">
       <LeftBar>
-        {editToggle ? editInputView(lastElem) : null}
+        {editToggle != null ? editInputView() : null}
       <hr></hr>
 
         <label htmlFor="elem">Frequently Used</label>
@@ -599,7 +638,7 @@ console.log(elems)
 
     <div className="row"> 
 
-      <div className="col-md-4 mb-4" onClick={()=>openEdit(blank_obj)}>
+      <div className="col-md-4 mb-4" onClick={()=>openEdit(single_text_obj)}>
         <div className="card mb-4">
             <div className="card-body">
                 <p className="card-title">Single Line</p>
@@ -711,8 +750,18 @@ console.log(elems)
         Paseon Form
       </button>
 <FormSandBox>
-<button onClick={(e)=>clearList(e)}>x</button>
-<button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
+{/* <button onClick={(e)=>clearList(e)}>x</button> */}
+<div className="btn-group btn-group-toggle" data-toggle="buttons">
+<button 
+  className="btn btn-secondary" 
+  onClick={(e)=>removeOne(e, index, item)}
+>
+  <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+</button>
+<button className="btn btn-secondary">
+  <FontAwesomeIcon fixedWidth width="0" icon={faInfoCircle}></FontAwesomeIcon>
+</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
+</div>
 {/* REORDER START */}
 
                 {fieldList.map((item, index) => (  
@@ -732,13 +781,37 @@ console.log(elems)
                         onMouseLeave={() => setEditItemDetails(null)}  
                       >
 
-                        <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
-                          <button onClick={(e)=>removeOne(e, index, item)}>x</button>
-                          <button onClick={(e)=>console.log('clicked edit')}>edit</button>
 
+                        <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
+                        
+                          <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                            <button 
+                              className="btn btn-secondary" 
+                              onClick={(e)=> {
+                                 setEditToggle(index)
+                                  // let selectedField = campaignForm.fields[index]
+                                  // console.log()
+                                  // if (selected) {
+                                  //   setSelected(selectedField)
+                                  // } else {
+                                  //   setSelected()
+                                  // }
+
+                                }
+                              }
+                            >
+                              <FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
+                            </button>
+                            <button 
+                              className="btn btn-secondary" 
+                              onClick={(e)=>removeOne(e, index, item)}
+                            >
+                              <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+                            </button>
+                          </div>
                         </div>
 
-                      <label style={{fontSize: '11px'}}>{item.label}</label>
+                        <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
                       {/* {console.log(item)} */}
           {(item.tag == 'select' ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
@@ -811,9 +884,9 @@ console.log(elems)
 
 .sub{
   height:50px;
-  border:solid 1px black;
+  //border:solid 1px black;
   position:absolute;
-  top:-25px;
+  top:-20px;
   right: 50px;
 }
 
