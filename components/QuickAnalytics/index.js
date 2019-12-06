@@ -27,7 +27,8 @@ class QuickAnalytics extends React.Component {
 
                     newArray.map((row, rowIndex) => {
                         return (
-                            <div className="row">
+                            <div key={rowIndex}
+                            className="row">
 
                        
                     {row.map((data, index) =>{

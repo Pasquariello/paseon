@@ -15,7 +15,7 @@ const Analytics = props => (
     {props.data.map(campaign => {
       console.log(campaign)
       return (
-        <CampaignLink id={campaign.id} title={campaign.campaign_name} directory="analytics"/>
+        <CampaignLink key={campaign.id} id={campaign.id} title={campaign.campaign_name} directory="analytics"/>
       )
     })}
 
