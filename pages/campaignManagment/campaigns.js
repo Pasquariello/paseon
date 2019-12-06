@@ -130,6 +130,9 @@ function Campaigns(props) {
                   id: 'response_count',
                   Header: 'Response Count',
                   accessor: 'jsonb_array_length',
+                  Cell: props => {
+                    return !props.cell.row.original.jsonb_array_length ? 0 : props.cell.row.original.jsonb_array_length
+                  }
               },
         ]
         console.log('state', campaignListState)
