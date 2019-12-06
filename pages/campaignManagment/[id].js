@@ -70,7 +70,7 @@ function Campaign(props) {
                 filename={campaign_name}
             >
                 Download me 
-                <FontAwesomeIcon fixedWidth size="1x" icon={faFileCsv} />
+                <FontAwesomeIcon fixedWidth width="0" icon={faFileCsv} />
 
             </CSVLink>
 
