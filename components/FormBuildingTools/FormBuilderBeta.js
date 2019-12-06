@@ -441,13 +441,14 @@ const [initDrag, setInitDrag] = useState();
       return (
         <>
         <div 
-        className=  {classes}
-        onDragOver={(event) => dragOver(event, index)}
-        onDragLeave={(event) => dragLeave(event, index)}
-        onDrop = {(event) => drop(event, index)}
-        //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-        //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-      ></div>
+          className=  {classes}
+          onDragOver={(event) => dragOver(event, index)}
+          onDragLeave={(event) => dragLeave(event, index)}
+          onDrop = {(event) => drop(event, index)}
+          //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+          //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+        ></div>
+
         <style jsx>
         {`
           .dropZone {
@@ -480,10 +481,9 @@ const [initDrag, setInitDrag] = useState();
     function buildContainerClasses(index) {
     return classNames(
       'elemContainer',
-
+    
       {
         'elemContainerHighlight': editItemDetails == index,
-
         // 'hoverDropZone': activeDropZone == index,
         // 'dropZoned': initDrag
       }
@@ -715,13 +715,12 @@ console.log(elems)
 <button>?</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
 {/* REORDER START */}
 
-        
                 {fieldList.map((item, index) => (  
 
       <div>
           
                     {dropzone(index)}
-
+                 
                       <div 
                       id='draggableSpan'
                       draggable='true'
@@ -732,6 +731,15 @@ console.log(elems)
                         onMouseEnter={() => setEditItemDetails(index)}
                         onMouseLeave={() => setEditItemDetails(null)}  
                       >
+
+                        <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
+                          <button onClick={(e)=>removeOne(e, index, item)}>x</button>
+                          <button onClick={(e)=>console.log('clicked edit')}>edit</button>
+
+                        </div>
+
+                       
+                      
                         <button onClick={(e)=>removeOne(e, index, item)}>x</button>
                  
                       <label style={{fontSize: '11px'}}>{item.label}</label>
@@ -805,6 +813,17 @@ console.log(elems)
     {`
 
 
+.sub{
+  height:50px;
+  border:solid 1px black;
+  position:absolute;
+  top:-25px;
+  right: 50px;
+}
+
+.hiddenSub{
+  display: none
+}
 
     p {
       font-size: 10px;
@@ -844,6 +863,7 @@ console.log(elems)
 
     .elemContainer {
       margin: 10px;
+      position:relative;
     }
    
 
@@ -852,8 +872,9 @@ console.log(elems)
       border: 1px solid blue;
       background-color: #f2f2f2;
       cursor: grab;
-  
+
     }
+
     
     .flex-grid {
       display: flex;
