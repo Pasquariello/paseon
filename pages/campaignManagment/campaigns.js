@@ -20,20 +20,36 @@ import { withAuthSync } from '../../utils/auth'
 
 function Campaigns(props) {
 
+  let totalForms = props.campaignList.length
+  let totalSubmissions = 0
+  let countArray = []
 
 
 
+    props.campaignList.forEach(campaign => {
+      
+      totalSubmissions = totalSubmissions + campaign.jsonb_array_length
+      // countArray = [...countArray, campaign.jsonb_array_length]
+      
+    })
+
+  
+    console.log('arr', countArray)
+    
     let quickAnalyticsData = [
         {
-          title: 'Contact Form',
+          title: 'Total Forms',
+          body: totalForms
   
         },
         {
-          title: 'Sign Up Form',
+          title: 'Total Submissions',
+          body: totalSubmissions
         },
-        {
-          title: 'RSVP From',
-        },
+        // {
+        //   title: 'Highest Submissions',
+        //   body: ''
+        // },
     ] 
        
     const [idList, setIdList] = useState([]);
