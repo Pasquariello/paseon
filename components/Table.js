@@ -80,7 +80,7 @@ function Table ({columns, data}) {
 
   // Render the UI for your table
   return (
-    <table class="table" {...getTableProps()}>
+    <table className="table" {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>

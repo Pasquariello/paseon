@@ -99,8 +99,8 @@ import {states} from '../utils/states';
                             defaultValue="choose" 
                             className="form-control">
                                 <option value="choose">Choose...</option>
-                                {state_names.map(state_opt => {
-                                    return <option value={state_opt}>{state_opt}</option>
+                                {state_names.map((state_opt, index) => {
+                                    return <option key={index} value={state_opt}>{state_opt}</option>
                                 })}
                         </select>
                         </div>
