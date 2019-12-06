@@ -738,10 +738,6 @@ console.log(elems)
 
                         </div>
 
-                       
-                      
-                        <button onClick={(e)=>removeOne(e, index, item)}>x</button>
-                 
                       <label style={{fontSize: '11px'}}>{item.label}</label>
                       {/* {console.log(item)} */}
           {(item.tag == 'select' ? 
