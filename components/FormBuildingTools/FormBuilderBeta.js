@@ -240,12 +240,11 @@ const [fieldAction, setFieldAction] = useState();
       addToForm (input_obj)
       
 
-      let lastElem;
+      let lastElem = 0;
+
       if (campaignForm.fields.length  > 0) {
         lastElem = campaignForm.fields.length - 1
-      } else {
-        lastElem = 0
-      }
+      } 
       
       setEditToggle(lastElem)
     }
@@ -287,7 +286,7 @@ const [fieldAction, setFieldAction] = useState();
         <form>
 
           <div className="form-group">
-            <label for="cust_label">Label</label>
+            <label htmlFor="cust_label">Label</label>
             <input 
               type="text"
               className="form-control" 
@@ -298,7 +297,7 @@ const [fieldAction, setFieldAction] = useState();
           </div>
 
           <div className="form-group">
-            <label for="cust_placeholder">Placeholder</label>
+            <label htmlFor="cust_placeholder">Placeholder</label>
             <input 
               type="text" 
               className="form-control" 
@@ -309,7 +308,7 @@ const [fieldAction, setFieldAction] = useState();
           </div>
 
           <div className="form-group">
-            <label for="cust_default">Default</label>
+            <label htmlFor="cust_default">Default</label>
             <input 
               type="text"
               className="form-control" 
@@ -333,7 +332,7 @@ const [fieldAction, setFieldAction] = useState();
               className="custom-control-input" 
               id="customSwitch1"
             ></input>
-            <label className="custom-control-label" for="customSwitch1">Make This Field  Require</label>
+            <label className="custom-control-label" htmlFor="customSwitch1">Make This Field  Require</label>
 
           </div>
 
@@ -386,11 +385,11 @@ const [fieldAction, setFieldAction] = useState();
           {`<form>`} <br></br>
           
         
-          {campaignForm.fields.map(field => {
+          {campaignForm.fields.map((field, index) => {
                        
                        
                 return (
-                <div>&nbsp; {/* ADDS SPACE*/}
+                <div key={index} >&nbsp; {/* ADDS SPACE*/}
                  {`
                  <label>${field.label}</label>
                  <${field.tag} type="${field.type}"></${field.tag}>
@@ -766,7 +765,7 @@ let elems = transfromJSONtoHTML()
 
                 {fieldList.map((item, index) => (  
 
-      <div>
+      <div key={index}>
           
                     {dropzone(index)}
                  
@@ -815,10 +814,10 @@ let elems = transfromJSONtoHTML()
                       {/* {console.log(item)} */}
           {(item.tag == 'select' ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
-            {item.options.map(value => {
+            {item.options.map((value, index) => {
               console.log('item',item)
                 return (
-                  <option>{value}</option>
+                  <option key={index}>{value}</option>
                 )
                 
               })} 
