@@ -23,7 +23,7 @@ import {states} from '../utils/states';
     let quickAnalyticsData = [
         {
           title: 'Account Type',
-          body: 'Gold Tier',
+          body: userState.account_type,
   
         },
         {
