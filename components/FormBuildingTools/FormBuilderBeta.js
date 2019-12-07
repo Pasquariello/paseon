@@ -243,7 +243,7 @@ const [fieldAction, setFieldAction] = useState();
       let lastElem = 0;
 
       if (campaignForm.fields.length  > 0) {
-        lastElem = campaignForm.fields.length - 1
+        lastElem = campaignForm.fields.length
       } 
       
       setEditToggle(lastElem)
