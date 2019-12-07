@@ -10,6 +10,7 @@ import { withAuthSync } from '../utils/auth';
 
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { auth, getUserData } from '../utils/auth'
+import { motion } from "framer-motion"
 
 
 import TestChart from '../components/TESTCHART';
@@ -67,7 +68,11 @@ function Dashboard () {
 
           <div className="row"> 
 
-            <div className="col-md-6 mb-4">
+            <motion.div  
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="col-md-6 mb-4"
+            >
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
                   <h6 className="m-0 font-weight-bold text-primary">Create a New Campaign</h6>
@@ -80,8 +85,7 @@ function Dashboard () {
                   <a target="_blank" rel="nofollow" href="https://undraw.co/">See this cool link →</a>
                 </div>
               </div>
-            </div>
-
+            </motion.div>
             <div className="col-md-6 mb-4">
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
@@ -120,7 +124,9 @@ function Dashboard () {
 
 {/*  */}
 
-<TestChart/>
+{/* <TestChart/> */}
+
+
 <div className="row"> 
             <div className="col-md-6">
                     
