@@ -15,6 +15,8 @@ import {states} from '../../utils/states';
 /////////////////////////////
 /////////////////////////////
 /////////////////////////////
+
+//TODO: reflect edit field changes in paseon and raw form HTML view
 import { resetServerContext } from 'react-beautiful-dnd';
 import { renderToString } from 'react-dom/server';
 
@@ -293,6 +295,12 @@ const [fieldAction, setFieldAction] = useState();
               id="cust_label" 
               placeholder="Enter Custom Label"
               value={copy[index].label}
+              onChange={(e)=> {
+                  copy[index].label = e.target.value
+                  setCampaignForm({...campaignForm, fields:copy})
+                }
+              
+              } 
               ></input>
           </div>
 
@@ -304,6 +312,11 @@ const [fieldAction, setFieldAction] = useState();
               id="cust_placeholder" 
               placeholder="Enter Custom Placeholder"
               value={copy[index].placeholder}
+              onChange={(e)=> {
+                  copy[index].placeholder = e.target.value
+                  setCampaignForm({...campaignForm, fields:copy})
+                }
+              }
             ></input>
           </div>
 
@@ -314,6 +327,11 @@ const [fieldAction, setFieldAction] = useState();
               className="form-control" 
               id="cust_default" 
               placeholder="Enter Custom Label"
+              onChange={(e)=> {
+                  copy[index].default = e.target.value
+                  setCampaignForm({...campaignForm, fields:copy})
+                }
+              }
               ></input>
           </div>
 
