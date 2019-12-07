@@ -256,10 +256,10 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             defaultPageSize={3}
             />  */}
 
-            <Table 
-            data={[]}
-            columns={build}
-            defaultPageSize={3} />
+                <Table 
+                    data={build} //TODO - does it makes sense to pass in build ?
+                    columns={build}
+                />
             </>
         )
     }
