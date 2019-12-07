@@ -5,7 +5,7 @@ import Form_Builder from '../../components/FormBuildingTools/Form_Builder';
 // import ReactTable from 'react-table';
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import { withAuthSync } from '../../utils/auth'
-
+import Table from '../../components/Table';
 import {
     useTable,
     useGroupBy,
@@ -250,11 +250,16 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
         return (
             <>
             <p>Visual representation of data collected with your new campaign.</p>
-            <ReactTable
+            {/* <ReactTable
             //data={data}
             columns={build}
             defaultPageSize={3}
-            /> 
+            />  */}
+
+            <Table 
+            data={[]}
+            columns={build}
+            defaultPageSize={3} />
             </>
         )
     }
