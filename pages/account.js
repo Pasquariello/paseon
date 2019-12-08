@@ -15,7 +15,6 @@ import {states} from '../utils/states';
     const [idList, setIdList] = useState([]);
 
     const [userState, setUserState] = useState(props.user)
-    console.log('userState', userState)
 
     let state_names = states.map(state => state.name);
 

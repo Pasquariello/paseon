@@ -30,13 +30,9 @@ const Profile = props => {
 }
 
 Profile.getInitialProps = async ctx => {
-  console.log('hello')
   const { token } = nextCookie(ctx)
-  console.log('pro', token)
   const apiUrl = getHost(ctx.req) + '/profile'
-  console.log(apiUrl)
   const redirectOnError = () => {
-    console.log('redirect on error')
     typeof window !== 'undefined'
       ? Router.push('/login')
       : ctx.res.writeHead(302, { Location: '/login' }).end()
@@ -52,9 +48,6 @@ Profile.getInitialProps = async ctx => {
 
     if (response.ok) {
       console.log('res good', response)
-      // const js = await response.json()
-      // console.log('js', js)
-      // return js
     } else {
       // https://github.com/developit/unfetch#caveats
       return await redirectOnError()

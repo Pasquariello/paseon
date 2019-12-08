@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux'
 
 export const login = ({ token }) => {
 
-  console.log('in login', token)
   cookie.set('token', token, { expires: 36000 })
 
   Router.push('/dashboard')
@@ -38,7 +37,6 @@ export const getUserData  = async (ctx) =>  {
         }
 
         await response.json().then(function(data){
-          console.log('DATA FROM GET USER', data)
           const { dispatch } = ctx.reduxStore;
 
           dispatch({
@@ -74,16 +72,13 @@ export const auth = async ctx => {
 
   // We already checked for server. This should only happen on client.
   if (!token) {
-    console.log('!token')
     Router.push('/login')
   }
 
-  console.log('IN AUTH', userId)
   return userId;
 }
 
 export const logout = () => {
-  console.log('logOut')
   cookie.remove('token')
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now())

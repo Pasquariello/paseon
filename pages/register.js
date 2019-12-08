@@ -45,7 +45,6 @@ function Register () {
     setUserData(Object.assign({}, userData, { error: '' }))
     
     const username = userData.username
-    console.log('userData', userData)
 
     let url = 'http://localhost:3001/register/'
 
@@ -58,7 +57,6 @@ function Register () {
         body: JSON.stringify(userData)
       }).then(
         function(response) {
-            console.log('STATUS', response.status)
           if (response.status !== 200) {
             console.log('Login failed.')
               let error = new Error(response.statusText)
@@ -68,13 +66,10 @@ function Register () {
 
           response.json().then(function(data){
             
-            console.log('DATA', data)
-
             dispatch({
               type: 'REGISTER_SUCCESS',
               payload: data
             });
-
 
             Router.push('/dashboard')
 
@@ -98,7 +93,6 @@ function Register () {
 
   function setFormValuesToState(e, state_key){
     setUserData({...userData, [state_key]: e.target.value})
-    console.log('on change userData', userData)
   }
 
   return (
@@ -205,16 +199,6 @@ function Register () {
 }
 
 Register.getInitialProps = ({ reduxStore }) => {
-  console.log('reduxStore',reduxStore)
-  // Tick the time once, so we'll have a
-  // valid time before first render
-  // const { dispatch } = reduxStore
-  // dispatch({
-  //   type: 'LOGIN',
-  //   current_user: 2
-  //   //light: typeof window === 'object',
-  //   //lastUpdate: Date.now(),
-  // })
 
 
   return {}
@@ -222,24 +206,3 @@ Register.getInitialProps = ({ reduxStore }) => {
 
 export default withRedux(Register)
 
-// export default Login
-
-
-
-// function ProfilePage({ profile }) {
-//   return (
-//     <>
-//       <div>
-//         <img src={profile.avatar} />
-//         <h1>{profile.name}</h1>
-//         <p>{profile.address}</p>
-//         <p>{profile.email}</p>
-//         <Link href="/">
-//           <a>← Back to profiles</a>
-//         </Link>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default ProfilePage

@@ -27,7 +27,6 @@ function Login () {
     event.preventDefault()
     setUserData(Object.assign({}, userData, { error: '' }))
     const username = userData.username
-    console.log('hi', username)
 
     let url = 'http://localhost:3001/login/auth'
 
@@ -49,7 +48,6 @@ function Login () {
           }
 
           response.json().then(function(data){
-            console.log('DATA', data)
 
             dispatch({
               type: 'LOGIN_SUCCESS',

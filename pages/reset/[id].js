@@ -35,7 +35,6 @@ function ResetForm(props) {
     
         setUserData(Object.assign({}, userData, { error: '' }))
         
-        console.log('userData', userData)
     // NEEDS WORK
         let url = 'http://localhost:3001/account/reset_password'
         // return
@@ -49,7 +48,6 @@ function ResetForm(props) {
       }).then(
         function(response) {
           if (response.status !== 200) {
-            console.log('RESET LINK failed.')
               let error = new Error(response.statusText)
               error.response = response
               throw error
@@ -77,7 +75,6 @@ function ResetForm(props) {
 
   function setFormValuesToState(e, state_key){
     setUserData({...userData, [state_key]: e.target.value})
-    console.log('on change userData', userData)
   }
 
 return (
@@ -149,7 +146,6 @@ return (
 
 ResetForm.getInitialProps = async function(context, props) {
     const {id} = context.query;
-    console.log(id)
   // this will need to be a req to DB
   const res = await fetch(`http://localhost:3001/account/get_user_acct/${id}`);
   const data = await res.json();

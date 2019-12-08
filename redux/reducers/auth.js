@@ -55,22 +55,12 @@ import {
         console.log('LOGIN_SUCCESS reducer success', payload)
         cookie.set('token', payload.token, { expires: 36000 })
         cookie.set('userId', payload.userData.id, { expires: 36000 })
-       // localStorage.setItem("token", payload.token);
         return {
           ...state,
           ...payload,
           isAuthenticated: true,
           user: payload.userData
-        //   loading: false
         };
-  
-      // case USER_LOADED:
-      //   console.log('USER_LOADED reducer success', payload)
-      //   return {
-      //     ...state,
-      //     user: payload,
-      //   //   loading: false
-      //   };
   
       default:
         return state;
