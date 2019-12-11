@@ -6,4 +6,5 @@ export const USER_LOADED = "USER_LOADED";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGOUT = "LOGOUT";
 export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+export const CAMPAIGN_DATA_LOADED = "CAMPAIGN_DATA_LOADED";
 

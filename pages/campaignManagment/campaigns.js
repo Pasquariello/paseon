@@ -12,6 +12,7 @@ import { withRedux } from '../../lib/redux';
 import { auth } from '../../utils/auth';
 import Table from '../../components/Table'
 
+import { getCampaignData } from '../../utils/campaign_data';
 
 
 import { withAuthSync } from '../../utils/auth'
@@ -34,7 +35,6 @@ function Campaigns(props) {
     })
 
   
-    console.log('arr', countArray)
     
     let quickAnalyticsData = [
         {
@@ -102,7 +102,7 @@ function Campaigns(props) {
 
     
     const renderTable = () => {
-      console.log('PROPS', props)
+      // console.log('PROPS', props)
         const columns = [
                 {
                     id: 'select',
@@ -115,8 +115,9 @@ function Campaigns(props) {
                     id: 'name',
                     Header: 'Name',
                     accessor: 'campaign_name',
-                    Cell: props => {console.log('HELLO', props)
-                     return <CampaignLink id={props.cell.row.original.id} title={props.cell.value} directory="campaignManagment"/>}//<CampaignLink id={props.original.id} title={props.value} directory="campaignManagment"/>
+                    Cell: props => {
+                     return <CampaignLink id={props.cell.row.original.id} title={props.cell.value} directory="campaignManagment"/>
+                    }//<CampaignLink id={props.original.id} title={props.value} directory="campaignManagment"/>
 
                 },
                 {
@@ -135,7 +136,7 @@ function Campaigns(props) {
                   }
               },
         ]
-        console.log('state', campaignListState)
+        // console.log('state', campaignListState)
         //TODO: turn this into its own function that takes in columns? 
         return (
             <>
@@ -205,11 +206,15 @@ Campaigns.getInitialProps = async function(ctx) {
     const userId = await auth(ctx)
     console.log('USER ID', userId)
     
-    const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
-    const data = await res.json();
-    console.log('resolved');
+    // const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
+    // const data = await res.json();
+
+
+    //if  (!ctx.reduxStore.getState().user.user){
+      const data = await getCampaignData(ctx)
+  //}
+
     
-    console.log('I got: ',data);
 
     return {
       campaignList: data
