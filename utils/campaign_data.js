@@ -14,18 +14,17 @@ export const getCampaignData  = async (ctx) =>  {
   try {
 
     const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
-    const data = await res.json();
-
-    console.log('THIS IS DATA', data)
+    const data = await res.json()
+        
     const { dispatch } = ctx.reduxStore;
 
-    dispatch({
+    await dispatch({
       type: 'CAMPAIGN_DATA_LOADED',
       payload: data
     });
 
     console.log('HI HO')
-    return data
+    // return data
     
   } catch (error) {
     console.error('You have an error in your code or there are Network issues.',error)

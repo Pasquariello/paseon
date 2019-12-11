@@ -20,8 +20,9 @@ import {
           console.log('hello from reducer')
         //localStorage.setItem("token", payload.token);
         return {
-          ...state,
-          ...payload,
+            ...state,
+            // ...payload,
+            data: [...payload]
         
         };
   

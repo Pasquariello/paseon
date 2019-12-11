@@ -193,32 +193,27 @@ function Campaigns(props) {
 Campaigns.getInitialProps = async function(ctx) {
 
     
-    // let idTest = null;
-
-    //  TODO - DO I NEED THIS????
-    // if (ctx.reduxStore.getState().auth.user){
-    //   idTest = ctx.reduxStore.getState().auth.user.id
-    // } else {
-    //   idTest = userId
-    // }
-    // console.log('idTest', idTest);
+;
 
     const userId = await auth(ctx)
-    console.log('USER ID', userId)
-    
-    // const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
-    // const data = await res.json();
-
-
-    //if  (!ctx.reduxStore.getState().user.user){
-      const data = await getCampaignData(ctx)
-  //}
-
     
 
-    return {
-      campaignList: data
-    };
+
+  if  (!ctx.reduxStore.getState().campaigns.data.length){
+    await getCampaignData(ctx)
+  } 
+ 
+
+
+
+return {
+    campaignList: ctx.reduxStore.getState().campaigns.data
+};
+    
+
+    // return {
+    //   campaignList: data
+    // };
 }
 
 
