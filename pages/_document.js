@@ -18,8 +18,8 @@ export default class extends Document {
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> */}
 
 
-            <link rel="stylesheet" href="node_modules/react-table/react-table.css"></link>
-          <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
+            {/* <link rel="stylesheet" href="node_modules/react-table/react-table.css"></link> */}
+          {/* <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link> */}
           <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
           
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />

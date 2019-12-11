@@ -193,9 +193,9 @@ function Campaigns(props) {
 Campaigns.getInitialProps = async function(ctx) {
 
     
-;
 
-    const userId = await auth(ctx)
+
+  await auth(ctx)
     
 
 
@@ -210,10 +210,6 @@ return {
     campaignList: ctx.reduxStore.getState().campaigns.data
 };
     
-
-    // return {
-    //   campaignList: data
-    // };
 }
 
 
