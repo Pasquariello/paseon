@@ -13,6 +13,8 @@ const Styles = styled.div`
     display: inline-block;
     border-spacing: 0;
     border: 1px solid black;
+    overflow-x: auto;
+    overflow-y: visible;
 
     tr {
       :last-child {
@@ -30,8 +32,8 @@ const Styles = styled.div`
       border-bottom: 1px solid black;
       border-right: 1px solid black;
       white-space: nowrap; 
-      overflow: hidden;
-      text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
 
       ${'' /* In this example we use an absolutely position resizer,
