@@ -22,7 +22,6 @@ function ForgotPassword () {
     event.preventDefault()
     setUserData(Object.assign({}, userData, { error: '' }))
     const username = userData.username
-    console.log('hi', username)
 
     let url = 'http://localhost:3001/login/resetLink'
 

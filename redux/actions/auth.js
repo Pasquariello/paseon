@@ -103,7 +103,7 @@ import {
       
       if (response.status === 200) {
         let data = await response.json(); 
-        console.log('user data action', data)
+
         dispatch({
             type: USER_LOADED,
             payload: data
