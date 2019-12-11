@@ -6,7 +6,10 @@ import { useTable , useResizeColumns, useBlockLayout} from 'react-table'
 const Styles = styled.div`
   padding: 1rem;
 
+  
+
   table {
+    width: 100%;
     display: inline-block;
     border-spacing: 0;
     border: 1px solid black;
@@ -15,6 +18,7 @@ const Styles = styled.div`
       :last-child {
         .td {
           border-bottom: 0;
+          
         }
       }
     }
@@ -25,6 +29,10 @@ const Styles = styled.div`
       padding: 0.5rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
+      white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 
       ${'' /* In this example we use an absolutely position resizer,
        so this is required. */}
@@ -38,8 +46,9 @@ const Styles = styled.div`
 
       .resizer {
         display: inline-block;
-        background: blue;
+        // background: blue;
         width: 5px;
+        overflow: hidden
         height: 100%;
         position: absolute;
         right: 0;
@@ -57,7 +66,7 @@ const Styles = styled.div`
 function Table ({columns, data}) {
     const defaultColumn = React.useMemo(
         () => ({
-          minWidth: 20,
+          minWidth: 100,
           width: 150,
           maxWidth: 500,
         }),
@@ -76,11 +85,13 @@ function Table ({columns, data}) {
           data,
           defaultColumn,
         },
+        useBlockLayout,
         useResizeColumns
       )
 
   // Render the UI for your table
   return (
+    <Styles>
     <table className="table table-striped" {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
@@ -111,6 +122,7 @@ function Table ({columns, data}) {
         )}
       </tbody>
     </table>
+    </Styles>
   )
 }
 
