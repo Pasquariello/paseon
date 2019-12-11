@@ -59,6 +59,7 @@ function Campaign(props) {
                 key: `${obj}.value`
             }; 
         });
+        console.log('data', data)
 
 
         //TODO: turn this into its own function that takes in columns? 
@@ -81,8 +82,9 @@ function Campaign(props) {
                     resolveData={data => data.map(row => row)}
                     defaultPageSize={5}
                 />  */}
+                {!data.length ? 'no data' : 
                 <Table columns={columns} data={data} />
-
+                }
             </>
         )
     }
@@ -106,7 +108,6 @@ Campaign.getInitialProps = async function(context, props) {
   // this will need to be a req to DB
     const res = await fetch(`http://localhost:3001/campaign/get_campaign_details/${id}`);
     const data = await res.json();
-
     return {data}
     // TODO 
     // table columns need to be form fields mapped to columns - make editable?
