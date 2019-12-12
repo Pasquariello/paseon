@@ -68,7 +68,7 @@ function Dashboard () {
 
           <div className="row"> 
 
-            <motion.div  
+            <div  
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="col-md-6 mb-4"
@@ -85,7 +85,7 @@ function Dashboard () {
                   <a target="_blank" rel="nofollow" href="https://undraw.co/">See this cool link →</a>
                 </div>
               </div>
-            </motion.div>
+            </div>
             <div className="col-md-6 mb-4">
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
