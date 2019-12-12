@@ -7,14 +7,24 @@ const Styles = styled.div`
   padding: 1rem;
 
   
+  .tableWrap {
+    display: block;
+    max-width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    border-bottom: 1px solid black;
+  }
 
   table {
+    // width: 100%;
+    // display: inline-block;
+    // border-spacing: 0;
+    // border: 1px solid black;
+    // overflow-x: auto;
+    // overflow-y: visible;
     width: 100%;
-    display: inline-block;
     border-spacing: 0;
-    border: 1px solid black;
-    overflow-x: auto;
-    overflow-y: visible;
+
 
     tr {
       :last-child {
@@ -32,8 +42,8 @@ const Styles = styled.div`
       border-bottom: 1px solid black;
       border-right: 1px solid black;
       white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
 
       ${'' /* In this example we use an absolutely position resizer,
@@ -94,6 +104,8 @@ function Table ({columns, data}) {
   // Render the UI for your table
   return (
     <Styles>
+    <div className="tableWrap">
+
     <table className="table table-striped" {...getTableProps()}>
       <thead>
         {headerGroups.map(headerGroup => (
@@ -124,6 +136,7 @@ function Table ({columns, data}) {
         )}
       </tbody>
     </table>
+    </div>
     </Styles>
   )
 }
