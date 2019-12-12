@@ -8,10 +8,11 @@ import SideBar from '../components/SideBar';
 import QuickAnalytics from '../components/QuickAnalytics';
 import { withAuthSync } from '../utils/auth';
 
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { auth, getUserData } from '../utils/auth'
-import { motion } from "framer-motion"
-
+import { useSelector, shallowEqual } from 'react-redux';
+import { auth, getUserData } from '../utils/auth';
+import { motion } from "framer-motion";
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 import TestChart from '../components/TESTCHART';
 
@@ -89,7 +90,27 @@ function Dashboard () {
             <div className="col-md-6 mb-4">
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary">Manage Your Current Campaigns</h6>
+                  {/* <h6 className="m-0 font-weight-bold text-primary">Manage Your Current Campaigns</h6> */}
+
+                  {/* <DropdownButton style={{background: 'white'}} id="dropdown-basic-button" title="Dropdown button">
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                  </DropdownButton> */}
+                      <Dropdown>
+                        <h6 className="m-0 font-weight-bold text-primary">
+                          <Dropdown.Toggle variant="link" id="dropdown-basic">
+                            Manage Your Current Campaigns
+                          </Dropdown.Toggle>
+                        </h6>
+
+                        <Dropdown.Menu>
+                          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                                  
                 </div>
                 <div className="card-body">
                   <div className="text-center">
