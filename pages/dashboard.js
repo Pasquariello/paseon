@@ -12,7 +12,8 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { auth, getUserData } from '../utils/auth';
 import { motion } from "framer-motion";
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
+import Dropdown from 'react-bootstrap/Dropdown';
+import Link from 'next/link';
 
 import TestChart from '../components/TESTCHART';
 
@@ -117,7 +118,9 @@ function Dashboard () {
                     <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src="../static/images/undraw_dev_focus_b9xo.svg" alt=""></img>
                   </div>
                   <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">See this cool link →</a>
+                  <Link href="/campaignManagment/campaigns">
+                    <a>See All Campaigns →</a>
+                  </Link>
                 </div>
               </div>
             </div>
