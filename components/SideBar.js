@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUserCog, faWrench, faChartBar, faBlenderPhone} from '@fortawesome/free-solid-svg-icons'
+import { faHome, faUserCog, faWrench, faChartBar, faBlenderPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -92,7 +92,12 @@ export default function SideBar(props) {
       </li>
       <li className="sidebar-item" >
         <Link href="/email_archives">
-          <a className="nav-link">Archived Emails</a>
+          <a className="nav-link">
+            <div>
+              <FontAwesomeIcon fixedWidth width="0" icon={faEnvelope} />
+            </div>
+            Archived Emails
+          </a>
         </Link>    
       </li>
       <li className="sidebar-item" >
