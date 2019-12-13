@@ -102,7 +102,6 @@ function Campaigns(props) {
 
     
     const renderTable = () => {
-      // console.log('PROPS', props)
         const columns = [
                 {
                     id: 'select',
@@ -136,7 +135,6 @@ function Campaigns(props) {
                   }
               },
         ]
-        // console.log('state', campaignListState)
         //TODO: turn this into its own function that takes in columns? 
         return (
             <>

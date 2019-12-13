@@ -30,12 +30,6 @@ const getUserInfo = () => {
 function Dashboard () { 
 
   const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
-  // const { current_user } = getUserInfo()
-
-  //console.log('current_user', current_user)
-
-
-
 
     let quickAnalyticsData = [
       {
