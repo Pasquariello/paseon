@@ -100,10 +100,7 @@ function drop(event) {
 function mouseEnter(buttonValue) {
   setIsMouseInside(true)
   console.log('hello', up)
-  // setSelectList([...selectList, { ...blankInputTest }]);
-  // if (isMouseInside ){
-  //   console.log('hello')
-  // }
+
 }
 
 function mouseLeave() {
@@ -171,12 +168,7 @@ function onDragEnd(result) {
     }
     
     function mycallback(val){
-      console.log('IN THIS dude')
-      // setElem([...elem, {...val}])
-      // setSelectList({...selectList, ...val });
-     // setSelectList([...selectList, { ...val }]); // TAYLOR THIS IS WHERE I NEED TO BE DUDE!
-        //since list is being set here in form, maybe I pass this selectList to parentCallback instead of creating/setting state there too? 
-        
+ 
       console.log(val)
       props.parentCallback(val)
       // do something with value in parent component, like save to state
@@ -275,7 +267,6 @@ function onDragEnd(result) {
                       <div className="elemContainer">
                         <button onClick={(e)=>removeOne(e, index, item)}>x</button>
                       <label>{item.label}</label>
-                      {console.log(item)}
           {(item.tag == 'select' ? 
           <select id="elem" name="elem" onChange={handleElemSelect}>
             {item.options.map(value => {

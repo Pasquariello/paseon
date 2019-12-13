@@ -41,11 +41,9 @@ import {
       case AUTH_ERROR:
       case LOGOUT:
       case DELETE_ACCOUNT:
-        //localStorage.removeItem("token");
         cookie.remove('token')
         return {
           ...state,
-         // token: null,
           isAuthenticated: false,
           loading: false
         };

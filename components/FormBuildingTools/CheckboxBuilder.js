@@ -31,7 +31,6 @@ export default function CheckBoxBuilder(props) {
         let inputObj = inputBuilderState;
         setInputBuilderState(blankInput)
          props.parentCallback(inputObj)
-         console.log('inputObj', inputObj)
     }
 
     function handleChangeInput(e, field){

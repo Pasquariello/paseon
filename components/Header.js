@@ -14,7 +14,6 @@ class Header extends React.Component {
   toggleClass() {
     
     this.setState({isActive: !this.state.isActive})
-    console.log('clicked',this.state.isActive  )
   }
 
 render(){
