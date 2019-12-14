@@ -3,7 +3,6 @@ import React, { useState, createContext, useContext } from "react";
 //TODO: hook up required and placeholder
 export default function CheckBoxBuilder(props) {
 
-//function buildSelect () {
     const blankInput = {
         type: '',
         tag: 'input',
@@ -15,7 +14,6 @@ export default function CheckBoxBuilder(props) {
     }
     const [inputBuilderState, setInputBuilderState] = useState(blankInput);
 
-    // const blankCat = { name: '', age: '' };
     const [selectList, setSelectList] = useState([
         { ...inputBuilderState },
     ]);
@@ -119,4 +117,3 @@ export default function CheckBoxBuilder(props) {
   );
   
 }
-//   export default SelectBuilder;
