@@ -4,10 +4,7 @@ import Link from 'next/link';
 
 class Header extends React.Component {
 
-  // const linkStyle = {
-  //   marginRight: 15,
-  
-  // };
+
   state = {
     isActive: false
   }
