@@ -180,7 +180,6 @@ const [initDrag, setInitDrag] = useState();
 const [selected, setSelected] = useState()
 
 
-
 const [fieldAction, setFieldAction] = useState();
 
 
@@ -450,9 +449,13 @@ const [fieldAction, setFieldAction] = useState();
  
 
     function dragStart(event, index) {
+      
       setItemToMoveIndex(index)
       setInitDrag(true);
       console.log('TAAYY', itemToMoveIndex)
+
+      //set all inputs to disabled
+
       
       event
         .dataTransfer
@@ -783,65 +786,55 @@ let elems = transfromJSONtoHTML()
 
                 {fieldList.map((item, index) => (  
 
-      <div key={index}>
-          
-                    {dropzone(index)}
-                 
-                      <div 
-                      id='draggableSpan'
-                      draggable='true'
-                      onDragStart={(event) =>  dragStart(event, index)}
-                      onDragEnd={(event) =>  dragEnd(event, index)}
-                        style={{padding: '10px'}}
-                        className={buildContainerClasses(index)}
-                        onMouseEnter={() => setEditItemDetails(index)}
-                        onMouseLeave={() => setEditItemDetails(null)}  
-                      >
+<div key={index}>
+
+  {dropzone(index)}
+
+  <div 
+    id='draggableSpan'
+    draggable='true'
+    onDragStart={(event) => dragStart(event, index)}
+    onDragEnd={(event) =>  dragEnd(event, index)}
+    style={{padding: '10px'}}
+    className={buildContainerClasses(index)}
+    onMouseEnter={() => setEditItemDetails(index)}
+    onMouseLeave={() => setEditItemDetails(null)}  
+  >
 
 
-                        <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
-                        
-                          <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button 
-                              className="btn btn-secondary" 
-                              onClick={(e)=> {
-                                 setEditToggle(index)
-                                  // let selectedField = campaignForm.fields[index]
-                                  // console.log()
-                                  // if (selected) {
-                                  //   setSelected(selectedField)
-                                  // } else {
-                                  //   setSelected()
-                                  // }
+    <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
 
-                                }
-                              }
-                            >
-                              <FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
-                            </button>
-                            <button 
-                              className="btn btn-secondary" 
-                              onClick={(e)=>removeOne(e, index, item)}
-                            >
-                              <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
-                            </button>
-                          </div>
-                        </div>
+      <div className="btn-group btn-group-toggle" data-toggle="buttons">
+        <button 
+          className="btn btn-secondary" 
+          onClick={(e)=> {setEditToggle(index)}}
+        >
+        <FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
+        </button>
+        <button 
+          className="btn btn-secondary" 
+          onClick={(e)=>removeOne(e, index, item)}
+        >
+        <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+        </button>
+      </div>
+    </div>
 
-                        <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-                      {/* {console.log(item)} */}
-          {(item.tag == 'select' ? 
-          <select id="elem" name="elem" onChange={handleElemSelect}>
-            {item.options.map((value, index) => {
-              console.log('item',item)
-                return (
-                  <option key={index}>{value}</option>
-                )
-                
-              })} 
-          </select>
-          : <input type={item.type} ></input> )}
-          </div>
+    <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+
+    {(item.tag == 'select' ? 
+      <select id="elem" name="elem" onChange={handleElemSelect}>
+        {item.options.map((value, index) => {
+          console.log('item',item)
+          return (
+            <option key={index}>{value}</option>
+          )
+
+        })} 
+      </select>
+    : <input disabled={initDrag} type={item.type} ></input> )}
+    
+  </div>
 
 </div>
 
