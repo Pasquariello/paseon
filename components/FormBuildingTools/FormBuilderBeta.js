@@ -156,6 +156,28 @@ const single_text_obj = {
   required: false,
 }
 
+const multiline_text_obj = {
+  tag: 'textarea',
+  label: '',
+  placeholder: '',
+  placholder2: {
+    name: 'Placeholder',
+    value: ''
+  },
+  name: '',
+  value: '',
+  required: false,
+}
+
+const select_obj = {
+  tag: 'select',
+  label: '',
+  options: [],
+  name: '',
+  value: '',
+  required: false,
+}
+
 
 
 ///////////////////////////////////////
@@ -230,17 +252,18 @@ const [fieldAction, setFieldAction] = useState();
 
 
     function addToForm (input_obj) {
-      
+      console.log('input obj', input_obj)
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
+      console.log('hello ski', campaignForm)
       setEditToggle()
     }
 
     const [editToggle, setEditToggle] = useState()
     
     function openEdit(input_obj){
+
       addToForm (input_obj)
       
-
       let lastElem = 0;
 
       if (campaignForm.fields.length  > 0) {
@@ -252,20 +275,12 @@ const [fieldAction, setFieldAction] = useState();
 
     function editInputView() {
       
-      console.log('um hello', selected)
       let index = editToggle
       let edit_obj = campaignForm.fields[index]
 
-      // const [array, setArray] = useState([
-      // {'id': 0, text: '0'},
-      // {'id': 1, text: '1'},
-      // {'id': 2, text: '2'}
-      // ]);
-
-      // ... somewhere else.
       let copy = []
       copy = [...campaignForm.fields ]
-      console.log('Copy  of Entire Array', copy)
+      console.log('Copy of Entire Array', copy)
 
       let toEditField = copy[index];
 
@@ -278,7 +293,7 @@ const [fieldAction, setFieldAction] = useState();
       return (
         <>
         <div>
-      <label htmlFor="elem">Edit {copy[index].label} </label>
+        <label htmlFor="elem">Edit {copy[index].label} </label>
         <div style={{float: 'right'}} onClick={()=>setEditToggle() }>
         <button>x</button>
         </div>
@@ -303,21 +318,59 @@ const [fieldAction, setFieldAction] = useState();
               ></input>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="cust_placeholder">Placeholder</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              id="cust_placeholder" 
-              placeholder="Enter Custom Placeholder"
-              value={copy[index].placeholder}
-              onChange={(e)=> {
-                  copy[index].placeholder = e.target.value
+
+          { copy[index].tag == 'select' ? 
+            
+            <div className="form-group">
+              <label htmlFor="cust_placeholder">Add Option</label> 
+              <input 
+                type="text" 
+                className="form-control" 
+                id="cust_placeholder" 
+                placeholder="Enter a Comma separated list for new dropdown options"
+                value={copy[index].placeholder}
+                onChange={(e)=> {
+                  let optionsArray = e.target.value.split(',');
+                  console.log('optionsArray', optionsArray)
+                  copy[index].options = optionsArray
                   setCampaignForm({...campaignForm, fields:copy})
+                    // copy[index].options = e.target.value
+                    // setCampaignForm({...campaignForm, fields:copy})
+                  }
                 }
-              }
-            ></input>
-          </div>
+              ></input>
+              {/* <button
+                onClick={(e)=> {
+                  e.preventDefault();
+                 
+                  let optionsArray = e.target.value.split(',');
+                  console.log('optionsArray', optionsArray)
+                  copy[index].options = optionsArray
+                  setCampaignForm({...campaignForm, fields:copy})
+                }}
+              >add</button> */}
+
+            </div> 
+           
+           :
+
+            <div className="form-group">
+              <label htmlFor="cust_placeholder">Placeholder</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                id="cust_placeholder" 
+                placeholder="Enter Custom Placeholder"
+                value={copy[index].placeholder}
+                onChange={(e)=> {
+                    copy[index].placeholder = e.target.value
+                    setCampaignForm({...campaignForm, fields:copy})
+                  }
+                }
+              ></input>
+            </div>
+
+          }
 
           <div className="form-group">
             <label htmlFor="cust_default">Default</label>
@@ -402,14 +455,12 @@ const [fieldAction, setFieldAction] = useState();
           {`<form>`} <br></br>
           
         
-          {campaignForm.fields.map((field, index) => {
-                       
-                       
+          {campaignForm.fields.map((field, index) => {                       
                 return (
                 <div key={index} >&nbsp; {/* ADDS SPACE*/}
                  {`
                  <label>${field.label}</label>
-                 <${field.tag} type="${field.type}"></${field.tag}>
+                 <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
                 `}
                 <br></br>
                 </div>
@@ -484,6 +535,31 @@ const [fieldAction, setFieldAction] = useState();
       event
         .dataTransfer
         .clearData();
+    }
+
+// taylor
+    function renderDynamicFields(item) {
+      let obj = {
+
+        input: <input disabled={initDrag} type={item.type} ></input>,
+        textarea: <textarea></textarea>,
+        select: <select id="elem" name="elem" onChange={handleElemSelect}>
+        
+        
+        { item.options ? 
+        item.options.map((value, index) => {
+          console.log('item',item)
+          return (
+            <option>{value}</option>
+           )
+        }) : <option></option>
+        }  
+      </select>
+
+      }
+
+      return obj[item.tag]
+
     }
 
 
@@ -660,7 +736,7 @@ let elems = transfromJSONtoHTML()
         </div>
       </div>
 
-      <div className="col-md-4 mb-4">
+      <div className="col-md-4 mb-4" onClick={() => openEdit(multiline_text_obj)}>
         <div className="card mb-4">
             <div className="card-body">
                 <p className="card-title">Multi Line</p>
@@ -668,7 +744,7 @@ let elems = transfromJSONtoHTML()
         </div>
       </div>
 
-      <div className="col-md-4 mb-4">
+      <div className="col-md-4 mb-4" onClick={() => openEdit(select_obj)}>
         <div className="card mb-4">
           <div className="card-body">
             <p className="card-title">Drop Down</p>
@@ -778,8 +854,11 @@ let elems = transfromJSONtoHTML()
     </div>
 
     <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-
-    {(item.tag == 'select' ? 
+{/* start dynamically added fields - right panel */}
+      
+      {renderDynamicFields(item)}
+    
+    {/* {(item.tag == 'select' ? 
       <select id="elem" name="elem" onChange={handleElemSelect}>
         {item.options.map((value, index) => {
           console.log('item',item)
@@ -789,8 +868,9 @@ let elems = transfromJSONtoHTML()
 
         })} 
       </select>
-    : <input disabled={initDrag} type={item.type} ></input> )}
-    
+    : <input disabled={initDrag} type={item.type} ></input> )} */}
+{/* end dynamically added fields - right panel */}
+
   </div>
 
 </div>
