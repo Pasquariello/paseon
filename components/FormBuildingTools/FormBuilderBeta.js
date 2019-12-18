@@ -284,6 +284,7 @@ const [fieldAction, setFieldAction] = useState();
 
       let toEditField = copy[index];
 
+      
 
       // copy[index].text = '3' 
       // setArray(copy)
@@ -328,7 +329,7 @@ const [fieldAction, setFieldAction] = useState();
                 className="form-control" 
                 id="cust_placeholder" 
                 placeholder="Enter a Comma separated list for new dropdown options..."
-                value={copy[index].placeholder}
+                value={copy[index].options}
                 onChange={(e)=> {
                   let optionsArray = e.target.value.split(',');
                   console.log('optionsArray', optionsArray)
