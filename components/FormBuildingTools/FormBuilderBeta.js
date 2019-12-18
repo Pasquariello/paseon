@@ -178,6 +178,15 @@ const select_obj = {
   required: false,
 }
 
+const single_checkbox_obj = {
+  tag: 'select',
+  label: '',
+  options: [],
+  name: '',
+  value: '',
+  required: false,
+}
+
 
 
 ///////////////////////////////////////
@@ -199,10 +208,7 @@ const [activeDropZone, setActiveDropZone] = useState();
 
 const [initDrag, setInitDrag] = useState();
 
-const [selected, setSelected] = useState()
 
-
-const [fieldAction, setFieldAction] = useState();
 
 
  
@@ -212,46 +218,16 @@ const [fieldAction, setFieldAction] = useState();
 /////////////////////////////
 /////////////////////////////
 
-    const [elem, setElem] = useState([]); 
 
-    
-
-    function showPaseonTag() {
-
-      console.log('<h1>hell this is a form</h1>')
-
-      
-
-    }
-
-    function handleElemSelect(e){
-      setElem(e.target.value)
-      console.log('TAYLOR',e)
-    }
-    
-    function mycallback(val){
-      console.log('IN THIS dude')
-      // setElem([...elem, {...val}])
-      // setSelectList({...selectList, ...val });
-     // setSelectList([...selectList, { ...val }]); // TAYLOR THIS IS WHERE I NEED TO BE DUDE!
-        //since list is being set here in form, maybe I pass this selectList to parentCallback instead of creating/setting state there too? 
-        
-
-      props.parentCallback(val)
-      // do something with value in parent component, like save to state
-    }
 
     function clearList(e){
       e.preventDefault();
-      //setSelectList([]);
-      
-      // this will eventually be handled with REDUX ? or handle state in the parent component
-      props.removeSingle([])
+      setCampaignForm({...campaignForm, fields: []})      
 
     }
 
 
-    function addToForm (input_obj) {
+    function addToForm (input_obj, tag) {
       console.log('input obj', input_obj)
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
       console.log('hello ski', campaignForm)
@@ -280,7 +256,6 @@ const [fieldAction, setFieldAction] = useState();
 
       let copy = []
       copy = [...campaignForm.fields ]
-      console.log('Copy of Entire Array', copy)
 
       let toEditField = copy[index];
 
@@ -525,12 +500,12 @@ const [fieldAction, setFieldAction] = useState();
 
         input: <input disabled={initDrag} type={item.type} ></input>,
         textarea: <textarea></textarea>,
-        select: <select id="elem" name="elem" onChange={handleElemSelect}>
+        select: <select id="elem" name="elem">
         
         
         { item.options ? 
         item.options.map((value, index) => {
-          console.log('item',item)
+          // console.log('item',item)
           return (
             <option>{value}</option>
            )
@@ -619,7 +594,7 @@ let elems = transfromJSONtoHTML();
       <div className="flex-grid">
         <div className="col">
       <LeftBar>
-        {editToggle != null ? editInputView() : null}
+        {editToggle != null && campaignForm.fields.length ? editInputView() : null}
       <hr></hr>
 
         <label htmlFor="elem">Frequently Used</label>
@@ -770,8 +745,8 @@ let elems = transfromJSONtoHTML();
    
 
         {/* TODO! rename parentCallback */}
-        {(elem === 'select' ? <SelectBuilder parentCallback={mycallback}></SelectBuilder> : null)}
-        {(elem === 'text' ? <InputBuilder parentCallback={mycallback}></InputBuilder> : null)}
+        {/* {(elem === 'select' ? <SelectBuilder parentCallback={mycallback}></SelectBuilder> : null)}
+        {(elem === 'text' ? <InputBuilder parentCallback={mycallback}></InputBuilder> : null)} */}
 
         
       </LeftBar>
@@ -791,7 +766,8 @@ let elems = transfromJSONtoHTML();
 <div className="btn-group btn-group-toggle" data-toggle="buttons">
 <button 
   className="btn btn-secondary" 
-  onClick={(e)=>removeOne(e, index, item)}
+  // onClick={(e)=>removeOne(e, index, item)} // here!
+  onClick={(e)=>clearList(e)}
 >
   <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
 </button>
