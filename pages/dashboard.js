@@ -10,6 +10,8 @@ import { withAuthSync } from '../utils/auth';
 
 import { useSelector, shallowEqual } from 'react-redux';
 import { auth, getUserData } from '../utils/auth';
+import { getCampaignData } from '../utils/campaign_data';
+
 import { motion } from "framer-motion";
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -27,7 +29,7 @@ const getUserInfo = () => {
 }
 
 
-function Dashboard () { 
+function Dashboard (props) { 
 
   const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
 
@@ -100,9 +102,14 @@ function Dashboard () {
                         </h6>
 
                         <Dropdown.Menu>
-                          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                          {props.campaignList.length ? 
+                            props.campaignList.map( campaign => {
+                              console.log(campaign)
+                            return  <Dropdown.Item href="#/action-1">{campaign.campaign_name}</Dropdown.Item>
+                            })
+                            : 
+                            <Dropdown.Item>You currently Have No Campaings</Dropdown.Item>
+                          }
                         </Dropdown.Menu>
                       </Dropdown>
                                   
@@ -187,10 +194,16 @@ function Dashboard () {
 
   Dashboard.getInitialProps = async (ctx) => {
     //check if page is authorized
-    auth(ctx)  
+    auth(ctx);
 
-    console.log('STATE REDUX',ctx.reduxStore.getState())
+    if  (!ctx.reduxStore.getState().campaigns.data.length){
+      await getCampaignData(ctx)
+    } 
 
+    return {
+      campaignList: ctx.reduxStore.getState().campaigns.data
+
+    }
 
   }
 
