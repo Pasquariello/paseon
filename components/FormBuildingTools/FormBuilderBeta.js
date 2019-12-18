@@ -426,58 +426,39 @@ const [fieldAction, setFieldAction] = useState();
 
 
     function transfromJSONtoHTML() {
-      // TEST DATA
-        // let my_arry = [
-        //   {
-        //     tag: 'input',
-        //     type: 'text',
-        //     label: 'test label'
-        //   },
-        //   {
-        //     tag: 'input',
-        //     type: 'email',
-        //     label: 'test label',
-        //     placeholder: 'taylor@pasq.net'
-        //   },
-        //   {
-        //     tag: 'input',
-        //     type: 'email',
-        //     label: 'test label',
-        //     placeholder: 'taylor@pasq.net'
-        //   }
-        // ]
 
-        // / = &sol;
-        // < = &lt;
-        // > = &gt;
+      if (campaignForm.fields.length) {
 
         return ( 
-        <div>
-          {`<form>`} <br></br>
-          
-        
-          {campaignForm.fields.map((field, index) => {                       
-                return (
-                <div key={index} >&nbsp; {/* ADDS SPACE*/}
-                 {`
-                 <label>${field.label}</label>
-                 <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
-                `}
-                <br></br>
-                </div>
-              ) 
-        
-            
-            
-            })  }
+          <div>
+            {`<form>`} <br></br>
             
           
-        
-          {`</form>`}
+            {campaignForm.fields.map((field, index) => {                       
+                  return (
+                  <div key={index} >&nbsp; {/* ADDS SPACE*/}
+                    {`
+                    <label>${field.label}</label>
+                    <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
+                  `}
+                  <br></br>
+                  </div>
+                ) 
+          
+              
+              
+              })  }
+              
+            
+          
+            {`</form>`}
 
-        </div>
+          </div>
 
         )
+      } else {
+            return `Start using the form building tool to see what your raw HTML will look like!`
+          }
 
     }
 
@@ -628,8 +609,10 @@ const [fieldAction, setFieldAction] = useState();
     }
 
 
-let lastElem = campaignForm.fields.length - 1
-let elems = transfromJSONtoHTML()
+let lastElem = campaignForm.fields.length - 1;
+
+let elems = transfromJSONtoHTML();
+
   return (
     <>
 
@@ -797,10 +780,10 @@ let elems = transfromJSONtoHTML()
       <div className="col">
         {/* DO I STILL NEED THIS ? */}
 {/* //onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop} */}
-    <button>Raw Form</button>   
+    <button type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
       {/* to see the custom paseon form with attribute that points to correct saved form object */}
       {/* <button>Paseon Form</button> */}
-      <button type="button" data-toggle="modal" data-target="#exampleModal">
+      <button type="button" data-toggle="modal" data-target="#paseonFormeModal">
         Paseon Form
       </button>
 <FormSandBox>
@@ -896,23 +879,19 @@ let elems = transfromJSONtoHTML()
 
 
 {/* <!-- Modal --> */}
-<div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div className="modal fade" id="rawFormModal" tabIndex="-1" role="dialog" aria-labelledby="rawFormModal" aria-hidden="true">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Paseon Tags</h5>
+        <h5 className="modal-title" id="rawFormModalLabel">Paseon Tags</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="modal-body">
 
-      {elems}
+      {transfromJSONtoHTML()}
 
-        {/* <p>Copy and paste the below HTML anywhere you would like to display your new custom campaign.</p>
-      &lt; PaseonForms &#47;&gt;
-      <br></br>
-      &lt; Script &gt;  &lt;&#47; Script &gt;       */}
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
