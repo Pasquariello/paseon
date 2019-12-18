@@ -33,26 +33,31 @@ const getUserInfo = () => {
 
 function Dashboard (props) { 
 
-  const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
+  // todo - think about how I want to make all quick analytics more dry but still custom for each page - pass in props? 
+  // const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
+
+
+  let totalForms = props.campaignList.length
+  let totalSubmissions = 0
+  let countArray = []
+
+    props.campaignList.forEach(campaign => {
+      
+      totalSubmissions = totalSubmissions + campaign.jsonb_array_length
+      // countArray = [...countArray, campaign.jsonb_array_length]
+      
+    })
 
     let quickAnalyticsData = [
-      {
-        title: 'TOTAL MONTHLY SUBMISSIONS',
-        body: '50%',
 
-      },
       {
         title: 'TOTAL FORMS MANAGED',
-        body: '6'
+        body: totalForms
       },
       {
         title: 'TOTAL MONTHLY SUBMISSIONS',
-        body: '50%'
-      },
-      {
-        title: 'TOTAL MONTHLY SUBMISSIONS',
-        body: '50%'
-      },
+        body: totalSubmissions
+      }
     ]
 
     return (
@@ -104,7 +109,7 @@ function Dashboard (props) {
                             return  <Dropdown.Item><CampaignLink id={campaign.id} title={campaign.campaign_name} directory="campaignManagment"/></Dropdown.Item>
                             })
                             : 
-                            <Dropdown.Item>You currently Have No Campaings</Dropdown.Item>
+                            <Dropdown.Item>You currently Have No Campaigns</Dropdown.Item>
                           }
                         </Dropdown.Menu>
                       </Dropdown>
