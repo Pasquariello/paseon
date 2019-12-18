@@ -323,11 +323,11 @@ const [fieldAction, setFieldAction] = useState();
             
             <div className="form-group">
               <label htmlFor="cust_placeholder">Add Option</label> 
-              <input 
-                type="text" 
+              <textarea 
+                // type="text" 
                 className="form-control" 
                 id="cust_placeholder" 
-                placeholder="Enter a Comma separated list for new dropdown options"
+                placeholder="Enter a Comma separated list for new dropdown options..."
                 value={copy[index].placeholder}
                 onChange={(e)=> {
                   let optionsArray = e.target.value.split(',');
@@ -338,7 +338,7 @@ const [fieldAction, setFieldAction] = useState();
                     // setCampaignForm({...campaignForm, fields:copy})
                   }
                 }
-              ></input>
+              ></textarea>
               {/* <button
                 onClick={(e)=> {
                   e.preventDefault();
