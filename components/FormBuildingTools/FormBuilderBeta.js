@@ -816,6 +816,7 @@ let elems = transfromJSONtoHTML();
     className={buildContainerClasses(index)}
     onMouseEnter={() => setEditItemDetails(index)}
     onMouseLeave={() => setEditItemDetails(null)}  
+    onClick={()=> {setEditToggle(index)}}
   >
 
 
