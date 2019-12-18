@@ -16,6 +16,8 @@ import { motion } from "framer-motion";
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown';
 import Link from 'next/link';
+import CampaignLink from '../components/CampaignLink';
+
 
 import TestChart from '../components/TESTCHART';
 
@@ -87,13 +89,7 @@ function Dashboard (props) {
             <div className="col-md-6 mb-4">
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                  {/* <h6 className="m-0 font-weight-bold text-primary">Manage Your Current Campaigns</h6> */}
-
-                  {/* <DropdownButton style={{background: 'white'}} id="dropdown-basic-button" title="Dropdown button">
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                  </DropdownButton> */}
+        
                       <Dropdown>
                         <h6 className="m-0 font-weight-bold text-primary">
                           <Dropdown.Toggle variant="link" id="dropdown-basic">
@@ -105,7 +101,7 @@ function Dashboard (props) {
                           {props.campaignList.length ? 
                             props.campaignList.map( campaign => {
                               console.log(campaign)
-                            return  <Dropdown.Item href="#/action-1">{campaign.campaign_name}</Dropdown.Item>
+                            return  <Dropdown.Item><CampaignLink id={campaign.id} title={campaign.campaign_name} directory="campaignManagment"/></Dropdown.Item>
                             })
                             : 
                             <Dropdown.Item>You currently Have No Campaings</Dropdown.Item>
