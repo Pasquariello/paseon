@@ -138,14 +138,9 @@ function Campaigns(props) {
         //TODO: turn this into its own function that takes in columns? 
         return (
             <>
-            <p>Visual representation of data collected with your new campaign.</p>
-            {/* <ReactTable
-            data={campaignListState}
-            columns={columns}
-            defaultPageSize ="10"
-            />  */}
-
-          <Table columns={columns} data={campaignListState} />
+              <p>Visual representation of data collected with your new campaign.</p>
+      
+              <Table columns={columns} data={campaignListState} />
 
             </>
         )
