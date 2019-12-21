@@ -2,6 +2,7 @@ import Layout from '../../components/MyLayout'
 import fetch from 'isomorphic-unfetch';
 // import ReactTable from 'react-table';
 import { useState } from 'react'
+import getUrl from '../../utils/getUrl';
 
 //TODO: make a message state
 
@@ -36,7 +37,7 @@ function ResetForm(props) {
         setUserData(Object.assign({}, userData, { error: '' }))
         
     // NEEDS WORK
-        let url = 'http://localhost:3001/account/reset_password'
+        let url = `${getUrl}//account/reset_password`
         // return
         try {
     

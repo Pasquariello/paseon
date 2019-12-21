@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import { withRedux } from '../lib/redux'
 // import { login } from '../redux/actions/auth'
 import Router from 'next/router'
-
+import  getUrl  from '../utils/getUrl';
 
 
 function Register () {
@@ -46,7 +46,7 @@ function Register () {
     
     const username = userData.username
 
-    let url = 'http://localhost:3001/register/'
+    let url = `${getUrl}//register/`
 
     try {
 

@@ -20,11 +20,11 @@ import {states} from '../utils/states';
 
 
     let quickAnalyticsData = [
-        {
-          title: 'Account Type',
-          body: userState.account_type,
+        // {
+        //   title: 'Account Type',
+        //   body: userState.account_type,
   
-        },
+        // },
         {
           title: 'TOTAL FORMS MANAGED',
           body: '6'

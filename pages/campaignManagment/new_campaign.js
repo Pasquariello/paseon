@@ -6,6 +6,8 @@ import Form_Builder from '../../components/FormBuildingTools/Form_Builder';
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import { withAuthSync } from '../../utils/auth'
 import Table from '../../components/Table';
+import getUrl  from '../../utils/getUrl';
+
 import {
     useTable,
     useGroupBy,
@@ -47,7 +49,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
         // setUserData(Object.assign({}, userData, { error: '' }))
         let form = campaignForm
         //const username = userData.username
-        let url = 'http://localhost:3001/campaign/new_campaign'
+        let url = `${getUrl}//campaign/new_campaign`
     
         try {
             console.log('try', url)

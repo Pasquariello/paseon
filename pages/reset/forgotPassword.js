@@ -5,6 +5,7 @@ import Layout from '../../components/MyLayout'
 
 import Router from 'next/router'
 
+import getUrl from '../../utils/getUrl';
 
 
 
@@ -23,7 +24,7 @@ function ForgotPassword () {
     setUserData(Object.assign({}, userData, { error: '' }))
     const username = userData.username
 
-    let url = 'http://localhost:3001/login/resetLink'
+    let url = `${getUrl}/login/resetLink`
 
     try {
 

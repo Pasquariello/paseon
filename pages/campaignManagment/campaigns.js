@@ -12,6 +12,9 @@ import { withRedux } from '../../lib/redux';
 import { auth } from '../../utils/auth';
 import Table from '../../components/Table'
 
+
+import getUrl from '../../utils/getUrl';
+
 import { getCampaignData } from '../../utils/campaign_data';
 
 
@@ -62,7 +65,7 @@ function Campaigns(props) {
         // event.preventDefault()
         // setUserData(Object.assign({}, userData, { error: '' }))
     
-        let url = 'http://localhost:3001/campaign/remove_campaign/'
+       let url = `${getUrl}/campaign/remove_campaign/`
     
         try {
     

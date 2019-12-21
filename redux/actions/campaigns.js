@@ -7,6 +7,7 @@ import {
 
   import { useDispatch } from 'react-redux'
 
+  import getUrl from '../../utils/getUrl';
 
   
   // Register
@@ -46,7 +47,7 @@ import {
   export const login = async(userData) => {
 
     const {username} = userData
-    let url = 'http://localhost:3001/login/auth'
+    let url = `${getUrl}/login/auth`
 
     try {
 
@@ -86,7 +87,7 @@ import {
   //Load User
   export const loadUser = async(id) => {
   
-    let url = `http://localhost:3001/account/get_acct_details/${id}`
+    let url = `${getUrl}/account/get_acct_details/${id}`
   
     try {
 

@@ -5,6 +5,7 @@ import cookie from 'js-cookie'
 import { compose } from 'redux'
 // import { login_action } from '../redux/actions/auth'
 import { useDispatch } from 'react-redux'
+import getUrl from './getUrl';
 
 
 export const login = ({ token }) => {
@@ -18,7 +19,7 @@ export const login = ({ token }) => {
 export const getUserData  = async (ctx) =>  {
 
   const { userId } = nextCookie(ctx)
-  let url = 'http://localhost:3001/account/get_acct_details'
+  let url = `${getUrl}/account/get_acct_details`
   
   try {
 
