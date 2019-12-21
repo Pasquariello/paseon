@@ -156,6 +156,37 @@ const single_text_obj = {
   required: false,
 }
 
+const multiline_text_obj = {
+  tag: 'textarea',
+  label: '',
+  placeholder: '',
+  placholder2: {
+    name: 'Placeholder',
+    value: ''
+  },
+  name: '',
+  value: '',
+  required: false,
+}
+
+const select_obj = {
+  tag: 'select',
+  label: '',
+  options: [],
+  name: '',
+  value: '',
+  required: false,
+}
+
+const single_checkbox_obj = {
+  tag: 'select',
+  label: '',
+  options: [],
+  name: '',
+  value: '',
+  required: false,
+}
+
 
 
 ///////////////////////////////////////
@@ -177,11 +208,7 @@ const [activeDropZone, setActiveDropZone] = useState();
 
 const [initDrag, setInitDrag] = useState();
 
-const [selected, setSelected] = useState()
 
-
-
-const [fieldAction, setFieldAction] = useState();
 
 
  
@@ -191,57 +218,28 @@ const [fieldAction, setFieldAction] = useState();
 /////////////////////////////
 /////////////////////////////
 
-    const [elem, setElem] = useState([]); 
 
-    
-
-    function showPaseonTag() {
-
-      console.log('<h1>hell this is a form</h1>')
-
-      
-
-    }
-
-    function handleElemSelect(e){
-      setElem(e.target.value)
-      console.log('TAYLOR',e)
-    }
-    
-    function mycallback(val){
-      console.log('IN THIS dude')
-      // setElem([...elem, {...val}])
-      // setSelectList({...selectList, ...val });
-     // setSelectList([...selectList, { ...val }]); // TAYLOR THIS IS WHERE I NEED TO BE DUDE!
-        //since list is being set here in form, maybe I pass this selectList to parentCallback instead of creating/setting state there too? 
-        
-
-      props.parentCallback(val)
-      // do something with value in parent component, like save to state
-    }
 
     function clearList(e){
       e.preventDefault();
-      //setSelectList([]);
-      
-      // this will eventually be handled with REDUX ? or handle state in the parent component
-      props.removeSingle([])
+      setCampaignForm({...campaignForm, fields: []})      
 
     }
 
 
-    function addToForm (input_obj) {
-      
+    function addToForm (input_obj, tag) {
+      console.log('input obj', input_obj)
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
+      console.log('hello ski', campaignForm)
       setEditToggle()
     }
 
     const [editToggle, setEditToggle] = useState()
     
     function openEdit(input_obj){
+
       addToForm (input_obj)
       
-
       let lastElem = 0;
 
       if (campaignForm.fields.length  > 0) {
@@ -253,23 +251,15 @@ const [fieldAction, setFieldAction] = useState();
 
     function editInputView() {
       
-      console.log('um hello', selected)
       let index = editToggle
       let edit_obj = campaignForm.fields[index]
 
-      // const [array, setArray] = useState([
-      // {'id': 0, text: '0'},
-      // {'id': 1, text: '1'},
-      // {'id': 2, text: '2'}
-      // ]);
-
-      // ... somewhere else.
       let copy = []
       copy = [...campaignForm.fields ]
-      console.log('Copy  of Entire Array', copy)
 
       let toEditField = copy[index];
 
+      
 
       // copy[index].text = '3' 
       // setArray(copy)
@@ -279,7 +269,7 @@ const [fieldAction, setFieldAction] = useState();
       return (
         <>
         <div>
-      <label htmlFor="elem">Edit {copy[index].label} </label>
+        <label htmlFor="elem">Edit {copy[index].label} </label>
         <div style={{float: 'right'}} onClick={()=>setEditToggle() }>
         <button>x</button>
         </div>
@@ -304,21 +294,59 @@ const [fieldAction, setFieldAction] = useState();
               ></input>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="cust_placeholder">Placeholder</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              id="cust_placeholder" 
-              placeholder="Enter Custom Placeholder"
-              value={copy[index].placeholder}
-              onChange={(e)=> {
-                  copy[index].placeholder = e.target.value
+
+          { copy[index].tag == 'select' ? 
+            
+            <div className="form-group">
+              <label htmlFor="cust_placeholder">Add Option</label> 
+              <textarea 
+                // type="text" 
+                className="form-control" 
+                id="cust_placeholder" 
+                placeholder="Enter a Comma separated list for new dropdown options..."
+                value={copy[index].options}
+                onChange={(e)=> {
+                  let optionsArray = e.target.value.split(',');
+                  console.log('optionsArray', optionsArray)
+                  copy[index].options = optionsArray
                   setCampaignForm({...campaignForm, fields:copy})
+                    // copy[index].options = e.target.value
+                    // setCampaignForm({...campaignForm, fields:copy})
+                  }
                 }
-              }
-            ></input>
-          </div>
+              ></textarea>
+              {/* <button
+                onClick={(e)=> {
+                  e.preventDefault();
+                 
+                  let optionsArray = e.target.value.split(',');
+                  console.log('optionsArray', optionsArray)
+                  copy[index].options = optionsArray
+                  setCampaignForm({...campaignForm, fields:copy})
+                }}
+              >add</button> */}
+
+            </div> 
+           
+           :
+
+            <div className="form-group">
+              <label htmlFor="cust_placeholder">Placeholder</label>
+              <input 
+                type="text" 
+                className="form-control" 
+                id="cust_placeholder" 
+                placeholder="Enter Custom Placeholder"
+                value={copy[index].placeholder}
+                onChange={(e)=> {
+                    copy[index].placeholder = e.target.value
+                    setCampaignForm({...campaignForm, fields:copy})
+                  }
+                }
+              ></input>
+            </div>
+
+          }
 
           <div className="form-group">
             <label htmlFor="cust_default">Default</label>
@@ -373,60 +401,39 @@ const [fieldAction, setFieldAction] = useState();
 
 
     function transfromJSONtoHTML() {
-      // TEST DATA
-        // let my_arry = [
-        //   {
-        //     tag: 'input',
-        //     type: 'text',
-        //     label: 'test label'
-        //   },
-        //   {
-        //     tag: 'input',
-        //     type: 'email',
-        //     label: 'test label',
-        //     placeholder: 'taylor@pasq.net'
-        //   },
-        //   {
-        //     tag: 'input',
-        //     type: 'email',
-        //     label: 'test label',
-        //     placeholder: 'taylor@pasq.net'
-        //   }
-        // ]
 
-        // / = &sol;
-        // < = &lt;
-        // > = &gt;
+      if (campaignForm.fields.length) {
 
         return ( 
-        <div>
-          {`<form>`} <br></br>
-          
-        
-          {campaignForm.fields.map((field, index) => {
-                       
-                       
-                return (
-                <div key={index} >&nbsp; {/* ADDS SPACE*/}
-                 {`
-                 <label>${field.label}</label>
-                 <${field.tag} type="${field.type}"></${field.tag}>
-                `}
-                <br></br>
-                </div>
-              ) 
-        
-            
-            
-            })  }
+          <div>
+            {`<form>`} <br></br>
             
           
-        
-          {`</form>`}
+            {campaignForm.fields.map((field, index) => {                       
+                  return (
+                  <div key={index} >&nbsp; {/* ADDS SPACE*/}
+                    {`
+                    <label>${field.label}</label>
+                    <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
+                  `}
+                  <br></br>
+                  </div>
+                ) 
+          
+              
+              
+              })  }
+              
+            
+          
+            {`</form>`}
 
-        </div>
+          </div>
 
         )
+      } else {
+            return `Start using the form building tool to see what your raw HTML will look like!`
+          }
 
     }
 
@@ -450,9 +457,13 @@ const [fieldAction, setFieldAction] = useState();
  
 
     function dragStart(event, index) {
+      
       setItemToMoveIndex(index)
       setInitDrag(true);
       console.log('TAAYY', itemToMoveIndex)
+
+      //set all inputs to disabled
+
       
       event
         .dataTransfer
@@ -481,6 +492,31 @@ const [fieldAction, setFieldAction] = useState();
       event
         .dataTransfer
         .clearData();
+    }
+
+// taylor
+    function renderDynamicFields(item) {
+      let obj = {
+
+        input: <input disabled={initDrag} type={item.type} ></input>,
+        textarea: <textarea></textarea>,
+        select: <select id="elem" name="elem">
+        
+        
+        { item.options ? 
+        item.options.map((value, index) => {
+          // console.log('item',item)
+          return (
+            <option>{value}</option>
+           )
+        }) : <option></option>
+        }  
+      </select>
+
+      }
+
+      return obj[item.tag]
+
     }
 
 
@@ -536,27 +572,29 @@ const [fieldAction, setFieldAction] = useState();
     const fieldList = campaignForm.fields;
     
     function buildContainerClasses(index) {
-    return classNames(
-      'elemContainer',
-    
-      {
-        'elemContainerHighlight': editItemDetails == index,
-        // 'hoverDropZone': activeDropZone == index,
-        // 'dropZoned': initDrag
-      }
-    );
-}
+      return classNames(
+        'elemContainer',
+      
+        {
+          'elemContainerHighlight': editItemDetails == index,
+          // 'hoverDropZone': activeDropZone == index,
+          // 'dropZoned': initDrag
+        }
+      );
+    }
 
 
-let lastElem = campaignForm.fields.length - 1
-let elems = transfromJSONtoHTML()
+let lastElem = campaignForm.fields.length - 1;
+
+let elems = transfromJSONtoHTML();
+
   return (
     <>
 
       <div className="flex-grid">
         <div className="col">
       <LeftBar>
-        {editToggle != null ? editInputView() : null}
+        {editToggle != null && campaignForm.fields.length ? editInputView() : null}
       <hr></hr>
 
         <label htmlFor="elem">Frequently Used</label>
@@ -643,15 +681,9 @@ let elems = transfromJSONtoHTML()
 
 
 
-
-
-
-
-
-
-
-<hr></hr>
-        <label htmlFor="elem">New Element</label>
+    <hr></hr>
+    {/* Start Advanced build tools */}
+    <label htmlFor="elem">New Element</label>
 
     <div className="row"> 
 
@@ -663,7 +695,7 @@ let elems = transfromJSONtoHTML()
         </div>
       </div>
 
-      <div className="col-md-4 mb-4">
+      <div className="col-md-4 mb-4" onClick={() => openEdit(multiline_text_obj)}>
         <div className="card mb-4">
             <div className="card-body">
                 <p className="card-title">Multi Line</p>
@@ -671,7 +703,7 @@ let elems = transfromJSONtoHTML()
         </div>
       </div>
 
-      <div className="col-md-4 mb-4">
+      <div className="col-md-4 mb-4" onClick={() => openEdit(select_obj)}>
         <div className="card mb-4">
           <div className="card-body">
             <p className="card-title">Drop Down</p>
@@ -706,52 +738,15 @@ let elems = transfromJSONtoHTML()
           </div>
         </div>
       </div>
-</div>
+    </div>
+     {/* End Advanced build tools */}
 
 
-
-
-
-
-{/* SPACE */}
-
-
-
-
-        <div className="card mb-4">
-            <div className="card-body">
-                <p className="card-title">Card title</p>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-
-            </div>
-        </div>
-
-        <div className="card mb-4">
-            <div className="card-body">
-                <p className="card-title">Card title</p>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" className="card-link">Card link</a>
-                <a href="#" className="card-link">Another link</a>
-            </div>
-        </div>
-
-    
-
-
-        <select id="elem" name="elem" defaultValue="choose" onChange={handleElemSelect}>
-          <option value="choose" disabled >Choose here</option>
-          <option value="text">Text Input</option>
-          <option value="select">Select Dropdown</option>
-          <option value="checkbox">Checkbox</option>
-        </select>
-
-      <h4>-Advanced Options-</h4>
    
 
         {/* TODO! rename parentCallback */}
-        {(elem === 'select' ? <SelectBuilder parentCallback={mycallback}></SelectBuilder> : null)}
-        {(elem === 'text' ? <InputBuilder parentCallback={mycallback}></InputBuilder> : null)}
+        {/* {(elem === 'select' ? <SelectBuilder parentCallback={mycallback}></SelectBuilder> : null)}
+        {(elem === 'text' ? <InputBuilder parentCallback={mycallback}></InputBuilder> : null)} */}
 
         
       </LeftBar>
@@ -760,10 +755,10 @@ let elems = transfromJSONtoHTML()
       <div className="col">
         {/* DO I STILL NEED THIS ? */}
 {/* //onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop} */}
-    <button>Raw Form</button>   
+    <button type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
       {/* to see the custom paseon form with attribute that points to correct saved form object */}
       {/* <button>Paseon Form</button> */}
-      <button type="button" data-toggle="modal" data-target="#exampleModal">
+      <button type="button" data-toggle="modal" data-target="#paseonFormeModal">
         Paseon Form
       </button>
 <FormSandBox>
@@ -771,7 +766,8 @@ let elems = transfromJSONtoHTML()
 <div className="btn-group btn-group-toggle" data-toggle="buttons">
 <button 
   className="btn btn-secondary" 
-  onClick={(e)=>removeOne(e, index, item)}
+  // onClick={(e)=>removeOne(e, index, item)} // here!
+  onClick={(e)=>clearList(e)}
 >
   <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
 </button>
@@ -781,71 +777,65 @@ let elems = transfromJSONtoHTML()
 </div>
 {/* REORDER START */}
 
-                {fieldList.map((item, index) => (  
 
-      <div key={index}>
-          
-                    {dropzone(index)}
-                 
-                      <div 
-                      id='draggableSpan'
-                      draggable='true'
-                      onDragStart={(event) =>  dragStart(event, index)}
-                      onDragEnd={(event) =>  dragEnd(event, index)}
-                        style={{padding: '10px'}}
-                        className={buildContainerClasses(index)}
-                        onMouseEnter={() => setEditItemDetails(index)}
-                        onMouseLeave={() => setEditItemDetails(null)}  
-                      >
+{fieldList.map((item, index) => (  
+<div key={index}>
+
+  {dropzone(index)}
+
+  <div 
+    id='draggableSpan'
+    draggable='true'
+    onDragStart={(event) => dragStart(event, index)}
+    onDragEnd={(event) =>  dragEnd(event, index)}
+    style={{padding: '10px'}}
+    className={buildContainerClasses(index)}
+    onMouseEnter={() => setEditItemDetails(index)}
+    onMouseLeave={() => setEditItemDetails(null)}  
+    onClick={()=> {setEditToggle(index)}}
+  >
 
 
-                        <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
-                        
-                          <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                            <button 
-                              className="btn btn-secondary" 
-                              onClick={(e)=> {
-                                 setEditToggle(index)
-                                  // let selectedField = campaignForm.fields[index]
-                                  // console.log()
-                                  // if (selected) {
-                                  //   setSelected(selectedField)
-                                  // } else {
-                                  //   setSelected()
-                                  // }
+    <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
 
-                                }
-                              }
-                            >
-                              <FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
-                            </button>
-                            <button 
-                              className="btn btn-secondary" 
-                              onClick={(e)=>removeOne(e, index, item)}
-                            >
-                              <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
-                            </button>
-                          </div>
-                        </div>
+      <div className="btn-group btn-group-toggle" data-toggle="buttons">
+        <button 
+          className="btn btn-secondary" 
+          onClick={(e)=> {setEditToggle(index)}}
+        >
+        <FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
+        </button>
+        <button 
+          className="btn btn-secondary" 
+          onClick={(e)=>removeOne(e, index, item)}
+        >
+        <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+        </button>
+      </div>
+    </div>
 
-                        <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-                      {/* {console.log(item)} */}
-          {(item.tag == 'select' ? 
-          <select id="elem" name="elem" onChange={handleElemSelect}>
-            {item.options.map((value, index) => {
-              console.log('item',item)
-                return (
-                  <option key={index}>{value}</option>
-                )
-                
-              })} 
-          </select>
-          : <input type={item.type} ></input> )}
-          </div>
+    <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+{/* start dynamically added fields - right panel */}
+      
+      {renderDynamicFields(item)}
+    
+    {/* {(item.tag == 'select' ? 
+      <select id="elem" name="elem" onChange={handleElemSelect}>
+        {item.options.map((value, index) => {
+          console.log('item',item)
+          return (
+            <option key={index}>{value}</option>
+          )
+
+        })} 
+      </select>
+    : <input disabled={initDrag} type={item.type} ></input> )} */}
+{/* end dynamically added fields - right panel */}
+
+  </div>
 
 </div>
-
-              ))}
+))}
               
 
 
@@ -866,23 +856,19 @@ let elems = transfromJSONtoHTML()
 
 
 {/* <!-- Modal --> */}
-<div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div className="modal fade" id="rawFormModal" tabIndex="-1" role="dialog" aria-labelledby="rawFormModal" aria-hidden="true">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Paseon Tags</h5>
+        <h5 className="modal-title" id="rawFormModalLabel">Paseon Tags</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="modal-body">
 
-      {elems}
+      {transfromJSONtoHTML()}
 
-        {/* <p>Copy and paste the below HTML anywhere you would like to display your new custom campaign.</p>
-      &lt; PaseonForms &#47;&gt;
-      <br></br>
-      &lt; Script &gt;  &lt;&#47; Script &gt;       */}
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

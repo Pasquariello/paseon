@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faUserCog, faWrench, faChartBar, faBlenderPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -59,32 +61,63 @@ export default function SideBar(props) {
   </div>
       <li className="sidebar-item" >
         <Link href="/dashboard">
-          <a className="nav-link">Dashboard</a>
+         
+          <a className="nav-link">
+            <div>
+              <FontAwesomeIcon fixedWidth width="0" icon={faHome} />
+            </div>
+            Dashboard
+          </a>
         </Link>    
       </li>
       <li className="sidebar-item" >
         <Link href="/account">
-          <a className="nav-link">Account Settings</a>
+          <a className="nav-link">
+            <div>
+              <FontAwesomeIcon fixedWidth width="0" icon={faUserCog} />
+            </div>
+            Account Settings
+          </a>
         </Link>    
       </li>
       <li className="sidebar-item" >
         <Link href="/zTestPage">
-          <a className="nav-link">Form Builder</a>
+          <a className="nav-link">
+            <div>
+              <FontAwesomeIcon fixedWidth width="0" icon={faWrench} />
+            </div>
+            Form Builder
+          </a>
         </Link>    
       </li>
       <li className="sidebar-item" >
         <Link href="/email_archives">
-          <a className="nav-link">Archived Emails</a>
+          <a className="nav-link">
+            <div>
+              <FontAwesomeIcon fixedWidth width="0" icon={faEnvelope} />
+            </div>
+            Archived Emails
+          </a>
         </Link>    
       </li>
       <li className="sidebar-item" >
         <Link href="/analytics">
-          <a className="nav-link">Analytics</a>
+          <a className="nav-link">
+            <div>
+              <FontAwesomeIcon fixedWidth width="0" icon={faChartBar} />
+            </div>
+            Analytics
+          </a>
         </Link>    
       </li>
       <li className="sidebar-item" >
         <Link href="/">
-          <a className="nav-link">Integrations</a>
+          <a className="nav-link">
+            <div>
+              <FontAwesomeIcon fixedWidth width="0" icon={faBlenderPhone} />
+            </div>
+            Integrations
+          </a>
         </Link>    
       </li>
       <span className="sidebar-item" >

@@ -4,17 +4,13 @@ import Link from 'next/link';
 
 class Header extends React.Component {
 
-  // const linkStyle = {
-  //   marginRight: 15,
-  
-  // };
+
   state = {
     isActive: false
   }
   toggleClass() {
     
     this.setState({isActive: !this.state.isActive})
-    console.log('clicked',this.state.isActive  )
   }
 
 render(){

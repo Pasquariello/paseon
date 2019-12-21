@@ -8,9 +8,15 @@ import SideBar from '../components/SideBar';
 import QuickAnalytics from '../components/QuickAnalytics';
 import { withAuthSync } from '../utils/auth';
 
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { auth, getUserData } from '../utils/auth'
-import { motion } from "framer-motion"
+import { useSelector, shallowEqual } from 'react-redux';
+import { auth, getUserData } from '../utils/auth';
+import { getCampaignData } from '../utils/campaign_data';
+
+import { motion } from "framer-motion";
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown';
+import Link from 'next/link';
+import CampaignLink from '../components/CampaignLink';
 
 
 import TestChart from '../components/TESTCHART';
@@ -25,34 +31,33 @@ const getUserInfo = () => {
 }
 
 
-function Dashboard () { 
+function Dashboard (props) { 
 
-  const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
-  // const { current_user } = getUserInfo()
-
-  //console.log('current_user', current_user)
+  // todo - think about how I want to make all quick analytics more dry but still custom for each page - pass in props? 
+  // const [quickAnalytics, setQuickAnalytics] = useState({ title: 'TOTAL MONTHLY SUBMISSIONS', body: '50%' })
 
 
+  let totalForms = props.campaignList.length
+  let totalSubmissions = 0
+  let countArray = []
 
+    props.campaignList.forEach(campaign => {
+      
+      totalSubmissions = totalSubmissions + campaign.jsonb_array_length
+      // countArray = [...countArray, campaign.jsonb_array_length]
+      
+    })
 
     let quickAnalyticsData = [
-      {
-        title: 'TOTAL MONTHLY SUBMISSIONS',
-        body: '50%',
 
-      },
       {
         title: 'TOTAL FORMS MANAGED',
-        body: '6'
+        body: totalForms
       },
       {
         title: 'TOTAL MONTHLY SUBMISSIONS',
-        body: '50%'
-      },
-      {
-        title: 'TOTAL MONTHLY SUBMISSIONS',
-        body: '50%'
-      },
+        body: totalSubmissions
+      }
     ]
 
     return (
@@ -68,7 +73,7 @@ function Dashboard () {
 
           <div className="row"> 
 
-            <motion.div  
+            <div  
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="col-md-6 mb-4"
@@ -85,18 +90,39 @@ function Dashboard () {
                   <a target="_blank" rel="nofollow" href="https://undraw.co/">See this cool link →</a>
                 </div>
               </div>
-            </motion.div>
+            </div>
             <div className="col-md-6 mb-4">
               <div className="card shadow mb-4">
                 <div className="card-header py-3">
-                  <h6 className="m-0 font-weight-bold text-primary">Manage Your Current Campaigns</h6>
+        
+                      <Dropdown>
+                        <h6 className="m-0 font-weight-bold text-primary">
+                          <Dropdown.Toggle variant="link" id="dropdown-basic">
+                            Manage Your Current Campaigns
+                          </Dropdown.Toggle>
+                        </h6>
+
+                        <Dropdown.Menu>
+                          {props.campaignList.length ? 
+                            props.campaignList.map( campaign => {
+                              console.log(campaign)
+                            return  <Dropdown.Item><CampaignLink id={campaign.id} title={campaign.campaign_name} directory="campaignManagment"/></Dropdown.Item>
+                            })
+                            : 
+                            <Dropdown.Item>You currently Have No Campaigns</Dropdown.Item>
+                          }
+                        </Dropdown.Menu>
+                      </Dropdown>
+                                  
                 </div>
                 <div className="card-body">
                   <div className="text-center">
                     <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src="../static/images/undraw_dev_focus_b9xo.svg" alt=""></img>
                   </div>
                   <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">See this cool link →</a>
+                  <Link href="/campaignManagment/campaigns">
+                    <a>See All Campaigns →</a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -169,10 +195,16 @@ function Dashboard () {
 
   Dashboard.getInitialProps = async (ctx) => {
     //check if page is authorized
-    auth(ctx)  
+    auth(ctx);
 
-    console.log('STATE REDUX',ctx.reduxStore.getState())
+    if  (!ctx.reduxStore.getState().campaigns.data.length){
+      await getCampaignData(ctx)
+    } 
 
+    return {
+      campaignList: ctx.reduxStore.getState().campaigns.data
+
+    }
 
   }
 

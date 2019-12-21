@@ -3,7 +3,6 @@ import React, { useState, createContext, useContext } from "react";
 //TODO: hook up required and placeholder
 export default function InputBuilder(props) {
 
-//function buildSelect () {
     const blankInput = {
         type: 'text',
         tag: 'input',
@@ -15,7 +14,6 @@ export default function InputBuilder(props) {
     }
     const [inputBuilderState, setInputBuilderState] = useState(blankInput);
 
-    // const blankCat = { name: '', age: '' };
     const [selectList, setSelectList] = useState([
         { ...inputBuilderState },
     ]);
@@ -23,9 +21,6 @@ export default function InputBuilder(props) {
 
     function handleSetValues(e) {
         console.log(e.target.value)
-        // let myArray = e.target.value.split(',');
-        // console.log('myArray ', myArray)
-        // setSelectBuilderState({...selectBuilderState, values: myArray })
     }
 
     function addInput(e) {
@@ -121,4 +116,3 @@ export default function InputBuilder(props) {
   );
   
 }
-//   export default SelectBuilder;

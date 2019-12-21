@@ -16,25 +16,6 @@ import getHost from '../utils/get-host'
 const LayoutApp = props => {
 
 
-// const [sideBarWidth, setSideBarWidth] = useState('20%');
-// const [bodyWidth, setbodyWidth] = useState('80%');
-
-// function updateWidth() {
-//   console.log('I was clicked')
-//   if (sideBarWidth != 0){
-//   let sideBarWidthNew = '0'
-//   let bodyWidthNew = '100%'
-//   setSideBarWidth(sideBarWidthNew)
-//   setbodyWidth(sideBarWidthNew)
-
-
-//   }else {
-//     setSideBarWidth('20%')
-//     setbodyWidth('80%')
-//   }
-
-// }
-
 const [sideNavWidth, setsideNavWidth] = useState(true)
 const [navBtn, setNavBtn] = useState(false)
 const [isActive, setIsActive] = useState(false)
@@ -224,11 +205,8 @@ LayoutApp.getInitialProps = async ctx => {
 
     if (response.ok) {
       console.log('res good', response)
-      // const js = await response.json()
-      // console.log('js', js)
-      // return js
+  
     } else {
-      // https://github.com/developit/unfetch#caveats
       return await redirectOnError()
     }
   } catch (error) {

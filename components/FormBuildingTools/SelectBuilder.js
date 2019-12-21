@@ -3,7 +3,6 @@ import React, { useState, createContext, useContext } from "react";
 //TODO: hook up required
 export default function SelectBuilder(props) {
 
-//function buildSelect () {
     const blankSelect = {
         tag: 'select',
         type: 'select',
@@ -29,13 +28,6 @@ export default function SelectBuilder(props) {
         setSelectBuilderState(blankSelect)
         props.parentCallback(selectObj)
     }
-
-    // Might need to move onChange events into this?
-    // function handleChangeInput(e, field){
-    //     let  name = e.target.value.toLowerCase().split(" ").join("_")
-    //     setInputBuilderState({...inputBuilderState, [field]: e.target.value, name})
-        
-    // }
   
     return (
     <>

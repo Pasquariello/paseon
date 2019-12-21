@@ -55,18 +55,22 @@ function Campaigns(props) {
         // },
     ] 
        
-    const [idList, setIdList] = useState([]);
+    // const [idList, setIdList] = useState([]);
     const [campaignListState, setcampaignListState] = useState(props.campaignList);
 
+    const [checkedItems, setCheckedItems] = useState({}); //plain object as state
 
+;
     const deleteCampaigns = async () => {
 
     
         // event.preventDefault()
-        // setUserData(Object.assign({}, userData, { error: '' }))
-    
-       let url = `${getUrl}/campaign/remove_campaign/`
-    
+      
+        // get list of all IDs that are selected for deletion
+        let idList = Object.keys(checkedItems).filter(item => checkedItems[item] == true)
+        console.log(idList)
+
+        let url = `${getUrl}/campaign/remove_campaign/`    
         try {
     
           const response = await fetch(url, {
@@ -103,14 +107,26 @@ function Campaigns(props) {
         }
     }
 
+    const selectCampaigns =  (e, id) => {
+      
+      // console.log('checkboxValue', checkboxValue )
+      setCheckedItems({...checkedItems, [e.target.name]: e.target.checked });
+      console.log("checkedItems: ", checkedItems);
+      // setIdList([...idList, id])
+      // console.log("idList: ", idList);
+
+    }
+
     
     const renderTable = () => {
-      // console.log('PROPS', props)
         const columns = [
+     
                 {
-                    id: 'select',
-                    Header: '',
+                    Header: 'id',
                     accessor: 'id',
+                    Cell: props => {
+                      return  <input name={props.cell.row.original.id} onChange={(e) => selectCampaigns(e, props.cell.row.original.id)} checked={checkedItems[props.cell.row.original.id]} type="checkbox"></input>
+                    }
                     // Cell: props => <input onChange={() => setIdList([props.original.id])} type="checkbox"></input>
 
                 },
@@ -139,18 +155,12 @@ function Campaigns(props) {
                   }
               },
         ]
-        // console.log('state', campaignListState)
         //TODO: turn this into its own function that takes in columns? 
         return (
             <>
-            <p>Visual representation of data collected with your new campaign.</p>
-            {/* <ReactTable
-            data={campaignListState}
-            columns={columns}
-            defaultPageSize ="10"
-            />  */}
-
-          <Table columns={columns} data={campaignListState} />
+              <p>Visual representation of data collected with your new campaign.</p>
+      
+              <Table columns={columns} data={campaignListState} />
 
             </>
         )

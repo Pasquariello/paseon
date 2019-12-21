@@ -19,8 +19,6 @@ import {
 class TimeBarChart extends React.Component {
     
     render() {
-        console.log('BAR CHART');
-
       return (
 
 <VictoryChart

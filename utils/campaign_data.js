@@ -22,9 +22,6 @@ export const getCampaignData  = async (ctx) =>  {
       type: 'CAMPAIGN_DATA_LOADED',
       payload: data
     });
-
-    console.log('HI HO')
-    // return data
     
   } catch (error) {
     console.error('You have an error in your code or there are Network issues.',error)
