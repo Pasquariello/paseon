@@ -148,7 +148,7 @@ return (
 ResetForm.getInitialProps = async function(context, props) {
     const {id} = context.query;
   // this will need to be a req to DB
-  const res = await fetch(`http://localhost:3001/account/get_user_acct/${id}`);
+  const res = await fetch(`${getUrl}/account/get_user_acct/${id}`);
   const data = await res.json();
 
     return {data}

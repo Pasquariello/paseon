@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileCsv } from '@fortawesome/free-solid-svg-icons'
 import Table from '../../components/Table'
+import getUrl from '../../utils/getUrl';
 
 
 import {
@@ -106,7 +107,7 @@ Campaign.getInitialProps = async function(context, props) {
     const {id} = context.query;
   
   // this will need to be a req to DB
-    const res = await fetch(`http://localhost:3001/campaign/get_campaign_details/${id}`);
+    const res = await fetch(`${getUrl}/campaign/get_campaign_details/${id}`);
     const data = await res.json();
     return {data}
     // TODO 

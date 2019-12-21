@@ -5,15 +5,14 @@ import cookie from 'js-cookie'
 import { compose } from 'redux'
 // import { login_action } from '../redux/actions/auth'
 import { useDispatch } from 'react-redux'
-
+import getUrl from './getUrl';
 
 export const getCampaignData  = async (ctx) =>  {
 
   const { userId } = nextCookie(ctx)
 
   try {
-
-    const res = await fetch(`http://localhost:3001/campaign/get_campaigns/${userId}`);
+    const res = await fetch(`${getUrl}/campaign/get_campaigns/${userId}`);
     const data = await res.json()
         
     const { dispatch } = ctx.reduxStore;

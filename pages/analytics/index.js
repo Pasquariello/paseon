@@ -5,7 +5,7 @@ import { auth } from '../../utils/auth'
 import campaigns from '../campaignManagment/campaigns';
 import CampaignLink from '../../components/CampaignLink';
 import { withRedux } from '../../lib/redux';
-
+import getUrl from '../../utils/getUrl';
 
 const Analytics = props => (
   <Layout>
@@ -46,7 +46,7 @@ Analytics.getInitialProps = async function(ctx) {
     
 
     const userId = await auth(ctx);
-    const res = await fetch(`http://localhost:3001/campaign/analytics/${userId}`);
+    const res = await fetch(`${getUrl}/campaign/analytics/${userId}`);
     const data = await res.json();
 
     let dataArray = data.map(campaign => {
