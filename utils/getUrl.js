@@ -3,4 +3,4 @@ function getUrl () {
     return 'https://paseonforms.com';
 }
     
-export default getUrl
+export default getUrl()

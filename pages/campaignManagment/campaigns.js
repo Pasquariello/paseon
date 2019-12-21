@@ -69,7 +69,7 @@ function Campaigns(props) {
         // get list of all IDs that are selected for deletion
         let idList = Object.keys(checkedItems).filter(item => checkedItems[item] == true)
         console.log(idList)
-
+      
         let url = `${getUrl}/campaign/remove_campaign/`    
         try {
     
