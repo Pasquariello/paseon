@@ -1,6 +1,7 @@
 //import Layout from '../components/MyLayout';
 // import LayoutApp from '../LayoutApp'
 
+// TODO: bug on delete last index error
 import LeftBar from '../LeftBar';
 import SelectBuilder from './SelectBuilder';
 import InputBuilder from './InputBuilder';
@@ -22,6 +23,7 @@ import { renderToString } from 'react-dom/server';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { motion } from "framer-motion";
 
 
 
@@ -391,7 +393,7 @@ const [initDrag, setInitDrag] = useState();
     }
 
     function removeOne(e, index, val) {
-
+      e.stopPropagation()
       e.preventDefault();
       setEditToggle()
       let newList = campaignForm.fields.filter((item, i) =>  i != index)
@@ -779,6 +781,15 @@ let elems = transfromJSONtoHTML();
 
 
 {fieldList.map((item, index) => (  
+  <motion.div
+  initial={{ scale: 0 }}
+  animate={{  scale: 1 }}
+  transition={{
+    type: "spring",
+    stiffness: 260,
+    damping: 20
+  }}
+>
 <div key={index}>
 
   {dropzone(index)}
@@ -795,7 +806,7 @@ let elems = transfromJSONtoHTML();
     onClick={()=> {setEditToggle(index)}}
   >
 
-
+  
     <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
 
       <div className="btn-group btn-group-toggle" data-toggle="buttons">
@@ -835,6 +846,7 @@ let elems = transfromJSONtoHTML();
   </div>
 
 </div>
+</motion.div>
 ))}
               
 
