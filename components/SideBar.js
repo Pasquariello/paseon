@@ -15,9 +15,9 @@ export default function SideBar(props) {
   
 
   return(
-    <div  onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}>
+    <div>
   
-      <ul className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right flex-column`}>
+      <ul>
       <div>
     <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
     <h2 className="logoFont">Paseon</h2>
@@ -120,21 +120,21 @@ export default function SideBar(props) {
         
     }
 
-    .sidenav-hidden{
-      width: 3rem;
-      padding-right: 0px;
-      transition: 0.25s;
-      padding-left: 0;
-    }
+    // .sidenav-hidden{
+    //   width: 3rem;
+    //   padding-right: 0px;
+    //   transition: 0.25s;
+    //   padding-left: 0;
+    // }
 
 
-    .sidenav-active {
-      width: 19rem;
-      padding-right: 40px;
-      transition: 0.25s;
+    // .sidenav-active {
+    //   width: 19rem;
+    //   padding-right: 40px;
+    //   transition: 0.25s;
 
      
-    }
+    // }
 
     .sidenav {
       top: 0;

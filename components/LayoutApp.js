@@ -27,13 +27,15 @@ function toggleWidth() {
   setNavBtn(!navBtn)
 }
 
+const [ hoverState, setHoverState ] = useState(false)
 
 
 
 return (
 
-  <div  className="wrapper">
+  <>
      {/* <Head> */}
+
           {/* <link rel="stylesheet" href="node_modules/react-table/react-table.css"></link>
           <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
           <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
@@ -46,16 +48,21 @@ return (
               Paseon
           </title> */}
         {/* </Head> */}
-
+          <div
+            onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}
+            className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right`}
+          >
             <SideBar
+          
+              className="sidenav"
               sideNavWidth={sideNavWidth}
               navBtn={navBtn}
-              toggleWidth={toggleWidth}
+              // toggleWidth={toggleWidth}
             />
-
+          </div>
    
 
-          <div id="content-wrapper" className="d-flex flex-column" style={{width: '100%', padding: '50px'}}>
+          <div id="content-wrapper">
           <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button>
            <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning`} onClick={()=>logout()}>Logout</button>
 {/* <button className="navbar-toggler" onClick={toggleWidth} type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,9 +83,38 @@ return (
 
 
       .wrapper {
-        display: flex;
+        // display: inline-block;
+        // display: flex;
         //flex-wrap: wrap;
    
+      }
+
+      .sidenav-hidden{
+        width: 3rem;
+        padding-right: 0px;
+        transition: 0.25s;
+        padding-left: 0;
+      }
+  
+  
+      .sidenav-active {
+        width: 19rem;
+        padding-right: 40px;
+        transition: 0.25s;
+  
+       
+      }
+
+      .sidenav {
+        height: 100%; /* Full-height: remove this if you want "auto" height */
+        // width: 160px; /* Set the width of the sidebar */
+        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #fff;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 20px;
       }
 
       .active{
@@ -92,8 +128,13 @@ return (
 
       #content-wrapper{
         //width: 100%;
-        overflow-x: hidden;
-        height: 100vh;
+        // position: absolute;
+        margin: 2rem 2rem 0 5rem;
+        // width: 100%;
+        // overflow-x: hidden;
+        // height: 100vh;
+        // margin-left: 160px; /* Same as the width of the sidebar */
+        padding: 0px 10px;
       }
 
       .flex-column {
@@ -176,7 +217,7 @@ return (
 
 
     `}</style>
-  </div>
+  </>
 )};
 
 //  I DONT KNOW IF I NEED THIS OR NOT
