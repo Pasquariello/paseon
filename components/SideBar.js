@@ -11,10 +11,11 @@ import { faHome, faUserCog, faWrench, faChartBar, faBlenderPhone, faEnvelope } f
 export default function SideBar(props) {
 
 
+  const [ hoverState, setHoverState ] = useState(false)
   
 
   return(
-    <>
+    <div  onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}>
     {/* <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right`}>
     <div>
     <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
@@ -53,7 +54,7 @@ export default function SideBar(props) {
       </li>
    
       </ul> */}
-      <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right flex-column`}>
+      <ul className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right flex-column`}>
       <div>
     <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
     <h2 className="logoFont">Paseon</h2>
@@ -157,9 +158,9 @@ export default function SideBar(props) {
     }
 
     .sidenav-hidden{
-      width: 0rem;
+      width: 3rem;
       padding-right: 0px;
-      transition: 0.5s;
+      transition: 0.25s;
       padding-left: 0;
     }
 
@@ -167,7 +168,7 @@ export default function SideBar(props) {
     .sidenav-active {
       width: 19rem;
       padding-right: 40px;
-      transition: 0.5s;
+      transition: 0.25s;
 
      
     }
@@ -244,6 +245,6 @@ export default function SideBar(props) {
     `}
     </style>
    
-    </>
+    </div>
 )
 }
