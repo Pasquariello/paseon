@@ -90,7 +90,7 @@ export default function Index() {
             <div style={{backgroundColor: '#F1F1F1', padding: '30px'}}>
 
             <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form </span> 
-            recipient_email="<span style={{backgroundColor: '#dcdcdc', padding: '2px', borderRadius: '5px'}} contentEditable="true">YOUR_EMAIL</span>"
+            recipient_email="<input style={{border:"none", backgroundColor: '#F1F1F1'}} type="text" placeholder="YOUR EMAIL"></input>"
             <span style={{color:'#3498DB'}}> &gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>paseon-contact-form</span> <span style={{color:'#3498DB'}}>&gt;</span><br></br>
             <br></br>
             <span style={{color:'#3498DB'}}>&lt;</span> <span style={{color:'#DD1C1A'}}>script</span> src="https://MYCDN"<span style={{color:'#3498DB'}}>&gt;</span> <span style={{color:'#3498DB'}}>&lt; /</span> <span style={{color:'#DD1C1A'}}>script</span>  <span style={{color:'#3498DB'}}>&gt;</span>
