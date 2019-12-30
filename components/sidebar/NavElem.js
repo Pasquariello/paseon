@@ -19,7 +19,7 @@ export default function NavElem(props) {
      
       <a className="nav-link">
         <div>
-          <FontAwesomeIcon fixedWidth width="0" icon={props.data.icon} />
+          {props.data.icon && <FontAwesomeIcon fixedWidth width="0" icon={props.data.icon} />}
         </div>
         {props.data.title}
       </a>

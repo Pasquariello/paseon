@@ -71,7 +71,7 @@ export default function SideBarLayout(props) {
 
 
   return(
-    <div>
+    <React.Fragment>
       <ul>
       <div>
     <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
@@ -103,58 +103,16 @@ export default function SideBarLayout(props) {
 
     <style jsx>{`
    .sidebar-item {
-        // font-weight: bold;
         text-decoraion: none;
         margin-top: 15px;
         margin-bottom: 15px;
         display: block;
     }
-
-
-    .sidebar-ul{
-        list-style-type: none;
-        padding-right: 40px;
-        
-    }
-
-    // .sidenav-hidden{
-    //   width: 3rem;
-    //   padding-right: 0px;
-    //   transition: 0.25s;
-    //   padding-left: 0;
-    // }
-
-
-    // .sidenav-active {
-    //   width: 19rem;
-    //   padding-right: 40px;
-    //   transition: 0.25s;
-
-     
-    // }
-
-  
-
-  
-
-    .openbtn-active {
-      display: block
-    }
-
-    .openbtn-close {
-      display: none
-    }
-
    
 
 
     @media (max-width: 770px) {
  
-  
-      .sidenav-active {
-        width: 6.5rem;
-        padding-left: 0px;
-      }
 
       .sidebar-item {
         font-size: .65rem;
@@ -166,27 +124,9 @@ export default function SideBarLayout(props) {
       }
     }
 
-     @media (max-width: 525px) {
-
-    // .sidenav{
-    //   display: none;
-    // }
-
-     }
-
-
-
-
-    
-
-    
-
-
-
-
     `}
     </style>
    
-    </div>
+    </React.Fragment>
 )
 }

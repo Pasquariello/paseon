@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import SideBar from './sidebar/SideBarLayout';
+import SideBar from './Sidebar/SideBarLayout';
 import Header from './Header';
 import React, { useState } from 'react';
 import { logout } from '../utils/auth';
