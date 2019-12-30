@@ -145,6 +145,10 @@ export default function SideBarLayout(props) {
     margin-bottom: 30px;
 }
 
+button:focus {
+  outline: none;
+}
+
     ul {
       padding-left: 0
      }
