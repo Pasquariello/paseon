@@ -16,44 +16,7 @@ export default function SideBar(props) {
 
   return(
     <div  onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}>
-    {/* <ul className={`${props.sideNavWidth ? 'sidenav-active': 'sidenav-hidden'} sidenav border-right`}>
-    <div>
-    <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
-    <h2 className="logoFont">Paseon</h2>
-    <hr></hr>
-  </div>
-      <li className="sidebar-item" >
-        <Link href="/dashboard">
-          <a className="nav-link">Dashboard</a>
-        </Link>    
-      </li>
-      <li className="sidebar-item" >
-        <Link href="/account">
-          <a className="nav-link">Account Settings</a>
-        </Link>    
-      </li>
-      <li className="sidebar-item" >
-        <Link href="/campaignManagment/campaigns">
-          <a className="nav-link">Campaigns</a>
-        </Link>    
-      </li>
-      <li className="sidebar-item" >
-        <Link href="/zTestPage">
-          <a className="nav-link">Form Builder</a>
-        </Link>    
-      </li>
-      <li className="sidebar-item" >
-        <Link href="/email_archives">
-          <a className="nav-link">Archived Emails</a>
-        </Link>    
-      </li>
-      <li className="sidebar-item" >
-        <Link href="/">
-          <a className="nav-link">Integrations</a>
-        </Link>    
-      </li>
-   
-      </ul> */}
+  
       <ul className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right flex-column`}>
       <div>
     <button className="btn" onClick={props.toggleWidth} data-toggle="collapse" data-target="#collapseExample">&#171;</button>
