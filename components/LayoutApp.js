@@ -21,12 +21,6 @@ const [navBtn, setNavBtn] = useState(false)
 const [isActive, setIsActive] = useState(false)
 
 
-// todo - move this to layout? 
-function toggleWidth() {
-  setsideNavWidth(!sideNavWidth);
-  setNavBtn(!navBtn)
-}
-
 const [ hoverState, setHoverState ] = useState(false)
 
 
@@ -57,19 +51,13 @@ return (
               className="sidenav"
               sideNavWidth={sideNavWidth}
               navBtn={navBtn}
-              // toggleWidth={toggleWidth}
             />
           </div>
    
 
           <div id="content-wrapper">
-          <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button>
+          {/* <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button> */}
            <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning`} onClick={()=>logout()}>Logout</button>
-{/* <button className="navbar-toggler" onClick={toggleWidth} type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-<span className={sideNavWidth ? 'active' : ''} style={{padding: '2px'}}>
-<div className="toggle-btn type11"></div>
-</span>
-</button> */}
            
             {props.children}
           </div>
@@ -127,12 +115,7 @@ return (
 
 
       #content-wrapper{
-        //width: 100%;
-        // position: absolute;
         margin: 2rem 2rem 0 5rem;
-        // width: 100%;
-        // overflow-x: hidden;
-        // height: 100vh;
         // margin-left: 160px; /* Same as the width of the sidebar */
         padding: 0px 10px;
       }
