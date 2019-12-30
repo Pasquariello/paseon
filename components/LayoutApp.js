@@ -48,7 +48,7 @@ return (
         {/* </Head> */}
           <div
             onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}
-            // onClick={()=> toggleState()} // Need onClick for mobile view!
+            onClick={()=> toggleState()} // Need onClick for mobile view!
             className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right`}
           >
             <SideBar
