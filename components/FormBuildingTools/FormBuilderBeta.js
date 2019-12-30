@@ -590,7 +590,7 @@ let elems = transfromJSONtoHTML();
 
   return (
     <>
-    
+
       <div className="flex-grid">
         <div className="col">
       <LeftBar>
@@ -868,9 +868,6 @@ let elems = transfromJSONtoHTML();
       <div className="modal-body">
 
       {transfromJSONtoHTML()}
-
-      <paseon-form recipient_email="taylorpasq@gmail.com"></paseon-form> 
-
 
       </div>
       <div className="modal-footer">
