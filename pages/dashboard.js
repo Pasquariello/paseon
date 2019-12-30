@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import LayoutApp from '../components/LayoutApp'
 import { withRedux } from '../lib/redux';
 
-import SideBar from '../components/SideBar';
 import QuickAnalytics from '../components/QuickAnalytics';
 import { withAuthSync } from '../utils/auth';
 
