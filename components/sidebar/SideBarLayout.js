@@ -6,6 +6,7 @@ import { faHome, faUserCog, faWrench, faChartBar, faBlenderPhone, faEnvelope, fa
 import NavElem from './NavElem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { DropdownButton } from 'react-bootstrap';
 
 
 export default function SideBarLayout(props) {
@@ -108,14 +109,13 @@ export default function SideBarLayout(props) {
 
 
         <Dropdown>
-          <Dropdown.Toggle variant="link" id="dropdown-basic">
-          <FontAwesomeIcon fixedWidth width="0" icon={faBullhorn} />
+          <DropdownButton variant="link" id="dropdown-basic" title={
+          <span><FontAwesomeIcon fixedWidth width="0" icon={faBullhorn} />
           <span className="item-title"
               style={{visibility: props.hoverState ? 'visible': 'hidden', marginLeft: '15px'}}
-            >Campaigns</span>
-          </Dropdown.Toggle>
+            >Campaigns</span></span>}
+          >
 
-          <Dropdown.Menu>
           {
           subNavItems.map(item => {
             return ( 
@@ -128,7 +128,7 @@ export default function SideBarLayout(props) {
           })
 
           }
-          </Dropdown.Menu>
+          </DropdownButton>
         </Dropdown>
 
 
