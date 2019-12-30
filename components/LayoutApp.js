@@ -24,6 +24,10 @@ const [isActive, setIsActive] = useState(false)
 const [ hoverState, setHoverState ] = useState(false)
 
 
+const toggleState = () => {
+  setHoverState(!hoverState)
+} 
+
 
 return (
 
@@ -47,7 +51,8 @@ return (
             className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right`}
           >
             <SideBar
-          
+              toggleState={toggleState}
+              hoverState={hoverState}
               className="sidenav"
               sideNavWidth={sideNavWidth}
               navBtn={navBtn}

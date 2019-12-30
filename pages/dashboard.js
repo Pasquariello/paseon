@@ -104,7 +104,6 @@ function Dashboard (props) {
                         <Dropdown.Menu>
                           {props.campaignList.length ? 
                             props.campaignList.map( campaign => {
-                              console.log(campaign)
                             return  <Dropdown.Item><CampaignLink id={campaign.id} title={campaign.campaign_name} directory="campaignManagment"/></Dropdown.Item>
                             })
                             : 

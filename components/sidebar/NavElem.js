@@ -16,24 +16,40 @@ export default function NavElem(props) {
     <React.Fragment>
     <li className="sidebar-item" >
     <Link href={props.data.link}>
-     
-      <a className="nav-link">
+      <button className="btn btn-link">
         <div>
-          {props.data.icon && <FontAwesomeIcon fixedWidth width="0" icon={props.data.icon} />}
+            <span 
+              className="icon"
+              // style={{marginLeft: '15px'}}
+            > 
+              {props.data.icon && <FontAwesomeIcon fixedWidth width="0" icon={props.data.icon} />}
+            </span>
+            <span className="item-title"
+              style={{visibility: props.hoverState ? 'visible': 'hidden' , position: 'absolute'}}
+            >{props.data.title}</span>
         </div>
-        {props.data.title}
-      </a>
+        </button>
     </Link>    
   </li>
 
 <style jsx>{`
 .sidebar-item {
-     // font-weight: bold;
+     font-weight: bold;
      text-decoraion: none;
-     margin-top: 15px;
-     margin-bottom: 15px;
      display: block;
+     margin-top: 30px;
+     margin-bottom: 30px;
  }
+
+ .item-title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 15px;
+
+ }
+
+ 
  `}
  </style>
 
