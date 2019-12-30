@@ -17,8 +17,9 @@ class MyApp extends App {
       <>
         <Head>
           <script src="https://js.stripe.com/v3/" />
+          <script type="module" src="https://paseon-forms.web.app/src/paseonForm.js">
+          </script>
           <link rel="stylesheet" type="text/css" href="/static/css/nprogress.css" />
-
           <title>
             Paseon
           </title>
