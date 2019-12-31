@@ -26,10 +26,8 @@ const Analytics = props => (
 );
 
 Analytics.getInitialProps = async function(ctx) {
-    // auth(ctx);
     
     
-//     const {id} = context.query;
   
 //   // this will need to be a req to DB
 //     const res = await fetch(`http://localhost:3001/campaign/get_campaign_details/${id}`);
