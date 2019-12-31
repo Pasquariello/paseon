@@ -4,9 +4,14 @@ import React, { useState } from 'react';
 import Form_Builder from '../../components/FormBuildingTools/Form_Builder';
 // import ReactTable from 'react-table';
 import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
-import { withAuthSync } from '../../utils/auth'
+import { withRedux } from '../../lib/redux';
+
 import Table from '../../components/Table';
 import getUrl  from '../../utils/getUrl';
+import { useDispatch } from 'react-redux';
+import { auth, getUserData } from '../../utils/auth';
+import { getCampaignData } from '../../utils/campaign_data';
+
 
 import {
     useTable,
@@ -43,13 +48,16 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
     )
 
 
+    const dispatch = useDispatch();
+
+
     async function handleSubmit (e) {
         e.preventDefault()
         console.log('hit handle submit!', campaignForm)
         // setUserData(Object.assign({}, userData, { error: '' }))
         let form = campaignForm
         //const username = userData.username
-        let url = `${getUrl}//campaign/new_campaign`
+        let url = `${getUrl}/campaign/new_campaign`
     
         try {
             console.log('try', url)
@@ -58,8 +66,15 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(campaignForm)
-          }).then(response => response)
-          .then(data => console.log('data', data))
+          }).then(response => response.json())
+          .then(data => {console.log('data', data)
+          console.log('icoming data',data)
+
+          dispatch({
+            type: 'ADD_CAMPAIGN',
+            payload: data[0]
+          });
+            })
         //   .then((res)=>{
         //       console.log('taylor', res)
         //   }).then(response => console.log('items', response))
@@ -460,4 +475,29 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
 
 }
 
-export default withAuthSync(NewCampaign);
+NewCampaign.getInitialProps = async function(ctx) {
+
+    
+
+
+    await auth(ctx)
+      
+  
+  
+    if  (!ctx.reduxStore.getState().campaigns.data.length){
+      await getCampaignData(ctx)
+    } 
+   
+  console.log('list of campaigns', ctx.reduxStore.getState().campaigns.data)
+  
+  
+  return {
+      campaignList: ctx.reduxStore.getState().campaigns.data
+  };
+      
+  }
+
+  
+export default withRedux(NewCampaign)
+
+// export default withAuthSync(NewCampaign);

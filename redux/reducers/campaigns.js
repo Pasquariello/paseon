@@ -5,7 +5,8 @@ import cookie from 'js-cookie'
 
 
 import {
-    CAMPAIGN_DATA_LOADED
+    CAMPAIGN_DATA_LOADED,
+    ADD_CAMPAIGN
   } from "../actions/types";
   
   const initialState = {
@@ -25,6 +26,15 @@ import {
             data: [...payload]
         
         };
+        case ADD_CAMPAIGN:
+          console.log('hello from add campaign reducer', payload)
+          console.log('hello from add campaign reducer', state.data)
+          
+          return {
+            ...state,
+            data: [...state.data, payload]
+
+          }
   
       default:
         return state;

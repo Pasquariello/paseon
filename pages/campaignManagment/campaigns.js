@@ -216,7 +216,7 @@ Campaigns.getInitialProps = async function(ctx) {
     await getCampaignData(ctx)
   } 
  
-
+console.log('list of campaigns', ctx.reduxStore.getState().campaigns.data)
 
 
 return {
