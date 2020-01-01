@@ -11,7 +11,7 @@ import {
   
   const initialState = {
     //token: localStorage.getItem("token"),
-   data : []
+    data : []
   };
   
   export default function(state = initialState, action) {
