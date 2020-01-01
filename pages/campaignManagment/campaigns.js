@@ -33,7 +33,6 @@ function Campaigns(props) {
     props.campaignList.forEach(campaign => {
       let submissions = campaign.jsonb_array_length ? campaign.jsonb_array_length : 0
       totalSubmissions = totalSubmissions + submissions
-      // countArray = [...countArray, campaign.jsonb_array_length]
       
     })
 

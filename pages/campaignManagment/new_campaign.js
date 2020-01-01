@@ -57,7 +57,7 @@ if user selects 'custom' have a checkbox for, 'will this campaign need to be ema
         // setUserData(Object.assign({}, userData, { error: '' }))
         let form = campaignForm
         //const username = userData.username
-        let url = `${getUrl}/campaign/new_campaign`
+        let url = `${getUrl}/campaign/new_campaign/${props.userId}`
     
         try {
             console.log('try', url)
@@ -480,9 +480,9 @@ NewCampaign.getInitialProps = async function(ctx) {
     
 
 
-    await auth(ctx)
+    // await auth(ctx)
       
-  
+    let userId = await auth(ctx);
   
     if  (!ctx.reduxStore.getState().campaigns.data.length){
       await getCampaignData(ctx)
@@ -492,7 +492,8 @@ NewCampaign.getInitialProps = async function(ctx) {
   
   
   return {
-      campaignList: ctx.reduxStore.getState().campaigns.data
+      campaignList: ctx.reduxStore.getState().campaigns.data,
+      userId 
   };
       
   }

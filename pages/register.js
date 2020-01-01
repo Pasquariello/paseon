@@ -46,7 +46,7 @@ function Register () {
     
     const username = userData.username
 
-    let url = `${getUrl}//register/`
+    let url = `${getUrl}/register/`
 
     try {
 
