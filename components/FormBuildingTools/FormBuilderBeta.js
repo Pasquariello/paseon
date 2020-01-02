@@ -39,7 +39,6 @@ const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-  console.log('result', result)
   return result;
 };
 
@@ -230,9 +229,7 @@ const [initDrag, setInitDrag] = useState();
 
 
     function addToForm (input_obj, tag) {
-      console.log('input obj', input_obj)
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
-      console.log('hello ski', campaignForm)
       setEditToggle()
     }
 
@@ -309,11 +306,8 @@ const [initDrag, setInitDrag] = useState();
                 value={copy[index].options}
                 onChange={(e)=> {
                   let optionsArray = e.target.value.split(',');
-                  console.log('optionsArray', optionsArray)
                   copy[index].options = optionsArray
                   setCampaignForm({...campaignForm, fields:copy})
-                    // copy[index].options = e.target.value
-                    // setCampaignForm({...campaignForm, fields:copy})
                   }
                 }
               ></textarea>
@@ -479,7 +473,6 @@ const [initDrag, setInitDrag] = useState();
     }
 
     function drop(event, index) {
-      console.log('DROP')
       setActiveDropZone(null);
       let arr = campaignForm.fields; //TODO rename
 

@@ -44,7 +44,6 @@ class CustomLabel extends React.Component {
 class PieChart extends React.Component {
     
     render() {
-        console.log('PIE CHART');
 
       return (
         //   <VictoryPie
