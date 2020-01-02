@@ -21,7 +21,8 @@ function Register () {
       password1: '',
       password2: '',
       email: '',
-      company: ''
+      company: '', 
+      accountType: 'basic'
   })
 
   async function handleSubmit (event) {
@@ -95,6 +96,12 @@ function Register () {
     setUserData({...userData, [state_key]: e.target.value})
   }
 
+  function setAccountType(event) {
+    var val = event.currentTarget.querySelector("#option1").value;
+    console.log('value', val)
+    // this.setState({ currValue: val });
+  }
+
   return (
     <Layout>
       <div className='login'>
@@ -152,14 +159,56 @@ function Register () {
                             required></input>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="inputCompany">Company</label>
-                        <input 
-                            onChange={(e) => setFormValuesToState(e, 'company')}
-                            type="text" 
-                            className="form-control" 
-                            id="inputCompany" 
-                            placeholder="Company"></input>
+                      <label htmlFor="inputCompany">Company</label>
+                      <input 
+                          onChange={(e) => setFormValuesToState(e, 'company')}
+                          type="text" 
+                          className="form-control" 
+                          id="inputCompany" 
+                          placeholder="Company"></input>
                     </div>
+
+                    <div className="form-group" style={{width: '100%'}}>
+                    <label htmlFor="">Account Type</label> <br/>
+                      <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label value="option1" className={`${userData.accountType == 'basic' ? 'active' : '' } btn btn-outline-secondary`} htmlFor="option1"
+                        onClick={()=>setUserData(
+                          prevState => ({
+                             ...prevState,
+                             accountType: 'basic'
+                          })
+                       )}
+                        >
+                          <input 
+                            type="radio"
+                            value={userData.accountType=='basic'}
+                            onChange={()=>console.log('jello')}
+                            name="options" 
+                            id="option1"
+                            autoComplete="off"  
+                            /> Basic
+                        </label>
+                        <label className={`${userData.accountType == 'pro' ? 'active' : '' } btn btn-outline-secondary`}   
+                        onClick={()=>setUserData(
+                          prevState => ({
+                             ...prevState,
+                             accountType: 'pro'
+                          })
+                       )}>
+                          <input value="opt3" type="radio" name="options" id="option2" autoComplete="off"/> Pro
+                        </label>
+                        <label className={`${userData.accountType == 'enterprise' ? 'active' : '' } btn btn-outline-secondary`}
+                          onClick={()=>setUserData(
+                            prevState => ({
+                               ...prevState,
+                               accountType: 'enterprise'
+                            })
+                         )}>
+                          <input value="opt3" type="radio" name="options" id="option3" autoComplete="off"/> Enterprise
+                        </label>
+                      </div>
+                    </div>
+
             <button type="submit">Register</button>
        
 {/* */}
