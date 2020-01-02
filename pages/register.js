@@ -171,7 +171,7 @@ function Register () {
                     <div className="form-group" style={{width: '100%'}}>
                     <label htmlFor="">Account Type</label> <br/>
                       <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label value="option1" className={`${userData.accountType == 'basic' ? 'active' : '' } btn btn-outline-secondary`} htmlFor="option1"
+                        <label value="option1" className="active btn btn-outline-secondary" htmlFor="option1"
                         onClick={()=>setUserData(
                           prevState => ({
                              ...prevState,
@@ -181,30 +181,28 @@ function Register () {
                         >
                           <input 
                             type="radio"
-                            value={userData.accountType=='basic'}
-                            onChange={()=>console.log('jello')}
                             name="options" 
                             id="option1"
                             autoComplete="off"  
                             /> Basic
                         </label>
-                        <label className={`${userData.accountType == 'pro' ? 'active' : '' } btn btn-outline-secondary`}   
+                        <label className="btn btn-outline-secondary"  
                         onClick={()=>setUserData(
                           prevState => ({
                              ...prevState,
                              accountType: 'pro'
                           })
                        )}>
-                          <input value="opt3" type="radio" name="options" id="option2" autoComplete="off"/> Pro
+                          <input type="radio" name="options" id="option2" autoComplete="off"/> Pro
                         </label>
-                        <label className={`${userData.accountType == 'enterprise' ? 'active' : '' } btn btn-outline-secondary`}
+                        <label className="btn btn-outline-secondary"
                           onClick={()=>setUserData(
                             prevState => ({
                                ...prevState,
                                accountType: 'enterprise'
                             })
                          )}>
-                          <input value="opt3" type="radio" name="options" id="option3" autoComplete="off"/> Enterprise
+                          <input type="radio" name="options" id="option3" autoComplete="off"/> Enterprise
                         </label>
                       </div>
                     </div>
