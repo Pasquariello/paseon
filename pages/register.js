@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
 import Layout from '../components/MyLayout'
@@ -9,10 +9,19 @@ import { withRedux } from '../lib/redux'
 // import { login } from '../redux/actions/auth'
 import Router from 'next/router'
 import  getUrl  from '../utils/getUrl';
+import fetch from 'isomorphic-unfetch';
 
 
-function Register () {
+function Register (props) {
   const dispatch = useDispatch()
+
+  const [stripe, setStripe] = useState(null);
+
+  useEffect(
+    () => setStripe(window.Stripe(process.env.STRIPE_PUBLISHABLE_KEY)),
+    []
+  );
+
   
 
   const [userData, setUserData] = useState({
@@ -42,6 +51,10 @@ function Register () {
 
       return;
     }
+
+    goToCheckout(userData.accountType);
+    //create account as basic 
+    //TODO add webhook logic on payment success upgrade account
 
     setUserData(Object.assign({}, userData, { error: '' }))
     
@@ -96,11 +109,24 @@ function Register () {
     setUserData({...userData, [state_key]: e.target.value})
   }
 
-  function setAccountType(event) {
-    var val = event.currentTarget.querySelector("#option1").value;
-    console.log('value', val)
-    // this.setState({ currValue: val });
-  }
+  // function setAccountType(event) {
+  //   var val = event.currentTarget.querySelector("#option1").value;
+  //   console.log('value', val)
+  //   // this.setState({ currValue: val });
+  // }
+
+  const goToCheckout = (plan_id) => {
+     
+    let sessionId = props.data.filter(obj => obj.client_reference_id === plan_id)
+ 
+    stripe
+      .redirectToCheckout({
+        sessionId:sessionId[0].id//props.sessionId // sessionId[0].id, // was props.sessionId
+      })
+      .then(function(result) {
+        console.log(result.error.message);
+      });
+  };
 
   return (
     <Layout>
@@ -245,11 +271,16 @@ function Register () {
   )
 }
 
-Register.getInitialProps = ({ reduxStore }) => {
+Register.getInitialProps = async () => {
+  const res = await fetch(`http://localhost:3000/api/build-checkout`);
+  const data = await res.json();
 
+  console.log('DATA', data)
 
-  return {}
+  return {
+    data: data,
+    sessionId: data.id
+  };
 }
 
-export default withRedux(Register)
-
+export default withRedux(Register);
