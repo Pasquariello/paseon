@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import SideBar from './Sidebar/SideBarLayout';
+import SideBarLayout from './sidebar/SideBarLayout';
 import Header from './Header';
 import React, { useState } from 'react';
 import { logout } from '../utils/auth';
@@ -51,7 +51,7 @@ return (
             // onClick={()=> toggleState()} // Need onClick for mobile view!
             className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right`}
           >
-            <SideBar
+            <SideBarLayout
               toggleState={toggleState}
               hoverState={hoverState}
               className="sidenav"
