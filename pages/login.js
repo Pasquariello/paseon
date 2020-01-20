@@ -10,6 +10,7 @@ import { withRedux } from '../lib/redux'
 import Router from 'next/router'
 
 
+import getUrl from '../utils/getUrl';
 
 
 
@@ -28,7 +29,9 @@ function Login () {
     setUserData(Object.assign({}, userData, { error: '' }))
     const username = userData.username
 
-    let url = 'https://paseonforms.com/login/auth'
+    //let url = 'https://paseonforms.com/login/auth'
+         let url = `${getUrl}/login/auth`    
+  
 
     try {
 
