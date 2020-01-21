@@ -10,11 +10,7 @@ import { DropdownButton } from 'react-bootstrap';
 
 
 export default function SideBarLayout(props) {
-
-
-  const [ hoverState, setHoverState ] = useState(false)
   
-
   let navItems = [
     {
       link: '/dashboard',
@@ -52,6 +48,12 @@ export default function SideBarLayout(props) {
       icon: faBlenderPhone,
       title: 'Integrations'
     },
+    {
+      link: '/campaignManagment/campaigns',
+      icon: faBullhorn,
+      title: 'Campaigns'
+    },
+    
   ]
 
 
@@ -102,41 +104,62 @@ export default function SideBarLayout(props) {
     
         {
           navItems.map(item => {
-            return <NavElem hoverState={props.hoverState} data={item}/>
+            return (
+              <div className="myElem">
+                <NavElem hoverState={props.hoverState} data={item} />
+              </div>
+            )
           })
 
         }
 
+        {/* <div className="myElem">
+          <Dropdown>
+            <DropdownButton variant="link" id="dropdown-basic" title={
+            <span><FontAwesomeIcon fixedWidth width="0" icon={faBullhorn} />
+            <span className="item-title"
+                style={{visibility: props.hoverState ? 'visible': 'hidden', marginLeft: '15px'}}
+              >Campaigns</span></span>}
+            >
 
-        <Dropdown>
-          <DropdownButton variant="link" id="dropdown-basic" title={
-          <span><FontAwesomeIcon fixedWidth width="0" icon={faBullhorn} />
-          <span className="item-title"
-              style={{visibility: props.hoverState ? 'visible': 'hidden', marginLeft: '15px'}}
-            >Campaigns</span></span>}
-          >
+            {
+            subNavItems.map(item => {
+              return ( 
+                <Dropdown.Item>
+                  <Link href={item.link}>
+                    <button className="btn btn-link">{item.title}</button>
+                  </Link>
+                </Dropdown.Item>
+              )
+            })
 
-          {
-          subNavItems.map(item => {
-            return ( 
-              <Dropdown.Item>
-                <Link href={item.link}>
-                  <button className="btn btn-link">{item.title}</button>
-                </Link>
-              </Dropdown.Item>
-            )
-          })
-
-          }
-          </DropdownButton>
-        </Dropdown>
-
+            }
+            </DropdownButton>
+          </Dropdown>
+        </div> */}
 
 
 
     </ul>
 
     <style jsx>{`
+
+.myElem:hover {
+  background: #6c63ff;
+   border-radius: 0 50px 50px 0;
+   color: white !important;
+  }
+
+  .item-title {
+    color: black;
+  }
+  .btn-link:hover {
+  text-decoraion: none !important
+  }
+  .btn {
+    text-decoraion: none !important
+    }
+
   .sidebar-item {
     font-weight: bold;
     text-decoraion: none;
