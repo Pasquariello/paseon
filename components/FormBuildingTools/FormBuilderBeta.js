@@ -587,8 +587,9 @@ let elems = transfromJSONtoHTML();
     <>
 
       <div className="flex-grid">
-        <div className="col">
-      <LeftBar>
+        <div className="col-33">
+          {/* Remove this container div */}
+      <LeftBar> 
         {editToggle != null && campaignForm.fields.length ? editInputView() : null}
       <hr></hr>
 
@@ -960,7 +961,17 @@ let elems = transfromJSONtoHTML();
     }
     .col {
       width: 100%;
+      // display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 2;
+    }
 
+    .col-30 {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
     }
 
     @media (max-width: 700px) {

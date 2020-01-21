@@ -21,7 +21,7 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/dashboard": [
+    "/zTestPage": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
