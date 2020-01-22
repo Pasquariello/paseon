@@ -39,7 +39,6 @@ const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-  console.log('result', result)
   return result;
 };
 
@@ -230,9 +229,7 @@ const [initDrag, setInitDrag] = useState();
 
 
     function addToForm (input_obj, tag) {
-      console.log('input obj', input_obj)
       setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
-      console.log('hello ski', campaignForm)
       setEditToggle()
     }
 
@@ -309,11 +306,8 @@ const [initDrag, setInitDrag] = useState();
                 value={copy[index].options}
                 onChange={(e)=> {
                   let optionsArray = e.target.value.split(',');
-                  console.log('optionsArray', optionsArray)
                   copy[index].options = optionsArray
                   setCampaignForm({...campaignForm, fields:copy})
-                    // copy[index].options = e.target.value
-                    // setCampaignForm({...campaignForm, fields:copy})
                   }
                 }
               ></textarea>
@@ -386,7 +380,6 @@ const [initDrag, setInitDrag] = useState();
 
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
-
         </>
       )
 
@@ -479,7 +472,6 @@ const [initDrag, setInitDrag] = useState();
     }
 
     function drop(event, index) {
-      console.log('DROP')
       setActiveDropZone(null);
       let arr = campaignForm.fields; //TODO rename
 
@@ -497,27 +489,65 @@ const [initDrag, setInitDrag] = useState();
     }
 
 // taylor
-    function renderDynamicFields(item) {
-      let obj = {
+    const renderDynamicFields = (item) => {
+      console.log('yol')
 
-        input: <input disabled={initDrag} type={item.type} ></input>,
-        textarea: <textarea></textarea>,
-        select: <select id="elem" name="elem">
-        
-        
+      // let obj = {
+
+      //   input: <input className='input' disabled={initDrag} type={item.type} ></input>,
+      //   textarea: <textarea></textarea>,
+      //   select: <select className="select" id="elem" name="elem">
+
+       
+      //   { item.options ? 
+      //   item.options.map((value, index) => {
+      //     // console.log('item',item)
+      //     return (
+      //       <option>{value}</option>
+      //      )
+      //   }) : <option></option>
+      //   }  
+      // </select>
+
+      // }
+      // return obj[item.tag]
+      console.log(item)
+     return (
+      <div>
+      {
+      item.tag == 'input' ? <input className='input' disabled={initDrag} type={item.type} ></input> :
+      item.tag == 'select' ? <select className="select" id="elem" name="elem">
         { item.options ? 
         item.options.map((value, index) => {
-          // console.log('item',item)
+          console.log('item',item)
           return (
             <option>{value}</option>
            )
         }) : <option></option>
         }  
-      </select>
-
+      </select> :
+      item.tag == 'textarea' ? <textarea></textarea> : null
       }
 
-      return obj[item.tag]
+<style jsx>
+    {`
+
+    input, select, textarea {
+        width: 100%;
+        padding: 5px 20px;
+        margin: 8px 0;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    `}
+    </style>
+
+     </div>
+     )
+      
 
     }
 
@@ -536,7 +566,7 @@ const [initDrag, setInitDrag] = useState();
       return (
         <>
         <div 
-          className=  {classes}
+          className={classes}
           onDragOver={(event) => dragOver(event, index)}
           onDragLeave={(event) => dragLeave(event, index)}
           onDrop = {(event) => drop(event, index)}
@@ -594,8 +624,9 @@ let elems = transfromJSONtoHTML();
     <>
 
       <div className="flex-grid">
-        <div className="col">
-      <LeftBar>
+        <div className="col-33">
+          {/* Remove this container div */}
+      <LeftBar> 
         {editToggle != null && campaignForm.fields.length ? editInputView() : null}
       <hr></hr>
 
@@ -913,7 +944,7 @@ let elems = transfromJSONtoHTML();
       font-size: 10px;
     }
 
-    input, select {
+    .input, select {
         width: 100%;
         padding: 5px 20px;
         margin: 8px 0;
@@ -967,7 +998,17 @@ let elems = transfromJSONtoHTML();
     }
     .col {
       width: 100%;
+      // display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 2;
+    }
 
+    .col-30 {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
     }
 
     @media (max-width: 700px) {

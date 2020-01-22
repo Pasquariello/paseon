@@ -3,4 +3,4 @@ function getUrl () {
     // return 'https://paseon-api.taylorpasq.now.sh'
 }
     
-export default getUrl()
+export default getUrl();

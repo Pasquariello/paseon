@@ -8,13 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // const SideBar = props => (
 export default function NavElem(props) {
-
-
   
-
   return(
     <React.Fragment>
-    <li className="sidebar-item" >
+      {/* style={{background:'#e040fb', borderRadius:'0 50px 50px 0'}} */}
+      {/* style={{borderRight:'2px solid #e040fb'}} */}
+    <li className="sidebar-item"> 
     <Link href={props.data.link}>
       <button className="btn btn-link">
         <div>
@@ -33,12 +32,18 @@ export default function NavElem(props) {
   </li>
 
 <style jsx>{`
+
+.btn, .btn-link{
+  color: black
+}
 .sidebar-item {
      font-weight: bold;
      text-decoraion: none;
      display: block;
      margin-top: 30px;
      margin-bottom: 30px;
+     color: black;
+
  }
 
  .item-title{
@@ -46,10 +51,8 @@ export default function NavElem(props) {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-left: 15px;
-
  }
 
- 
  `}
  </style>
 
