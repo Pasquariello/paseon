@@ -10,7 +10,7 @@ import getUrl from './getUrl';
 
 export const login = ({ token }) => {
 
-  cookie.set('token', token, { expires: 36000 })
+  cookie.set('token', token, { expires: 36 })
 
   Router.push('/dashboard')
 }

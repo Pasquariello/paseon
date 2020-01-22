@@ -26,8 +26,8 @@ import {
     const { type, payload } = action;
     switch (type) {
       case REGISTER_SUCCESS:
-        cookie.set('token', payload.token, { expires: 36000 })
-        cookie.set('userId', payload.payload.id, { expires: 36000 })
+        cookie.set('token', payload.token, { expires: 36 })
+        cookie.set('userId', payload.payload.id, { expires: 36 })
         //localStorage.setItem("token", payload.token);
         return {
           ...state,
@@ -50,8 +50,8 @@ import {
   
       case LOGIN_SUCCESS:
         console.log('LOGIN_SUCCESS reducer success', payload)
-        cookie.set('token', payload.token, { expires: 36000 })
-        cookie.set('userId', payload.userData.id, { expires: 36000 })
+        cookie.set('token', payload.token, { expires: 36 })
+        cookie.set('userId', payload.userData.id, { expires: 36 })
         return {
           ...state,
           ...payload,
