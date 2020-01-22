@@ -25,6 +25,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { motion } from "framer-motion";
 
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import getUrl  from '../../utils/getUrl';
+
 
 
 // ...
@@ -198,9 +201,13 @@ const single_checkbox_obj = {
 /////state values
 const [campaignForm, setCampaignForm] = useState(
   { 
+      campaign_name: '',
       fields: []
   }
 )
+
+const [campaignName, setCampaignName] = useState()
+
 const [editItemDetails, setEditItemDetails] = useState()
 
 const [itemToMoveIndex, setItemToMoveIndex] = useState();
@@ -395,7 +402,7 @@ const [initDrag, setInitDrag] = useState();
     }
 
 
-    function transfromJSONtoHTML() {
+    function transfromJSONtoHTMLStringORIG() {
 
       if (campaignForm.fields.length) {
 
@@ -408,6 +415,7 @@ const [initDrag, setInitDrag] = useState();
                   return (
                   <div key={index} >&nbsp; {/* ADDS SPACE*/}
                     {`
+                    
                     <label>${field.label}</label>
                     <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
                   `}
@@ -432,6 +440,33 @@ const [initDrag, setInitDrag] = useState();
 
     }
 
+
+    function transfromJSONtoHTMLString() {
+
+      if (campaignForm.fields.length) {
+
+        return ( 
+          `
+            <form>
+            
+           
+            ${campaignForm.fields.map((field, index) => {                       
+                  return ( 
+                  `
+                    <label>${field.label}</label>
+                    <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
+                  `
+                ) 
+              })  
+        }
+              <form>`
+
+        )
+      } else {
+            return `Start using the form building tool to see what your raw HTML will look like!`
+          }
+
+    }
 
     
 
@@ -618,7 +653,50 @@ const [initDrag, setInitDrag] = useState();
 
 let lastElem = campaignForm.fields.length - 1;
 
-let elems = transfromJSONtoHTML();
+let elems = transfromJSONtoHTMLString();
+
+
+
+
+async function handleSubmit (e) {
+  e.preventDefault()
+  console.log('hit handle submit!', campaignForm)
+  
+  // setUserData(Object.assign({}, userData, { error: '' }))
+  let form = campaignForm
+  //const username = userData.username
+
+  //let url = `${getUrl}/campaign/new_campaign/${props.userId}`
+  let url = `${getUrl}/campaign/new_campaign/2`
+
+  try {
+      console.log('try', url)
+    const response = await fetch(url, {
+      
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(campaignForm)
+    }).then(response => response.json())
+    .then(data => {console.log('data', data)
+    console.log('icoming data',data)
+
+    dispatch({
+      type: 'ADD_CAMPAIGN',
+      payload: data[0]
+    });
+      })
+  } catch (error) {
+    console.error(
+      'You have an error in your code or there are Network issues.',
+      error
+    )
+
+    const { response } = error
+
+  }
+}
+
+
 
   return (
     <>
@@ -787,13 +865,15 @@ let elems = transfromJSONtoHTML();
 
       <div className="col">
         {/* DO I STILL NEED THIS ? */}
-{/* //onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseUp={mouseUp} onDragOver={dragOver} onDrop={drop} */}
-    <button type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
-      {/* to see the custom paseon form with attribute that points to correct saved form object */}
-      {/* <button>Paseon Form</button> */}
+
+      <button type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
+
+      <button type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
+  
       <button type="button" data-toggle="modal" data-target="#paseonFormeModal">
         Paseon Form
       </button>
+
 <FormSandBox>
 {/* <button onClick={(e)=>clearList(e)}>x</button> */}
 <div className="btn-group btn-group-toggle" data-toggle="buttons">
@@ -910,7 +990,7 @@ let elems = transfromJSONtoHTML();
       </div>
       <div className="modal-body">
 
-      {transfromJSONtoHTML()}
+      {transfromJSONtoHTMLStringORIG()}
 
       </div>
       <div className="modal-footer">
@@ -920,7 +1000,73 @@ let elems = transfromJSONtoHTML();
     </div>
   </div>
 </div>
-{/* END MODAL */}
+
+
+{/* <!-- Modal --> */}
+<div className="modal fade" id="paseonFormeModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormeModal" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="paseonFormeModalLabel">Paseon Tags</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+
+ 
+ {/* PREVIEW FORM */}
+{/* 
+      {fieldList.map((item, index) => {
+          return (
+            <>
+              <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+              {renderDynamicFields(item)}
+            </>
+          )
+        }
+        )} 
+*/}
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div className="modal fade" id="saveModal" tabIndex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="saveModalLabel">Save Campaign</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+
+      
+        <label style={{fontSize: '11px'}}>Campaign Name</label>
+        <input class="input" onChange={(e)=>setCampaignForm({...campaignForm, campaign_name:e.target.value })}></input>
+
+      
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary" onClick={(e)=>handleSubmit(e)}>Save Campaing</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* END MODALs */}
+
 
 {/* REORDER END */}
 
