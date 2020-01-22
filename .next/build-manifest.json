@@ -17,11 +17,19 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
+    "/analytics": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/dashboard": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
     "/login": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/zTestPage": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
