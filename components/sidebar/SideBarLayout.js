@@ -7,10 +7,13 @@ import NavElem from './NavElem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { DropdownButton } from 'react-bootstrap';
+import { useRouter } from 'next/router'
+import classNames from 'classnames'
 
 
 export default function SideBarLayout(props) {
-  
+  const router = useRouter();
+
   let navItems = [
     {
       link: '/dashboard',
@@ -72,7 +75,52 @@ export default function SideBarLayout(props) {
   ]
 
 
+  const renderNavElems = (item) => {
+  let classes = classNames(
+    {
+      'activePath': item.link == router.pathname,
+      'activePathOpen': props.hoverState,
+      'activePathClosed': !props.hoverState,
+      'myElem': true,
+      // 'dropZone': initDrag,
+      // 'dropZoneHide' :!initDrag
+    }
+  );
 
+  return (
+    <>
+    <div className={classes}>
+    <NavElem hoverState={props.hoverState} data={item} setActivePage={props.setActivePage} />
+  {item.link == router.pathname && console.log('match')}
+  </div>
+
+  <style jsx>{`
+    .activePath {
+        background: rgba(108, 99, 255, 1);
+    }
+
+    .activePathOpen {
+      border-radius: 0 50px 50px 0;
+      transition: all 0.1s ease-in-out;
+  
+    }
+
+    .activePathClosed {
+      border-radius: 0;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .myElem:hover {
+        background: rgba(108, 99, 255, 0.5);
+        border-radius: 0 50px 50px 0;
+    }
+  `}
+  </style>
+  
+
+  </>
+  )
+  }
 
 
   return(
@@ -101,13 +149,15 @@ export default function SideBarLayout(props) {
         </h2>
           <hr></hr>
         </div>
-    
+    {/* TODO: set up class as objects?  */}
         {
           navItems.map(item => {
             return (
-              <div className="myElem">
-                <NavElem hoverState={props.hoverState} data={item} />
-              </div>
+              renderNavElems(item)
+              // <div className={item.link == router.pathname ? 'activePath myElem': 'myElem'}>
+              //   <NavElem hoverState={props.hoverState} data={item} setActivePage={props.setActivePage} />
+              // {item.link == router.pathname && console.log('match')}
+              // </div>
             )
           })
 
@@ -144,11 +194,8 @@ export default function SideBarLayout(props) {
 
     <style jsx>{`
 
-.myElem:hover {
-  background: #6c63ff;
-   border-radius: 0 50px 50px 0;
-   color: white !important;
-  }
+
+
 
   .item-title {
     color: black;
