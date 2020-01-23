@@ -866,16 +866,21 @@ async function handleSubmit (e) {
       <div className="col">
         {/* DO I STILL NEED THIS ? */}
 
-      <button type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
-
-      <button type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
-  
-      <button type="button" data-toggle="modal" data-target="#paseonFormeModal">
-        Paseon Form
-      </button>
+     
 
 <FormSandBox>
 {/* <button onClick={(e)=>clearList(e)}>x</button> */}
+
+<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
+
+<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
+
+<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#paseonFormeModal">
+  Paseon Form
+</button>
+<br/><br/>
+
+
 <div className="btn-group btn-group-toggle" data-toggle="buttons">
 <button 
   className="btn btn-secondary" 

@@ -1,6 +1,6 @@
 
 const wrapper = {
-  border: 'red solid 1px',
+  // border: 'red solid 1px',
   padding: '20px',
 };
 

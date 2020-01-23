@@ -1,6 +1,10 @@
 const wrapper = {
-    border: 'red solid 1px',
+    border: 'grey dashed 4px',
     padding: '20px',
+    height: '100vh',
+    overflow: 'scroll',
+
+    background: '#f0f0f0'
   };
   
   const FormSandBox = props => (
