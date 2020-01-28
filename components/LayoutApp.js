@@ -2,7 +2,7 @@ import Head from 'next/head';
 import SideBarLayout from './sidebar/SideBarLayout';
 import Header from './Header';
 import React, { useState } from 'react';
-import { logout } from '../utils/auth';
+// import { logout } from '../utils/auth';
 
 import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
@@ -27,6 +27,18 @@ const [ hoverState, setHoverState ] = useState(false)
 const toggleState = () => {
   setHoverState(!hoverState)
 } 
+
+const logout = () => {
+  cookie.remove('token')
+  const dispatch = useDispatch()
+
+  // to support logging out from all windows
+  window.localStorage.setItem('logout', Date.now())
+  dispatch({
+    type: 'LOGOUT',
+  });
+  // Router.push('/login')
+}
 
 
 return (
