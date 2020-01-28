@@ -45,7 +45,8 @@ import {
         return {
           ...state,
           isAuthenticated: false,
-          loading: false
+          loading: false,
+          user: null
         };
   
       case LOGIN_SUCCESS:
