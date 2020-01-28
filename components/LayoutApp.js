@@ -29,8 +29,9 @@ const toggleState = () => {
   setHoverState(!hoverState)
 } 
 
+const dispatch = useDispatch()
+
 const logout = () => {
-  const dispatch = useDispatch()
 
   // to support logging out from all windows
   // window.localStorage.setItem('logout', Date.now())
