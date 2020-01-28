@@ -470,12 +470,10 @@ const [initDrag, setInitDrag] = useState();
 
     
 
-
 //////// DRAG FUNCTIONS
     function dragOver(event, index) {
       event.preventDefault();
       setActiveDropZone(index)
-      console.log('dragging over!', activeDropZone, index);
     }
 
     function dragLeave(event, index){
@@ -525,7 +523,6 @@ const [initDrag, setInitDrag] = useState();
 
 // taylor
     const renderDynamicFields = (item) => {
-      console.log('yol')
 
       // let obj = {
 
@@ -546,7 +543,6 @@ const [initDrag, setInitDrag] = useState();
 
       // }
       // return obj[item.tag]
-      console.log(item)
      return (
       <div>
       {
@@ -910,12 +906,26 @@ async function handleSubmit (e) {
 
   {dropzone(index)}
 
+
+  <div style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}>
+
+    {/* left dropzone */}
+        <div 
+          style={{width: '10px', height: 'auto', border: '1px dashed blue'}}
+          onDragOver={(event) => dragOver(event, index)}
+          onDragLeave={(event) => dragLeave(event, index)}
+          onDrop = {(event) => drop(event, index)}
+          //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+          //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+        ></div> 
+
+
   <div 
     id='draggableSpan'
     draggable='true'
     onDragStart={(event) => dragStart(event, index)}
     onDragEnd={(event) =>  dragEnd(event, index)}
-    style={{padding: '10px'}}
+    style={{width:'100%'}}
     className={buildContainerClasses(index)}
     onMouseEnter={() => setEditItemDetails(index)}
     onMouseLeave={() => setEditItemDetails(null)}  
@@ -961,6 +971,18 @@ async function handleSubmit (e) {
 
   </div>
 
+      {/* right dropzone */}
+
+<div 
+          style={{width: '10px', height: 'auto',border: '1px dashed blue'}}
+          onDragOver={(event) => dragOver(event, index)}
+          onDragLeave={(event) => dragLeave(event, index)}
+          onDrop = {(event) => drop(event, index)}
+          //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+          //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+        ></div> 
+
+</div>
 </div>
 </motion.div>
 ))}
