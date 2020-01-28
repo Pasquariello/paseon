@@ -1,5 +1,5 @@
 const wrapper = {
-    border: 'grey dashed 4px',
+    border: 'grey dashed 2px',
     padding: '20px',
     height: '100vh',
     overflow: 'scroll',
