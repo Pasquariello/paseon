@@ -5,3 +5,4 @@ node_modules
 .next/static/runtime/webpack.js.map
 .next
 next.config.jsnode_modules
+npm-debug.log
