@@ -41,7 +41,9 @@ import {
       case AUTH_ERROR:
       case LOGOUT:
       case DELETE_ACCOUNT:
-        cookie.remove('token')
+        console.log('LOGOUT redux')
+        cookie.remove('token');
+        Router.push('/login');
         return {
           ...state,
           isAuthenticated: false,

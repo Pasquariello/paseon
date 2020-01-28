@@ -83,7 +83,10 @@ export const logout = () => {
   cookie.remove('token')
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now())
-  Router.push('/login')
+  dispatch({
+    type: 'LOGOUT',
+  });
+  // Router.push('/login')
 }
 
 export const withAuthSync = WrappedComponent => {
