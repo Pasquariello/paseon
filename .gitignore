@@ -1,8 +1,2 @@
 node_modules
-.next/build-manifest.json
-.next/server/pages-manifest.json
-.next/static/runtime/webpack.js
-.next/static/runtime/webpack.js.map
 .next
-next.config.jsnode_modules
-npm-debug.log
