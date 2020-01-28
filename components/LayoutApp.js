@@ -29,11 +29,10 @@ const toggleState = () => {
 } 
 
 const logout = () => {
-  cookie.remove('token')
   const dispatch = useDispatch()
 
   // to support logging out from all windows
-  window.localStorage.setItem('logout', Date.now())
+  // window.localStorage.setItem('logout', Date.now())
   dispatch({
     type: 'LOGOUT',
   });
