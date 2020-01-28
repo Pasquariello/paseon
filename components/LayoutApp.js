@@ -8,6 +8,7 @@ import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import nextCookie from 'next-cookies'
 import getHost from '../utils/get-host'
+import { useDispatch } from 'react-redux'
 
 
 
