@@ -4,4 +4,4 @@ node_modules
 .next/static/runtime/webpack.js
 .next/static/runtime/webpack.js.map
 .next
-next.config.js
+next.config.jsnode_modules
