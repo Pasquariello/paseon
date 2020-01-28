@@ -8,6 +8,8 @@ import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import nextCookie from 'next-cookies'
 import getHost from '../utils/get-host'
+import { withRedux } from '../lib/redux';
+
 import { useDispatch } from 'react-redux'
 
 
@@ -259,4 +261,4 @@ LayoutApp.getInitialProps = async ctx => {
   }
 }
 
-export default LayoutApp;
+export default withRedux(LayoutApp);
