@@ -207,13 +207,16 @@ Campaigns.getInitialProps = async function(ctx) {
     
 
 
-  await auth(ctx)
-    
+  //await auth(ctx)
+  let userId = await auth(ctx);
+  await getCampaignData(ctx);
 
 
-  if  (!ctx.reduxStore.getState().campaigns.data.length){
-    await getCampaignData(ctx)
-  } 
+  // if  (!ctx.reduxStore.getState().campaigns.data.length){
+  //  console.log('IDIDIDI:', ctx.reduxStore.getState().auth.user.id)
+  //   await getCampaignData(ctx)
+  // } 
+
  
 console.log('list of campaigns', ctx.reduxStore.getState().campaigns.data)
 

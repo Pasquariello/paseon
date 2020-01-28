@@ -867,13 +867,20 @@ async function handleSubmit (e) {
 <FormSandBox>
 {/* <button onClick={(e)=>clearList(e)}>x</button> */}
 
+
+
 <button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
+
+<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#previewFormModal">
+  Preview
+</button>
 
 <button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
 
-<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#paseonFormeModal">
+<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#paseonFormModal">
   Paseon Form
 </button>
+
 <br/><br/>
 
 
@@ -1030,18 +1037,19 @@ async function handleSubmit (e) {
 
 
 {/* <!-- Modal --> */}
-<div className="modal fade" id="paseonFormeModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormeModal" aria-hidden="true">
+<div className="modal fade" id="paseonFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
   <div className="modal-dialog" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="paseonFormeModalLabel">Paseon Tags</h5>
+        <h5 className="modal-title" id="paseonFormModalLabel">Paseon Tags</h5>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="modal-body">
 
- 
+      {`<paseon-form></paseon-form>`}
+
  {/* PREVIEW FORM */}
 {/* 
       {fieldList.map((item, index) => {
@@ -1059,6 +1067,42 @@ async function handleSubmit (e) {
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" className="btn btn-primary" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* <!-- Modal --> */}
+<div className="modal fade" id="previewFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="previewFormModalLabel">Preview</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+
+
+{/* PREVIEW FORM */}
+
+      {
+      !fieldList.length ? 'Start using the form building tool to see what your form will look like!' :
+      fieldList.map((item, index) => {
+          return (
+            <>
+              <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+              {renderDynamicFields(item)}
+            </>
+          )
+        }
+        )} 
+
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

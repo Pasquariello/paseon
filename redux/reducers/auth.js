@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
-
+import rootReducer from './'
 
 import {
     REGISTER_SUCCESS,
@@ -44,6 +44,11 @@ import {
         console.log('LOGOUT redux')
         cookie.remove('token');
         Router.push('/login');
+
+        const newState = rootReducer(undefined, {});
+        newState.router = state.router;
+        return newState;
+
         return {
           ...state,
           isAuthenticated: false,

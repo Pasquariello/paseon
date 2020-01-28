@@ -8,10 +8,25 @@ import { useDispatch } from 'react-redux'
 import getUrl from './getUrl';
 
 export const getCampaignData  = async (ctx) =>  {
+  console.log('store state:', ctx.reduxStore.getState())
 
   const { userId } = nextCookie(ctx)
-
+  console.log('userId', userId)
+  
+  // if (ctx.reduxStore.getState().campaigns.data.length) {
+  //   console.log(ctx.reduxStore.getState().campaigns.data.length)
+  //   return
+  // }
+  //!ctx.reduxStore.getState().campaigns.data.length
   try {
+    
+    if (ctx.reduxStore.getState().auth.user.id == !userId) {
+      console.log('cookie userId', userId)
+      console.log('redux userId', ctx.reduxStore.getState().auth.user.id)
+      console.log('PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM')
+   
+    }
+
     const res = await fetch(`${getUrl}/campaign/get_campaigns/${userId}`);
     const data = await res.json()
         
@@ -28,4 +43,5 @@ export const getCampaignData  = async (ctx) =>  {
     const { response } = error
    
   }
+  
 }

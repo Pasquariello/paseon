@@ -153,8 +153,7 @@ function Dashboard (props) {
 
 <div className="row"> 
             <div className="col-md-6">
-                    
-
+                  
               <div className="card mb-4">
                 <div className="card-body">
 
@@ -194,13 +193,14 @@ function Dashboard (props) {
   Dashboard.getInitialProps = async (ctx) => {
     //check if page is authorized
     auth(ctx);
-
-    if  (!ctx.reduxStore.getState().campaigns.data.length){
-      await getCampaignData(ctx)
-    } 
+    await getCampaignData(ctx);
+    //if  (!ctx.reduxStore.getState().campaigns.data.length){
+      //let campaignList = await getCampaignData(ctx)
+    //} 
 
     return {
-      campaignList: ctx.reduxStore.getState().campaigns.data
+        campaignList: ctx.reduxStore.getState().campaigns.data
+        // campaignList
 
     }
 
