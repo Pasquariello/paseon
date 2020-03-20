@@ -1,13 +1,72 @@
 import React from 'react'
-import styled from 'styled-components'
 import { useTable , useResizeColumns, useBlockLayout} from 'react-table'
 
 
-const Styles = styled.div`
-  padding: 1rem;
+function Table ({columns, data}) {
+	const defaultColumn = React.useMemo(
+		() => ({
+			minWidth: 100,
+			width: 350, // use use effect to get window width
+			maxWidth: 500,
+		}),
+		[]
+	)
+    
+	const {
+		getTableProps,
+		getTableBodyProps,
+		headerGroups,
+		rows,
+		prepareRow,
+	} = useTable(
+		{
+			columns,
+			data,
+			defaultColumn,
+		},
+		useBlockLayout,
+		useResizeColumns
+	)
 
-  
-  .tableWrap {
+	// Render the UI for your table
+	return (
+		<>
+			<div className="table-responsive tableWrap">
+
+				<table className=" table-striped" {...getTableProps()}>
+					<thead>
+						{headerGroups.map((headerGroup, headerIndex) => (
+							<tr key={headerIndex} {...headerGroup.getHeaderGroupProps()} >
+								{headerGroup.headers.map((column, colIndex) => (
+									<th key={colIndex} {...column.getHeaderProps()}>
+										<div
+											{...column.getResizerProps()}
+											className={`resizer ${column.isResizing ? 'isResizing' : ''}`}
+										/>
+										{column.render('Header') }
+									</th>
+								))}
+							</tr>
+						))}
+					</thead>
+					<tbody {...getTableBodyProps()}>
+						{rows.map(
+							(row, index) => {
+								prepareRow(row);
+								return (
+									<tr key={index} {...row.getRowProps()}>
+										{row.cells.map((cell, cellIndex) => {
+											return <td  key={cellIndex} {...cell.getCellProps()}>{cell.render('Cell')}</td>
+										})}
+									</tr>
+								)}
+						)}
+					</tbody>
+				</table>
+			</div>
+			<style jsx>{`
+
+      .tableWrap {
     display: block;
     max-width: 100%;
     overflow-x: scroll;
@@ -15,52 +74,52 @@ const Styles = styled.div`
     border-bottom: 1px solid black;
   }
 
-  table {
-    // width: 100%;
-    // display: inline-block;
-    // border-spacing: 0;
-    // border: 1px solid black;
-    // overflow-x: auto;
-    // overflow-y: visible;
-    width: 100%;
-    border-spacing: 0;
+  table{
+    width: 1000px;
+  }
 
 
-    tr {
-      :last-child {
-        .td {
-          border-bottom: 0;
-          
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      white-space: nowrap; 
-      overflow: hidden;
-      text-overflow: ellipsis;
 
 
-      ${'' /* In this example we use an absolutely position resizer,
-       so this is required. */}
-      position: relative;
 
-      :last-child {
-        border-right: 0;
-      }
+  th{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0px;
+    background: white;
 
-      ${'' /* The resizer styles! */}
+  
+  }
+  
 
-      .resizer {
+  td {
+    padding: 25px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 12px;
+    border-bottom: solid 1px rgba(0,0,0,0.1);
+    min-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+  }
+
+
+
+  tr:hover {
+    background: #f5f5f5;
+  }
+
+  .resizer {
         display: inline-block;
-        // background: blue;
-        width: 5px;
-        overflow: hidden
+        width: 20px;
+        overflow: hidden;
         height: 100%;
         position: absolute;
         right: 0;
@@ -68,77 +127,18 @@ const Styles = styled.div`
         transform: translateX(50%);
         z-index: 1;
 
-        &.isResizing {
-          background: red;
-        }
-      }
-    }
   }
-`
-function Table ({columns, data}) {
-    const defaultColumn = React.useMemo(
-        () => ({
-          minWidth: 100,
-          width: 150,
-          maxWidth: 500,
-        }),
-        []
-      )
-    
-      const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-      } = useTable(
-        {
-          columns,
-          data,
-          defaultColumn,
-        },
-        useBlockLayout,
-        useResizeColumns
-      )
+        .isResizing {
+          background: green;
+        }
+      
+  
+                      
+                    `}</style>
 
-  // Render the UI for your table
-  return (
-    <Styles>
-    <div className="tableWrap">
-
-    <table className="table table-striped" {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()} >
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>
-                 <div
-                  {...column.getResizerProps()}
-                  className={`resizer ${column.isResizing ? 'isResizing' : ''}`}
-                />
-                {column.render('Header') }
-                </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map(
-          (row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                })}
-              </tr>
-            )}
-        )}
-      </tbody>
-    </table>
-    </div>
-    </Styles>
-  )
+		</>
+      
+	)
 }
 
 export default Table;

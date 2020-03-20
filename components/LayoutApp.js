@@ -19,76 +19,57 @@ import { useDispatch } from 'react-redux'
 const LayoutApp = props => {
 
 
-const [sideNavWidth, setsideNavWidth] = useState(true)
-const [navBtn, setNavBtn] = useState(false)
-const [isActive, setIsActive] = useState(false)
+	const [sideNavWidth, setsideNavWidth] = useState(true)
+	const [navBtn, setNavBtn] = useState(false)
+	const [isActive, setIsActive] = useState(false)
 
 
-const [ hoverState, setHoverState ] = useState(false)
+	const [ hoverState, setHoverState ] = useState(false)
 
 
-const toggleState = () => {
-  setHoverState(!hoverState)
-} 
+	const toggleState = () => {
+		setHoverState(!hoverState)
+	} 
 
-const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-const logout = () => {
+	const logout = () => {
 
-  // to support logging out from all windows
-  // window.localStorage.setItem('logout', Date.now())
-  dispatch({
-    type: 'LOGOUT',
-  });
-  // Router.push('/login')
-}
+		// to support logging out from all windows
+		// window.localStorage.setItem('logout', Date.now())
+		dispatch({
+			type: 'LOGOUT',
+		});
+		// Router.push('/login')
+	}
 
 
-return (
+	return (
 
-  <>
-     {/* <Head> */}
-
-          {/* <link rel="stylesheet" href="node_modules/react-table/react-table.css"></link>
-          <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
-          <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap" rel="stylesheet"></link>
-          
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-          <title>
-              Paseon
-          </title> */}
-        {/* </Head> */}
-          <div
-            onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}
-            // onClick={()=> toggleState()} // Need onClick for mobile view!
-            className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right`}
-          >
-            <SideBarLayout
-              toggleState={toggleState}
-              hoverState={hoverState}
-              className="sidenav"
-              sideNavWidth={sideNavWidth}
-              navBtn={navBtn}
-            />
-          </div>
+		<>
+	
+			{/* <div
+				onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}
+				// onClick={()=> toggleState()} // Need onClick for mobile view!
+				className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right`}
+			> */}
+				<SideBarLayout/>
+			{/* </div> */}
    
 
-          <div id="content-wrapper">
-          {/* <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button> */}
-           <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning`} onClick={()=>logout()}>Logout</button>
+			<div id="content-wrapper">
+				{/* <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button> */}
+				<button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning`} onClick={()=>logout()}>Logout</button>
            
-            {props.children}
-          </div>
+				{props.children}
+			</div>
       
       
 
 
 
 
-    <style jsx>{`
+			<style jsx>{`
 
 
       .wrapper {
@@ -221,44 +202,44 @@ return (
 
 
     `}</style>
-  </>
-)};
+		</>
+	)};
 
 //  I DONT KNOW IF I NEED THIS OR NOT
 //  DOUBLE CHECK https://jasonraimondi.com/posts/secure-a-next-js-application-with-jwt-and-a-private-route-higher-order-component/ 
 //  TO SEE IF THEY ARE USING GETINITPROPS EVERYWHERE 
 
 LayoutApp.getInitialProps = async ctx => {
-  const { token } = nextCookie(ctx)
-  console.log('pro', token)
-  const apiUrl = getHost(ctx.req) + '/dashboard'
-  console.log(apiUrl)
-  const redirectOnError = () => {
-    console.log('redirect on error')
-    typeof window !== 'undefined'
-      ? Router.push('/login')
-      : ctx.res.writeHead(302, { Location: '/login' }).end()
-  }
+	const { token } = nextCookie(ctx)
+	console.log('pro', token)
+	const apiUrl = getHost(ctx.req) + '/dashboard'
+	console.log(apiUrl)
+	const redirectOnError = () => {
+		console.log('redirect on error')
+		typeof window !== 'undefined'
+			? Router.push('/login')
+			: ctx.res.writeHead(302, { Location: '/login' }).end()
+	}
 
-  try {
-    const response = await fetch(apiUrl, {
-      credentials: 'include',
-      headers: {
-        Authorization: JSON.stringify({ token })
-      }
-    })
+	try {
+		const response = await fetch(apiUrl, {
+			credentials: 'include',
+			headers: {
+				Authorization: JSON.stringify({ token })
+			}
+		})
 
-    if (response.ok) {
-      console.log('res good', response)
+		if (response.ok) {
+			console.log('res good', response)
   
-    } else {
-      return await redirectOnError()
-    }
-  } catch (error) {
-    console.log('error', error)
-    // Implementation or Network error
-    return redirectOnError()
-  }
+		} else {
+			return await redirectOnError()
+		}
+	} catch (error) {
+		console.log('error', error)
+		// Implementation or Network error
+		return redirectOnError()
+	}
 }
 
 export default withRedux(LayoutApp);

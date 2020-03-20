@@ -5,7 +5,7 @@
 import LeftBar from '../LeftBar';
 import SelectBuilder from './SelectBuilder';
 import InputBuilder from './InputBuilder';
-
+import CheckBoxBuilderEdit from './FormBuilders/CheckboxBuilderEdit';
 import FormSandBox from '../FormSandBox';
 
 import React, { useState } from 'react';
@@ -39,182 +39,181 @@ renderToString(FormBuilderBeta);
 /////////////////////////////
 /////////////////////////////
 const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
+	const result = Array.from(list);
+	const [removed] = result.splice(startIndex, 1);
+	result.splice(endIndex, 0, removed);
+	return result;
 };
 
 export default function FormBuilderBeta(props) {
 
-/////////////////////////////////////////
-////////START INPUT OBJECTSSSSSS/////////
-/////////////////////////////////////////
-let state_names = states.map(state => state.name);
-// todo: put all into an array and map to make elements? 
-// might have a problem with bootstrap
-const first_name_obj = {
-  type: 'text',
-  tag: 'input',
-  label: 'First Name',
-  name: 'first_name',
-  value: '',
-  required: false,
-  default: '', // LAST SPOT TOUCH
-  placholder: '',
-}
+	/////////////////////////////////////////
+	////////START INPUT OBJECTSSSSSS/////////
+	/////////////////////////////////////////
+	let state_names = states.map(state => state.name);
+	// todo: put all into an array and map to make elements? 
+	// might have a problem with bootstrap
+	const first_name_obj = {
+		type: 'text',
+		tag: 'input',
+		label: 'First Name',
+		name: 'first_name',
+		value: '',
+		required: false,
+		default: '', // LAST SPOT TOUCH
+		placholder: '',
+	}
 
-const last_name_obj = {
-  type: 'text',
-  tag: 'input',
-  label: 'Last Name',
-  name: 'last_name',
-  value: '',
-  required: false,
-  placholder: '',
-}
+	const last_name_obj = {
+		type: 'text',
+		tag: 'input',
+		label: 'Last Name',
+		name: 'last_name',
+		value: '',
+		required: false,
+		placholder: '',
+	}
 
-const phone_number_obj = {
-  type: 'tel',
-  tag: 'input',
-  label: 'Phone Number',
-  name: 'phone_number',
-  value: '',
-  required: false,
-  placholder: '',
-}
+	const phone_number_obj = {
+		type: 'tel',
+		tag: 'input',
+		label: 'Phone Number',
+		name: 'phone_number',
+		value: '',
+		required: false,
+		placholder: '',
+	}
 
-const email_obj = {
-  type: 'email',
-  tag: 'input',
-  label: 'Email',
-  name: 'email',
-  value: '',
-  required: false,
-  placholder: '',
-}
+	const email_obj = {
+		type: 'email',
+		tag: 'input',
+		label: 'Email',
+		name: 'email',
+		value: '',
+		required: false,
+		placholder: '',
+	}
 
-const street_address_obj = {
-  type: 'text',
-  tag: 'input',
-  label: 'Street Address',
-  name: 'street_address',
-  value: '',
-  required: false,
-  placholder: '',
-}
+	const street_address_obj = {
+		type: 'text',
+		tag: 'input',
+		label: 'Street Address',
+		name: 'street_address',
+		value: '',
+		required: false,
+		placholder: '',
+	}
 
-const city_obj = {
-  type: 'text',
-  tag: 'input',
-  label: 'City',
-  name: 'city',
-  value: '',
-  required: false,
-  placholder: '',
-}
-//todo: change for select
-const state_region_obj = {
-  type: 'text',
-  tag: 'select',
-  label: 'State/Region',
-  name: 'state_region',
-  value: '',
-  options: state_names,
-  required: false,
-  placholder: '',
-}
+	const city_obj = {
+		type: 'text',
+		tag: 'input',
+		label: 'City',
+		name: 'city',
+		value: '',
+		required: false,
+		placholder: '',
+	}
+	//todo: change for select
+	const state_region_obj = {
+		type: 'text',
+		tag: 'select',
+		label: 'State/Region',
+		name: 'state_region',
+		value: '',
+		options: state_names,
+		required: false,
+		placholder: '',
+	}
 
-const zip_code_obj = {
-  type: 'text',
-  tag: 'input',
-  label: 'Zip Code',
-  name: 'zip_code_obj',
-  value: '',
-  required: false,
-  placholder: '',
-}
+	const zip_code_obj = {
+		type: 'text',
+		tag: 'input',
+		label: 'Zip Code',
+		name: 'zip_code_obj',
+		value: '',
+		required: false,
+		placholder: '',
+	}
 
-const blank_obj = { 
-  type: 'text',
-  tag: 'input',
-  label: '',
-  name: '',
-  value: '',
-  required: false,
-  placholder: '',
-}
-
-
-const single_text_obj = {
-  type: 'text',
-  tag: 'input',
-  label: '',
-  placeholder: '',
-  placholder2: {
-    name: 'Placeholder',
-    value: ''
-  },
-  name: '',
-  value: '',
-  required: false,
-}
-
-const multiline_text_obj = {
-  tag: 'textarea',
-  label: '',
-  placeholder: '',
-  placholder2: {
-    name: 'Placeholder',
-    value: ''
-  },
-  name: '',
-  value: '',
-  required: false,
-}
-
-const select_obj = {
-  tag: 'select',
-  label: '',
-  options: [],
-  name: '',
-  value: '',
-  required: false,
-}
-
-const single_checkbox_obj = {
-  tag: 'select',
-  label: '',
-  options: [],
-  name: '',
-  value: '',
-  required: false,
-}
+	const blank_obj = { 
+		type: 'text',
+		tag: 'input',
+		label: '',
+		name: '',
+		value: '',
+		required: false,
+		placholder: '',
+	}
 
 
+	const single_text_obj = {
+		type: 'text',
+		tag: 'input',
+		label: '',
+		placeholder: '',
+		placholder2: {
+			name: 'Placeholder',
+			value: ''
+		},
+		name: '',
+		value: '',
+		required: false,
+	}
 
-///////////////////////////////////////
-////////END INPUT OBJECTSSSSSS/////////
-///////////////////////////////////////
+	const multiline_text_obj = {
+		tag: 'textarea',
+		label: '',
+		placeholder: '',
+		placholder2: {
+			name: 'Placeholder',
+			value: ''
+		},
+		name: '',
+		value: '',
+		required: false,
+	}
+
+	const select_obj = {
+		tag: 'select',
+		label: '',
+		options: [],
+		name: '',
+		value: '',
+		required: false,
+	}
+
+	const single_checkbox_obj = {
+		type: 'checkbox',
+		tag: 'input',
+		label: '',
+		value: false,
+		required: false,
+	}
 
 
-/////state values
-const [campaignForm, setCampaignForm] = useState(
-  { 
-      campaign_name: '',
-      fields: []
-  }
-)
 
-const [campaignName, setCampaignName] = useState()
+	///////////////////////////////////////
+	////////END INPUT OBJECTSSSSSS/////////
+	///////////////////////////////////////
 
-const [editItemDetails, setEditItemDetails] = useState()
 
-const [itemToMoveIndex, setItemToMoveIndex] = useState();
+	/////state values
+	const [campaignForm, setCampaignForm] = useState(
+		{ 
+			campaign_name: '',
+			fields: []
+		}
+	)
 
-const [activeDropZone, setActiveDropZone] = useState();
+	const [campaignName, setCampaignName] = useState()
 
-const [initDrag, setInitDrag] = useState();
+	const [editItemDetails, setEditItemDetails] = useState()
+
+	const [itemToMoveIndex, setItemToMoveIndex] = useState();
+
+	const [activeDropZone, setActiveDropZone] = useState();
+
+	const [initDrag, setInitDrag] = useState();
 
 
 
@@ -222,346 +221,324 @@ const [initDrag, setInitDrag] = useState();
  
 
 
-/////////////////////////////
-/////////////////////////////
-/////////////////////////////
+	/////////////////////////////
+	/////////////////////////////
+	/////////////////////////////
 
 
 
-    function clearList(e){
-      e.preventDefault();
-      setCampaignForm({...campaignForm, fields: []})      
+	function clearList(e){
+		e.preventDefault();
+		setCampaignForm({...campaignForm, fields: []})      
 
-    }
+	}
 
 
-    function addToForm (input_obj, tag) {
-      setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
-      setEditToggle()
-    }
+	function addToForm (input_obj, tag) {
+		console.log(input_obj)
+		setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
+		setEditToggle()
+	}
 
-    const [editToggle, setEditToggle] = useState()
+	const [editToggle, setEditToggle] = useState()
     
-    function openEdit(input_obj){
+	function openEdit(input_obj) {
 
-      addToForm (input_obj)
+		addToForm (input_obj)
       
-      let lastElem = 0;
+		let lastElem = 0;
 
-      if (campaignForm.fields.length  > 0) {
-        lastElem = campaignForm.fields.length
-      } 
+		if (campaignForm.fields.length  > 0) {
+			lastElem = campaignForm.fields.length
+		} 
       
-      setEditToggle(lastElem)
-    }
+		setEditToggle(lastElem)
+	}
 
-    function editInputView() {
+
+
+	// TODO - break out into sep components for each differnet type of thing being edited
+	function editInputView() {
       
-      let index = editToggle
-      let edit_obj = campaignForm.fields[index]
+		let index = editToggle
 
-      let copy = []
-      copy = [...campaignForm.fields ]
+		let copy = []
+		copy = [...campaignForm.fields ]
 
-      let toEditField = copy[index];
 
+		let field;
+
+		if (copy[index].type == 'checkbox' ) {
+			field = <CheckBoxBuilderEdit />
+		} else if (copy[index].tag == 'select') {
+			field = (
+				<div className="form-group">
+					<label htmlFor="cust_placeholder">Add Option</label> 
+					<textarea 
+						className="form-control" 
+						id="cust_placeholder" 
+						placeholder="Enter a Comma separated list for new dropdown options..."
+						value={copy[index].options}
+						onChange={(e)=> {
+							let optionsArray = e.target.value.split(',');
+							copy[index].options = optionsArray
+							setCampaignForm({...campaignForm, fields:copy})
+						}
+						}
+					></textarea>
+
+				</div> 
+			)} else if (copy[index].tag == 'input'){
+			field = (
+				<div className="form-group">
+					<label htmlFor="cust_placeholder">Placeholder</label>
+					<input 
+						type="text"
+						className="form-control" 
+						id="cust_placeholder" 
+						placeholder="Enter Custom Placeholder"
+						value={copy[index].placeholder}
+						onChange={(e)=> {
+							copy[index].placeholder = e.target.value
+							setCampaignForm({...campaignForm, fields:copy})
+						}
+						}
+					></input>
+
+					<div className="form-group">
+						<label htmlFor="cust_default">Default</label>
+						<input 
+							type="text"
+							className="form-control" 
+							id="cust_default" 
+							placeholder="Enter Custom Label"
+							onChange={(e)=> {
+								copy[index].default = e.target.value
+								setCampaignForm({...campaignForm, fields:copy})
+							}
+							}
+						></input>
+					</div>
+				</div>
+			)
+		} else {
+			field = null;
+		}
+		
+  console.log('copy[index].required', copy[index].required)
       
-
-      // copy[index].text = '3' 
-      // setArray(copy)
-      
-      // maybe pass in an object that is the schema for each type?
-      // rememnber addToForm with no arg passed in created an empty field in the field list!
-      return (
-        <>
-        <div>
-        <label htmlFor="elem">Edit {copy[index].label} </label>
-        <div style={{float: 'right'}} onClick={()=>setEditToggle() }>
-        <button>x</button>
-        </div>
-        </div>
-        <hr></hr>
-        <form>
-
-          <div className="form-group">
-            <label htmlFor="cust_label">Label</label>
-            <input 
-              type="text"
-              className="form-control" 
-              id="cust_label" 
-              placeholder="Enter Custom Label"
-              value={copy[index].label}
-              onChange={(e)=> {
-                  copy[index].label = e.target.value
-                  setCampaignForm({...campaignForm, fields:copy})
-                }
+		// maybe pass in an object that is the schema for each type?
+		// rememnber addToForm with no arg passed in created an empty field in the field list!
+		return (
+			<>
+				<div>
+					<label htmlFor="elem">Edit {copy[index].label} </label>
+					<div style={{float: 'right'}} onClick={()=>setEditToggle() }>
+						<button>x</button>
+					</div>
+				</div>
+				<hr></hr>
+				<form>
+  
+					<div className="form-group">
+						<label htmlFor="cust_label">Label</label>
+						<input 
+							type="text"
+							className="form-control" 
+							id="cust_label" 
+							placeholder="Enter Custom Label"
+							value={copy[index].label}
+							onChange={(e)=> {
+								copy[index].label = e.target.value
+								setCampaignForm({...campaignForm, fields:copy})
+							}
               
-              } 
-              ></input>
-          </div>
+							} 
+						></input>
+					</div>
 
+              
+					{ field // TODO - RENAME
+					}
 
-          { copy[index].tag == 'select' ? 
-            
-            <div className="form-group">
-              <label htmlFor="cust_placeholder">Add Option</label> 
-              <textarea 
-                // type="text" 
-                className="form-control" 
-                id="cust_placeholder" 
-                placeholder="Enter a Comma separated list for new dropdown options..."
-                value={copy[index].options}
-                onChange={(e)=> {
-                  let optionsArray = e.target.value.split(',');
-                  copy[index].options = optionsArray
-                  setCampaignForm({...campaignForm, fields:copy})
-                  }
-                }
-              ></textarea>
-              {/* <button
-                onClick={(e)=> {
-                  e.preventDefault();
-                 
-                  let optionsArray = e.target.value.split(',');
-                  console.log('optionsArray', optionsArray)
-                  copy[index].options = optionsArray
-                  setCampaignForm({...campaignForm, fields:copy})
-                }}
-              >add</button> */}
+			
 
-            </div> 
-           
-           :
-
-            <div className="form-group">
-              <label htmlFor="cust_placeholder">Placeholder</label>
-              <input 
-                type="text" 
-                className="form-control" 
-                id="cust_placeholder" 
-                placeholder="Enter Custom Placeholder"
-                value={copy[index].placeholder}
-                onChange={(e)=> {
-                    copy[index].placeholder = e.target.value
-                    setCampaignForm({...campaignForm, fields:copy})
-                  }
-                }
-              ></input>
-            </div>
-
-          }
-
-          <div className="form-group">
-            <label htmlFor="cust_default">Default</label>
-            <input 
-              type="text"
-              className="form-control" 
-              id="cust_default" 
-              placeholder="Enter Custom Label"
-              onChange={(e)=> {
-                  copy[index].default = e.target.value
-                  setCampaignForm({...campaignForm, fields:copy})
-                }
-              }
-              ></input>
-          </div>
-
-          <div className="custom-control custom-switch">
+					<div className="custom-control custom-switch">
      
-            <input 
-              onChange={()=> {
-                  copy[index].required = !copy[index].required
-                  setCampaignForm({...campaignForm, fields:copy})
+						<input 
+							onChange={()=> {
+								copy[index].required = !copy[index].required
+								setCampaignForm({...campaignForm, fields:copy})
 
-                }
+							}
               
-              } 
-              value={copy[index].required}
-              type="checkbox" 
-              className="custom-control-input" 
-              id="customSwitch1"
-            ></input>
-            <label className="custom-control-label" htmlFor="customSwitch1">Make This Field  Require</label>
+							} 
+							value={copy[index].required}
+							type="checkbox" 
+							className="custom-control-input" 
+							id="customSwitch1"
+						></input>
+						<label className="custom-control-label" htmlFor="customSwitch1">Make This Field  Require</label>
 
-          </div>
+					</div>
 
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-        </>
-      )
+					
 
-    }
+					<button type="submit" className="btn btn-primary">Submit</button>
+				</form>
+			</>
+		)
 
-    function removeOne(e, index, val) {
-      e.stopPropagation()
-      e.preventDefault();
-      setEditToggle()
-      let newList = campaignForm.fields.filter((item, i) =>  i != index)
-      setCampaignForm({...campaignForm, fields:newList}) 
+	}
 
-    }
+	function removeOne(e, index, val) {
+		e.stopPropagation()
+		e.preventDefault();
+		setEditToggle()
+		let newList = campaignForm.fields.filter((item, i) =>  i != index)
+		setCampaignForm({...campaignForm, fields:newList}) 
+
+	}
 
 
-    function transfromJSONtoHTMLStringORIG() {
+	function transfromJSONtoHTMLStringORIG() {
 
-      if (campaignForm.fields.length) {
+		if (campaignForm.fields.length) {
 
-        return ( 
-          <div>
-            {`<form>`} <br></br>
+			return ( 
+				<div>
+					{`<form>`} <br></br>
             
           
-            {campaignForm.fields.map((field, index) => {                       
-                  return (
-                  <div key={index} >&nbsp; {/* ADDS SPACE*/}
-                    {`
+					{campaignForm.fields.map((field, index) => {  
+						console.log(field.type)                     
+						return (
+							<div key={index} >&nbsp; {/* ADDS SPACE*/}
+								{`
                     
                     <label>${field.label}</label>
                     <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
                   `}
-                  <br></br>
-                  </div>
-                ) 
+								<br></br>
+							</div>
+						) 
           
               
               
-              })  }
+					})  }
               
             
           
-            {`</form>`}
+					{`</form>`}
 
-          </div>
+				</div>
 
-        )
-      } else {
-            return `Start using the form building tool to see what your raw HTML will look like!`
-          }
+			)
+		} else {
+			return `Start using the form building tool to see what your raw HTML will look like!`
+		}
 
-    }
+	}
 
 
-    function transfromJSONtoHTMLString() {
+	function transfromJSONtoHTMLString() {
 
-      if (campaignForm.fields.length) {
+		if (campaignForm.fields.length) {
 
-        return ( 
-          `
+			return ( 
+				`
             <form>
             
            
             ${campaignForm.fields.map((field, index) => {                       
-                  return ( 
-                  `
+					return ( 
+						`
                     <label>${field.label}</label>
                     <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
                   `
-                ) 
-              })  
-        }
+					) 
+				})  
+				}
               <form>`
 
-        )
-      } else {
-            return `Start using the form building tool to see what your raw HTML will look like!`
-          }
+			)
+		} else {
+			return `Start using the form building tool to see what your raw HTML will look like!`
+		}
 
-    }
+	}
 
     
 
-//////// DRAG FUNCTIONS
-    function dragOver(event, index) {
-      event.preventDefault();
-      setActiveDropZone(index)
-    }
+	//////// DRAG FUNCTIONS
+	function dragOver(event, index) {
+		event.preventDefault();
+		setActiveDropZone(index)
+	}
 
-    function dragLeave(event, index){
-      event.preventDefault();
-      setActiveDropZone(null)
-      console.log('dragging OUT!', activeDropZone, index);
-    }
+	function dragLeave(event, index){
+		event.preventDefault();
+		setActiveDropZone(null)
+		console.log('dragging OUT!', activeDropZone, index);
+	}
 
  
 
-    function dragStart(event, index) {
-      
-      setItemToMoveIndex(index)
-      setInitDrag(true);
-      console.log('TAAYY', itemToMoveIndex)
+	function dragStart(event, index) {
+		event.preventDefault();
+		setItemToMoveIndex(index)
+		setInitDrag(true);
+		//set all inputs to disabled
 
-      //set all inputs to disabled
+		event
+			.dataTransfer
+			.setData('text/plain', event.target.id);
+	}
 
-      
-      event
-        .dataTransfer
-        .setData('text/plain', event.target.id);
-    }
-
-    function dragEnd(event, index) {
-      setInitDrag(false);
-      console.log('initDrag', initDrag)
+	function dragEnd(event, index) {
+		setInitDrag(false);
+		console.log('initDrag', initDrag)
   
-    }
+	}
 
-    function drop(event, index) {
-      setActiveDropZone(null);
-      let arr = campaignForm.fields; //TODO rename
+	function drop(event, index) {
+		setActiveDropZone(null);
+		let arr = campaignForm.fields; //TODO rename
 
 
-        var element = arr[itemToMoveIndex];
-        arr.splice(itemToMoveIndex, 1);
-        arr.splice(index, 0, element);
+		var element = arr[itemToMoveIndex];
+		arr.splice(itemToMoveIndex, 1);
+		arr.splice(index, 0, element);
 
-        setCampaignForm({...campaignForm, fields:arr}) 
+		setCampaignForm({...campaignForm, fields:arr}) 
 
     
-      event
-        .dataTransfer
-        .clearData();
-    }
+		event
+			.dataTransfer
+			.clearData();
+	}
 
-// taylor
-    const renderDynamicFields = (item) => {
+	// taylor
+	const renderDynamicFields = (item) => {
 
-      // let obj = {
+		return (
+			<div>
+				{
+					item.tag == 'input' ? <input className='input' disabled={initDrag} type={item.type} ></input> :
+						item.tag == 'select' ? <select className="select" id="elem" name="elem">
+							{ item.options ? 
+								item.options.map((value, index) => {
+									return (
+										<option key={index}>{value}</option>
+									)
+								}) : <option></option>
+							}  
+						</select> :
+							item.tag == 'textarea' ? <textarea></textarea> : null
+				}
 
-      //   input: <input className='input' disabled={initDrag} type={item.type} ></input>,
-      //   textarea: <textarea></textarea>,
-      //   select: <select className="select" id="elem" name="elem">
-
-       
-      //   { item.options ? 
-      //   item.options.map((value, index) => {
-      //     // console.log('item',item)
-      //     return (
-      //       <option>{value}</option>
-      //      )
-      //   }) : <option></option>
-      //   }  
-      // </select>
-
-      // }
-      // return obj[item.tag]
-     return (
-      <div>
-      {
-      item.tag == 'input' ? <input className='input' disabled={initDrag} type={item.type} ></input> :
-      item.tag == 'select' ? <select className="select" id="elem" name="elem">
-        { item.options ? 
-        item.options.map((value, index) => {
-          console.log('item',item)
-          return (
-            <option>{value}</option>
-           )
-        }) : <option></option>
-        }  
-      </select> :
-      item.tag == 'textarea' ? <textarea></textarea> : null
-      }
-
-<style jsx>
-    {`
+				<style jsx>
+					{`
 
     input, select, textarea {
         width: 100%;
@@ -574,39 +551,39 @@ const [initDrag, setInitDrag] = useState();
     }
 
     `}
-    </style>
+				</style>
 
-     </div>
-     )
+			</div>
+		)
       
 
-    }
+	}
 
 
 
-    function dropzone(index) {
+	function dropzone(index) {
 
-      let classes = classNames(
-        {
-          'hoverDropZone': activeDropZone == index,
-          'dropZone': initDrag,
-          'dropZoneHide' :!initDrag
-        }
-      );
+		let classes = classNames(
+			{
+				'hoverDropZone': activeDropZone == index,
+				'dropZone': initDrag,
+				'dropZoneHide' :!initDrag
+			}
+		);
 
-      return (
-        <>
-        <div 
-          className={classes}
-          onDragOver={(event) => dragOver(event, index)}
-          onDragLeave={(event) => dragLeave(event, index)}
-          onDrop = {(event) => drop(event, index)}
-          //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-          //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-        ></div>
+		return (
+			<>
+				<div 
+					className={classes}
+					onDragOver={(event) => dragOver(event, index)}
+					onDragLeave={(event) => dragLeave(event, index)}
+					onDrop = {(event) => drop(event, index)}
+					//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+					//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+				></div>
 
-        <style jsx>
-        {`
+				<style jsx>
+					{`
           .dropZone {
             min-height: 10px;  
             width: 100%;
@@ -627,431 +604,413 @@ const [initDrag, setInitDrag] = useState();
             border: 1px dashed blue;
           }
         `}
-        </style>
-        </>
-        )
-    }
+				</style>
+			</>
+		)
+	}
 
-    const fieldList = campaignForm.fields;
+	const fieldList = campaignForm.fields;
     
-    function buildContainerClasses(index) {
-      return classNames(
-        'elemContainer',
+	function buildContainerClasses(index) {
+		return classNames(
+			'elemContainer',
       
-        {
-          'elemContainerHighlight': editItemDetails == index,
-          // 'hoverDropZone': activeDropZone == index,
-          // 'dropZoned': initDrag
-        }
-      );
-    }
+			{
+				'elemContainerHighlight': editItemDetails == index,
+				// 'hoverDropZone': activeDropZone == index,
+				// 'dropZoned': initDrag
+			}
+		);
+	}
 
 
-let lastElem = campaignForm.fields.length - 1;
-
-let elems = transfromJSONtoHTMLString();
-
-
-
-
-async function handleSubmit (e) {
-  e.preventDefault()
-  console.log('hit handle submit!', campaignForm)
+	async function handleSubmit (e) {
+		e.preventDefault()
+		console.log('hit handle submit!', campaignForm)
   
-  // setUserData(Object.assign({}, userData, { error: '' }))
-  let form = campaignForm
-  //const username = userData.username
+		// setUserData(Object.assign({}, userData, { error: '' }))
+		let form = campaignForm
+		//const username = userData.username
 
-  //let url = `${getUrl}/campaign/new_campaign/${props.userId}`
-  let url = `${getUrl}/campaign/new_campaign/2`
+		//let url = `${getUrl}/campaign/new_campaign/${props.userId}`
+		let url = `${getUrl}/campaign/new_campaign/2`
 
-  try {
-      console.log('try', url)
-    const response = await fetch(url, {
+		try {
+			console.log('try', url)
+			const response = await fetch(url, {
       
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(campaignForm)
-    }).then(response => response.json())
-    .then(data => {console.log('data', data)
-    console.log('icoming data',data)
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(campaignForm)
+			}).then(response => response.json())
+				.then(data => {console.log('data', data)
+					console.log('icoming data',data)
 
-    dispatch({
-      type: 'ADD_CAMPAIGN',
-      payload: data[0]
-    });
-      })
-  } catch (error) {
-    console.error(
-      'You have an error in your code or there are Network issues.',
-      error
-    )
+					dispatch({
+						type: 'ADD_CAMPAIGN',
+						payload: data[0]
+					});
+				})
+		} catch (error) {
+			console.error(
+				'You have an error in your code or there are Network issues.',
+				error
+			)
 
-    const { response } = error
+			const { response } = error
 
-  }
-}
+		}
+	}
 
 
 
-  return (
-    <>
+	return (
+		<>
 
-      <div className="flex-grid">
-        <div className="col-33">
-          {/* Remove this container div */}
-      <LeftBar> 
-        {editToggle != null && campaignForm.fields.length ? editInputView() : null}
-      <hr></hr>
+			<div className="flex-grid">
+				<div className="col-33">
+					{/* Remove this container div */}
+					<LeftBar> 
+						{editToggle != null && campaignForm.fields.length ? editInputView() : null}
+						<hr></hr>
 
-        <label htmlFor="elem">Frequently Used</label>
+						<label htmlFor="elem">Frequently Used</label>
 
-        <div className="row"> 
+						<div className="row"> 
 
      
-        <div className="col-md-6 mb-4" onClick={() => addToForm(first_name_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">First Name</p>
-          </div>  
-        </div>
-        </div>
+							<div className="col-md-6 mb-4" onClick={() => addToForm(first_name_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">First Name</p>
+									</div>  
+								</div>
+							</div>
 
-        <div className="col-md-6 mb-4" onClick={() => addToForm(last_name_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">Last Name</p>
-          </div>  
-        </div>
-        </div>
+							<div className="col-md-6 mb-4" onClick={() => addToForm(last_name_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">Last Name</p>
+									</div>  
+								</div>
+							</div>
 
-        </div>
-        <div className="row"> 
-
-
-        <div className="col-md-6 mb-4" onClick={() => addToForm(phone_number_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">Phone Number</p>
-          </div>  
-        </div>
-        </div>
-
-        <div className="col-md-6 mb-4" onClick={() => addToForm(email_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">Email</p>
-          </div>  
-        </div>
-        </div>
-
-        </div>
-        <div className="row"> 
+						</div>
+						<div className="row"> 
 
 
-        <div className="col-md-6 mb-4" onClick={() => addToForm(street_address_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">Street Address</p>
-          </div>  
-        </div>
-        </div>
+							<div className="col-md-6 mb-4" onClick={() => addToForm(phone_number_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">Phone Number</p>
+									</div>  
+								</div>
+							</div>
 
-        <div className="col-md-6 mb-4" onClick={() => addToForm(city_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">City</p>
-          </div>  
-        </div>
-        </div>
+							<div className="col-md-6 mb-4" onClick={() => addToForm(email_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">Email</p>
+									</div>  
+								</div>
+							</div>
+
+						</div>
+						<div className="row"> 
+
+
+							<div className="col-md-6 mb-4" onClick={() => addToForm(street_address_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">Street Address</p>
+									</div>  
+								</div>
+							</div>
+
+							<div className="col-md-6 mb-4" onClick={() => addToForm(city_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">City</p>
+									</div>  
+								</div>
+							</div>
         
-        </div>
-        <div className="row">
+						</div>
+						<div className="row">
 
-        <div className="col-md-6 mb-4" onClick={() => addToForm(state_region_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">State/Region</p>
-          </div>  
-        </div>
-        </div>
+							<div className="col-md-6 mb-4" onClick={() => addToForm(state_region_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">State/Region</p>
+									</div>  
+								</div>
+							</div>
 
-        <div className="col-md-6 mb-4" onClick={() => addToForm(zip_code_obj)}>
-        <div className="card">
-          <div className="card-header">
-            <p className="card-text">Zip Code</p>
-          </div>  
-        </div>
-        </div>
+							<div className="col-md-6 mb-4" onClick={() => addToForm(zip_code_obj)}>
+								<div className="card">
+									<div className="card-header">
+										<p className="card-text">Zip Code</p>
+									</div>  
+								</div>
+							</div>
 
-      </div>    
+						</div>    
 
 
 
-    <hr></hr>
-    {/* Start Advanced build tools */}
-    <label htmlFor="elem">New Element</label>
+						<hr></hr>
+						{/* Start Advanced build tools */}
+						<label htmlFor="elem">New Element</label>
 
-    <div className="row"> 
+						<div className="row"> 
 
-      <div className="col-md-4 mb-4" onClick={()=>openEdit(single_text_obj)}>
-        <div className="card mb-4">
-            <div className="card-body">
-                <p className="card-title">Single Line</p>
-            </div>
-        </div>
-      </div>
+							<div className="col-md-4 mb-4" onClick={()=>openEdit(single_text_obj)}>
+								<div className="card mb-4">
+									<div className="card-body">
+										<p className="card-title">Single Line</p>
+									</div>
+								</div>
+							</div>
 
-      <div className="col-md-4 mb-4" onClick={() => openEdit(multiline_text_obj)}>
-        <div className="card mb-4">
-            <div className="card-body">
-                <p className="card-title">Multi Line</p>
-            </div>
-        </div>
-      </div>
+							<div className="col-md-4 mb-4" onClick={() => openEdit(multiline_text_obj)}>
+								<div className="card mb-4">
+									<div className="card-body">
+										<p className="card-title">Multi Line</p>
+									</div>
+								</div>
+							</div>
 
-      <div className="col-md-4 mb-4" onClick={() => openEdit(select_obj)}>
-        <div className="card mb-4">
-          <div className="card-body">
-            <p className="card-title">Drop Down</p>
-          </div>
-        </div>
-      </div>
+							<div className="col-md-4 mb-4" onClick={() => openEdit(select_obj)}>
+								<div className="card mb-4">
+									<div className="card-body">
+										<p className="card-title">Drop Down</p>
+									</div>
+								</div>
+							</div>
 
-    </div>
+						</div>
 
-    <div className="row"> 
+						<div className="row"> 
 
-      <div className="col-md-4 mb-4">
-        <div className="card mb-4">
-            <div className="card-body">
-                <p className="card-title">Single Checkbox</p>
-            </div>
-        </div>
-      </div>
+							<div className="col-md-4 mb-4" onClick={()=>openEdit(single_checkbox_obj)}>
+								<div className="card mb-4">
+									<div className="card-body">
+										<p className="card-title">Single Checkbox</p>
+									</div>
+								</div>
+							</div>
 
-      <div className="col-md-4 mb-4">
-        <div className="card mb-4">
-            <div className="card-body">
-                <p className="card-title">Multi Checkbox</p>
-            </div>
-        </div>
-      </div>
+							<div className="col-md-4 mb-4">
+								<div className="card mb-4">
+									<div className="card-body">
+										<p className="card-title">Multi Checkbox</p>
+									</div>
+								</div>
+							</div>
 
-      <div className="col-md-4 mb-4">
-        <div className="card mb-4">
-          <div className="card-body">
-            <p className="card-title">Radio</p>
-          </div>
-        </div>
-      </div>
-    </div>
-     {/* End Advanced build tools */}
+							<div className="col-md-4 mb-4">
+								<div className="card mb-4">
+									<div className="card-body">
+										<p className="card-title">Radio</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/* End Advanced build tools */}
 
 
    
 
-        {/* TODO! rename parentCallback */}
-        {/* {(elem === 'select' ? <SelectBuilder parentCallback={mycallback}></SelectBuilder> : null)}
+						{/* TODO! rename parentCallback */}
+						{/* {(elem === 'select' ? <SelectBuilder parentCallback={mycallback}></SelectBuilder> : null)}
         {(elem === 'text' ? <InputBuilder parentCallback={mycallback}></InputBuilder> : null)} */}
 
         
-      </LeftBar>
-</div>
+					</LeftBar>
+				</div>
 
-      <div className="col">
-        {/* DO I STILL NEED THIS ? */}
+				<div className="col">
+					{/* DO I STILL NEED THIS ? */}
 
      
 
-<FormSandBox>
-{/* <button onClick={(e)=>clearList(e)}>x</button> */}
+					<FormSandBox>
+						{/* <button onClick={(e)=>clearList(e)}>x</button> */}
 
 
 
-<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
+						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
 
-<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#previewFormModal">
+						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#previewFormModal">
   Preview
-</button>
+						</button>
 
-<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
+						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
 
-<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#paseonFormModal">
+						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#paseonFormModal">
   Paseon Form
-</button>
+						</button>
 
-<br/><br/>
-
-
-<div className="btn-group btn-group-toggle" data-toggle="buttons">
-<button 
-  className="btn btn-secondary" 
-  // onClick={(e)=>removeOne(e, index, item)} // here!
-  onClick={(e)=>clearList(e)}
->
-  <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
-</button>
-<button className="btn btn-secondary">
-  <FontAwesomeIcon fixedWidth width="0" icon={faInfoCircle}></FontAwesomeIcon>
-</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
-</div>
-{/* REORDER START */}
+						<br/><br/>
 
 
-{fieldList.map((item, index) => (  
-  <motion.div
-  initial={{ scale: 0 }}
-  animate={{  scale: 1 }}
-  transition={{
-    type: "spring",
-    stiffness: 260,
-    damping: 20
-  }}
->
-<div key={index}>
+						<div className="btn-group btn-group-toggle" data-toggle="buttons">
+							<button 
+								className="btn btn-secondary" 
+								// onClick={(e)=>removeOne(e, index, item)} // here!
+								onClick={(e)=>clearList(e)}
+							>
+								<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+							</button>
+							<button className="btn btn-secondary">
+								<FontAwesomeIcon fixedWidth width="0" icon={faInfoCircle}></FontAwesomeIcon>
+							</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
+						</div>
+						{/* REORDER START */}
+						<div style={{marginTop: '20px'}}>
+							{fieldList.map((item, index) => (  
+								<motion.div
+									key={index}
+									initial={{ scale: 0 }}
+									animate={{  scale: 1 }}
+									transition={{
+										type: "spring",
+										stiffness: 260,
+										damping: 20
+									}}
+								>
+									<div key={index}>
 
-  {dropzone(index)}
+										{dropzone(index)}
 
 
-  <div style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}>
+										<div 
+											style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
+											className={buildContainerClasses(index)}
+										>
 
-    {/* left dropzone */}
-        <div 
-          style={{width: '10px', height: 'auto', border: '1px dashed blue'}}
-          onDragOver={(event) => dragOver(event, index)}
-          onDragLeave={(event) => dragLeave(event, index)}
-          onDrop = {(event) => drop(event, index)}
-          //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-          //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-        ></div> 
+											{/* left dropzone */}
+											{/* <div 
+												style={{width: '10px', height: 'auto', border: '1px dashed blue'}}
+												onDragOver={(event) => dragOver(event, index)}
+												onDragLeave={(event) => dragLeave(event, index)}
+												onDrop = {(event) => drop(event, index)}
+											//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+											//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+											></div>  */}
 
 
-  <div 
-    id='draggableSpan'
-    draggable='true'
-    onDragStart={(event) => dragStart(event, index)}
-    onDragEnd={(event) =>  dragEnd(event, index)}
-    style={{width:'100%'}}
-    className={buildContainerClasses(index)}
-    onMouseEnter={() => setEditItemDetails(index)}
-    onMouseLeave={() => setEditItemDetails(null)}  
-    onClick={()=> {setEditToggle(index)}}
-  >
+											<div 
+												id={`draggableSpan_${index}`}
+												draggable='true'
+												onDragStart={(event) => dragStart(event, index)}
+												onDragEnd={(event) =>  dragEnd(event, index)}
+												style={{width:'100%'}}
+												onMouseEnter={() => setEditItemDetails(index)}
+												onMouseLeave={() => setEditItemDetails(null)}  
+												onClick={()=> {setEditToggle(index)}}
+											>
 
   
-    <div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
+												<div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
 
-      <div className="btn-group btn-group-toggle" data-toggle="buttons">
-        <button 
-          className="btn btn-secondary" 
-          onClick={(e)=> {setEditToggle(index)}}
-        >
-        <FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
-        </button>
-        <button 
-          className="btn btn-secondary" 
-          onClick={(e)=>removeOne(e, index, item)}
-        >
-        <FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
-        </button>
-      </div>
-    </div>
+													<div className="btn-group btn-group-toggle" data-toggle="buttons">
+														<button 
+															className="btn btn-secondary" 
+															onClick={()=> {setEditToggle(index)}}
+														>
+															<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
+														</button>
+														<button 
+															className="btn btn-secondary" 
+															onClick={(e)=>removeOne(e, index, item)}
+														>
+															<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+														</button>
+													</div>
+												</div>
 
-    <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-{/* start dynamically added fields - right panel */}
+												<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+												{/* start dynamically added fields - right panel */}
       
-      {renderDynamicFields(item)}
+												{renderDynamicFields(item)}
     
-    {/* {(item.tag == 'select' ? 
-      <select id="elem" name="elem" onChange={handleElemSelect}>
-        {item.options.map((value, index) => {
-          console.log('item',item)
-          return (
-            <option key={index}>{value}</option>
-          )
 
-        })} 
-      </select>
-    : <input disabled={initDrag} type={item.type} ></input> )} */}
-{/* end dynamically added fields - right panel */}
+											</div>
 
-  </div>
+											{/* right dropzone */}
+											{/* <div 
+												style={{width: '10px', height: 'auto',border: '1px dashed blue'}}
+												onDragOver={(event) => dragOver(event, index)}
+												onDragLeave={(event) => dragLeave(event, index)}
+												onDrop = {(event) => drop(event, index)}
+											//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+											//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+											></div>  */}
 
-      {/* right dropzone */}
-
-<div 
-          style={{width: '10px', height: 'auto',border: '1px dashed blue'}}
-          onDragOver={(event) => dragOver(event, index)}
-          onDragLeave={(event) => dragLeave(event, index)}
-          onDrop = {(event) => drop(event, index)}
-          //onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-          //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-        ></div> 
-
-</div>
-</div>
-</motion.div>
-))}
-              
+										</div>
+									</div>
+								</motion.div>
+							))}
+						</div>
 
 
-      </FormSandBox>
-     {/* TODO: hook these up  */}
+					</FormSandBox>
+					{/* TODO: hook these up  */}
       
-      {/* to see raw form with complete structure */}
-      {/* <button>Raw Form</button>   
+					{/* to see raw form with complete structure */}
+					{/* <button>Raw Form</button>   
     
       <button type="button" data-toggle="modal" data-target="#exampleModal">
         Paseon Form
       </button> */}
-      </div>
-      </div>
+				</div>
+			</div>
 
-{/* START MODAL - TODO PUT INTO OWN COMPONENT*/}
-      {/* <!-- Button trigger modal --> */}
-
-
-{/* <!-- Modal --> */}
-<div className="modal fade" id="rawFormModal" tabIndex="-1" role="dialog" aria-labelledby="rawFormModal" aria-hidden="true">
-  <div className="modal-dialog" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="rawFormModalLabel">Paseon Tags</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div className="modal-body">
-
-      {transfromJSONtoHTMLStringORIG()}
-
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+			{/* START MODAL - TODO PUT INTO OWN COMPONENT*/}
+			{/* <!-- Button trigger modal --> */}
 
 
-{/* <!-- Modal --> */}
-<div className="modal fade" id="paseonFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
-  <div className="modal-dialog" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="paseonFormModalLabel">Paseon Tags</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div className="modal-body">
+			{/* <!-- Modal --> */}
+			<div className="modal fade" id="rawFormModal" tabIndex="-1" role="dialog" aria-labelledby="rawFormModal" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="rawFormModalLabel">Paseon Tags</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
 
-      {`<paseon-form></paseon-form>`}
+							{transfromJSONtoHTMLStringORIG()}
 
- {/* PREVIEW FORM */}
-{/* 
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" className="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			{/* <!-- Modal --> */}
+			<div className="modal fade" id="paseonFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="paseonFormModalLabel">Paseon Tags</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+
+							{`<paseon-form></paseon-form>`}
+
+							{/* PREVIEW FORM */}
+							{/* 
       {fieldList.map((item, index) => {
           return (
             <>
@@ -1063,86 +1022,86 @@ async function handleSubmit (e) {
         )} 
 */}
 
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary" >Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" className="btn btn-primary" >Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-{/* <!-- Modal --> */}
-<div className="modal fade" id="previewFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
-  <div className="modal-dialog" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="previewFormModalLabel">Preview</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div className="modal-body">
-
-
-{/* PREVIEW FORM */}
-
-      {
-      !fieldList.length ? 'Start using the form building tool to see what your form will look like!' :
-      fieldList.map((item, index) => {
-          return (
-            <>
-              <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-              {renderDynamicFields(item)}
-            </>
-          )
-        }
-        )} 
+			{/* <!-- Modal --> */}
+			<div className="modal fade" id="previewFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="previewFormModalLabel">Preview</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
 
 
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+							{/* PREVIEW FORM */}
+
+							{
+								!fieldList.length ? 'Start using the form building tool to see what your form will look like!' :
+									fieldList.map((item, index) => {
+										return (
+											<div key={index}>
+												<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+												{renderDynamicFields(item)}
+											</div>
+										)
+									}
+									)} 
+
+
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
 
-<div className="modal fade" id="saveModal" tabIndex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
-  <div className="modal-dialog" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="saveModalLabel">Save Campaign</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div className="modal-body">
-
-      
-        <label style={{fontSize: '11px'}}>Campaign Name</label>
-        <input class="input" onChange={(e)=>setCampaignForm({...campaignForm, campaign_name:e.target.value })}></input>
+			<div className="modal fade" id="saveModal" tabIndex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="saveModalLabel">Save Campaign</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
 
       
+							<label style={{fontSize: '11px'}}>Campaign Name</label>
+							<input className="input" onChange={(e)=>setCampaignForm({...campaignForm, campaign_name:e.target.value })}></input>
 
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary" onClick={(e)=>handleSubmit(e)}>Save Campaing</button>
-      </div>
-    </div>
-  </div>
-</div>
+      
 
-{/* END MODALs */}
+						</div>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" className="btn btn-primary" onClick={(e)=>handleSubmit(e)}>Save Campaing</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* END MODALs */}
 
 
-{/* REORDER END */}
+			{/* REORDER END */}
 
-      <style jsx>
-    {`
+			<style jsx>
+				{`
 
 
 .sub{
@@ -1201,7 +1160,7 @@ async function handleSubmit (e) {
 
     .elemContainerHighlight {
       margin: 10px;
-      border: 1px solid blue;
+      border: 1px solid red;
       background-color: #f2f2f2;
       cursor: grab;
 
@@ -1234,8 +1193,8 @@ async function handleSubmit (e) {
       }
     }
     `}
-</style>
+			</style>
  
-    </>
-  );
+		</>
+	);
 }
