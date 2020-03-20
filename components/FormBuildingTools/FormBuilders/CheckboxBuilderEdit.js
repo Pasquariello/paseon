@@ -15,9 +15,9 @@ export default function CheckBoxBuilder() {
 				<input 
 					onChange={(e) => {
                         console.log(typeof(e.target.value))
-                        setDefaultValue(!defaultValue)}
+                        setDefaultValue()}
                     } 
-					value={!!defaultValue}
+					value={defaultValue}
                     type="checkbox" 
                     
 					// className="custom-control-input" 

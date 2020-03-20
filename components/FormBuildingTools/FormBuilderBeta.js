@@ -485,7 +485,6 @@ export default function FormBuilderBeta(props) {
  
 
 	function dragStart(event, index) {
-		event.preventDefault();
 		setItemToMoveIndex(index)
 		setInitDrag(true);
 		//set all inputs to disabled
@@ -901,7 +900,7 @@ export default function FormBuilderBeta(props) {
 
 
 											<div 
-												id={`draggableSpan_${index}`}
+												id={`draggableSpan`}
 												draggable='true'
 												onDragStart={(event) => dragStart(event, index)}
 												onDragEnd={(event) =>  dragEnd(event, index)}

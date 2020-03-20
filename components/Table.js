@@ -72,6 +72,7 @@ function Table ({columns, data}) {
     overflow-x: scroll;
     overflow-y: hidden;
     border-bottom: 1px solid black;
+    margin-bottom: 50px;
   }
 
   table{
