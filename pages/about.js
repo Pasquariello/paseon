@@ -1,4 +1,5 @@
 import Layout from '../components/MyLayout';
+import FormSandBox from '../components/FormSandBox';
 
 
 export default function About() {
@@ -23,3 +24,23 @@ export default function About() {
     </>
   );
 }
+
+Paseon offers a suit of tools to build custom Forms, analyze submission data, and manage user input.  Whether your form is a survey, contact form, payment portal, or whatever else you can imagine Paseon can help drive your business forward.
+Each submission gets saved under its associated campaign so you have access to all the data you need, managed in one place.  All our forms are preconfigured to handle email submission through a secure SMTP Service.  
+
+Keep it simple: 
+Its a core value for Paseon to keep things simple, life is complicated enough as it is so let us take on the complicated stuff. 
+In order to keep things simple we have prebuilt forms that you can use for the most common situations, this includes: 
+RSVP
+Contact Form
+Sign up
+Mailing List
+
+if you need to make a custom form take advantage of the intuitive drag and drop form builder.  The form builder will show you the RAW HTML you if you choose to make further adjustments.About
+
+Want to write your own custome HTML but dont want the hassle fo writting a backend? 
+We've got you covered! 
+Simply nest your HTML form within the paseon tags <PaseonForm> ... </PaseonForm> Paseon will capture the event, persist all the data into your account and send any emails out if necessary. 
+
+Our competitors will force you to use complicated scripts to add forms to your sites or templates, but Paseon believes that your forms are YOUR forms, we will always give you the raw HTML to your forms.
+
