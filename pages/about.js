@@ -74,7 +74,7 @@ export default function About() {
 						<div className="row text-center">
 							{/* <!-- Team item--> */}
 							<div className="col-xl-3 col-sm-6 mb-5">
-								<div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834132/avatar-4_ozhrib.png" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
+								<div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834130/avatar-3_hzlize.png" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
 									<h5 className="mb-0">Taylor Pasquariello</h5><span className="small text-uppercase text-muted">CEO - Founder</span>
 									<ul className="social mb-0 list-inline mt-3">
 										<li className="list-inline-item"><a href="#" className="social-link"><i className="fa fa-facebook-f"></i></a></li>
@@ -88,7 +88,7 @@ export default function About() {
 
 							{/* <!-- Team item--> */}
 							<div className="col-xl-3 col-sm-6 mb-5">
-								<div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834130/avatar-3_hzlize.png" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
+								<div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834132/avatar-4_ozhrib.png " alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
 									<h5 className="mb-0">Samuel Hardy</h5><span className="small text-uppercase text-muted">CEO - Founder</span>
 									<ul className="social mb-0 list-inline mt-3">
 										<li className="list-inline-item"><a href="#" className="social-link"><i className="fa fa-facebook-f"></i></a></li>
