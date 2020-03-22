@@ -1,15 +1,9 @@
-import Link from 'next/link';
-import LayoutApp from '../../components/LayoutApp';
-import React, { useState } from 'react';
+import React from 'react';
 // import Form_Builder from '../../components/FormBuildingTools/Form_Builde';
 // import ReactTable from 'react-table';
-import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import { withRedux } from '../../lib/redux';
 
-import Table from '../../components/Table';
-import getUrl  from '../../utils/getUrl';
-import { useDispatch } from 'react-redux';
-import { auth, getUserData } from '../../utils/auth';
+import { auth } from '../../utils/auth';
 import { getCampaignData } from '../../utils/campaign_data';
 
 import New_Campaign from '../../components/Campaign/New_Campaign';
