@@ -15,91 +15,91 @@ import getUrl from '../../utils/getUrl';
 function ForgotPassword () {
 
 
-  const [userData, setUserData] = useState({ username: '', error: '' })
+	const [userData, setUserData] = useState({ username: '', error: '' })
 
 
-  async function handleSubmit (event) {
+	async function handleSubmit (event) {
     
-    event.preventDefault()
-    setUserData(Object.assign({}, userData, { error: '' }))
-    const username = userData.username
+		event.preventDefault()
+		setUserData(Object.assign({}, userData, { error: '' }))
+		const username = userData.username
 
-    let url = `${getUrl}/login/resetLink`
+		let url = `${getUrl}/login/resetLink`
 
-    try {
+		try {
 
-      const response = await fetch(url, {
+			const response = await fetch(url, {
         
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username })
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ username })
         
-      }).then(
-        function(response) {
-          if (response.status !== 200) {
-            console.log('RESET LINK failed.')
-              let error = new Error(response.statusText)
-              error.response = response
-              throw error
-          }
+			}).then(
+				function(response) {
+					if (response.status !== 200) {
+						console.log('RESET LINK failed.')
+						let error = new Error(response.statusText)
+						error.response = response
+						throw error
+					}
 
-          response.json().then(function(data){
+					response.json().then(function(data){
            
-            setUserData(
-              Object.assign({}, userData, {
-                message: data.msg
-              })
-            );
-          })
-        }
-      )
-    } catch (error) {
-      console.error(
-        'You have an error in your code or there are Network issues.',
-        error
-      )
+						setUserData(
+							Object.assign({}, userData, {
+								message: data.msg
+							})
+						);
+					})
+				}
+			)
+		} catch (error) {
+			console.error(
+				'You have an error in your code or there are Network issues.',
+				error
+			)
 
-      const { response } = error
-      setUserData(
-        Object.assign({}, userData, {
-          message: response ? response.statusText : error.message
-        })
-      )
-    }
-  }
+			const { response } = error
+			setUserData(
+				Object.assign({}, userData, {
+					message: response ? response.statusText : error.message
+				})
+			)
+		}
+	}
 
-  return (
-    <Layout>
+	return (
+		<Layout>
       
-      <div className='login' style={{overflow: 'auto'}}>
-        <form onSubmit={handleSubmit}>
-        <div style={{textAlign: 'center'}}>
-          <h3>Trouble Logging in?</h3>
-          <p>Enter your username to reset your passord</p>
-        </div>
-          <label htmlFor='username'>Username</label>
-          <input
-            type='text'
-            id='username'
-            name='username'
-            value={userData.username}
-            onChange={event =>
-              setUserData(
-                Object.assign({}, userData, { username: event.target.value })
-              )
-            }
-          />
+			<div className='login' style={{overflow: 'auto'}}>
+				<form onSubmit={handleSubmit}>
+					<div style={{textAlign: 'center'}}>
+						<h3>Trouble Logging in?</h3>
+						<p>Enter your username to reset your passord</p>
+					</div>
+					<label htmlFor='username'>Username</label>
+					<input
+						type='text'
+						id='username'
+						name='username'
+						value={userData.username}
+						onChange={event =>
+							setUserData(
+								Object.assign({}, userData, { username: event.target.value })
+							)
+						}
+					/>
 
-          <button type='submit'>Send Login Link</button>
+					<button type='submit'>Send Login Link</button>
           
-        </form>
+				</form>
         
-        {userData.message && <p className='success'>{userData.message}</p>}
+				{userData.message && <p className='success'>{userData.message}</p>}
 
 
-      </div>
+			</div>
 
-      <style jsx>{`
+			<style jsx>{`
         .login {
           max-width: 340px;
           margin: 0 auto;
@@ -125,8 +125,8 @@ function ForgotPassword () {
           color: brown;
         }
       `}</style>
-    </Layout>
-  )
+		</Layout>
+	)
 }
 
 // ForgotPassword.getInitialProps = () => {

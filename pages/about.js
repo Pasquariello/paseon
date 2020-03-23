@@ -26,7 +26,7 @@ export default function About() {
 
 				<div className="container py-5">
 					<div className="row h-100 align-items-center py-5" style={{textAlign: 'center'}}>
-						<p className="lead text-muted mb-0">Paseon offers a suit of tools to help you create and manage online forms. We are here to help whether you need an employee survey, contact form, payment portal, patient information or whatever else you can imagine</p>
+						<p className="lead text-muted mb-0">Paseon offers a suite of tools to help you create and manage online forms. We are here to help whether you need an employee survey, contact form, payment portal, patient information or whatever else you can imagine</p>
 					</div>
 				</div>
 
@@ -135,7 +135,7 @@ export default function About() {
 	);
 }
 
-// Paseon offers a suit of tools to build custom Forms, analyze submission data, and manage user input.  Whether your form is a survey, contact form, payment portal, or whatever else you can imagine Paseon can help drive your business forward.
+// Paseon offers a suite of tools to build custom Forms, analyze submission data, and manage user input.  Whether your form is a survey, contact form, payment portal, or whatever else you can imagine Paseon can help drive your business forward.
 // Each submission gets saved under its associated campaign so you have access to all the data you need, managed in one place.  All our forms are preconfigured to handle email submission through a secure SMTP Service.  
 
 // Keep it simple: 
