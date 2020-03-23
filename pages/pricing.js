@@ -1,20 +1,14 @@
 import Layout from '../components/MyLayout';
 import { useState, useEffect } from "react";
 import fetch from 'isomorphic-unfetch';
-
-
 const Pricing = props => {
   const [stripe, setStripe] = useState(null);
-
   useEffect(
     () => setStripe(window.Stripe(process.env.STRIPE_PUBLISHABLE_KEY)),
     []
   );
-
   const goToCheckout = (plan_id) => {
-     
     let sessionId = props.data.filter(obj => obj.client_reference_id === plan_id)
- 
     stripe
       .redirectToCheckout({
         sessionId:sessionId[0].id//props.sessionId // sessionId[0].id, // was props.sessionId
@@ -23,17 +17,14 @@ const Pricing = props => {
         console.log(result.error.message);
       });
   };
-
   return (
     <>
       <Layout>
     <div className="container">
-
     <div style={{textAlign: 'center', padding: '150px 0 75px 0', width: '70%', marginLeft: '15%'}}>
     <h1 className="display-4">Get The Most Out of Your Forms</h1>
     <p className="lead">Lorem ipsum dolor sit amet, mel te prima assentior suscipiantur, et sumo ridens commodo nec. Vel no solet animal scaevola, et discere singulis aliquando vix, mentitum postulant constituam ei cum.</p>
     </div>
-
       <div className="card-deck mb-3 text-center">
         <div className="card mb-4 box-shadow">
           <div className="card-header">
@@ -47,8 +38,8 @@ const Pricing = props => {
               <li>100 Email Submissions</li>
               <li>Email support</li>
             </ul>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="btn btn-lg btn-block btn-outline-primary"
               onClick={() => goToCheckout('basic')}
               >Get Started
@@ -67,8 +58,8 @@ const Pricing = props => {
               <li>1000 Email Submissions</li>
               <li>Email support</li>
             </ul>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="btn btn-lg btn-block btn-primary"
               onClick={() => goToCheckout('pro')}
               >Get started
@@ -87,22 +78,18 @@ const Pricing = props => {
               <li>5000 Email Submissions</li>
               <li>Priority support</li>
             </ul>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="btn btn-lg btn-block btn-primary">Contact us
             </button>
           </div>
         </div>
       </div>
-
-
 <div style={{marginTop: '150px'}}>
-
 <div style={{position:"relative", textAlign: 'center', padding: '0px 150px 50px 150px'}}>
     <h1 className="display-4">Plan Breakdown</h1>
     {/* <p className="lead">Lorem ipsum dolor sit amet, mel te prima assentior suscipiantur, et sumo ridens commodo nec. Vel no solet animal scaevola, et discere singulis aliquando vix, mentitum postulant constituam ei cum.</p> */}
 </div>
-
 <table className="table">
     <thead>
         <tr>
@@ -218,17 +205,13 @@ const Pricing = props => {
     </>
   );
 }
-
 Pricing.getInitialProps = async function({ req }) {
   const res = await fetch(`http://localhost:3000/api/build-checkout`);
   const data = await res.json();
-
   console.log('DATA', data)
-
   return {
     data: data,
     sessionId: data.id
   };
 };
-
 export default Pricing;
