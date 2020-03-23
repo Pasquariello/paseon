@@ -4,3 +4,5 @@ module.exports = {
 		STRIPE_PUBLISHABLE_KEY: "pk_test_mcNakm8F9ISjRzHMbWnlHJX700N45HbhEn"
 	}
 }
+
+//heroku config:set STRIPE_PUBLISHABLE_KEY="pk_test_mcNakm8F9ISjRzHMbWnlHJX700N45HbhEn"
