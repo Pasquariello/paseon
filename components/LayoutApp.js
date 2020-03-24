@@ -47,14 +47,8 @@ const LayoutApp = props => {
 	return (
 
 		<>
-	
-			{/* <div
-				onMouseEnter={()=> setHoverState(true)} onMouseLeave={()=> setHoverState(false)}
-				// onClick={()=> toggleState()} // Need onClick for mobile view!
-				className={`${hoverState ?  'sidenav-active' : 'sidenav-hidden'} sidenav border-right`}
-			> */}
+
 				<SideBarLayout/>
-			{/* </div> */}
    
 
 			<div id="content-wrapper">
@@ -72,48 +66,8 @@ const LayoutApp = props => {
 			<style jsx>{`
 
 
-      .wrapper {
-        // display: inline-block;
-        // display: flex;
-        //flex-wrap: wrap;
+
    
-      }
-
-      .sidenav-hidden{
-        width: 3rem;
-        padding-right: 0px;
-        transition: 0.25s;
-        padding-left: 0;
-      }
-  
-  
-      .sidenav-active {
-        width: 19rem;
-        padding-right: 40px;
-        transition: 0.25s;
-  
-       
-      }
-
-      .sidenav {
-        height: 100%; /* Full-height: remove this if you want "auto" height */
-        // width: 160px; /* Set the width of the sidebar */
-        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-        z-index: 1; /* Stay on top */
-        top: 0; /* Stay at the top */
-        left: 0;
-        background-color: #fff;
-        overflow-x: hidden; /* Disable horizontal scroll */
-        padding-top: 20px;
-      }
-
-      .active{
-        display:block;
-      }
-
-      .inactive{
-        visibility:hidden;
-      }
 
 
       #content-wrapper{
@@ -146,59 +100,6 @@ const LayoutApp = props => {
 
 
 
-      /////////
-      .cta {
-        height: 50px;
-        width: 50px;
-        cursor: pointer; }
-      
-      .toggle-btn {
-        height: 2px;
-        width: 25px;
-        // background-color: red;
-        position: relative;
-        top: 50%;
-        left: 0;
-        margin: auto;
-        transition: all 0.3s ease-in-out; }
-        .toggle-btn:before {
-          content: "";
-          height: 2px;
-          width: 25px;
-          box-shadow: 0 -10px 0 0 ;
-          position: absolute;
-          top: 0;
-          left: 0;
-          transition: all 0.3s ease-in-out; }
-        .toggle-btn:after {
-          content: "";
-          height: 2px;
-          width: 25px;
-          box-shadow: 0 10px 0 0 ;
-          position: absolute;
-          top: 0;
-          left: 0;
-          transition: all 0.3s ease-in-out; }
-      
-      .active .toggle-btn {
-        width: 100px;
-        background-color: transparent;
-        transition: all 0.2s ease-in-out; }
-        .active .toggle-btn:before {
-          top: 0;
-          transition: all 0.3s ease-in-out; }
-        .active .toggle-btn:after {
-          top: 0;
-          transition: all 0.3s ease-in-out; }
-      
-      .active .type11 {
-        transform: rotate(90deg);
-        transition: all 0.4s ease-in-out; }
-        .active .type11:before {
-          transform: translateY(0) rotate(40deg); }
-        .active .type11:after {
-          transform: translateY(0) rotate(-40deg); }
-      
 
 
     `}</style>

@@ -62,6 +62,8 @@ export default function FormBuilderBeta(props) {
 		required: false,
 		default: '', // LAST SPOT TOUCH
 		placholder: '',
+		float: 'right',
+		width: 'col-md-6'
 	}
 
 	const last_name_obj = {
@@ -72,6 +74,8 @@ export default function FormBuilderBeta(props) {
 		value: '',
 		required: false,
 		placholder: '',
+		float: 'left',
+		width: 'col-md-6'
 	}
 
 	const phone_number_obj = {
@@ -82,6 +86,7 @@ export default function FormBuilderBeta(props) {
 		value: '',
 		required: false,
 		placholder: '',
+		width: 'col-md-12'
 	}
 
 	const email_obj = {
@@ -92,6 +97,7 @@ export default function FormBuilderBeta(props) {
 		value: '',
 		required: false,
 		placholder: '',
+		width: 'col-md-12'
 	}
 
 	const street_address_obj = {
@@ -102,6 +108,7 @@ export default function FormBuilderBeta(props) {
 		value: '',
 		required: false,
 		placholder: '',
+		width: 'col-md-12'
 	}
 
 	const city_obj = {
@@ -112,6 +119,7 @@ export default function FormBuilderBeta(props) {
 		value: '',
 		required: false,
 		placholder: '',
+		width: 'col-md-12'
 	}
 	//todo: change for select
 	const state_region_obj = {
@@ -123,6 +131,7 @@ export default function FormBuilderBeta(props) {
 		options: state_names,
 		required: false,
 		placholder: '',
+		width: 'col-md-12'
 	}
 
 	const zip_code_obj = {
@@ -133,6 +142,7 @@ export default function FormBuilderBeta(props) {
 		value: '',
 		required: false,
 		placholder: '',
+		width: 'col-md-12'
 	}
 
 	const blank_obj = { 
@@ -143,6 +153,7 @@ export default function FormBuilderBeta(props) {
 		value: '',
 		required: false,
 		placholder: '',
+		width: 'col-md-12'
 	}
 
 
@@ -158,6 +169,7 @@ export default function FormBuilderBeta(props) {
 		name: '',
 		value: '',
 		required: false,
+		width: 'col-md-12'
 	}
 
 	const multiline_text_obj = {
@@ -171,6 +183,7 @@ export default function FormBuilderBeta(props) {
 		name: '',
 		value: '',
 		required: false,
+		width: 'col-md-12'
 	}
 
 	const select_obj = {
@@ -180,6 +193,7 @@ export default function FormBuilderBeta(props) {
 		name: '',
 		value: '',
 		required: false,
+		width: 'col-md-12'
 	}
 
 	const single_checkbox_obj = {
@@ -188,6 +202,7 @@ export default function FormBuilderBeta(props) {
 		label: '',
 		value: false,
 		required: false,
+		width: 'col-md-12'
 	}
 
 
@@ -214,6 +229,9 @@ export default function FormBuilderBeta(props) {
 	const [activeDropZone, setActiveDropZone] = useState();
 
 	const [initDrag, setInitDrag] = useState();
+
+	const [elemWidth, setElemWidth] = useState();
+	const [elemFloat, setElemFloat] = useState();
 
 
 
@@ -269,7 +287,7 @@ export default function FormBuilderBeta(props) {
 		let field;
 
 		if (copy[index].type == 'checkbox' ) {
-			field = <CheckBoxBuilderEdit />
+			field = <CheckBoxBuilderEdit  />
 		} else if (copy[index].tag == 'select') {
 			field = (
 				<div className="form-group">
@@ -325,7 +343,6 @@ export default function FormBuilderBeta(props) {
 			field = null;
 		}
 		
-  console.log('copy[index].required', copy[index].required)
       
 		// maybe pass in an object that is the schema for each type?
 		// rememnber addToForm with no arg passed in created an empty field in the field list!
@@ -334,7 +351,7 @@ export default function FormBuilderBeta(props) {
 				<div>
 					<label htmlFor="elem">Edit {copy[index].label} </label>
 					<div style={{float: 'right'}} onClick={()=>setEditToggle() }>
-						<button>x</button>
+						<button className="btn-outline-danger btn-circle btn-sm">X</button>
 					</div>
 				</div>
 				<hr></hr>
@@ -361,7 +378,7 @@ export default function FormBuilderBeta(props) {
 					{ field // TODO - RENAME
 					}
 
-			
+					{console.log('copy[index].required', copy[index].required)}
 
 					<div className="custom-control custom-switch">
      
@@ -373,8 +390,8 @@ export default function FormBuilderBeta(props) {
 							}
               
 							} 
-							value={copy[index].required}
 							type="checkbox" 
+							checked={copy[index].required}
 							className="custom-control-input" 
 							id="customSwitch1"
 						></input>
@@ -386,6 +403,18 @@ export default function FormBuilderBeta(props) {
 
 					<button type="submit" className="btn btn-primary">Submit</button>
 				</form>
+				<style jsx>{`
+
+					.btn-circle.btn-sm { 
+						width: 30px; 
+						height: 30px; 
+						padding: 4px 0px; 
+						border-radius: 15px; 
+						font-size: 10px; 
+						text-align: center; 
+					} 
+					
+				`}</style>
 			</>
 		)
 
@@ -408,29 +437,25 @@ export default function FormBuilderBeta(props) {
 			return ( 
 				<div>
 					{`<form>`} <br></br>
-            
-          
+
 					{campaignForm.fields.map((field, index) => {  
-						console.log(field.type)                     
 						return (
 							<div key={index} >&nbsp; {/* ADDS SPACE*/}
 								{`
-                    
-                    <label>${field.label}</label>
-                    <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
-                  `}
+									
+									<label>${field.label}</label>
+									<${field.tag} 
+										type="${(field.type ? field.type : '')}" 
+										${field.required ? 'required' : ''}
+										placeholder="${(field.placeholder ? field.placeholder : '')}"
+									>
+									</${field.tag}>
+								`}
 								<br></br>
 							</div>
 						) 
-          
-              
-              
-					})  }
-              
-            
-          
+					})}
 					{`</form>`}
-
 				</div>
 
 			)
@@ -504,6 +529,10 @@ export default function FormBuilderBeta(props) {
 		setActiveDropZone(null);
 		let arr = campaignForm.fields; //TODO rename
 
+		// needed to preserve order of where dropping
+		if (index < itemToMoveIndex) {
+			index = index + 1
+		}
 
 		var element = arr[itemToMoveIndex];
 		arr.splice(itemToMoveIndex, 1);
@@ -517,49 +546,48 @@ export default function FormBuilderBeta(props) {
 			.clearData();
 	}
 
-	// taylor
+	// taylor - TODO 
 	const renderDynamicFields = (item) => {
 
 		return (
 			<div>
-				{
-					item.tag == 'input' ? <input className='input' disabled={initDrag} type={item.type} ></input> :
-						item.tag == 'select' ? <select className="select" id="elem" name="elem">
-							{ item.options ? 
-								item.options.map((value, index) => {
-									return (
-										<option key={index}>{value}</option>
-									)
-								}) : <option></option>
-							}  
-						</select> :
-							item.tag == 'textarea' ? <textarea></textarea> : null
+				
+				{/* TODO- move out of return */}
+				{item.tag == 'input' && <input className='input' placeholder={item.placeholder} disabled={initDrag} type={item.type} value={item.default}></input>  }
+				{item.tag == 'textarea' && <textarea></textarea> }
+
+				{ item.tag == 'select' && <select className="select" id="elem" name="elem">
+					{ item.options ? 
+						item.options.map((value, index) => {
+							return (
+								<option key={index} value={value}>{value}</option>
+							)
+						}) : <option></option>
+					}  
+							
+				</select> 
 				}
 
 				<style jsx>
 					{`
-
-    input, select, textarea {
-        width: 100%;
-        padding: 5px 20px;
-        margin: 8px 0;
-        display: block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-
-    `}
+						input, select, textarea {
+							width: 100%;
+							padding: 5px 20px;
+							margin: 8px 0;
+							display: block;
+							border: 1px solid #ccc;
+							border-radius: 4px;
+							box-sizing: border-box;
+						}
+    				`}
 				</style>
 
 			</div>
 		)
-      
-
 	}
 
 
-
+	// TODO - make constents for col-md-12 and col-md-6
 	function dropzone(index) {
 
 		let classes = classNames(
@@ -576,9 +604,14 @@ export default function FormBuilderBeta(props) {
 					className={classes}
 					onDragOver={(event) => dragOver(event, index)}
 					onDragLeave={(event) => dragLeave(event, index)}
-					onDrop = {(event) => drop(event, index)}
-					//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-					//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+					onDrop = {(event) => {
+						console.log('DA DROP', campaignForm.fields[itemToMoveIndex].width)
+						campaignForm.fields[itemToMoveIndex].width = 'col-md-12'
+						// TODO - figure out why above two lines work but setting state does not
+						// setCampaignForm({...campaignForm.fields[itemToMoveIndex], width: 'col-md-12'})
+
+						drop(event, index)
+					}}
 				></div>
 
 				<style jsx>
@@ -608,7 +641,7 @@ export default function FormBuilderBeta(props) {
 		)
 	}
 
-	const fieldList = campaignForm.fields;
+	const fieldList = [...campaignForm.fields];
     
 	function buildContainerClasses(index) {
 		return classNames(
@@ -660,7 +693,6 @@ export default function FormBuilderBeta(props) {
 
 		}
 	}
-
 
 
 	return (
@@ -856,7 +888,6 @@ export default function FormBuilderBeta(props) {
 						<div className="btn-group btn-group-toggle" data-toggle="buttons">
 							<button 
 								className="btn btn-secondary" 
-								// onClick={(e)=>removeOne(e, index, item)} // here!
 								onClick={(e)=>clearList(e)}
 							>
 								<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
@@ -865,10 +896,15 @@ export default function FormBuilderBeta(props) {
 								<FontAwesomeIcon fixedWidth width="0" icon={faInfoCircle}></FontAwesomeIcon>
 							</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
 						</div>
+
 						{/* REORDER START */}
-						<div style={{marginTop: '20px'}}>
+						<div style={{marginTop: '20px', border: '1px solid green'}} className="row">
+							{/* <div className="col-md-12"> */}
+							{/* {dropzone(0)} */}
 							{fieldList.map((item, index) => (  
+
 								<motion.div
+									className={item.width}
 									key={index}
 									initial={{ scale: 0 }}
 									animate={{  scale: 1 }}
@@ -878,25 +914,39 @@ export default function FormBuilderBeta(props) {
 										damping: 20
 									}}
 								>
-									<div key={index}>
+									{item.width === 'col-md-12' && dropzone(index-1)}
+									<div key={index}
+										
+									>
 
-										{dropzone(index)}
 
-
-										<div 
+										<div
 											style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
 											className={buildContainerClasses(index)}
 										>
 
 											{/* left dropzone */}
-											{/* <div 
+											<div 
 												style={{width: '10px', height: 'auto', border: '1px dashed blue'}}
 												onDragOver={(event) => dragOver(event, index)}
 												onDragLeave={(event) => dragLeave(event, index)}
-												onDrop = {(event) => drop(event, index)}
+												onDrop = {(event) => {
+													// set dragging to smal width 
+
+													fieldList[itemToMoveIndex].width = 'col-md-6'
+													fieldList[index].width = 'col-md-6'
+
+													// TODO - figure out why above two lines work but setting state does not
+													// setCampaignForm({...campaignForm, fields:fieldList})
+
+													console.log('item', item)
+													//item.width = 'col-md-6'
+													
+													drop(event, index)
+												}}
 											//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
 											//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-											></div>  */}
+											></div> 
 
 
 											<div 
@@ -907,7 +957,9 @@ export default function FormBuilderBeta(props) {
 												style={{width:'100%'}}
 												onMouseEnter={() => setEditItemDetails(index)}
 												onMouseLeave={() => setEditItemDetails(null)}  
-												onClick={()=> {setEditToggle(index)}}
+												onClick={()=> {
+													setEditToggle(index)
+												}}
 											>
 
   
@@ -929,11 +981,12 @@ export default function FormBuilderBeta(props) {
 													</div>
 												</div>
 
-												<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-												{/* start dynamically added fields - right panel */}
+												<div>
+													<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+													{/* start dynamically added fields - right panel */}
       
-												{renderDynamicFields(item)}
-    
+													{renderDynamicFields(item)}
+												</div>
 
 											</div>
 
@@ -949,8 +1002,14 @@ export default function FormBuilderBeta(props) {
 
 										</div>
 									</div>
+									{(fieldList[index + 1 ] && item.width === 'col-md-12' && fieldList[index + 1 ].width !== 'col-md-12') && dropzone(index+1)}
+									{/* {item.width === 'col-md-12' && dropzone(index)} */}
+
+
 								</motion.div>
+								
 							))}
+							{/* </div> */}
 						</div>
 
 
@@ -1047,15 +1106,17 @@ export default function FormBuilderBeta(props) {
 
 							{
 								!fieldList.length ? 'Start using the form building tool to see what your form will look like!' :
-									fieldList.map((item, index) => {
-										return (
-											<div key={index}>
-												<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-												{renderDynamicFields(item)}
-											</div>
-										)
-									}
-									)} 
+									<div className="row">
+										{fieldList.map((item, index) => {
+											return (
+												<div key={index} className={item.width}>
+													<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
+													{renderDynamicFields(item)}
+												</div>
+											)
+										})}
+									</div>
+							} 
 
 
 						</div>

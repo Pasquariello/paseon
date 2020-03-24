@@ -3,27 +3,34 @@ import React, { useState } from 'react';
 
 export default function CheckBoxBuilder() {
 
-    const [defaultValue, setDefaultValue] = useState(false);    
-    console.log(typeof(defaultValue))
+	const [defaultValue, setDefaultValue] = useState(false);
+  
 	return (
 		<>
 			
 
 			<div className="custom-control custom-switch">
-                <label className="custom-control-label" htmlFor="checkboxDefault">Defaulted</label>
+				{/* <label className="custom-control-label" htmlFor="checkboxDefault">Defaulted</label> */}
 
 				<input 
-					onChange={(e) => {
-                        console.log(typeof(e.target.value))
-                        setDefaultValue()}
-                    } 
+					onChange={
+						(e) => {
+							console.log(typeof(e.target.value))
+							console.log('e.target.value', e.target.value)
+							console.log(typeof(defaultValue))
+
+							setDefaultValue(!defaultValue)
+						}
+					} 
 					value={defaultValue}
-                    type="checkbox" 
+					type="checkbox" 
                     
-					// className="custom-control-input" 
+					className="custom-control-input" 
 					id="checkboxDefault"
 				></input>
-<p>{defaultValue}</p>
+				<label className="custom-control-label" htmlFor="checkboxDefault">Default</label>
+
+				<p>{defaultValue.toString()}</p>
 
 			</div>
 
