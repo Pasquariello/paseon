@@ -336,7 +336,7 @@ export default function FormBuilderBeta(props) {
 
 				</div> 
 			)} else if (copy[outer][inner].tag == 'input'){
-				console.log('HERE')
+			console.log('HERE')
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Placeholder</label>
@@ -572,9 +572,10 @@ export default function FormBuilderBeta(props) {
 
 
 		//rowTo.splice(itemToMoveIndex.outer, 1);
+		// TODO - depending on if dragging half elem or ful elem we will need to consider the order of the next two lines?
+		arrayCopy[outerIndexTo].splice(innerIndexTo, 0, elementFrom);
 		arrayCopy.splice(itemToMoveIndex.outer, 1);
 
-		arrayCopy[outerIndexTo].splice(innerIndexTo, 0, elementFrom);
 
 		setFormStruct(arrayCopy)
 		event
@@ -610,7 +611,7 @@ export default function FormBuilderBeta(props) {
 			.clearData();
 	}
 
-//  WORKS WELL ISH FOR COLUUMNS!!!!
+	//  WORKS WELL ISH FOR COLUUMNS!!!!
 	// function newDrop(event, index){
 	// 	console.log(itemToMoveIndex)
 
@@ -668,7 +669,6 @@ export default function FormBuilderBeta(props) {
 
 		return (
 			<div>
-				
 				{/* TODO- move out of return */}
 				{item.tag == 'input' && <input className='input' placeholder={item.placeholder} disabled={initDrag} type={item.type} value={item.default}></input>  }
 				{item.tag == 'textarea' && <textarea></textarea> }
@@ -762,7 +762,6 @@ export default function FormBuilderBeta(props) {
 	function buildContainerClasses(index) {
 		return classNames(
 			'elemContainer',
-      
 			{
 				'elemContainerHighlight': editItemDetails == index,
 				// 'hoverDropZone': activeDropZone == index,
@@ -1024,87 +1023,94 @@ export default function FormBuilderBeta(props) {
 								console.log('row', row)
 								// console.log('ITEM', row)
 								return ( 
-									<div key={index} className="row">
+									<div key={index} 
+										className="flex-container"
+									// style={{flexDirection: 'row'}}
+									>
 										{dropzone(index)} 
 										{row.map((col, i) => {
 											return (
-												<motion.div
-													key={i} 
-													className={row.length === 1 ? 'col-md-12': 'col-md-6'}
-													initial={{ scale: 0 }}
-													animate={{  scale: 1 }}
-													transition={{
-														type: "spring",
-														stiffness: 260,
-														damping: 20
-													}}
-													style={{ display: 'inline-block'}}
+												<div 
+													key={i}
+													className={row.length === 1 ? 'flex-item-full': 'flex-item-half'}
 												>
-
-
-													<div
-														//style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
-														className={buildContainerClasses(index + i)} // TODO - wth is this
-													> {index}
-
-														{/* left dropzone */}
-														<div
-															
-															style={{display: 'inline-block', width: '10px', height: '10px', border: '1px dashed blue'}}
-															onDragOver={(event) => dragOver(event, i)}
-															onDragLeave={(event) => dragLeave(event, i)}
-															onDrop = {(event) => {
-													
-																newDropLeft(event, index, i)
-																//drop(event, index)
-															}}
-															//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-															//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-														></div> 
+													<motion.div
+														//style={{row.length === 1 ? 'col-md-12': 'col-md-6'}}
+														// className={row.length === 1 ? 'flex-item-half': 'flex-item-half'}
+														initial={{ scale: 0 }}
+														animate={{  scale: 1 }}
+														transition={{
+															type: "spring",
+															stiffness: 260,
+															damping: 20
+														}}
+													>
 
 
 														<div 
-															id={`draggableSpan`}
-															draggable='true'
-															onDragStart={(event) => dragStart(event, index, i)}
-															onDragEnd={(event) =>  dragEnd(event, i)}
-															//style={{width:'100%'}}
-															onMouseEnter={() => setEditItemDetails(index + i)}
-															onMouseLeave={() => setEditItemDetails(null)}  
-															onClick={()=> {
-																setEditToggle({outer:index, inner: i})
-															}}
-														>
+														    style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
+															className={buildContainerClasses(index + i)} // TODO - wth is this
+														> {index}
+
+															{/* left dropzone */}
+															<div
+																//className="flex-item-full"
+																style={{  width: '10px', height: '100px', border: '1px dashed blue'}}
+																onDragOver={(event) => dragOver(event, i)}
+																onDragLeave={(event) => dragLeave(event, i)}
+																onDrop = {(event) => {
+													
+																	newDropLeft(event, index, i)
+																//drop(event, index)
+																}}
+															//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+															//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+															></div> 
 
 
-															<div className={(editItemDetails == index + i ? 'sub' : 'hiddenSub')}>
+															<div 
+																className="flex-item-full"
+																id={`draggableSpan`}
+																draggable='true'
+																onDragStart={(event) => dragStart(event, index, i)}
+																onDragEnd={(event) =>  dragEnd(event, i)}
+																//style={{width:'100%'}}
+																onMouseEnter={() => setEditItemDetails(index + i)}
+																onMouseLeave={() => setEditItemDetails(null)}  
+																onClick={()=> {
+																	setEditToggle({outer:index, inner: i})
+																}}
+															>
 
-																<div className="btn-group btn-group-toggle" data-toggle="buttons">
-																	<button 
-																		className="btn btn-secondary" 
-																		onClick={()=> {setEditToggle({outer:index, inner: i})}}
-																	>
-																		<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
-																	</button>
-																	<button 
-																		className="btn btn-secondary" 
-																		onClick={(e)=>removeOne(e, [index][i], col)}
-																	>
-																		<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
-																	</button>
+
+																<div className={(editItemDetails == index + i ? 'sub' : 'hiddenSub')}>
+
+																	<div className="btn-group btn-group-toggle" data-toggle="buttons">
+																		<button 
+																			className="btn btn-secondary" 
+																			onClick={()=> {setEditToggle({outer:index, inner: i})}}
+																		>
+																			<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
+																		</button>
+																		<button 
+																			className="btn btn-secondary" 
+																			onClick={(e)=>removeOne(e, [index][i], col)}
+																		>
+																			<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+																		</button>
+																	</div>
 																</div>
+
+																<div>
+																	<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
+																	{/* start dynamically added fields - right panel */}
+																	{renderDynamicFields(col)}
+																</div>
+
 															</div>
 
-															<div>
-																<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
-																{/* start dynamically added fields - right panel */}
-																{renderDynamicFields(col)}
-															</div>
-
-														</div>
-
-														{/* right dropzone */}
-														{/* <div 
+															{/* right dropzone */}
+															{/* <div 
 	style={{width: '10px', height: 'auto',border: '1px dashed blue'}}
 	onDragOver={(event) => dragOver(event, index)}
 	onDragLeave={(event) => dragLeave(event, index)}
@@ -1113,14 +1119,14 @@ export default function FormBuilderBeta(props) {
 //style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
 ></div>  */}
 
-													</div>
+														</div>
 													
-													{/* {(fieldList[index + 1 ] && item.width === 'col-md-12' && fieldList[index + 1 ].width !== 'col-md-12') && dropzone(index+1)} */}
-													{/* {item.width === 'col-md-12' && dropzone(index)} */}
+														{/* {(fieldList[index + 1 ] && item.width === 'col-md-12' && fieldList[index + 1 ].width !== 'col-md-12') && dropzone(index+1)} */}
+														{/* {item.width === 'col-md-12' && dropzone(index)} */}
 
 
-												</motion.div>
-												
+													</motion.div>
+												</div>
 											)
 										})}
 
@@ -1283,6 +1289,40 @@ export default function FormBuilderBeta(props) {
 			<style jsx>
 				{`
 
+				.flex-container {
+  /* We first create a flex layout context */
+  display: flex;
+  
+  /* Then we define the flow direction 
+     and if we allow the items to wrap 
+   * Remember this is the same as:
+   * flex-direction: row;
+   * flex-wrap: wrap;
+   */
+  flex-flow: row wrap;
+  
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+  
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.flex-item-full {
+  padding: 5px;
+  width: 100%;
+ 
+
+}
+
+.flex-item-half {
+   padding: 5px;
+   width: 50%;
+ 
+  
+}
+}
 
 .sub{
   height:50px;
