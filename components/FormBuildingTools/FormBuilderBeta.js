@@ -54,6 +54,7 @@ export default function FormBuilderBeta(props) {
 	// todo: put all into an array and map to make elements? 
 	// might have a problem with bootstrap
 	const first_name_obj = {
+		id: '',
 		type: 'text',
 		tag: 'input',
 		label: 'First Name',
@@ -67,6 +68,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const last_name_obj = {
+		id: '',
 		type: 'text',
 		tag: 'input',
 		label: 'Last Name',
@@ -79,6 +81,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const phone_number_obj = {
+		id: '',
 		type: 'tel',
 		tag: 'input',
 		label: 'Phone Number',
@@ -90,6 +93,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const email_obj = {
+		id: '',
 		type: 'email',
 		tag: 'input',
 		label: 'Email',
@@ -101,6 +105,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const street_address_obj = {
+		id: '',
 		type: 'text',
 		tag: 'input',
 		label: 'Street Address',
@@ -112,6 +117,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const city_obj = {
+		id: '',
 		type: 'text',
 		tag: 'input',
 		label: 'City',
@@ -123,6 +129,7 @@ export default function FormBuilderBeta(props) {
 	}
 	//todo: change for select
 	const state_region_obj = {
+		id: '',
 		type: 'text',
 		tag: 'select',
 		label: 'State/Region',
@@ -135,6 +142,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const zip_code_obj = {
+		id: '',
 		type: 'text',
 		tag: 'input',
 		label: 'Zip Code',
@@ -146,6 +154,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const blank_obj = { 
+		id: '',
 		type: 'text',
 		tag: 'input',
 		label: '',
@@ -158,6 +167,7 @@ export default function FormBuilderBeta(props) {
 
 
 	const single_text_obj = {
+		id: '',
 		type: 'text',
 		tag: 'input',
 		label: '',
@@ -173,6 +183,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const multiline_text_obj = {
+		id: '',
 		tag: 'textarea',
 		label: '',
 		placeholder: '',
@@ -187,6 +198,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const select_obj = {
+		id: '',
 		tag: 'select',
 		label: '',
 		options: [],
@@ -197,6 +209,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	const single_checkbox_obj = {
+		id: '',
 		type: 'checkbox',
 		tag: 'input',
 		label: '',
@@ -235,6 +248,13 @@ export default function FormBuilderBeta(props) {
 
 
 
+	const [formStruct, setFormStruct] = useState([]);
+
+
+
+
+		
+
 
  
 
@@ -253,10 +273,16 @@ export default function FormBuilderBeta(props) {
 
 
 	function addToForm (input_obj, tag) {
-		console.log(input_obj)
 		setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
 		setEditToggle()
+
+
+		// todo - set input_obj id so I have a unique identifier to grab values off later
+
+		setFormStruct([...formStruct, [input_obj]])
 	}
+
+	// console.log('FORMSTRUCT', formStruct)
 
 	const [editToggle, setEditToggle] = useState()
     
@@ -423,8 +449,13 @@ export default function FormBuilderBeta(props) {
 	function removeOne(e, index, val) {
 		e.stopPropagation()
 		e.preventDefault();
-		setEditToggle()
+
+		setEditToggle();
+
+		// let newList = formStruct.map(k => k.filter(e => e[index] !== index));
 		let newList = campaignForm.fields.filter((item, i) =>  i != index)
+
+
 		setCampaignForm({...campaignForm, fields:newList}) 
 
 	}
@@ -504,13 +535,12 @@ export default function FormBuilderBeta(props) {
 	function dragLeave(event, index){
 		event.preventDefault();
 		setActiveDropZone(null)
-		console.log('dragging OUT!', activeDropZone, index);
 	}
 
  
 
-	function dragStart(event, index) {
-		setItemToMoveIndex(index)
+	function dragStart(event, outer, inner) {
+		setItemToMoveIndex({outer, inner});
 		setInitDrag(true);
 		//set all inputs to disabled
 
@@ -521,20 +551,103 @@ export default function FormBuilderBeta(props) {
 
 	function dragEnd(event, index) {
 		setInitDrag(false);
-		console.log('initDrag', initDrag)
+		// console.log('initDrag', initDrag)
   
 	}
+
+	function newDropLeft (event, outerIndexTo, innerIndexTo) {
+		//outerIndexTo will be the row index we are moving the element to
+		//innerIndexTo will be the position/index in the row that it is being moved into
+
+		let arrayCopy = formStruct; // going to/manipulating this
+		let elementFrom = formStruct[itemToMoveIndex.outer][itemToMoveIndex.inner] // this is the element being dragged
+
+		let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
+		console.log('elementFrom', elementFrom)
+		console.log('rowFrom', itemToMoveIndex.outer)
+
+
+		//rowTo.splice(itemToMoveIndex.outer, 1);
+		arrayCopy.splice(itemToMoveIndex.outer, 1);
+
+		arrayCopy[outerIndexTo].splice(innerIndexTo, 0, elementFrom);
+
+		setFormStruct(arrayCopy)
+		event
+			.dataTransfer
+			.clearData();
+	}
+
+	console.log('FORMSTRUCT!!!!', formStruct)
+
+	function newDrop(event, index){
+		console.log('BEAR',  itemToMoveIndex.outer)
+
+		let arr = formStruct; //TODO rename
+		// needed to preserve order of where dropping
+		if (index > itemToMoveIndex.outer && index != 0) {
+			index = index - 1
+		} 
+
+		var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
+		
+		if (arr[itemToMoveIndex.outer].length === 1) {
+			arr.splice(itemToMoveIndex.outer, 1);
+		} else {
+			arr[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
+		}
+		
+		arr.splice(index, 0, [element]);
+
+		// arr.splice(index, 0, arr.splice(itemToMoveIndex, 1)[0]);  
+		setFormStruct([...arr])
+		event
+			.dataTransfer
+			.clearData();
+	}
+
+//  WORKS WELL ISH FOR COLUUMNS!!!!
+	// function newDrop(event, index){
+	// 	console.log(itemToMoveIndex)
+
+	// 	let arr = formStruct; //TODO rename
+	// 	// needed to preserve order of where dropping
+	// 	if (index > itemToMoveIndex.outer && index != 0) {
+	// 		index = index - 1
+	// 	} 
+
+	// 	var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
+
+	// 	// arr.splice(itemToMoveIndex.outer, 1);
+	// 	// arr.splice(index, 0, element);
+	// 	arr[index].push(element)
+
+	// 	// arr.splice(index, 0, arr.splice(itemToMoveIndex, 1)[0]);  
+	// 	setFormStruct([...arr])
+	// 	event
+	// 		.dataTransfer
+	// 		.clearData();
+	// }
+
 
 	function drop(event, index) {
 		setActiveDropZone(null);
 		let arr = campaignForm.fields; //TODO rename
 
 		// needed to preserve order of where dropping
-		if (index < itemToMoveIndex) {
+		if (index < itemToMoveIndex && index != 0) {
 			index = index + 1
 		}
 
+		
+
+
+
 		var element = arr[itemToMoveIndex];
+		// console.log('arr', arr)
+		// console.log('element', element)
+
+
 		arr.splice(itemToMoveIndex, 1);
 		arr.splice(index, 0, element);
 
@@ -605,12 +718,11 @@ export default function FormBuilderBeta(props) {
 					onDragOver={(event) => dragOver(event, index)}
 					onDragLeave={(event) => dragLeave(event, index)}
 					onDrop = {(event) => {
-						console.log('DA DROP', campaignForm.fields[itemToMoveIndex].width)
-						campaignForm.fields[itemToMoveIndex].width = 'col-md-12'
+						//campaignForm.fields[itemToMoveIndex].width = 'col-md-12'
 						// TODO - figure out why above two lines work but setting state does not
 						// setCampaignForm({...campaignForm.fields[itemToMoveIndex], width: 'col-md-12'})
-
-						drop(event, index)
+						newDrop(event, index)
+						//drop(event, index)
 					}}
 				></div>
 
@@ -658,7 +770,6 @@ export default function FormBuilderBeta(props) {
 
 	async function handleSubmit (e) {
 		e.preventDefault()
-		console.log('hit handle submit!', campaignForm)
   
 		// setUserData(Object.assign({}, userData, { error: '' }))
 		let form = campaignForm
@@ -693,6 +804,9 @@ export default function FormBuilderBeta(props) {
 
 		}
 	}
+
+ 
+	
 
 
 	return (
@@ -898,117 +1012,128 @@ export default function FormBuilderBeta(props) {
 						</div>
 
 						{/* REORDER START */}
-						<div style={{marginTop: '20px', border: '1px solid green'}} className="row">
+						<div style={{marginTop: '20px', border: '1px solid green'}}>
 							{/* <div className="col-md-12"> */}
 							{/* {dropzone(0)} */}
-							{fieldList.map((item, index) => (  
-
-								<motion.div
-									className={item.width}
-									key={index}
-									initial={{ scale: 0 }}
-									animate={{  scale: 1 }}
-									transition={{
-										type: "spring",
-										stiffness: 260,
-										damping: 20
-									}}
-								>
-									{item.width === 'col-md-12' && dropzone(index-1)}
-									<div key={index}
-										
-									>
-
-
-										<div
-											style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
-											className={buildContainerClasses(index)}
-										>
-
-											{/* left dropzone */}
-											<div 
-												style={{width: '10px', height: 'auto', border: '1px dashed blue'}}
-												onDragOver={(event) => dragOver(event, index)}
-												onDragLeave={(event) => dragLeave(event, index)}
-												onDrop = {(event) => {
-													// set dragging to smal width 
-
-													fieldList[itemToMoveIndex].width = 'col-md-6'
-													fieldList[index].width = 'col-md-6'
-
-													// TODO - figure out why above two lines work but setting state does not
-													// setCampaignForm({...campaignForm, fields:fieldList})
-
-													console.log('item', item)
-													//item.width = 'col-md-6'
-													
-													drop(event, index)
-												}}
-											//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-											//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-											></div> 
+							{ formStruct.map((row, index) => {
+							//fieldList.map((item, index) => (  ==== working
+								console.log('row', row)
+								// console.log('ITEM', row)
+								return ( 
+									<div key={index} className="row">
+										{dropzone(index)} 
+										{row.map((col, i) => {
+											return (
+												<motion.div
+													key={i} 
+													className={row.length === 1 ? 'col-md-12': 'col-md-6'}
+													initial={{ scale: 0 }}
+													animate={{  scale: 1 }}
+													transition={{
+														type: "spring",
+														stiffness: 260,
+														damping: 20
+													}}
+													style={{ display: 'inline-block'}}
+												>
 
 
-											<div 
-												id={`draggableSpan`}
-												draggable='true'
-												onDragStart={(event) => dragStart(event, index)}
-												onDragEnd={(event) =>  dragEnd(event, index)}
-												style={{width:'100%'}}
-												onMouseEnter={() => setEditItemDetails(index)}
-												onMouseLeave={() => setEditItemDetails(null)}  
-												onClick={()=> {
-													setEditToggle(index)
-												}}
-											>
+													<div
+														//style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
+														className={buildContainerClasses(index + i)} // TODO - wth is this
+													> {index}
 
-  
-												<div className={(editItemDetails == index ? 'sub' : 'hiddenSub')}>
+														{/* left dropzone */}
+														<div
+															
+															style={{display: 'inline-block', width: '10px', height: '10px', border: '1px dashed blue'}}
+															onDragOver={(event) => dragOver(event, i)}
+															onDragLeave={(event) => dragLeave(event, i)}
+															onDrop = {(event) => {
+																// set dragging to smal width 
 
-													<div className="btn-group btn-group-toggle" data-toggle="buttons">
-														<button 
-															className="btn btn-secondary" 
-															onClick={()=> {setEditToggle(index)}}
+																//fieldList[itemToMoveIndex].width = 'col-md-6'
+																//fieldList[index].width = 'col-md-6'
+
+																// TODO - figure out why above two lines work but setting state does not
+																// setCampaignForm({...campaignForm, fields:fieldList})
+
+																//item.width = 'col-md-6'
+																newDropLeft(event, index, i)
+																//drop(event, index)
+															}}
+															//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+															//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+														></div> 
+
+
+														<div 
+															id={`draggableSpan`}
+															draggable='true'
+															onDragStart={(event) => dragStart(event, index, i)}
+															onDragEnd={(event) =>  dragEnd(event, i)}
+															//style={{width:'100%'}}
+															onMouseEnter={() => setEditItemDetails(index + i)}
+															onMouseLeave={() => setEditItemDetails(null)}  
+															onClick={()=> {
+																setEditToggle(index + i)
+															}}
 														>
-															<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
-														</button>
-														<button 
-															className="btn btn-secondary" 
-															onClick={(e)=>removeOne(e, index, item)}
-														>
-															<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
-														</button>
+
+
+															<div className={(editItemDetails == index + i ? 'sub' : 'hiddenSub')}>
+
+																<div className="btn-group btn-group-toggle" data-toggle="buttons">
+																	<button 
+																		className="btn btn-secondary" 
+																		onClick={()=> {setEditToggle(index + i)}}
+																	>
+																		<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
+																	</button>
+																	<button 
+																		className="btn btn-secondary" 
+																		onClick={(e)=>removeOne(e, [index][i], col)}
+																	>
+																		<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+																	</button>
+																</div>
+															</div>
+
+															<div>
+																<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
+																{/* start dynamically added fields - right panel */}
+
+																{renderDynamicFields(col)}
+															</div>
+
+														</div>
+
+														{/* right dropzone */}
+														{/* <div 
+	style={{width: '10px', height: 'auto',border: '1px dashed blue'}}
+	onDragOver={(event) => dragOver(event, index)}
+	onDragLeave={(event) => dragLeave(event, index)}
+	onDrop = {(event) => drop(event, index)}
+//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+></div>  */}
+
 													</div>
-												</div>
+													
+													{/* {(fieldList[index + 1 ] && item.width === 'col-md-12' && fieldList[index + 1 ].width !== 'col-md-12') && dropzone(index+1)} */}
+													{/* {item.width === 'col-md-12' && dropzone(index)} */}
 
-												<div>
-													<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-													{/* start dynamically added fields - right panel */}
-      
-													{renderDynamicFields(item)}
-												</div>
 
-											</div>
+												</motion.div>
+												
+											)
+										})}
 
-											{/* right dropzone */}
-											{/* <div 
-												style={{width: '10px', height: 'auto',border: '1px dashed blue'}}
-												onDragOver={(event) => dragOver(event, index)}
-												onDragLeave={(event) => dragLeave(event, index)}
-												onDrop = {(event) => drop(event, index)}
-											//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-											//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-											></div>  */}
 
-										</div>
 									</div>
-									{(fieldList[index + 1 ] && item.width === 'col-md-12' && fieldList[index + 1 ].width !== 'col-md-12') && dropzone(index+1)}
-									{/* {item.width === 'col-md-12' && dropzone(index)} */}
-
-
-								</motion.div>
-								
-							))}
+								)
+							
+							})}
 							{/* </div> */}
 						</div>
 
@@ -1258,3 +1383,6 @@ export default function FormBuilderBeta(props) {
 		</>
 	);
 }
+
+
+
