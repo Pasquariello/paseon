@@ -1,6 +1,10 @@
 //import Layout from '../components/MyLayout';
 // import LayoutApp from '../LayoutApp'
 
+
+
+// TODO - fix the way item to edit gets set! similar to setItemToMoveIndex? 
+
 // TODO: bug on delete last index error
 import LeftBar from '../LeftBar';
 import SelectBuilder from './SelectBuilder';
@@ -303,18 +307,17 @@ export default function FormBuilderBeta(props) {
 
 	// TODO - break out into sep components for each differnet type of thing being edited
 	function editInputView() {
-      
-		let index = editToggle
-
+		const {outer, inner} = editToggle
 		let copy = []
-		copy = [...campaignForm.fields ]
+		copy = [...formStruct ]
+		console.log('oh', copy[outer])
 
 
 		let field;
 
-		if (copy[index].type == 'checkbox' ) {
+		if (copy[outer][inner].type == 'checkbox' ) {
 			field = <CheckBoxBuilderEdit  />
-		} else if (copy[index].tag == 'select') {
+		} else if (copy[outer][inner].tag == 'select') {
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Add Option</label> 
@@ -322,17 +325,18 @@ export default function FormBuilderBeta(props) {
 						className="form-control" 
 						id="cust_placeholder" 
 						placeholder="Enter a Comma separated list for new dropdown options..."
-						value={copy[index].options}
+						value={copy[outer][inner].options}
 						onChange={(e)=> {
 							let optionsArray = e.target.value.split(',');
-							copy[index].options = optionsArray
+							copy[outer][inner].options = optionsArray
 							setCampaignForm({...campaignForm, fields:copy})
 						}
 						}
 					></textarea>
 
 				</div> 
-			)} else if (copy[index].tag == 'input'){
+			)} else if (copy[outer][inner].tag == 'input'){
+				console.log('HERE')
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Placeholder</label>
@@ -341,9 +345,9 @@ export default function FormBuilderBeta(props) {
 						className="form-control" 
 						id="cust_placeholder" 
 						placeholder="Enter Custom Placeholder"
-						value={copy[index].placeholder}
+						value={copy[outer][inner].placeholder}
 						onChange={(e)=> {
-							copy[index].placeholder = e.target.value
+							copy[outer][inner].placeholder = e.target.value
 							setCampaignForm({...campaignForm, fields:copy})
 						}
 						}
@@ -357,7 +361,7 @@ export default function FormBuilderBeta(props) {
 							id="cust_default" 
 							placeholder="Enter Custom Label"
 							onChange={(e)=> {
-								copy[index].default = e.target.value
+								copy[outer][inner].default = e.target.value
 								setCampaignForm({...campaignForm, fields:copy})
 							}
 							}
@@ -375,7 +379,7 @@ export default function FormBuilderBeta(props) {
 		return (
 			<>
 				<div>
-					<label htmlFor="elem">Edit {copy[index].label} </label>
+					<label htmlFor="elem">Edit {copy[outer][inner].label} </label>
 					<div style={{float: 'right'}} onClick={()=>setEditToggle() }>
 						<button className="btn-outline-danger btn-circle btn-sm">X</button>
 					</div>
@@ -390,9 +394,9 @@ export default function FormBuilderBeta(props) {
 							className="form-control" 
 							id="cust_label" 
 							placeholder="Enter Custom Label"
-							value={copy[index].label}
+							value={copy[outer][inner].label}
 							onChange={(e)=> {
-								copy[index].label = e.target.value
+								copy[outer][inner].label = e.target.value
 								setCampaignForm({...campaignForm, fields:copy})
 							}
               
@@ -404,20 +408,20 @@ export default function FormBuilderBeta(props) {
 					{ field // TODO - RENAME
 					}
 
-					{console.log('copy[index].required', copy[index].required)}
+					{console.log('copy[index].required', copy[outer][inner].required)}
 
 					<div className="custom-control custom-switch">
      
 						<input 
 							onChange={()=> {
-								copy[index].required = !copy[index].required
+								copy[outer][inner].required = !copy[outer][inner].required
 								setCampaignForm({...campaignForm, fields:copy})
 
 							}
               
 							} 
 							type="checkbox" 
-							checked={copy[index].required}
+							checked={copy[outer][inner].required}
 							className="custom-control-input" 
 							id="customSwitch1"
 						></input>
@@ -1050,15 +1054,7 @@ export default function FormBuilderBeta(props) {
 															onDragOver={(event) => dragOver(event, i)}
 															onDragLeave={(event) => dragLeave(event, i)}
 															onDrop = {(event) => {
-																// set dragging to smal width 
-
-																//fieldList[itemToMoveIndex].width = 'col-md-6'
-																//fieldList[index].width = 'col-md-6'
-
-																// TODO - figure out why above two lines work but setting state does not
-																// setCampaignForm({...campaignForm, fields:fieldList})
-
-																//item.width = 'col-md-6'
+													
 																newDropLeft(event, index, i)
 																//drop(event, index)
 															}}
@@ -1076,7 +1072,7 @@ export default function FormBuilderBeta(props) {
 															onMouseEnter={() => setEditItemDetails(index + i)}
 															onMouseLeave={() => setEditItemDetails(null)}  
 															onClick={()=> {
-																setEditToggle(index + i)
+																setEditToggle({outer:index, inner: i})
 															}}
 														>
 
@@ -1086,7 +1082,7 @@ export default function FormBuilderBeta(props) {
 																<div className="btn-group btn-group-toggle" data-toggle="buttons">
 																	<button 
 																		className="btn btn-secondary" 
-																		onClick={()=> {setEditToggle(index + i)}}
+																		onClick={()=> {setEditToggle({outer:index, inner: i})}}
 																	>
 																		<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
 																	</button>
@@ -1102,7 +1098,6 @@ export default function FormBuilderBeta(props) {
 															<div>
 																<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
 																{/* start dynamically added fields - right panel */}
-
 																{renderDynamicFields(col)}
 															</div>
 
