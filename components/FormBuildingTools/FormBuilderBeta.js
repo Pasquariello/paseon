@@ -311,7 +311,7 @@ export default function FormBuilderBeta(props) {
 		let copy = []
 		copy = [...formStruct ]
 		console.log('oh', copy[outer])
-
+		console.log('oohh2', copy[outer][inner])
 
 		let field;
 
@@ -569,12 +569,30 @@ export default function FormBuilderBeta(props) {
 		let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
 		console.log('elementFrom', elementFrom)
 		console.log('rowFrom', itemToMoveIndex.outer)
+ if (rowTo.length === 2) {
+	 return
+ }
+		// might need this? 
+		// if (innerIndexTo > itemToMoveIndex.inner && innerIndexTo != 0) {
+		// 	innerIndexTo = innerIndexTo - 1
+		// } 
 
 
 		//rowTo.splice(itemToMoveIndex.outer, 1);
 		// TODO - depending on if dragging half elem or ful elem we will need to consider the order of the next two lines?
 		arrayCopy[outerIndexTo].splice(innerIndexTo, 0, elementFrom);
-		arrayCopy.splice(itemToMoveIndex.outer, 1);
+		// TODO - OR (to above todo) we will need to handle the splice based off lengh of the rowTo row
+		if (arrayCopy[outerIndexTo].length <= 1){
+			arrayCopy.splice(itemToMoveIndex.outer, 1);
+		} else {
+			arrayCopy[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
+		}
+
+	
+		// Clean up all empty rows
+		arrayCopy = arrayCopy.filter(function(x) {
+			return x.length;
+		});
 
 
 		setFormStruct(arrayCopy)
