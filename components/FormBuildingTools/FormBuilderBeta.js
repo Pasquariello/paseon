@@ -542,6 +542,9 @@ export default function FormBuilderBeta(props) {
 
 		let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
 
+		if (innerIndexTo > itemToMoveIndex.inner && innerIndexTo != 0) {
+			innerIndexTo = innerIndexTo - 1
+		} 
 
 		if (arrayCopy[outerIndexTo].length < 1){
 			arrayCopy.splice(itemToMoveIndex.outer, 1);
@@ -679,7 +682,7 @@ export default function FormBuilderBeta(props) {
 	}
 
 	// TODO - make constents for col-md-12 and col-md-6
-	function dropzone(index) {
+	function dropZoneRow(index) {
 
 		let classes = classNames(
 			{
@@ -974,14 +977,17 @@ export default function FormBuilderBeta(props) {
 									<div key={index} 
 										className="flex-container"
 									>
-										{dropzone(index)} 
+										{dropZoneRow(index)} 
 
 										{row.map((col, i) => {
 											return (
+												
 												<div 
 													key={i}
-													className={row.length === 1 ? 'flex-item-full': 'flex-item-half'}
+													//className={row.length === 1 ? 'flex-item-full': 'flex-item-half'}
+													style={{width: `${100 /row.length}%`, padding: '5px'}}
 												>
+													{console.log(100/row.length)}
 													<motion.div
 														//style={{row.length === 1 ? 'col-md-12': 'col-md-6'}}
 														// className={row.length === 1 ? 'flex-item-half': 'flex-item-half'}
