@@ -222,7 +222,7 @@ export default function FormBuilderBeta() {
 
 	function clearList(e){
 		e.preventDefault();
-		setCampaignForm({...campaignForm, fields: []})      
+		setFormStruct([]);      
 
 	}
 
