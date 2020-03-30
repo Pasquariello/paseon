@@ -237,30 +237,15 @@ export default function FormBuilderBeta(props) {
 		}
 	)
 
-	const [campaignName, setCampaignName] = useState()
 
-	const [editItemDetails, setEditItemDetails] = useState()
-
-	const [itemToMoveIndex, setItemToMoveIndex] = useState();
-
+	const [editItemDetails, setEditItemDetails] = useState({outer: null, inner: null})
+	const [itemToMoveIndex, setItemToMoveIndex] = useState({outer: null, inner: null});
 	const [activeDropZone, setActiveDropZone] = useState();
-
 	const [initDrag, setInitDrag] = useState();
-
-	const [elemWidth, setElemWidth] = useState();
-	const [elemFloat, setElemFloat] = useState();
-
-
-
+	// TODO - keep this but remove campainForm fields array
 	const [formStruct, setFormStruct] = useState([]);
+	const [editToggle, setEditToggle] = useState()
 
-
-
-
-		
-
-
- 
 
 
 	/////////////////////////////
@@ -275,20 +260,13 @@ export default function FormBuilderBeta(props) {
 
 	}
 
-
 	function addToForm (input_obj, tag) {
-		setCampaignForm({...campaignForm, fields:[...campaignForm.fields, input_obj]})
+		
 		setEditToggle()
-
-
 		// todo - set input_obj id so I have a unique identifier to grab values off later
-
 		setFormStruct([...formStruct, [input_obj]])
 	}
 
-	// console.log('FORMSTRUCT', formStruct)
-
-	const [editToggle, setEditToggle] = useState()
     
 	function openEdit(input_obj) {
 
@@ -296,8 +274,8 @@ export default function FormBuilderBeta(props) {
       
 		let lastElem = 0;
 
-		if (campaignForm.fields.length  > 0) {
-			lastElem = campaignForm.fields.length
+		if (formStruct.length  > 0) {
+			lastElem = formStruct.length
 		} 
       
 		setEditToggle(lastElem)
@@ -310,11 +288,10 @@ export default function FormBuilderBeta(props) {
 		const {outer, inner} = editToggle
 		let copy = []
 		copy = [...formStruct ]
-		console.log('oh', copy[outer])
-		console.log('oohh2', copy[outer][inner])
+	
 
 		let field;
-
+		console.log(copy)
 		if (copy[outer][inner].type == 'checkbox' ) {
 			field = <CheckBoxBuilderEdit  />
 		} else if (copy[outer][inner].tag == 'select') {
@@ -336,7 +313,6 @@ export default function FormBuilderBeta(props) {
 
 				</div> 
 			)} else if (copy[outer][inner].tag == 'input'){
-			console.log('HERE')
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Placeholder</label>
@@ -408,7 +384,6 @@ export default function FormBuilderBeta(props) {
 					{ field // TODO - RENAME
 					}
 
-					{console.log('copy[index].required', copy[outer][inner].required)}
 
 					<div className="custom-control custom-switch">
      
@@ -464,7 +439,7 @@ export default function FormBuilderBeta(props) {
 
 	}
 
-
+	// TODO - rewrite to match edit zone
 	function transfromJSONtoHTMLStringORIG() {
 
 		if (campaignForm.fields.length) {
@@ -531,9 +506,9 @@ export default function FormBuilderBeta(props) {
     
 
 	//////// DRAG FUNCTIONS
-	function dragOver(event, index) {
+	function dragOver(event, position) {
 		event.preventDefault();
-		setActiveDropZone(index)
+		setActiveDropZone(position)
 	}
 
 	function dragLeave(event, index){
@@ -554,43 +529,31 @@ export default function FormBuilderBeta(props) {
 	}
 
 	function dragEnd(event, index) {
-		setInitDrag(false);
-		// console.log('initDrag', initDrag)
-  
+		setInitDrag(false);  
 	}
 
+	// RENAME - COL DROP? 
 	function newDropLeft (event, outerIndexTo, innerIndexTo) {
+		setActiveDropZone();
 		//outerIndexTo will be the row index we are moving the element to
 		//innerIndexTo will be the position/index in the row that it is being moved into
-
 		let arrayCopy = formStruct; // going to/manipulating this
 		let elementFrom = formStruct[itemToMoveIndex.outer][itemToMoveIndex.inner] // this is the element being dragged
 
 		let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
-		console.log('elementFrom', elementFrom)
-		console.log('rowFrom', itemToMoveIndex.outer)
- if (rowTo.length === 2) {
-	 return
- }
-		// might need this? 
-		// if (innerIndexTo > itemToMoveIndex.inner && innerIndexTo != 0) {
-		// 	innerIndexTo = innerIndexTo - 1
-		// } 
 
 
-		//rowTo.splice(itemToMoveIndex.outer, 1);
-		// TODO - depending on if dragging half elem or ful elem we will need to consider the order of the next two lines?
-		arrayCopy[outerIndexTo].splice(innerIndexTo, 0, elementFrom);
-		// TODO - OR (to above todo) we will need to handle the splice based off lengh of the rowTo row
-		if (arrayCopy[outerIndexTo].length <= 1){
+		if (arrayCopy[outerIndexTo].length < 1){
 			arrayCopy.splice(itemToMoveIndex.outer, 1);
 		} else {
 			arrayCopy[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
 		}
+		// MUST BE AFTER ABOVE STUFF SPLICE
+		arrayCopy[outerIndexTo].splice(innerIndexTo, 0, elementFrom);
 
-	
 		// Clean up all empty rows
 		arrayCopy = arrayCopy.filter(function(x) {
+			console.log('clean up?', x, x.length, arrayCopy)
 			return x.length;
 		});
 
@@ -603,8 +566,12 @@ export default function FormBuilderBeta(props) {
 
 	console.log('FORMSTRUCT!!!!', formStruct)
 
+
+	// RENAME - ROW DROP? 
 	function newDrop(event, index){
-		console.log('BEAR',  itemToMoveIndex.outer)
+		setActiveDropZone();
+
+		console.log('BEAR')
 
 		let arr = formStruct; //TODO rename
 		// needed to preserve order of where dropping
@@ -622,65 +589,12 @@ export default function FormBuilderBeta(props) {
 		
 		arr.splice(index, 0, [element]);
 
-		// arr.splice(index, 0, arr.splice(itemToMoveIndex, 1)[0]);  
 		setFormStruct([...arr])
 		event
 			.dataTransfer
 			.clearData();
 	}
 
-	//  WORKS WELL ISH FOR COLUUMNS!!!!
-	// function newDrop(event, index){
-	// 	console.log(itemToMoveIndex)
-
-	// 	let arr = formStruct; //TODO rename
-	// 	// needed to preserve order of where dropping
-	// 	if (index > itemToMoveIndex.outer && index != 0) {
-	// 		index = index - 1
-	// 	} 
-
-	// 	var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
-
-	// 	// arr.splice(itemToMoveIndex.outer, 1);
-	// 	// arr.splice(index, 0, element);
-	// 	arr[index].push(element)
-
-	// 	// arr.splice(index, 0, arr.splice(itemToMoveIndex, 1)[0]);  
-	// 	setFormStruct([...arr])
-	// 	event
-	// 		.dataTransfer
-	// 		.clearData();
-	// }
-
-
-	function drop(event, index) {
-		setActiveDropZone(null);
-		let arr = campaignForm.fields; //TODO rename
-
-		// needed to preserve order of where dropping
-		if (index < itemToMoveIndex && index != 0) {
-			index = index + 1
-		}
-
-		
-
-
-
-		var element = arr[itemToMoveIndex];
-		// console.log('arr', arr)
-		// console.log('element', element)
-
-
-		arr.splice(itemToMoveIndex, 1);
-		arr.splice(index, 0, element);
-
-		setCampaignForm({...campaignForm, fields:arr}) 
-
-    
-		event
-			.dataTransfer
-			.clearData();
-	}
 
 	// taylor - TODO 
 	const renderDynamicFields = (item) => {
@@ -721,13 +635,55 @@ export default function FormBuilderBeta(props) {
 		)
 	}
 
+	function leftDropZone(outerIndex, innerIndex) {
+		let classes = classNames(
+			{
+				'hoverDropZone': activeDropZone == `${outerIndex}${innerIndex}`, //'hoverDropZone': activeDropZone == outerIndex,
+				'dropZone': initDrag,
+				'dropZoneHide' :!initDrag
+			}
+		);
+		return (
+			<>
+				<div
+					className={classes}
+					onDragOver={(event) => dragOver(event, `${outerIndex}${innerIndex}`)}
+					onDragLeave={(event) => dragLeave(event, innerIndex)}
+					onDrop = {(event) => {
+
+						newDropLeft(event, outerIndex, innerIndex)
+					}}
+					//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
+					//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
+				></div> 
+				<style jsx>
+					{`
+						.dropZone {
+							height: auto;  
+							width: 10px;
+							border: 1px dashed blue;
+							visibility: visible;
+						}
+
+						.dropZoneHide {
+							visibility: hidden;
+						}
+
+						.hoverDropZone {
+							background-color: pink;						
+						}
+					`}
+				</style>
+			</>
+		)
+	}
 
 	// TODO - make constents for col-md-12 and col-md-6
 	function dropzone(index) {
 
 		let classes = classNames(
 			{
-				'hoverDropZone': activeDropZone == index,
+				'hoverDropZone': activeDropZone == `${index}`,
 				'dropZone': initDrag,
 				'dropZoneHide' :!initDrag
 			}
@@ -737,51 +693,48 @@ export default function FormBuilderBeta(props) {
 			<>
 				<div 
 					className={classes}
-					onDragOver={(event) => dragOver(event, index)}
+					onDragOver={(event) => dragOver(event, `${index}`)}
 					onDragLeave={(event) => dragLeave(event, index)}
 					onDrop = {(event) => {
-						//campaignForm.fields[itemToMoveIndex].width = 'col-md-12'
-						// TODO - figure out why above two lines work but setting state does not
-						// setCampaignForm({...campaignForm.fields[itemToMoveIndex], width: 'col-md-12'})
 						newDrop(event, index)
-						//drop(event, index)
 					}}
 				></div>
 
 				<style jsx>
 					{`
-          .dropZone {
-            min-height: 10px;  
-            width: 100%;
-            border: 1px dashed blue;
-            visibility: visible;
-          }
+						.dropZone {
+							min-height: 10px;  
+							width: 100%;
+							border: 1px dashed blue;
+							visibility: visible;
+						}
 
-          .dropZoneHide {
-            min-height: 10px;  
-            width: 100%;
-            visibility: hidden;
-          }
+						.dropZoneHide {
+							min-height: 10px;  
+							width: 100%;
+							visibility: hidden;
+						}
 
-          .hoverDropZone {
-            background-color: pink;
-            min-height: 10px; 
-            width:100%;
-            border: 1px dashed blue;
-          }
-        `}
+						.hoverDropZone {
+							background-color: pink;
+							min-height: 10px; 
+							width:100%;
+							border: 1px dashed blue;
+						}
+					`}
 				</style>
 			</>
 		)
 	}
 
-	const fieldList = [...campaignForm.fields];
+	const fieldList = [...formStruct];
     
-	function buildContainerClasses(index) {
+	function buildContainerClasses(position) {
+
 		return classNames(
 			'elemContainer',
 			{
-				'elemContainerHighlight': editItemDetails == index,
+				'elemContainerHighlight': editItemDetails.outer == position.outer && editItemDetails.inner == position.inner,
 				// 'hoverDropZone': activeDropZone == index,
 				// 'dropZoned': initDrag
 			}
@@ -825,10 +778,6 @@ export default function FormBuilderBeta(props) {
 
 		}
 	}
-
- 
-	
-
 
 	return (
 		<>
@@ -983,38 +932,22 @@ export default function FormBuilderBeta(props) {
 							</div>
 						</div>
 						{/* End Advanced build tools */}
-
-
-   
-
-						{/* TODO! rename parentCallback */}
-						{/* {(elem === 'select' ? <SelectBuilder parentCallback={mycallback}></SelectBuilder> : null)}
-        {(elem === 'text' ? <InputBuilder parentCallback={mycallback}></InputBuilder> : null)} */}
-
-        
 					</LeftBar>
 				</div>
 
 				<div className="col">
-					{/* DO I STILL NEED THIS ? */}
-
-     
-
 					<FormSandBox>
-						{/* <button onClick={(e)=>clearList(e)}>x</button> */}
-
-
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#previewFormModal">
-  Preview
+  							Preview
 						</button>
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#paseonFormModal">
-  Paseon Form
+  							Paseon Form
 						</button>
 
 						<br/><br/>
@@ -1033,19 +966,16 @@ export default function FormBuilderBeta(props) {
 						</div>
 
 						{/* REORDER START */}
-						<div style={{marginTop: '20px', border: '1px solid green'}}>
-							{/* <div className="col-md-12"> */}
-							{/* {dropzone(0)} */}
+						<div style={{marginTop: '20px'}}>
+						
 							{ formStruct.map((row, index) => {
-							//fieldList.map((item, index) => (  ==== working
-								console.log('row', row)
-								// console.log('ITEM', row)
+
 								return ( 
 									<div key={index} 
 										className="flex-container"
-									// style={{flexDirection: 'row'}}
 									>
 										{dropzone(index)} 
+
 										{row.map((col, i) => {
 											return (
 												<div 
@@ -1066,35 +996,20 @@ export default function FormBuilderBeta(props) {
 
 
 														<div 
-														    style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
-															className={buildContainerClasses(index + i)} // TODO - wth is this
-														> {index}
-
-															{/* left dropzone */}
-															<div
-																//className="flex-item-full"
-																style={{  width: '10px', height: '100px', border: '1px dashed blue'}}
-																onDragOver={(event) => dragOver(event, i)}
-																onDragLeave={(event) => dragLeave(event, i)}
-																onDrop = {(event) => {
-													
-																	newDropLeft(event, index, i)
-																//drop(event, index)
-																}}
-															//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-															//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-															></div> 
-
-
+															style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
+															className={buildContainerClasses({outer: index, inner: i})}
+														> 
+														
+															{leftDropZone(index, i)}
+														
 															<div 
 																className="flex-item-full"
 																id={`draggableSpan`}
 																draggable='true'
 																onDragStart={(event) => dragStart(event, index, i)}
 																onDragEnd={(event) =>  dragEnd(event, i)}
-																//style={{width:'100%'}}
-																onMouseEnter={() => setEditItemDetails(index + i)}
-																onMouseLeave={() => setEditItemDetails(null)}  
+																onMouseEnter={() => setEditItemDetails({outer: index, inner: i})}
+																onMouseLeave={() => setEditItemDetails({outer: null, inner: null})}  
 																onClick={()=> {
 																	setEditToggle({outer:index, inner: i})
 																}}
@@ -1127,22 +1042,8 @@ export default function FormBuilderBeta(props) {
 
 															</div>
 
-															{/* right dropzone */}
-															{/* <div 
-	style={{width: '10px', height: 'auto',border: '1px dashed blue'}}
-	onDragOver={(event) => dragOver(event, index)}
-	onDragLeave={(event) => dragLeave(event, index)}
-	onDrop = {(event) => drop(event, index)}
-//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
-></div>  */}
 
 														</div>
-													
-														{/* {(fieldList[index + 1 ] && item.width === 'col-md-12' && fieldList[index + 1 ].width !== 'col-md-12') && dropzone(index+1)} */}
-														{/* {item.width === 'col-md-12' && dropzone(index)} */}
-
-
 													</motion.div>
 												</div>
 											)
@@ -1153,19 +1054,15 @@ export default function FormBuilderBeta(props) {
 								)
 							
 							})}
-							{/* </div> */}
 						</div>
 
 
 					</FormSandBox>
-					{/* TODO: hook these up  */}
-      
-					{/* to see raw form with complete structure */}
-					{/* <button>Raw Form</button>   
     
-      <button type="button" data-toggle="modal" data-target="#exampleModal">
-        Paseon Form
-      </button> */}
+    
+					<button type="button" data-toggle="modal" data-target="#exampleModal">
+        				Paseon Form
+					</button>
 				</div>
 			</div>
 
@@ -1307,135 +1204,117 @@ export default function FormBuilderBeta(props) {
 			<style jsx>
 				{`
 
-				.flex-container {
-  /* We first create a flex layout context */
-  display: flex;
-  
-  /* Then we define the flow direction 
-     and if we allow the items to wrap 
-   * Remember this is the same as:
-   * flex-direction: row;
-   * flex-wrap: wrap;
-   */
-  flex-flow: row wrap;
-  
-  /* Then we define how is distributed the remaining space */
-  justify-content: space-around;
-  
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
+					.hello:hover {
+						background-color: red
+					}
+					
+					.flex-container {
+						/* We first create a flex layout context */
+						display: flex;
+						flex-flow: row wrap;
+						justify-content: space-around;
+						padding: 0;
+						margin: 0;
+						list-style: none;
+					}
 
-.flex-item-full {
-  padding: 5px;
-  width: 100%;
- 
+					.flex-item-full {
+						padding: 5px;
+						width: 100%;
+					}
 
-}
+					.flex-item-half {
+						padding: 5px;
+						width: 50%;
+					}
+					
 
-.flex-item-half {
-   padding: 5px;
-   width: 50%;
- 
-  
-}
-}
+					.sub{
+						height:50px;
+						//border:solid 1px black;
+						position:absolute;
+						top:-20px;
+						right: 50px;
+					}
 
-.sub{
-  height:50px;
-  //border:solid 1px black;
-  position:absolute;
-  top:-20px;
-  right: 50px;
-}
+					.hiddenSub{
+						display: none
+					}
 
-.hiddenSub{
-  display: none
-}
+					p {
+						font-size: 10px;
+					}
 
-    p {
-      font-size: 10px;
-    }
+					.input, select {
+						width: 100%;
+						padding: 5px 20px;
+						margin: 8px 0;
+						display: block;
+						border: 1px solid #ccc;
+						border-radius: 4px;
+						box-sizing: border-box;
+					}
 
-    .input, select {
-        width: 100%;
-        padding: 5px 20px;
-        margin: 8px 0;
-        display: block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
+					input[type=submit] {
+						width: 100%;
+						background-color: #4CAF50;
+						color: white;
+						padding: 14px 20px;
+						margin: 8px 0;
+						border: none;
+						border-radius: 4px;
+						cursor: pointer;
+					}
 
-    input[type=submit] {
-        width: 100%;
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+					input[type=submit]:hover {
+						background-color: #45a049;
+					}
 
-    input[type=submit]:hover {
-        background-color: #45a049;
-    }
+					div.container {
+						border-radius: 5px;
+						background-color: #f2f2f2;
+						padding: 20px;
+					}
+					
+					.elemContainer {
+						margin: 10px;
+						position:relative;
+					}
+				
+					.elemContainerHighlight {
+						margin: 10px;
+						border: 1px solid red;
+						background-color: #f2f2f2;
+						cursor: grab;
+					}
 
-    div.container {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
-    
+					
+					.flex-grid {
+						display: flex;
+						justify-content: space-between;
+					}
+					.col {
+						width: 100%;
+						// display: flex;
+						flex-direction: column;
+						flex-basis: 100%;
+						flex: 2;
+					}
 
-    .elemContainer {
-      margin: 10px;
-      position:relative;
-    }
-   
+					.col-30 {
+						display: flex;
+						flex-direction: column;
+						flex-basis: 100%;
+						flex: 1;
+					}
 
-    .elemContainerHighlight {
-      margin: 10px;
-      border: 1px solid red;
-      background-color: #f2f2f2;
-      cursor: grab;
-
-    }
-
-    
-    .flex-grid {
-      display: flex;
-      justify-content: space-between;
-
-    }
-    .col {
-      width: 100%;
-      // display: flex;
-      flex-direction: column;
-      flex-basis: 100%;
-      flex: 2;
-    }
-
-    .col-30 {
-      display: flex;
-      flex-direction: column;
-      flex-basis: 100%;
-      flex: 1;
-    }
-
-    @media (max-width: 700px) {
-      .flex-grid {
-        display: block;
-      }
-    }
-    `}
+					@media (max-width: 700px) {
+						.flex-grid {
+							display: block;
+						}
+					}
+				`}
 			</style>
- 
 		</>
 	);
 }
-
-
-
