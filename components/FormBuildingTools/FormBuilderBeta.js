@@ -1,14 +1,6 @@
-//import Layout from '../components/MyLayout';
-// import LayoutApp from '../LayoutApp'
-
-
-
 // TODO - fix the way item to edit gets set! similar to setItemToMoveIndex? 
-
 // TODO: bug on delete last index error
 import LeftBar from '../LeftBar';
-import SelectBuilder from './SelectBuilder';
-import InputBuilder from './InputBuilder';
 import CheckBoxBuilderEdit from './FormBuilders/CheckboxBuilderEdit';
 import FormSandBox from '../FormSandBox';
 
@@ -17,40 +9,14 @@ import React, { useState } from 'react';
 import classNames from 'classnames'
 import {states} from '../../utils/states';
 
-/////////////////////////////
-/////////////////////////////
-/////////////////////////////
-
 //TODO: reflect edit field changes in paseon and raw form HTML view
-import { resetServerContext } from 'react-beautiful-dnd';
-import { renderToString } from 'react-dom/server';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { motion } from "framer-motion";
-
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import getUrl  from '../../utils/getUrl';
 
 
-
-// ...
-
-resetServerContext();
-renderToString(FormBuilderBeta);
-
-/////////////////////////////
-/////////////////////////////
-/////////////////////////////
-const reorder = (list, startIndex, endIndex) => {
-	const result = Array.from(list);
-	const [removed] = result.splice(startIndex, 1);
-	result.splice(endIndex, 0, removed);
-	return result;
-};
-
-export default function FormBuilderBeta(props) {
-
+export default function FormBuilderBeta() {
 	/////////////////////////////////////////
 	////////START INPUT OBJECTSSSSSS/////////
 	/////////////////////////////////////////
@@ -260,7 +226,7 @@ export default function FormBuilderBeta(props) {
 
 	}
 
-	function addToForm (input_obj, tag) {
+	function addToForm (input_obj) {
 		
 		setEditToggle()
 		// todo - set input_obj id so I have a unique identifier to grab values off later
@@ -280,8 +246,6 @@ export default function FormBuilderBeta(props) {
       
 		setEditToggle(lastElem)
 	}
-
-
 
 	// TODO - break out into sep components for each differnet type of thing being edited
 	function editInputView() {
@@ -349,8 +313,6 @@ export default function FormBuilderBeta(props) {
 			field = null;
 		}
 		
-      
-		// maybe pass in an object that is the schema for each type?
 		// rememnber addToForm with no arg passed in created an empty field in the field list!
 		return (
 			<>
@@ -425,17 +387,17 @@ export default function FormBuilderBeta(props) {
 
 	}
 
-	function removeOne(e, index, val) {
+	function removeOne(e, index) {
 		e.stopPropagation()
 		e.preventDefault();
 
 		setEditToggle();
 
 		// let newList = formStruct.map(k => k.filter(e => e[index] !== index));
-		let newList = campaignForm.fields.filter((item, i) =>  i != index)
+		let newList = formStruct.filter((item, i) =>  i != index)
 
 
-		setCampaignForm({...campaignForm, fields:newList}) 
+		setFormStruct(newList) 
 
 	}
 
@@ -511,9 +473,9 @@ export default function FormBuilderBeta(props) {
 		setActiveDropZone(position)
 	}
 
-	function dragLeave(event, index){
+	function dragLeave(event){
 		event.preventDefault();
-		setActiveDropZone(null)
+		setActiveDropZone()
 	}
 
  
@@ -528,7 +490,7 @@ export default function FormBuilderBeta(props) {
 			.setData('text/plain', event.target.id);
 	}
 
-	function dragEnd(event, index) {
+	function dragEnd() {
 		setInitDrag(false);  
 	}
 
@@ -651,7 +613,7 @@ export default function FormBuilderBeta(props) {
 				<div
 					className={classes}
 					onDragOver={(event) => dragOver(event, `${outerIndex}${innerIndex}`)}
-					onDragLeave={(event) => dragLeave(event, innerIndex)}
+					onDragLeave={(event) => dragLeave(event)}
 					onDrop = {(event) => {
 
 						newDropLeft(event, outerIndex, innerIndex)
@@ -697,7 +659,7 @@ export default function FormBuilderBeta(props) {
 				<div 
 					className={classes}
 					onDragOver={(event) => dragOver(event, `${index}`)}
-					onDragLeave={(event) => dragLeave(event, index)}
+					onDragLeave={(event) => dragLeave(event)}
 					onDrop = {(event) => {
 						newDrop(event, index)
 					}}
@@ -1013,7 +975,7 @@ export default function FormBuilderBeta(props) {
 																id={`draggableSpan`}
 																draggable='true'
 																onDragStart={(event) => dragStart(event, index, i)}
-																onDragEnd={(event) =>  dragEnd(event, i)}
+																onDragEnd={(event) =>  dragEnd()}
 																onMouseEnter={() => setEditItemDetails({outer: index, inner: i})}
 																onMouseLeave={() => setEditItemDetails({outer: null, inner: null})}  
 																onClick={()=> {
@@ -1022,7 +984,7 @@ export default function FormBuilderBeta(props) {
 															>
 
 
-																<div className={(editItemDetails == index + i ? 'sub' : 'hiddenSub')}>
+																<div className={(editItemDetails.outer == index ? 'sub' : 'hiddenSub')}>
 
 																	<div className="btn-group btn-group-toggle" data-toggle="buttons">
 																		<button 
@@ -1061,7 +1023,6 @@ export default function FormBuilderBeta(props) {
 							
 							})}
 						</div>
-
 
 					</FormSandBox>
     
