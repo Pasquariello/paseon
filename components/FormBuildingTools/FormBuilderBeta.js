@@ -968,7 +968,7 @@ export default function FormBuilderBeta() {
 															className={buildContainerClasses({outer: index, inner: i})}
 														> 
 														
-															{leftDropZone(index, i)}
+															{(itemToMoveIndex.outer !== index || itemToMoveIndex.inner !== i ) && leftDropZone(index, i)}
 														
 															<div 
 																className="flex-item-full"
