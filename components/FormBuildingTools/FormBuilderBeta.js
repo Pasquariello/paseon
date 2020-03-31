@@ -388,14 +388,23 @@ export default function FormBuilderBeta() {
 	}
 
 	// TODO- needs work
-	function removeOne(e, index) {
+	function removeOne(e, outerIndex, innerIndex) {
 		e.stopPropagation()
 		e.preventDefault();
 
 		setEditToggle();
 
 		// let newList = formStruct.map(k => k.filter(e => e[index] !== index));
-		let newList = formStruct.filter((item, i) =>  i != index)
+		//let newList = formStruct.filter((row, i) =>  i != index)
+		let newList = formStruct.map((row, rowIndex) =>  {
+			if (rowIndex === outerIndex ) {
+				return row.filter((colItem, colIndex) => colIndex !== innerIndex)
+			} else {
+				return row
+			}
+			
+		}).filter(x => x.length);
+
 
 		setFormStruct(newList) 
 	}
@@ -968,7 +977,7 @@ export default function FormBuilderBeta() {
 																		</button>
 																		<button 
 																			className="btn btn-secondary" 
-																			onClick={(e)=>removeOne(e, [index][i], col)}// TODO- needs work
+																			onClick={(e)=>removeOne(e, index, i)}// TODO- needs work
 																		>
 																			<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
 																		</button>
