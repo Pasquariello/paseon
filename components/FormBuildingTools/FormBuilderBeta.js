@@ -402,7 +402,6 @@ export default function FormBuilderBeta() {
 			} else {
 				return row
 			}
-			
 		}).filter(x => x.length);
 
 
@@ -921,7 +920,8 @@ export default function FormBuilderBeta() {
 									<div key={index} 
 										className="flex-container"
 									>
-										{dropZoneRow(index)} 
+
+										{(row.length !== 1 || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index)} 
 
 										{row.map((col, i) => {
 											return (
@@ -950,7 +950,7 @@ export default function FormBuilderBeta() {
 															className={buildContainerClasses({outer: index, inner: i})}
 														> 
 														
-															{(itemToMoveIndex.outer !== index || itemToMoveIndex.inner !== i ) && leftDropZone(index, i)}
+															{(itemToMoveIndex.outer !== index || (itemToMoveIndex.inner !== i && i !== itemToMoveIndex.inner+1) ) && leftDropZone(index, i)}
 														
 															<div 
 																className="flex-item-full"
