@@ -387,6 +387,7 @@ export default function FormBuilderBeta() {
 
 	}
 
+	// TODO- needs work
 	function removeOne(e, index) {
 		e.stopPropagation()
 		e.preventDefault();
@@ -396,9 +397,7 @@ export default function FormBuilderBeta() {
 		// let newList = formStruct.map(k => k.filter(e => e[index] !== index));
 		let newList = formStruct.filter((item, i) =>  i != index)
 
-
 		setFormStruct(newList) 
-
 	}
 
 	// TODO - rewrite to match edit zone
@@ -975,7 +974,7 @@ export default function FormBuilderBeta() {
 																id={`draggableSpan`}
 																draggable='true'
 																onDragStart={(event) => dragStart(event, index, i)}
-																onDragEnd={(event) =>  dragEnd()}
+																onDragEnd={() =>  dragEnd()}
 																onMouseEnter={() => setEditItemDetails({outer: index, inner: i})}
 																onMouseLeave={() => setEditItemDetails({outer: null, inner: null})}  
 																onClick={()=> {
@@ -995,7 +994,7 @@ export default function FormBuilderBeta() {
 																		</button>
 																		<button 
 																			className="btn btn-secondary" 
-																			onClick={(e)=>removeOne(e, [index][i], col)}
+																			onClick={(e)=>removeOne(e, [index][i], col)}// TODO- needs work
 																		>
 																			<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
 																		</button>
@@ -1072,7 +1071,14 @@ export default function FormBuilderBeta() {
 							</button>
 						</div>
 						<div className="modal-body">
+							<div>
+								{/* TODO - add link to learn more hint - read text below*/}
+								Your Paseon tag is litrally jsut this simple! If you wish to further customoze it, change the recipient or change it in any other way refer to the cusomization link.
+								
+								{/* Add condtional for if form saved */}
+								{/* if saved - display tags else display please save message */}
 
+							</div>
 							{`<paseon-form></paseon-form>`}
 
 							{/* PREVIEW FORM */}
@@ -1113,20 +1119,27 @@ export default function FormBuilderBeta() {
 							{/* PREVIEW FORM */}
 
 							{
-								!fieldList.length ? 'Start using the form building tool to see what your form will look like!' :
-									<div className="row">
-										{fieldList.map((item, index) => {
-											return (
-												<div key={index} className={item.width}>
-													<label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-													{renderDynamicFields(item)}
-												</div>
-											)
-										})}
-									</div>
-							} 
+								formStruct.map((row, index) => {
 
+									return ( 
+										<div key={index} 
+											className="flex-container"
+										>
 
+											{row.map((col, i) => {
+												return (
+													<div key={i} style={{width: `${100 /row.length}%`, padding: '5px'}}>
+														<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
+														{renderDynamicFields(col)}
+													</div>
+												)
+											})}
+
+										</div>
+
+									)
+								})
+							}
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
