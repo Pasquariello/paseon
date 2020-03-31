@@ -402,69 +402,43 @@ export default function FormBuilderBeta() {
 
 	// TODO - rewrite to match edit zone
 	function transfromJSONtoHTMLStringORIG() {
+		// TAYLOR
 
-		if (campaignForm.fields.length) {
+		if	(formStruct.length) { 
 
+		
 			return ( 
-				<div>
-					{`<form>`} <br></br>
+				formStruct.map((row, index) => {
 
-					{campaignForm.fields.map((field, index) => {  
-						return (
-							<div key={index} >&nbsp; {/* ADDS SPACE*/}
-								{`
-									
-									<label>${field.label}</label>
-									<${field.tag} 
-										type="${(field.type ? field.type : '')}" 
-										${field.required ? 'required' : ''}
-										placeholder="${(field.placeholder ? field.placeholder : '')}"
-									>
-									</${field.tag}>
-								`}
-								<br></br>
-							</div>
-						) 
-					})}
-					{`</form>`}
-				</div>
-
-			)
-		} else {
-			return `Start using the form building tool to see what your raw HTML will look like!`
-		}
-
-	}
-
-
-	function transfromJSONtoHTMLString() {
-
-		if (campaignForm.fields.length) {
-
-			return ( 
-				`
-            <form>
-            
-           
-            ${campaignForm.fields.map((field, index) => {                       
 					return ( 
-						`
-                    <label>${field.label}</label>
-                    <${field.tag} type="${(field.type ? field.type : null)}"></${field.tag}>
-                  `
-					) 
-				})  
-				}
-              <form>`
-
+						<div key={index} 
+							className="flex-container"
+						>
+							{row.map((col, i) => {
+								return (
+									<div key={i} >&nbsp;   {/* Adds a Space */}
+										{`
+										<label>${col.label}</label>
+										<${col.tag} 
+											type="${(col.type ? col.type : '')}" 
+											${col.required ? 'required' : ''}
+											placeholder="${(col.placeholder ? col.placeholder : '')}"
+										>
+										</${col.tag}>
+									`}
+										<br></br>
+									</div>
+								)
+							})}
+						</div>
+					)
+				})
 			)
-		} else {
+		}  else {
 			return `Start using the form building tool to see what your raw HTML will look like!`
 		}
 
 	}
-
-    
 
 	//////// DRAG FUNCTIONS
 	function dragOver(event, position) {
@@ -983,7 +957,7 @@ export default function FormBuilderBeta() {
 															>
 
 
-																<div className={(editItemDetails.outer == index ? 'sub' : 'hiddenSub')}>
+																<div className={(editItemDetails.outer == index && editItemDetails.inner == i ? 'sub' : 'hiddenSub')}>
 
 																	<div className="btn-group btn-group-toggle" data-toggle="buttons">
 																		<button 
@@ -1073,8 +1047,8 @@ export default function FormBuilderBeta() {
 						<div className="modal-body">
 							<div>
 								{/* TODO - add link to learn more hint - read text below*/}
-								Your Paseon tag is litrally jsut this simple! If you wish to further customoze it, change the recipient or change it in any other way refer to the cusomization link.
-								
+								Your Paseon tag is this simple! If you wish to further customoze it, change the recipient or change it in any other way refer to the cusomization link.
+								<paseon-form />
 								{/* Add condtional for if form saved */}
 								{/* if saved - display tags else display please save message */}
 
