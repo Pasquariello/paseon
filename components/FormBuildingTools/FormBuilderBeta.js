@@ -545,10 +545,19 @@ export default function FormBuilderBeta() {
 		// data.push(data.splice(data.findIndex(v => v.name == 'other'), 1)[0])
 		arr.push([element]);
 
-		if (arr[index].length === 1) {
-			arr.splice([itemToMoveIndex.outer], 1);
-		}
+		// if (arr[index].length === 1) {
+		// 	arr.splice([itemToMoveIndex.outer], 1);
+		// }
 
+		if (arr[index].length === 1) {
+			console.log('here')
+			arr.splice([itemToMoveIndex.outer], 1);
+		} else {
+			console.log('here')
+
+			arr[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
+
+		}
 
 		// arr.splice([itemToMoveIndex.outer], 1);
 		
