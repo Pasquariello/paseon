@@ -11,7 +11,7 @@ import {states} from '../../utils/states';
 
 //TODO: reflect edit field changes in paseon and raw form HTML view
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faEdit, faInfoCircle, faOm } from '@fortawesome/free-solid-svg-icons'
 import { motion } from "framer-motion";
 import getUrl  from '../../utils/getUrl';
 import uuid from 'react-uuid'
@@ -479,7 +479,7 @@ export default function FormBuilderBeta() {
 
 	// RENAME - COL DROP? 
 	function newDropLeft (event, outerIndexTo, innerIndexTo) {
-		setActiveDropZone();
+		setActiveDropZone(null);
 		//outerIndexTo will be the row index we are moving the element to
 		//innerIndexTo will be the position/index in the row that it is being moved into
 		let arrayCopy = formStruct; // going to/manipulating this
@@ -529,6 +529,27 @@ export default function FormBuilderBeta() {
 			.clearData();
 	}
 
+	function bottomDrop(event, index) {
+
+
+		let arr = formStruct; //TODO rename
+		// needed to preserve order of where dropping
+		// if (index > itemToMoveIndex.outer && index != 0) {
+		// 	index = index - 1
+		// } 
+
+		var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
+		
+		// data.push(data.splice(data.findIndex(v => v.name == 'other'), 1)[0])
+		arr.push([element]);
+
+		arr.splice([itemToMoveIndex.outer], 1);
+		
+		setFormStruct([...arr])
+		event
+			.dataTransfer
+			.clearData();
+	}
 
 
 	// RENAME - ROW DROP? 
@@ -539,9 +560,32 @@ export default function FormBuilderBeta() {
 
 		let arr = formStruct; //TODO rename
 		// needed to preserve order of where dropping
-		if (index > itemToMoveIndex.outer && index != 0) {
+		if (arr[itemToMoveIndex.outer].length === 1 && index > itemToMoveIndex.outer && index != 0) {
+			console.log('this fudged it up ')
 			index = index - 1
 		} 
+
+		// if (innerIndexTo < itemToMoveIndex.inner  && innerIndexTo != 0) {
+		// 	console.log('second if', innerIndexTo)
+
+		// 	innerIndexTo = innerIndexTo -1
+		// } 
+		console.log('===== itemToMoveIndex.outer', itemToMoveIndex.outer)
+		console.log('===== index', index)
+		// if (itemToMoveIndex.outer !== index) {
+		// 	console.log('THIRD if here', index)
+		// 	if (itemToMoveIndex.outer < index ) {
+		// 		console.log('111111111', index)
+
+		// 		index = index  + 1
+		// 	} else {
+		// 		console.log('222222', index)
+
+		// 		index = index  - 1
+		// 	}
+		// }
+// row[index +1 ] || row[index  - 1 ]
+		
 
 		var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
 		
@@ -614,7 +658,6 @@ export default function FormBuilderBeta() {
 					onDragOver={(event) => dragOver(event, `${outerIndex}${innerIndex}`)}
 					onDragLeave={(event) => dragLeave(event)}
 					onDrop = {(event) => {
-
 						newDropLeft(event, outerIndex, innerIndex)
 					}}
 					//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
@@ -643,7 +686,7 @@ export default function FormBuilderBeta() {
 	}
 
 	// TODO - make constents for col-md-12 and col-md-6
-	function dropZoneRow(index) {
+	function dropZoneRow(index, pos) {
 
 		let classes = classNames(
 			{
@@ -660,9 +703,9 @@ export default function FormBuilderBeta() {
 					onDragOver={(event) => dragOver(event, `${index}`)}
 					onDragLeave={(event) => dragLeave(event)}
 					onDrop = {(event) => {
-						newDrop(event, index)
+						pos === 'top' ? newDrop(event, index) : bottomDrop(event, index)
 					}}
-				></div>
+				>{index}</div>
 
 				<style jsx>
 					{`
@@ -939,8 +982,12 @@ export default function FormBuilderBeta() {
 									<div key={index} 
 										className="flex-container"
 									>
-									
-										{((row.length !== 1 && index !== itemToMoveIndex.outer + 1) || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index)} 
+										{/* {row.length}
+										{itemToMoveIndex.outer && formStruct[itemToMoveIndex.outer].length}
+										{index}
+										{itemToMoveIndex.outer + 1} */}
+										{/* (formStruct && itemToMoveIndex.outer && formStruct[itemToMoveIndex.outer].length !== 1 ) ||  */}
+										{( (row.length !== 1 && index !== itemToMoveIndex.outer + 1) || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index, 'top')} 
 
 										{row.map((col, i) => {
 											return (
@@ -1021,8 +1068,12 @@ export default function FormBuilderBeta() {
 
 									</div>
 								)
-							
+
+								
 							})}
+							{/* TODO - put into var */}
+							{dropZoneRow(formStruct.length, 'bottom')}
+							
 						</div>
 
 					</FormSandBox>
