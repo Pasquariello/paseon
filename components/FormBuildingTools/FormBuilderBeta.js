@@ -488,11 +488,8 @@ export default function FormBuilderBeta() {
 
 		let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
 		
-		// if (innerIndexTo > itemToMoveIndex.inner && innerIndexTo != 0) {
-		// 	console.log('first if', innerIndexTo)
-		// 	innerIndexTo = innerIndexTo + 1
-		// } 
-		if (innerIndexTo < itemToMoveIndex.inner  && innerIndexTo != 0) {
+
+		if (innerIndexTo > itemToMoveIndex.inner  && innerIndexTo != 0) {
 			console.log('second if', innerIndexTo)
 
 			innerIndexTo = innerIndexTo -1
@@ -507,7 +504,8 @@ export default function FormBuilderBeta() {
 		// TODO add check IF FROM OTHER ROW
 		
 
-		innerIndexTo = innerIndexTo - 1
+		//innerIndexTo = innerIndexTo - 1
+		console.log('============', innerIndexTo)
 
 		if (arrayCopy[outerIndexTo].length < 1){
 			arrayCopy.splice(itemToMoveIndex.outer, 1);
@@ -553,7 +551,7 @@ export default function FormBuilderBeta() {
 			console.log('here')
 			arr.splice([itemToMoveIndex.outer], 1);
 		} else {
-			console.log('here')
+			console.log('here again')
 
 			arr[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
 
