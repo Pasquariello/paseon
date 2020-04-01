@@ -987,7 +987,10 @@ export default function FormBuilderBeta() {
 										{index}
 										{itemToMoveIndex.outer + 1} */}
 										{/* (formStruct && itemToMoveIndex.outer && formStruct[itemToMoveIndex.outer].length !== 1 ) ||  */}
-										{( (row.length !== 1 && index !== itemToMoveIndex.outer + 1) || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index, 'top')} 
+										{console.log('formStruct', formStruct)}
+										{console.log('itemToMoveIndex.outer', itemToMoveIndex.outer)}
+										{console.log('formStruct[itemToMoveIndex.outer]', formStruct[itemToMoveIndex.outer])}
+										{( (formStruct[index].length !== 1 ) || (row.length !== 1 && index !== itemToMoveIndex.outer + 1) || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index, 'top')} 
 
 										{row.map((col, i) => {
 											return (
@@ -1072,7 +1075,7 @@ export default function FormBuilderBeta() {
 								
 							})}
 							{/* TODO - put into var */}
-							{dropZoneRow(formStruct.length, 'bottom')}
+							{/* {dropZoneRow(formStruct.length, 'bottom')} */}
 							
 						</div>
 
