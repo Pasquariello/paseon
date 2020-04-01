@@ -1080,7 +1080,6 @@ export default function FormBuilderBeta() {
 							<div>
 								{/* TODO - add link to learn more hint - read text below*/}
 								Your Paseon tag is this simple! If you wish to further customoze it, change the recipient or change it in any other way refer to the cusomization link.
-								<paseon-form />
 								{/* Add condtional for if form saved */}
 								{/* if saved - display tags else display please save message */}
 
@@ -1124,8 +1123,8 @@ export default function FormBuilderBeta() {
 
 							{/* PREVIEW FORM */}
 
-							{
-								formStruct.map((row, index) => {
+							{ 
+								formStruct.length ? formStruct.map((row, index) => {
 
 									return ( 
 										<div key={index} 
@@ -1144,7 +1143,7 @@ export default function FormBuilderBeta() {
 										</div>
 
 									)
-								})
+								}) : 'Start building your form using the Paseon drag and drop form builder tool.'
 							}
 						</div>
 						<div className="modal-footer">
