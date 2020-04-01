@@ -316,7 +316,6 @@ export default function FormBuilderBeta() {
 				</div>
 				<hr></hr>
 				<form>
-  
 					<div className="form-group">
 						<label htmlFor="cust_label">Label</label>
 						<input 
@@ -358,9 +357,8 @@ export default function FormBuilderBeta() {
 
 					</div>
 
-					
-
-					<button type="submit" className="btn btn-primary">Submit</button>
+					{/* TODO - will I need this button ? */}
+					{/* <button type="submit" className="btn btn-outline-primary">Submit</button> */}
 				</form>
 				<style jsx>{`
 
@@ -666,7 +664,7 @@ export default function FormBuilderBeta() {
 					onDrop = {(event) => {
 						pos === 'top' ? newDrop(event, index) : bottomDrop(event, index)
 					}}
-				>{index}</div>
+				></div>
 
 				<style jsx>
 					{`
@@ -760,7 +758,6 @@ export default function FormBuilderBeta() {
 
 						<div className="row"> 
 
-     
 							<div className="col-md-6 mb-4" onClick={() => addToForm(first_name_obj)}>
 								<div className="card">
 									<div className="card-header">
