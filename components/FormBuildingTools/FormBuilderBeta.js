@@ -479,6 +479,7 @@ export default function FormBuilderBeta() {
 
 	// RENAME - COL DROP? 
 	function newDropLeft (event, outerIndexTo, innerIndexTo) {
+		setInitDrag();
 		setActiveDropZone(null);
 		//outerIndexTo will be the row index we are moving the element to
 		//innerIndexTo will be the position/index in the row that it is being moved into
@@ -560,6 +561,7 @@ export default function FormBuilderBeta() {
 
 	// RENAME - ROW DROP? 
 	function newDrop(event, index){
+		setInitDrag();
 		setActiveDropZone();
 
 		console.log('BEAR')
@@ -1076,7 +1078,7 @@ export default function FormBuilderBeta() {
 								
 							})}
 							{/* TODO - put into var */}
-							{itemToMoveIndex.outer !== formStruct.length - 1  &&  dropZoneRow(formStruct.length, 'bottom')}
+							{(itemToMoveIndex.outer !== formStruct.length - 1 || (formStruct[itemToMoveIndex.outer] && formStruct[itemToMoveIndex.outer].length !== 1))  &&  dropZoneRow(formStruct.length, 'bottom')}
 							
 						</div>
 
