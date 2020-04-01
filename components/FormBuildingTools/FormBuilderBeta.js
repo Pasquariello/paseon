@@ -14,6 +14,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { motion } from "framer-motion";
 import getUrl  from '../../utils/getUrl';
+import uuid from 'react-uuid'
+
 
 
 export default function FormBuilderBeta() {
@@ -227,7 +229,7 @@ export default function FormBuilderBeta() {
 	}
 
 	function addToForm (input_obj) {
-		
+		input_obj.id = uuid();
 		setEditToggle()
 		// todo - set input_obj id so I have a unique identifier to grab values off later
 		setFormStruct([...formStruct, [input_obj]])
@@ -484,10 +486,27 @@ export default function FormBuilderBeta() {
 		let elementFrom = formStruct[itemToMoveIndex.outer][itemToMoveIndex.inner] // this is the element being dragged
 
 		let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
+		
+		// if (innerIndexTo > itemToMoveIndex.inner && innerIndexTo != 0) {
+		// 	console.log('first if', innerIndexTo)
+		// 	innerIndexTo = innerIndexTo + 1
+		// } 
+		if (innerIndexTo < itemToMoveIndex.inner  && innerIndexTo != 0) {
+			console.log('second if', innerIndexTo)
 
-		if (innerIndexTo > itemToMoveIndex.inner && innerIndexTo != 0) {
-			innerIndexTo = innerIndexTo - 1
+			innerIndexTo = innerIndexTo -1
 		} 
+
+		if (itemToMoveIndex.outer !== outerIndexTo) {
+			console.log('THIRD if', innerIndexTo)
+
+			innerIndexTo = innerIndexTo  + 1
+		}
+
+		// TODO add check IF FROM OTHER ROW
+		
+
+		innerIndexTo = innerIndexTo - 1
 
 		if (arrayCopy[outerIndexTo].length < 1){
 			arrayCopy.splice(itemToMoveIndex.outer, 1);
@@ -510,7 +529,6 @@ export default function FormBuilderBeta() {
 			.clearData();
 	}
 
-	console.log('FORMSTRUCT!!!!', formStruct)
 
 
 	// RENAME - ROW DROP? 
@@ -915,19 +933,20 @@ export default function FormBuilderBeta() {
 						<div style={{marginTop: '20px'}}>
 						
 							{ formStruct.map((row, index) => {
+								
 
 								return ( 
 									<div key={index} 
 										className="flex-container"
 									>
-
-										{(row.length !== 1 || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index)} 
+									
+										{((row.length !== 1 && index !== itemToMoveIndex.outer + 1) || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index)} 
 
 										{row.map((col, i) => {
 											return (
 												
 												<div 
-													key={i}
+													key={col.id}
 													//className={row.length === 1 ? 'flex-item-full': 'flex-item-half'}
 													style={{width: `${100 /row.length}%`, padding: '5px'}}
 												>
@@ -949,7 +968,7 @@ export default function FormBuilderBeta() {
 															style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
 															className={buildContainerClasses({outer: index, inner: i})}
 														> 
-														
+
 															{(itemToMoveIndex.outer !== index || (itemToMoveIndex.inner !== i && i !== itemToMoveIndex.inner+1) ) && leftDropZone(index, i)}
 														
 															<div 
