@@ -538,12 +538,18 @@ export default function FormBuilderBeta() {
 		// 	index = index - 1
 		// } 
 
+		
 		var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
 		
 		// data.push(data.splice(data.findIndex(v => v.name == 'other'), 1)[0])
 		arr.push([element]);
 
-		arr.splice([itemToMoveIndex.outer], 1);
+		if (arr[index].length === 1) {
+			arr.splice([itemToMoveIndex.outer], 1);
+		}
+
+
+		// arr.splice([itemToMoveIndex.outer], 1);
 		
 		setFormStruct([...arr])
 		event
@@ -1070,7 +1076,7 @@ export default function FormBuilderBeta() {
 								
 							})}
 							{/* TODO - put into var */}
-							{/* {dropZoneRow(formStruct.length, 'bottom')} */}
+							{itemToMoveIndex.outer !== formStruct.length - 1  &&  dropZoneRow(formStruct.length, 'bottom')}
 							
 						</div>
 
