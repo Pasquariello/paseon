@@ -505,7 +505,6 @@ export default function FormBuilderBeta() {
 		
 
 		//innerIndexTo = innerIndexTo - 1
-		console.log('============', innerIndexTo)
 
 		if (arrayCopy[outerIndexTo].length < 1){
 			arrayCopy.splice(itemToMoveIndex.outer, 1);
@@ -547,14 +546,12 @@ export default function FormBuilderBeta() {
 		// 	arr.splice([itemToMoveIndex.outer], 1);
 		// }
 
-		if (arr[index].length === 1) {
+		if (arr[itemToMoveIndex.outer].length === 1) {
 			console.log('here')
 			arr.splice([itemToMoveIndex.outer], 1);
 		} else {
-			console.log('here again')
-
+			console.log('here oooo')
 			arr[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
-
 		}
 
 		// arr.splice([itemToMoveIndex.outer], 1);
