@@ -196,7 +196,6 @@ export default function FormBuilderBeta() {
 	////////END INPUT OBJECTSSSSSS/////////
 	///////////////////////////////////////
 
-
 	/////state values
 	const [campaignForm, setCampaignForm] = useState(
 		{ 
@@ -205,7 +204,6 @@ export default function FormBuilderBeta() {
 		}
 	)
 
-
 	const [editItemDetails, setEditItemDetails] = useState({outer: null, inner: null})
 	const [itemToMoveIndex, setItemToMoveIndex] = useState({outer: null, inner: null});
 	const [activeDropZone, setActiveDropZone] = useState();
@@ -213,14 +211,6 @@ export default function FormBuilderBeta() {
 	// TODO - keep this but remove campainForm fields array
 	const [formStruct, setFormStruct] = useState([]);
 	const [editToggle, setEditToggle] = useState()
-
-
-
-	/////////////////////////////
-	/////////////////////////////
-	/////////////////////////////
-
-
 
 	function clearList(e){
 		e.preventDefault();
@@ -396,8 +386,6 @@ export default function FormBuilderBeta() {
 
 		setEditToggle();
 
-		// let newList = formStruct.map(k => k.filter(e => e[index] !== index));
-		//let newList = formStruct.filter((row, i) =>  i != index)
 		let newList = formStruct.map((row, rowIndex) =>  {
 			if (rowIndex === outerIndex ) {
 				return row.filter((colItem, colIndex) => colIndex !== innerIndex)
@@ -531,21 +519,11 @@ export default function FormBuilderBeta() {
 
 
 		let arr = formStruct; //TODO rename
-		// needed to preserve order of where dropping
-		// if (index > itemToMoveIndex.outer && index != 0) {
-		// 	index = index - 1
-		// } 
-
 		
-		var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
+		const element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
 		
-		// data.push(data.splice(data.findIndex(v => v.name == 'other'), 1)[0])
 		arr.push([element]);
-
-		// if (arr[index].length === 1) {
-		// 	arr.splice([itemToMoveIndex.outer], 1);
-		// }
-
+	
 		if (arr[itemToMoveIndex.outer].length === 1) {
 			console.log('here')
 			arr.splice([itemToMoveIndex.outer], 1);
@@ -553,8 +531,6 @@ export default function FormBuilderBeta() {
 			console.log('here oooo')
 			arr[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
 		}
-
-		// arr.splice([itemToMoveIndex.outer], 1);
 		
 		setFormStruct([...arr])
 		event
@@ -568,36 +544,11 @@ export default function FormBuilderBeta() {
 		setInitDrag();
 		setActiveDropZone();
 
-		console.log('BEAR')
-
 		let arr = formStruct; //TODO rename
 		// needed to preserve order of where dropping
 		if (arr[itemToMoveIndex.outer].length === 1 && index > itemToMoveIndex.outer && index != 0) {
-			console.log('this fudged it up ')
 			index = index - 1
 		} 
-
-		// if (innerIndexTo < itemToMoveIndex.inner  && innerIndexTo != 0) {
-		// 	console.log('second if', innerIndexTo)
-
-		// 	innerIndexTo = innerIndexTo -1
-		// } 
-		console.log('===== itemToMoveIndex.outer', itemToMoveIndex.outer)
-		console.log('===== index', index)
-		// if (itemToMoveIndex.outer !== index) {
-		// 	console.log('THIRD if here', index)
-		// 	if (itemToMoveIndex.outer < index ) {
-		// 		console.log('111111111', index)
-
-		// 		index = index  + 1
-		// 	} else {
-		// 		console.log('222222', index)
-
-		// 		index = index  - 1
-		// 	}
-		// }
-// row[index +1 ] || row[index  - 1 ]
-		
 
 		var element = arr[itemToMoveIndex.outer][itemToMoveIndex.inner];
 		
@@ -672,8 +623,6 @@ export default function FormBuilderBeta() {
 					onDrop = {(event) => {
 						newDropLeft(event, outerIndex, innerIndex)
 					}}
-					//onMouseEnter = {() => setActiveDropZone(index), console.log('enter!', activeDropZone)}
-					//style={{minHeight: '10px', width:'100%', border: '1px dashed blue'}}
 				></div> 
 				<style jsx>
 					{`
@@ -746,8 +695,7 @@ export default function FormBuilderBeta() {
 		)
 	}
 
-	const fieldList = [...formStruct];
-    
+
 	function buildContainerClasses(position) {
 
 		return classNames(
@@ -805,7 +753,7 @@ export default function FormBuilderBeta() {
 				<div className="col-33">
 					{/* Remove this container div */}
 					<LeftBar> 
-						{editToggle != null && campaignForm.fields.length ? editInputView() : null}
+						{editToggle != null && formStruct.length ? editInputView() : null}
 						<hr></hr>
 
 						<label htmlFor="elem">Frequently Used</label>
@@ -1096,8 +1044,6 @@ export default function FormBuilderBeta() {
 			</div>
 
 			{/* START MODAL - TODO PUT INTO OWN COMPONENT*/}
-			{/* <!-- Button trigger modal --> */}
-
 
 			{/* <!-- Modal --> */}
 			<div className="modal fade" id="rawFormModal" tabIndex="-1" role="dialog" aria-labelledby="rawFormModal" aria-hidden="true">
