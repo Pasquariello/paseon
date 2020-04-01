@@ -69,7 +69,7 @@ function Dashboard ({campaignList}) {
 							<div className="text-center">
 								<img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src="../static/images/undraw_master_plan_95wa.svg" alt=""></img>
 							</div>
-							<p>Each campaign is vital to driving value for your business. Each campaign can be used to help you collect data, process emails, interpret survey results, or anything else you can think of. The boundries are only your own imagination!</p>
+							<p>Campaigns can be used to help you collect data, process emails, interpret survey results, or anything else you can think of. The boundries are only your own imagination!</p>
 							<a target="_blank" rel="noopener noreferrer nofollow"href="https://undraw.co/">See this cool link →</a>
 						</div>
 					</div>
