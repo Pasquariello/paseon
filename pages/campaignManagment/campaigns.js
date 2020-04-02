@@ -177,7 +177,7 @@ function Campaigns(props) {
 			</div>
             
 			<div className="row">
-				<h3>My Campaings:</h3> 
+				<h3>My Campaigns:</h3> 
 				<Link href="/campaignManagment/new_campaign">
 					<a>+ New</a>
 				</Link>

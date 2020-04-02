@@ -109,7 +109,7 @@ const NewCampaign = (props) =>  {
 
 	const handleAddInput = (obj) => {
 		console.log('I made it to the top!', obj)
-		// add new field object to campaingForm field array
+		// add new field object to campaignForm field array
 		// setSelectList([...selectList, { ...val }]);
 		setCampaignForm({...campaignForm, fields:[...campaignForm.fields, obj]})
 		console.log('Do I have what I need?', campaignForm);

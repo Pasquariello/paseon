@@ -13,37 +13,37 @@ export default function Browser(props) {
     
 				<div className="browser-container" style={{width: '100%', background: 'white', padding: '50px'}}>
 					{/* <img src="http://placehold.it/900x300" alt="Browser content"/> */}
-                    <div className="skeletonHeader"></div>
+					<div className="skeletonHeader"></div>
 					<div className="row" style={{padding: '20px'}}>
-                        <div className="col-lg-6">
-                            {props.children}
-                        </div>
-                        <div className="col-lg-6 d-none d-lg-block">
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="paragraphSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="paragraphSkeleton"></div>
-                            <div className="paragraphSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="paragraphSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                            <div className="textSkeleton"></div>
-                        </div>
+						<div className="col-lg-6">
+							{props.children}
+						</div>
+						<div className="col-lg-6 d-none d-lg-block">
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="paragraphSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="paragraphSkeleton"></div>
+							<div className="paragraphSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="paragraphSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="paragraphSkeleton"></div>
+							<div className="textSkeleton"></div>
+							<div className="textSkeleton"></div>
+						</div>
 
 					</div>
 				</div>

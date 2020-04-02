@@ -1,5 +1,6 @@
 // TODO - fix the way item to edit gets set! similar to setItemToMoveIndex? 
 // TODO: bug on delete last index error
+// TODO - set open edit toggle to ID!
 import LeftBar from '../LeftBar';
 import CheckBoxBuilderEdit from './FormBuilders/CheckboxBuilderEdit';
 import FormSandBox from '../FormSandBox';
@@ -264,15 +265,16 @@ export default function FormBuilderBeta() {
     
 	function openEdit(input_obj) {
 
-		addToForm (input_obj)
       
 		let lastElem = 0;
 
 		if (formStruct.length  > 0) {
 			lastElem = formStruct.length
 		} 
-      
-		setEditToggle({outer:lastElem, inner:0})
+
+		const inner = itemToMoveIndex.inner ? itemToMoveIndex.inner : 0;
+	  
+		// setEditToggle({outer:lastElem, inner: inner})
 	}
 
 	// TODO - break out into sep components for each differnet type of thing being edited
@@ -286,7 +288,9 @@ export default function FormBuilderBeta() {
 		console.log(copy)
 		if (copy[outer][inner].type == 'checkbox' ) {
 			field = <CheckBoxBuilderEdit  />
+	
 		} else if (copy[outer][inner].tag == 'select') {
+			console.log('hi')
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Add Option</label> 
@@ -298,7 +302,7 @@ export default function FormBuilderBeta() {
 						onChange={(e)=> {
 							let optionsArray = e.target.value.split(',');
 							copy[outer][inner].options = optionsArray
-							setCampaignForm({...campaignForm, fields:copy})
+							//setCampaignForm({...campaignForm, fields:copy})
 						}
 						}
 					></textarea>
@@ -316,7 +320,7 @@ export default function FormBuilderBeta() {
 						value={copy[outer][inner].placeholder}
 						onChange={(e)=> {
 							copy[outer][inner].placeholder = e.target.value
-							setCampaignForm({...campaignForm, fields:copy})
+							//setCampaignForm({...campaignForm, fields:copy})
 						}
 						}
 					></input>
@@ -330,7 +334,7 @@ export default function FormBuilderBeta() {
 							placeholder="Enter Custom Label"
 							onChange={(e)=> {
 								copy[outer][inner].default = e.target.value
-								setCampaignForm({...campaignForm, fields:copy})
+								//setCampaignForm({...campaignForm, fields:copy})
 							}
 							}
 						></input>
@@ -340,7 +344,6 @@ export default function FormBuilderBeta() {
 		} else {
 			field = null;
 		}
-		
 		// rememnber addToForm with no arg passed in created an empty field in the field list!
 		return (
 			<>
@@ -389,7 +392,7 @@ export default function FormBuilderBeta() {
 							className="custom-control-input" 
 							id="customSwitch1"
 						></input>
-						<label className="custom-control-label" htmlFor="customSwitch1">Make This Field  Require</label>
+						<label className="custom-control-label" htmlFor="customSwitch1">Make This Field  Required</label>
 
 					</div>
 
@@ -503,7 +506,9 @@ export default function FormBuilderBeta() {
 	function newDropLeft (event, outerIndexTo, innerIndexTo) {
 		event.preventDefault();
 		setInitDrag();
-		setActiveDropZone(null);
+		
+
+		setActiveDropZone();
 		//outerIndexTo will be the row index we are moving the element to
 		//innerIndexTo will be the position/index in the row that it is being moved into
 		let arrayCopy = formStruct; // going to/manipulating this
@@ -539,6 +544,7 @@ export default function FormBuilderBeta() {
 			return x.length;
 		});
 
+		console.log('arrayCopy', arrayCopy)
 
 		setFormStruct(arrayCopy)
 		event
@@ -633,6 +639,10 @@ export default function FormBuilderBeta() {
 							border: 1px solid #ccc;
 							border-radius: 4px;
 							box-sizing: border-box;
+						}
+
+						input, select, textarea[type="text"]:disabled {
+							background: #fff;
 						}
     				`}
 				</style>
@@ -882,7 +892,7 @@ export default function FormBuilderBeta() {
 
 						<div className="row"> 
 
-							<div className="col-md-4 mb-4" onClick={()=>openEdit(single_text_obj)}>
+							<div className="col-md-4 mb-4" onClick={()=>addToForm(single_text_obj)}>
 								<div className="card mb-4">
 									<div className="card-body">
 										<p className="card-title">Single Line</p>
@@ -890,7 +900,7 @@ export default function FormBuilderBeta() {
 								</div>
 							</div>
 
-							<div className="col-md-4 mb-4" onClick={() => openEdit(multiline_text_obj)}>
+							<div className="col-md-4 mb-4" onClick={() => addToForm(multiline_text_obj)}>
 								<div className="card mb-4">
 									<div className="card-body">
 										<p className="card-title">Multi Line</p>
@@ -898,7 +908,7 @@ export default function FormBuilderBeta() {
 								</div>
 							</div>
 
-							<div className="col-md-4 mb-4" onClick={() => openEdit(select_obj)}>
+							<div className="col-md-4 mb-4" onClick={() => addToForm(select_obj)}>
 								<div className="card mb-4">
 									<div className="card-body">
 										<p className="card-title">Drop Down</p>
@@ -910,7 +920,7 @@ export default function FormBuilderBeta() {
 
 						<div className="row"> 
 
-							<div className="col-md-4 mb-4" onClick={()=>openEdit(single_checkbox_obj)}>
+							<div className="col-md-4 mb-4" onClick={()=>addToForm(single_checkbox_obj)}>
 								<div className="card mb-4">
 									<div className="card-body">
 										<p className="card-title">Single Checkbox</p>
@@ -1158,10 +1168,23 @@ export default function FormBuilderBeta() {
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div className="modal-body" style={{display: 'flex', alignItems: 'center'}}>
-							
-							
-							
+						<div className="modal-body">
+							{/* TODO toggle active */}
+							<div style={{marginBottom: '50px'}}>
+								<div className="btn-group btn-group-toggle" data-toggle="buttons">
+									<button 
+										active
+										className="btn btn-outline-primary active" 
+										onClick={()=>{}}
+									>
+									Desktop
+									</button>
+									<button className="btn btn-outline-primary">
+									Mobile
+									</button> {/* TODO - add in tool tip ... maybe link, on hover*/}
+								</div>
+							</div>
+						
 							{/* PREVIEW FORM */}
 
 							{ 
@@ -1218,7 +1241,7 @@ export default function FormBuilderBeta() {
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="button" className="btn btn-primary" onClick={(e)=>handleSubmit(e)}>Save Campaing</button>
+							<button type="button" className="btn btn-primary" onClick={(e)=>handleSubmit(e)}>Save Campaign</button>
 						</div>
 					</div>
 				</div>
