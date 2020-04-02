@@ -11,7 +11,7 @@ import {states} from '../../utils/states';
 
 //TODO: reflect edit field changes in paseon and raw form HTML view
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit, faInfoCircle, faOm } from '@fortawesome/free-solid-svg-icons'
+import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { motion } from "framer-motion";
 import getUrl  from '../../utils/getUrl';
 import uuid from 'react-uuid'
@@ -125,17 +125,17 @@ export default function FormBuilderBeta() {
 		width: 'col-md-12'
 	}
 
-	const blank_obj = { 
-		id: '',
-		type: 'text',
-		tag: 'input',
-		label: '',
-		name: '',
-		value: '',
-		required: false,
-		placholder: '',
-		width: 'col-md-12'
-	}
+	// const blank_obj = { 
+	// 	id: '',
+	// 	type: 'text',
+	// 	tag: 'input',
+	// 	label: '',
+	// 	name: '',
+	// 	value: '',
+	// 	required: false,
+	// 	placholder: '',
+	// 	width: 'col-md-12'
+	// }
 
 
 	const single_text_obj = {
@@ -465,6 +465,7 @@ export default function FormBuilderBeta() {
 
 	// RENAME - COL DROP? 
 	function newDropLeft (event, outerIndexTo, innerIndexTo) {
+		event.preventDefault();
 		setInitDrag();
 		setActiveDropZone(null);
 		//outerIndexTo will be the row index we are moving the element to
@@ -472,7 +473,7 @@ export default function FormBuilderBeta() {
 		let arrayCopy = formStruct; // going to/manipulating this
 		let elementFrom = formStruct[itemToMoveIndex.outer][itemToMoveIndex.inner] // this is the element being dragged
 
-		let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
+		//let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
 		
 
 		if (innerIndexTo > itemToMoveIndex.inner  && innerIndexTo != 0) {
@@ -510,11 +511,14 @@ export default function FormBuilderBeta() {
 		setFormStruct(arrayCopy)
 		event
 			.dataTransfer
-			.clearData();
+			//.clearData();
 	}
 
-	function bottomDrop(event, index) {
+	function bottomDrop(event) {
+		event.preventDefault();
 
+		setInitDrag();
+		setActiveDropZone(null);
 
 		let arr = formStruct; //TODO rename
 		
@@ -533,12 +537,13 @@ export default function FormBuilderBeta() {
 		setFormStruct([...arr])
 		event
 			.dataTransfer
-			.clearData();
+			//.clearData(); - breaks fire fox
 	}
 
 
 	// RENAME - ROW DROP? 
 	function newDrop(event, index){
+		event.preventDefault();
 		setInitDrag();
 		setActiveDropZone();
 
@@ -561,7 +566,7 @@ export default function FormBuilderBeta() {
 		setFormStruct([...arr])
 		event
 			.dataTransfer
-			.clearData();
+			//.clearData();
 	}
 
 
@@ -662,7 +667,7 @@ export default function FormBuilderBeta() {
 					onDragOver={(event) => dragOver(event, `${index}`)}
 					onDragLeave={(event) => dragLeave(event)}
 					onDrop = {(event) => {
-						pos === 'top' ? newDrop(event, index) : bottomDrop(event, index)
+						pos === 'top' ? newDrop(event, index) : bottomDrop(event)
 					}}
 				></div>
 
@@ -905,13 +910,13 @@ export default function FormBuilderBeta() {
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#previewFormModal">
-  							Preview
+							Preview
 						</button>
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#rawFormModal">Raw Form</button>   
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#paseonFormModal">
-  							Paseon Form
+							Paseon Form
 						</button>
 
 						<br/><br/>
@@ -1035,7 +1040,7 @@ export default function FormBuilderBeta() {
     
     
 					<button type="button" data-toggle="modal" data-target="#exampleModal">
-        				Paseon Form
+						Paseon Form
 					</button>
 				</div>
 			</div>
