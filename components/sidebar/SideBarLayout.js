@@ -341,7 +341,7 @@ export default function SideBarLayout({setActivePage}) {
 		setHoverState(!hoverState)
   } 
   
-   	const renderNavElems = (item, index) => {
+   	const renderNavElems = (item) => {
 		let classes = classNames(
 			{
 				'activePath': item.link == router.pathname,
@@ -354,7 +354,7 @@ export default function SideBarLayout({setActivePage}) {
 		);
 
 		return (
-			<div key={index}>
+			<div key={item.title}>
 				<div className={classes}>
 					<NavElem hoverState={hoverState} data={item} setActivePage={setActivePage} />
 					{item.link == router.pathname && console.log('match')}

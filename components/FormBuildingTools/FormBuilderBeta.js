@@ -3,8 +3,9 @@
 import LeftBar from '../LeftBar';
 import CheckBoxBuilderEdit from './FormBuilders/CheckboxBuilderEdit';
 import FormSandBox from '../FormSandBox';
+import Router from 'next/router'
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import classNames from 'classnames'
 import {states} from '../../utils/states';
@@ -15,6 +16,8 @@ import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-ic
 import { motion } from "framer-motion";
 import getUrl  from '../../utils/getUrl';
 import uuid from 'react-uuid'
+
+import Browser from '../Assets/Broswer';
 
 
 
@@ -212,6 +215,35 @@ export default function FormBuilderBeta() {
 	const [formStruct, setFormStruct] = useState([]);
 	const [editToggle, setEditToggle] = useState()
 
+	const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)   
+	const myRef = useRef(null)
+	const executeScroll = () => scrollToRef(myRef)
+
+	const linkClicked = (id) => {
+		//e.preventDefault();
+		const scrollX = window.pageXOffset;
+		const scrollY = window.pageYOffset;
+	
+		const location = window.location;
+	
+		if (location.pathname === id) {
+		  Router.push(`/#${id}`);
+		  window.scrollTo(scrollX, scrollY);
+		  return smoothScroll(`$/#${id}`)
+		}
+		else {
+		  Router
+				.push(`/#${id}`)
+				.then(() => {
+			  window.scrollTo(scrollX, scrollY);
+			  return smoothScroll(`zTestPage/#${id}`)
+				})
+			
+		}
+	  }
+
+
+
 	function clearList(e){
 		e.preventDefault();
 		setFormStruct([]);      
@@ -221,6 +253,10 @@ export default function FormBuilderBeta() {
 	function addToForm (input_obj) {
 		input_obj.id = uuid();
 		setEditToggle()
+		console.log("window", window)
+		// Router.push(`/zTestPage/#${input_obj.id }`)
+		window.scrollTo(0,document.body.scrollHeight);
+
 		// todo - set input_obj id so I have a unique identifier to grab values off later
 		setFormStruct([...formStruct, [input_obj]])
 	}
@@ -236,7 +272,7 @@ export default function FormBuilderBeta() {
 			lastElem = formStruct.length
 		} 
       
-		setEditToggle(lastElem)
+		setEditToggle({outer:lastElem, inner:0})
 	}
 
 	// TODO - break out into sep components for each differnet type of thing being edited
@@ -477,14 +513,10 @@ export default function FormBuilderBeta() {
 		
 
 		if (innerIndexTo > itemToMoveIndex.inner  && innerIndexTo != 0) {
-			console.log('second if', innerIndexTo)
-
 			innerIndexTo = innerIndexTo -1
 		} 
 
 		if (itemToMoveIndex.outer !== outerIndexTo) {
-			console.log('THIRD if', innerIndexTo)
-
 			innerIndexTo = innerIndexTo  + 1
 		}
 
@@ -511,7 +543,7 @@ export default function FormBuilderBeta() {
 		setFormStruct(arrayCopy)
 		event
 			.dataTransfer
-			//.clearData();
+			//a.clearData();
 	}
 
 	function bottomDrop(event) {
@@ -570,16 +602,16 @@ export default function FormBuilderBeta() {
 	}
 
 
-	// taylor - TODO 
-	const renderDynamicFields = (item) => {
+	// taylor - TODO make sep component
+	const renderDynamicFields = (item,  disabled) => {
 
 		return (
 			<div>
 				{/* TODO- move out of return */}
-				{item.tag == 'input' && <input className='input' placeholder={item.placeholder} disabled={initDrag} type={item.type} value={item.default}></input>  }
-				{item.tag == 'textarea' && <textarea></textarea> }
+				{item.tag == 'input' && <input className='input' placeholder={item.placeholder} disabled={initDrag || disabled} type={item.type} value={item.default}></input>  }
+				{item.tag == 'textarea' && <textarea disabled={initDrag || disabled}></textarea> }
 
-				{ item.tag == 'select' && <select className="select" id="elem" name="elem">
+				{ item.tag == 'select' && <select className="select" id="elem" name="elem" disabled={initDrag || disabled} >
 					{ item.options ? 
 						item.options.map((value, index) => {
 							return (
@@ -678,7 +710,9 @@ export default function FormBuilderBeta() {
 							width: 100%;
 							border: 1px dashed blue;
 							visibility: visible;
+						
 						}
+				
 
 						.dropZoneHide {
 							min-height: 10px;  
@@ -752,8 +786,8 @@ export default function FormBuilderBeta() {
 	return (
 		<>
 
-			<div className="flex-grid">
-				<div className="col-33">
+			<div className="row">
+				<div className="col-md-5">
 					{/* Remove this container div */}
 					<LeftBar> 
 						{editToggle != null && formStruct.length ? editInputView() : null}
@@ -904,7 +938,7 @@ export default function FormBuilderBeta() {
 					</LeftBar>
 				</div>
 
-				<div className="col">
+				<div className="col-md-7">
 					<FormSandBox>
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
@@ -935,7 +969,7 @@ export default function FormBuilderBeta() {
 						</div>
 
 						{/* REORDER START */}
-						<div style={{marginTop: '20px'}}>
+						<div style={{marginTop: '20px', marginBottom: '20px'}}>
 						
 							{ formStruct.map((row, index) => {
 								
@@ -1013,7 +1047,7 @@ export default function FormBuilderBeta() {
 																<div>
 																	<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
 																	{/* start dynamically added fields - right panel */}
-																	{renderDynamicFields(col)}
+																	{renderDynamicFields(col, false)}
 																</div>
 
 															</div>
@@ -1032,6 +1066,7 @@ export default function FormBuilderBeta() {
 								
 							})}
 							{/* TODO - put into var */}
+							
 							{(itemToMoveIndex.outer !== formStruct.length - 1 || (formStruct[itemToMoveIndex.outer] && formStruct[itemToMoveIndex.outer].length !== 1))  &&  dropZoneRow(formStruct.length, 'bottom')}
 							
 						</div>
@@ -1049,7 +1084,7 @@ export default function FormBuilderBeta() {
 
 			{/* <!-- Modal --> */}
 			<div className="modal fade" id="rawFormModal" tabIndex="-1" role="dialog" aria-labelledby="rawFormModal" aria-hidden="true">
-				<div className="modal-dialog" role="document">
+				<div className="modal-dialog modal-xl" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="rawFormModalLabel">Paseon Tags</h5>
@@ -1073,7 +1108,7 @@ export default function FormBuilderBeta() {
 
 			{/* <!-- Modal --> */}
 			<div className="modal fade" id="paseonFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
-				<div className="modal-dialog" role="document">
+				<div className="modal-dialog modal-xl" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="paseonFormModalLabel">Paseon Tags</h5>
@@ -1115,7 +1150,7 @@ export default function FormBuilderBeta() {
 
 			{/* <!-- Modal --> */}
 			<div className="modal fade" id="previewFormModal" tabIndex="-1" role="dialog" aria-labelledby="paseonFormModal" aria-hidden="true">
-				<div className="modal-dialog" role="document">
+				<div className="modal-dialog modal-xl" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="previewFormModalLabel">Preview</h5>
@@ -1123,15 +1158,17 @@ export default function FormBuilderBeta() {
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div className="modal-body">
-
-
+						<div className="modal-body" style={{display: 'flex', alignItems: 'center'}}>
+							
+							
+							
 							{/* PREVIEW FORM */}
 
 							{ 
-								formStruct.length ? formStruct.map((row, index) => {
+								formStruct.length ? <Browser> { formStruct.map((row, index) => {
 
 									return ( 
+											
 										<div key={index} 
 											className="flex-container"
 										>
@@ -1140,16 +1177,17 @@ export default function FormBuilderBeta() {
 												return (
 													<div key={i} style={{width: `${100 /row.length}%`, padding: '5px'}}>
 														<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
-														{renderDynamicFields(col)}
+														{renderDynamicFields(col, true)}
 													</div>
 												)
 											})}
 
 										</div>
-
+											
 									)
-								}) : 'Start building your form using the Paseon drag and drop form builder tool.'
+								})} </Browser> : 'Start building your form using the Paseon drag and drop form builder tool.'
 							}
+							
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1161,7 +1199,7 @@ export default function FormBuilderBeta() {
 
 
 			<div className="modal fade" id="saveModal" tabIndex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
-				<div className="modal-dialog" role="document">
+				<div className="modal-dialog modal-xl" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="saveModalLabel">Save Campaign</h5>
@@ -1193,9 +1231,11 @@ export default function FormBuilderBeta() {
 
 			<style jsx>
 				{`
+						
 
-					.hello:hover {
-						background-color: red
+
+					.card:hover {
+						cursor: pointer
 					}
 					
 					.flex-container {
@@ -1289,6 +1329,7 @@ export default function FormBuilderBeta() {
 						flex-direction: column;
 						flex-basis: 100%;
 						flex: 2;
+						height: 100%;
 					}
 
 					.col-30 {

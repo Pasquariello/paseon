@@ -1,7 +1,9 @@
 
 const wrapper = {
   // border: 'red solid 1px',
-  padding: '20px',
+  // padding: '20px',
+  // position: 'fixed',
+
 };
 
 const LeftBar = props => (
