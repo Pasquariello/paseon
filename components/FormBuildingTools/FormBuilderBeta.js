@@ -253,7 +253,7 @@ export default function FormBuilderBeta() {
 
 	function addToForm (input_obj) {
 		input_obj.id = uuid();
-		setEditToggle()
+		setEditToggle(input_obj)
 		console.log("window", window)
 		// Router.push(`/zTestPage/#${input_obj.id }`)
 		window.scrollTo(0,document.body.scrollHeight);
@@ -262,34 +262,19 @@ export default function FormBuilderBeta() {
 		setFormStruct([...formStruct, [input_obj]])
 	}
 
-    
-	function openEdit(input_obj) {
-
-      
-		let lastElem = 0;
-
-		if (formStruct.length  > 0) {
-			lastElem = formStruct.length
-		} 
-
-		const inner = itemToMoveIndex.inner ? itemToMoveIndex.inner : 0;
-	  
-		// setEditToggle({outer:lastElem, inner: inner})
-	}
 
 	// TODO - break out into sep components for each differnet type of thing being edited
 	function editInputView() {
-		const {outer, inner} = editToggle
-		let copy = []
-		copy = [...formStruct ]
-	
+		//const {outer, inner} = editToggle
+		// TODO - rename
+		const copy = editToggle
 
 		let field;
-		console.log(copy)
-		if (copy[outer][inner].type == 'checkbox' ) {
+		console.log('copy', copy)
+		if (copy.type == 'checkbox' ) {
 			field = <CheckBoxBuilderEdit  />
 	
-		} else if (copy[outer][inner].tag == 'select') {
+		} else if (copy.tag == 'select') {
 			console.log('hi')
 			field = (
 				<div className="form-group">
@@ -298,17 +283,17 @@ export default function FormBuilderBeta() {
 						className="form-control" 
 						id="cust_placeholder" 
 						placeholder="Enter a Comma separated list for new dropdown options..."
-						value={copy[outer][inner].options}
+						value={copy.options}
 						onChange={(e)=> {
 							let optionsArray = e.target.value.split(',');
-							copy[outer][inner].options = optionsArray
+							copy.options = optionsArray
 							//setCampaignForm({...campaignForm, fields:copy})
 						}
 						}
 					></textarea>
 
 				</div> 
-			)} else if (copy[outer][inner].tag == 'input'){
+			)} else if (copy.tag == 'input'){
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Placeholder</label>
@@ -317,9 +302,9 @@ export default function FormBuilderBeta() {
 						className="form-control" 
 						id="cust_placeholder" 
 						placeholder="Enter Custom Placeholder"
-						value={copy[outer][inner].placeholder}
+						value={copy.placeholder}
 						onChange={(e)=> {
-							copy[outer][inner].placeholder = e.target.value
+							copy.placeholder = e.target.value
 							//setCampaignForm({...campaignForm, fields:copy})
 						}
 						}
@@ -333,7 +318,7 @@ export default function FormBuilderBeta() {
 							id="cust_default" 
 							placeholder="Enter Custom Label"
 							onChange={(e)=> {
-								copy[outer][inner].default = e.target.value
+								copy.default = e.target.value
 								//setCampaignForm({...campaignForm, fields:copy})
 							}
 							}
@@ -348,7 +333,7 @@ export default function FormBuilderBeta() {
 		return (
 			<>
 				<div>
-					<label htmlFor="elem">Edit {copy[outer][inner].label} </label>
+					<label htmlFor="elem">Edit {copy.label} </label>
 					<div style={{float: 'right'}} onClick={()=>setEditToggle() }>
 						<button className="btn-outline-danger btn-circle btn-sm">X</button>
 					</div>
@@ -362,9 +347,9 @@ export default function FormBuilderBeta() {
 							className="form-control" 
 							id="cust_label" 
 							placeholder="Enter Custom Label"
-							value={copy[outer][inner].label}
+							value={copy.label}
 							onChange={(e)=> {
-								copy[outer][inner].label = e.target.value
+								copy.label = e.target.value
 								setCampaignForm({...campaignForm, fields:copy})
 							}
               
@@ -381,14 +366,14 @@ export default function FormBuilderBeta() {
      
 						<input 
 							onChange={()=> {
-								copy[outer][inner].required = !copy[outer][inner].required
+								copy.required = !copy.required
 								setCampaignForm({...campaignForm, fields:copy})
 
 							}
               
 							} 
 							type="checkbox" 
-							checked={copy[outer][inner].required}
+							checked={copy.required}
 							className="custom-control-input" 
 							id="customSwitch1"
 						></input>
@@ -1031,7 +1016,7 @@ export default function FormBuilderBeta() {
 																onMouseEnter={() => setEditItemDetails({outer: index, inner: i})}
 																onMouseLeave={() => setEditItemDetails({outer: null, inner: null})}  
 																onClick={()=> {
-																	setEditToggle({outer:index, inner: i})
+																	setEditToggle(col)
 																}}
 															>
 
@@ -1041,7 +1026,7 @@ export default function FormBuilderBeta() {
 																	<div className="btn-group btn-group-toggle" data-toggle="buttons">
 																		<button 
 																			className="btn btn-secondary" 
-																			onClick={()=> {setEditToggle({outer:index, inner: i})}}
+																			onClick={()=> {setEditToggle(col)}}
 																		>
 																			<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
 																		</button>
