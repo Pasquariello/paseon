@@ -117,11 +117,12 @@ function Campaigns(props) {
 		const columns = [
      
 			{
-				Header: 'select',
+				//Header: 'select',
 				accessor: 'id',
 				Cell: props => {
 					return  <input name={props.cell.row.original.id} onChange={(e) => selectCampaigns(e, props.cell.row.original.id)} checked={checkedItems[props.cell.row.original.id]} type="checkbox"></input>
-				}
+				},
+				width: 20
 
 			},
 			{
@@ -140,14 +141,14 @@ function Campaigns(props) {
 				Cell: props => moment(props.cell.value).format('LLL')
 
 			},
-			{
-				id: 'response_count',
-				Header: 'Response Count',
-				accessor: 'jsonb_array_length',
-				Cell: props => {
-					return !props.cell.row.original.jsonb_array_length ? 0 : props.cell.row.original.jsonb_array_length
-				}
-			},
+			// {
+			// 	id: 'response_count',
+			// 	Header: 'Response Count',
+			// 	accessor: 'jsonb_array_length',
+			// 	Cell: props => {
+			// 		return !props.cell.row.original.jsonb_array_length ? 0 : props.cell.row.original.jsonb_array_length
+			// 	}
+			// },
 		]
 		//TODO: turn this into its own function that takes in columns? 
 		return (
@@ -162,9 +163,9 @@ function Campaigns(props) {
 	return (
 		<LayoutApp>
             Basic Form Options:
-			<QuickAnalytics
+			{/* <QuickAnalytics
 				data={quickAnalyticsData}
-			/>
+			/> */}
 			<div className="row" style={{marginTop: '50px', marginBottom: '150px'}}>
 				<div className="col-md-6" style={{padding: '20px'}}>
 					<img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{width: "25rem"}} src="../static/images/undraw_creative_process_q6aw.svg" alt=""></img>
@@ -176,12 +177,12 @@ function Campaigns(props) {
 			</div>
             
 			<div className="row">
-				<h3>My Campaigns: </h3> 
+				<h3 style={{marginRight: '20px'}}>My Campaigns: </h3> 
 				<Link href="/campaignManagment/new_campaign">
 					<a className="btn btn-outline-primary">Add New</a>
 				</Link>
 			</div>
-			<div style={{marginTop: '20px'}}>
+			<div>
 				<button onClick={deleteCampaigns}>Delete</button>
 				{campaignListState ? renderTable() : null}
 

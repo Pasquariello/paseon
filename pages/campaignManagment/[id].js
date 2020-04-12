@@ -2,9 +2,7 @@ import Layout from '../../components/LayoutApp';
 import fetch from 'isomorphic-unfetch';
 // import ReactTable from 'react-table';
 import moment from 'moment';
-import Link from 'next/link';
 import { CSVLink, CSVDownload } from "react-csv";
-import { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileCsv } from '@fortawesome/free-solid-svg-icons'
@@ -12,22 +10,10 @@ import Table from '../../components/Table'
 import getUrl from '../../utils/getUrl';
 
 
-import {
-	useTable,
-	useGroupBy,
-	useFilters,
-	useSortBy,
-	useExpanded,
-	usePagination,
-} from 'react-table'
-
 function Campaign(props) {
 
 	const renderTable = (fields) => {
-        
-		// let response_schema = props.data.data_schema[0].response_schema;
-		let data = props.data.form_data.length ? props.data.form_data[0].field_values : []
-		// let file_name = props.data.data_schema[0].campaign_name;
+       
 		const {response_schema, campaign_name } = props.data.data_schema[0]
 		//NEEED THIS FOR IT TO WORK! - todo add schema to DB ?  
 		// - keep the schema column we have in order to preserve the form make a new column for schema to look like this
@@ -44,11 +30,16 @@ function Campaign(props) {
 
 		// }
 
+		const data = props.data.form_data.map(responses => responses.field_values)
+
 		const columns = Object.keys(response_schema).map((key, i)=>{
 			return {
 				id: `${i}`,
 				Header: response_schema[key].label,
-				accessor: props => props[key].value
+				accessor: props => {
+					console.log('PROPS', props)
+					return props[key]
+				}
 			}
 		});
        
@@ -58,14 +49,13 @@ function Campaign(props) {
 				key: `${obj}.value`
 			}; 
 		});
-		console.log('data', data)
-
 
 		//TODO: turn this into its own function that takes in columns? 
 		return (
 			<>
+				{/* TODO - broken */}
 				<CSVLink
-					data={ data}
+					data={ data }
 					headers={headers}
 					filename={campaign_name}
 				>
@@ -75,12 +65,6 @@ function Campaign(props) {
 				</CSVLink>
 
           
-				{/* <ReactTable
-                    columns={columns}
-                    data={ data} //TODO destructure this!
-                    resolveData={data => data.map(row => row)}
-                    defaultPageSize={5}
-                />  */}
 				{!data.length ? 'no data' : 
 					<Table columns={columns} data={data} />
 				}
@@ -106,7 +90,7 @@ Campaign.getInitialProps = async function(context, props) {
   
 	// this will need to be a req to DB
 	const res = await fetch(`${getUrl}/campaign/get_campaign_details/${id}`);
-    const data = await res.json();
+	const data = await res.json();
     
 	return {data}
 	// TODO 

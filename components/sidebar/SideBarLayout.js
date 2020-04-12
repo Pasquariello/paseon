@@ -33,11 +33,11 @@ export default function SideBarLayout() {
 			icon: faUserCog,
 			title: 'Account Settings'
 		},
-		{
-			link: '/zTestPage',
-			icon: faWrench,
-			title: 'Form Builder'
-		},
+		// {
+		// 	link: '/zTestPage',
+		// 	icon: faWrench,
+		// 	title: 'Form Builder'
+		// },
 		// {
 		// 	link: '/email_archives',
 		// 	icon: faEnvelope,

@@ -29,7 +29,7 @@ function Dashboard ({campaignList}) {
 
 	campaignList.forEach(campaign => {
       
-		totalSubmissions = totalSubmissions + campaign.jsonb_array_length
+		totalSubmissions = 0 //totalSubmissions + campaign.jsonb_array_length
       
 	})
 
@@ -52,9 +52,9 @@ function Dashboard ({campaignList}) {
 				<h3>Dashboard</h3> 
 			</div>
 
-			<QuickAnalytics
+			{/* <QuickAnalytics
 				data={quickAnalyticsData}
-			/>
+			/> */}
 
 			<div className="row"> 
 

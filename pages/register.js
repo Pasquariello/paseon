@@ -31,7 +31,7 @@ function Register (props) {
 		password2: '',
 		email: '',
 		company: '', 
-		accountType: 'basic'
+		accountType: 'free'
 	})
 
 	async function handleSubmit (event) {
@@ -52,7 +52,10 @@ function Register (props) {
 			return;
 		}
 
-		goToCheckout(userData.accountType);
+		if (userData.accountType !== 'free') {
+			console.log('hello', userData.accountType)
+			goToCheckout(userData.accountType);
+		}
 		//create account as basic 
 		//TODO add webhook logic on payment success upgrade account
 
@@ -103,6 +106,7 @@ function Register (props) {
 				})
 			)
 		}
+		
 	}
 
 	function setFormValuesToState(e, state_key){
@@ -116,9 +120,9 @@ function Register (props) {
 	// }
 
 	const goToCheckout = (plan_id) => {
-    props.data[0].customer_email = userData.email
-    props.data[1].customer_email = userData.email
-    console.log('DATA))))', props.data)
+		props.data[0].customer_email = userData.email
+		props.data[1].customer_email = userData.email
+		console.log('DATA))))', props.data)
 
 		let sessionId = props.data.filter(obj => obj.client_reference_id === plan_id)
  
@@ -210,7 +214,22 @@ function Register (props) {
 					<div className="form-group" style={{width: '100%'}}>
 						<label htmlFor="">Account Type</label> <br/>
 						<div className="btn-group btn-group-toggle" data-toggle="buttons">
-							<label value="option1" className="active btn btn-outline-secondary" htmlFor="option1"
+							<label value="free" className="active btn btn-outline-secondary" htmlFor="free"
+								onClick={()=>setUserData(
+									prevState => ({
+										...prevState,
+										accountType: 'free'
+									})
+								)}
+							>
+								<input 
+									type="radio"
+									name="options" 
+									id="free"
+									autoComplete="off"  
+								/> Free
+							</label>
+							<label value="option1" className="btn btn-outline-secondary" htmlFor="option1"
 								onClick={()=>setUserData(
 									prevState => ({
 										...prevState,

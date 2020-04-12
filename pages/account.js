@@ -51,9 +51,9 @@ function Account({user}) {
 
 	return (
 		<LayoutApp>
-			<QuickAnalytics
+			{/* <QuickAnalytics
 				data={quickAnalyticsData}
-			/>
+			/> */}
 			<div className="row">
 				<div className="col-md-6">
 					<h3>Basic Account Information</h3>
@@ -185,7 +185,7 @@ Account.getInitialProps = async (ctx) => {
 	auth(ctx)
 
 	//if  (!ctx.reduxStore.getState().user.user){
-		await getUserData(ctx)
+	await getUserData(ctx)
 	//}
      
 
