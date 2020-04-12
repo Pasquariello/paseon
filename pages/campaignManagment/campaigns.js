@@ -182,7 +182,7 @@ function Campaigns(props) {
 					<a className="btn btn-outline-primary">Add New</a>
 				</Link>
 			</div>
-			<div>
+			<div style={{marginTop: '20px'}}>
 				<button onClick={deleteCampaigns}>Delete</button>
 				{campaignListState ? renderTable() : null}
 

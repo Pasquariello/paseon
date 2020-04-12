@@ -1,22 +1,22 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async (req, res) => {
-  console.log('reg===', req)
+	console.log('reg===', req)
 	let paymentImag = ''
 	let sessions = [];
 	const basic_plan_session = await stripe.checkout.sessions.create({
 		client_reference_id: 'basic',
-    payment_method_types: ['card'],
+		payment_method_types: ['card'],
 		subscription_data: {
 			items: [
 				{
 					plan: 'plan_GHYBg5qcDFyUQQ', //BASIC
 				}
 			],
-    },
+		},
 		success_url: 'http://localhost:3000/payment_success?session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: 'https://example.com/cancel',
-    //customer_email: 'customer@example.com'
+		cancel_url: 'https://example.com/cancel',
+		//customer_email: 'customer@example.com'
 	});
 	const pro_plan_session = await stripe.checkout.sessions.create({
 		client_reference_id: 'pro',
@@ -27,10 +27,10 @@ export default async (req, res) => {
 					plan: 'plan_GHYDJPvzC8Rn6P', //PRO
 				}
 			],
-    },
+		},
 		success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: 'https://example.com/cancel',
-    //customer_email: 'customer@example.com',
+		cancel_url: 'https://example.com/cancel',
+		//customer_email: 'customer@example.com',
 	});
 	sessions.push(basic_plan_session, pro_plan_session);
 	res.json(sessions);
