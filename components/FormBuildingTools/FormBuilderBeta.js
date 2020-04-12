@@ -6,7 +6,7 @@ import CheckBoxBuilderEdit from './FormBuilders/CheckboxBuilderEdit';
 import FormSandBox from '../FormSandBox';
 import Router from 'next/router'
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames'
 import {states} from '../../utils/states';
@@ -22,7 +22,7 @@ import Browser from '../Assets/Broswer';
 
 
 
-export default function FormBuilderBeta() {
+export default function FormBuilderBeta({addFields}) {
 	/////////////////////////////////////////
 	////////START INPUT OBJECTSSSSSS/////////
 	/////////////////////////////////////////
@@ -216,32 +216,11 @@ export default function FormBuilderBeta() {
 	const [formStruct, setFormStruct] = useState([]);
 	const [editToggle, setEditToggle] = useState()
 
-	const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)   
-	const myRef = useRef(null)
-	const executeScroll = () => scrollToRef(myRef)
-
-	const linkClicked = (id) => {
-		//e.preventDefault();
-		const scrollX = window.pageXOffset;
-		const scrollY = window.pageYOffset;
 	
-		const location = window.location;
 	
-		if (location.pathname === id) {
-		  Router.push(`/#${id}`);
-		  window.scrollTo(scrollX, scrollY);
-		  return smoothScroll(`$/#${id}`)
-		}
-		else {
-		  Router
-				.push(`/#${id}`)
-				.then(() => {
-			  window.scrollTo(scrollX, scrollY);
-			  return smoothScroll(`zTestPage/#${id}`)
-				})
-			
-		}
-	  }
+	useEffect(()=> {
+		addFields(formStruct)
+	}, [formStruct])
 
 
 
@@ -253,7 +232,10 @@ export default function FormBuilderBeta() {
 
 	function addToForm (input_obj) {
 		input_obj.id = uuid();
-		setEditToggle(input_obj)
+
+		if (!input_obj.label) {
+			setEditToggle(input_obj)
+		}
 		console.log("window", window)
 		// Router.push(`/zTestPage/#${input_obj.id }`)
 		window.scrollTo(0,document.body.scrollHeight);
@@ -264,7 +246,7 @@ export default function FormBuilderBeta() {
 
 
 	// TODO - break out into sep components for each differnet type of thing being edited
-	function editInputView() {
+	function renderEditInputView() {
 		//const {outer, inner} = editToggle
 		// TODO - rename
 		const copy = editToggle
@@ -333,7 +315,7 @@ export default function FormBuilderBeta() {
 		return (
 			<>
 				<div>
-					<label htmlFor="elem">Edit {copy.label} </label>
+					<label htmlFor="elem">Edit: {copy.label} </label>
 					<div style={{float: 'right'}} onClick={()=>setEditToggle() }>
 						<button className="btn-outline-danger btn-circle btn-sm">X</button>
 					</div>
@@ -740,8 +722,12 @@ export default function FormBuilderBeta() {
 		);
 	}
 
+	function handleSubmit() {
+		addFields(formStruct);
+	}
 
-	async function handleSubmit (e) {
+
+	async function handleSubmitORIG(e) {
 		e.preventDefault()
   
 		// setUserData(Object.assign({}, userData, { error: '' }))
@@ -778,6 +764,7 @@ export default function FormBuilderBeta() {
 		}
 	}
 
+
 	return (
 		<>
 
@@ -785,150 +772,155 @@ export default function FormBuilderBeta() {
 				<div className="col-md-5">
 					{/* Remove this container div */}
 					<LeftBar> 
-						{editToggle != null && formStruct.length ? editInputView() : null}
-						<hr></hr>
+		
+						{editToggle != null && formStruct.length ? renderEditInputView() : 
+							<>
+							
+								<hr></hr>
+							
+								<label htmlFor="elem">Frequently Used</label>
 
-						<label htmlFor="elem">Frequently Used</label>
+								<div className="row"> 
 
-						<div className="row"> 
+									<div className="col-md-6 mb-4" onClick={() => addToForm(first_name_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">First Name</p>
+											</div>  
+										</div>
+									</div>
 
-							<div className="col-md-6 mb-4" onClick={() => addToForm(first_name_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">First Name</p>
-									</div>  
+									<div className="col-md-6 mb-4" onClick={() => addToForm(last_name_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">Last Name</p>
+											</div>  
+										</div>
+									</div>
+
 								</div>
-							</div>
+								<div className="row"> 
 
-							<div className="col-md-6 mb-4" onClick={() => addToForm(last_name_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">Last Name</p>
-									</div>  
+
+									<div className="col-md-6 mb-4" onClick={() => addToForm(phone_number_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">Phone Number</p>
+											</div>  
+										</div>
+									</div>
+
+									<div className="col-md-6 mb-4" onClick={() => addToForm(email_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">Email</p>
+											</div>  
+										</div>
+									</div>
+
 								</div>
-							</div>
-
-						</div>
-						<div className="row"> 
+								<div className="row"> 
 
 
-							<div className="col-md-6 mb-4" onClick={() => addToForm(phone_number_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">Phone Number</p>
-									</div>  
-								</div>
-							</div>
+									<div className="col-md-6 mb-4" onClick={() => addToForm(street_address_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">Street Address</p>
+											</div>  
+										</div>
+									</div>
 
-							<div className="col-md-6 mb-4" onClick={() => addToForm(email_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">Email</p>
-									</div>  
-								</div>
-							</div>
-
-						</div>
-						<div className="row"> 
-
-
-							<div className="col-md-6 mb-4" onClick={() => addToForm(street_address_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">Street Address</p>
-									</div>  
-								</div>
-							</div>
-
-							<div className="col-md-6 mb-4" onClick={() => addToForm(city_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">City</p>
-									</div>  
-								</div>
-							</div>
+									<div className="col-md-6 mb-4" onClick={() => addToForm(city_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">City</p>
+											</div>  
+										</div>
+									</div>
         
-						</div>
-						<div className="row">
-
-							<div className="col-md-6 mb-4" onClick={() => addToForm(state_region_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">State/Region</p>
-									</div>  
 								</div>
-							</div>
+								<div className="row">
 
-							<div className="col-md-6 mb-4" onClick={() => addToForm(zip_code_obj)}>
-								<div className="card">
-									<div className="card-header">
-										<p className="card-text">Zip Code</p>
-									</div>  
+									<div className="col-md-6 mb-4" onClick={() => addToForm(state_region_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">State/Region</p>
+											</div>  
+										</div>
+									</div>
+
+									<div className="col-md-6 mb-4" onClick={() => addToForm(zip_code_obj)}>
+										<div className="card">
+											<div className="card-header">
+												<p className="card-text">Zip Code</p>
+											</div>  
+										</div>
+									</div>
+
+								</div>    
+
+
+
+								<hr></hr>
+								{/* Start Advanced build tools */}
+								<label htmlFor="elem">New Element</label>
+
+								<div className="row"> 
+
+									<div className="col-md-4 mb-4" onClick={()=>addToForm(single_text_obj)}>
+										<div className="card mb-4">
+											<div className="card-body">
+												<p className="card-title">Single Line</p>
+											</div>
+										</div>
+									</div>
+
+									<div className="col-md-4 mb-4" onClick={() => addToForm(multiline_text_obj)}>
+										<div className="card mb-4">
+											<div className="card-body">
+												<p className="card-title">Multi Line</p>
+											</div>
+										</div>
+									</div>
+
+									<div className="col-md-4 mb-4" onClick={() => addToForm(select_obj)}>
+										<div className="card mb-4">
+											<div className="card-body">
+												<p className="card-title">Drop Down</p>
+											</div>
+										</div>
+									</div>
+
 								</div>
-							</div>
 
-						</div>    
+								<div className="row"> 
 
+									<div className="col-md-4 mb-4" onClick={()=>addToForm(single_checkbox_obj)}>
+										<div className="card mb-4">
+											<div className="card-body">
+												<p className="card-title">Single Checkbox</p>
+											</div>
+										</div>
+									</div>
 
+									<div className="col-md-4 mb-4">
+										<div className="card mb-4">
+											<div className="card-body">
+												<p className="card-title">Multi Checkbox</p>
+											</div>
+										</div>
+									</div>
 
-						<hr></hr>
-						{/* Start Advanced build tools */}
-						<label htmlFor="elem">New Element</label>
-
-						<div className="row"> 
-
-							<div className="col-md-4 mb-4" onClick={()=>addToForm(single_text_obj)}>
-								<div className="card mb-4">
-									<div className="card-body">
-										<p className="card-title">Single Line</p>
+									<div className="col-md-4 mb-4">
+										<div className="card mb-4">
+											<div className="card-body">
+												<p className="card-title">Radio</p>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
-
-							<div className="col-md-4 mb-4" onClick={() => addToForm(multiline_text_obj)}>
-								<div className="card mb-4">
-									<div className="card-body">
-										<p className="card-title">Multi Line</p>
-									</div>
-								</div>
-							</div>
-
-							<div className="col-md-4 mb-4" onClick={() => addToForm(select_obj)}>
-								<div className="card mb-4">
-									<div className="card-body">
-										<p className="card-title">Drop Down</p>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-						<div className="row"> 
-
-							<div className="col-md-4 mb-4" onClick={()=>addToForm(single_checkbox_obj)}>
-								<div className="card mb-4">
-									<div className="card-body">
-										<p className="card-title">Single Checkbox</p>
-									</div>
-								</div>
-							</div>
-
-							<div className="col-md-4 mb-4">
-								<div className="card mb-4">
-									<div className="card-body">
-										<p className="card-title">Multi Checkbox</p>
-									</div>
-								</div>
-							</div>
-
-							<div className="col-md-4 mb-4">
-								<div className="card mb-4">
-									<div className="card-body">
-										<p className="card-title">Radio</p>
-									</div>
-								</div>
-							</div>
-						</div>
+							</>
+						}
 						{/* End Advanced build tools */}
 					</LeftBar>
 				</div>
@@ -987,7 +979,7 @@ export default function FormBuilderBeta() {
 													style={{width: `${100 /row.length}%`, padding: '5px'}}
 												>
 													{console.log(100/row.length)}
-													<motion.div
+													{/* <motion.div
 														//style={{row.length === 1 ? 'col-md-12': 'col-md-6'}}
 														// className={row.length === 1 ? 'flex-item-half': 'flex-item-half'}
 														initial={{ scale: 0 }}
@@ -997,59 +989,59 @@ export default function FormBuilderBeta() {
 															stiffness: 260,
 															damping: 20
 														}}
-													>
+													> */}
 
 
-														<div 
-															style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
-															className={buildContainerClasses({outer: index, inner: i})}
-														> 
+													<div 
+														style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
+														className={buildContainerClasses({outer: index, inner: i})}
+													> 
 
-															{(itemToMoveIndex.outer !== index || (itemToMoveIndex.inner !== i && i !== itemToMoveIndex.inner+1) ) && leftDropZone(index, i)}
+														{(itemToMoveIndex.outer !== index || (itemToMoveIndex.inner !== i && i !== itemToMoveIndex.inner+1) ) && leftDropZone(index, i)}
 														
-															<div 
-																className="flex-item-full"
-																id={`draggableSpan`}
-																draggable='true'
-																onDragStart={(event) => dragStart(event, index, i)}
-																onDragEnd={() =>  dragEnd()}
-																onMouseEnter={() => setEditItemDetails({outer: index, inner: i})}
-																onMouseLeave={() => setEditItemDetails({outer: null, inner: null})}  
-																onClick={()=> {
-																	setEditToggle(col)
-																}}
-															>
+														<div 
+															className="flex-item-full"
+															id={`draggableSpan`}
+															draggable='true'
+															onDragStart={(event) => dragStart(event, index, i)}
+															onDragEnd={() =>  dragEnd()}
+															onMouseEnter={() => setEditItemDetails({outer: index, inner: i})}
+															onMouseLeave={() => setEditItemDetails({outer: null, inner: null})}  
+															onClick={()=> {
+																setEditToggle(col)
+															}}
+														>
 
 
-																<div className={(editItemDetails.outer == index && editItemDetails.inner == i ? 'sub' : 'hiddenSub')}>
+															<div className={(editItemDetails.outer == index && editItemDetails.inner == i ? 'sub' : 'hiddenSub')}>
 
-																	<div className="btn-group btn-group-toggle" data-toggle="buttons">
-																		<button 
-																			className="btn btn-secondary" 
-																			onClick={()=> {setEditToggle(col)}}
-																		>
-																			<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
-																		</button>
-																		<button 
-																			className="btn btn-secondary" 
-																			onClick={(e)=>removeOne(e, index, i)}// TODO- needs work
-																		>
-																			<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
-																		</button>
-																	</div>
+																<div className="btn-group btn-group-toggle" data-toggle="buttons">
+																	<button 
+																		className="btn btn-secondary" 
+																		onClick={()=> {setEditToggle(col)}}
+																	>
+																		<FontAwesomeIcon fixedWidth width="0" icon={faEdit} />
+																	</button>
+																	<button 
+																		className="btn btn-secondary" 
+																		onClick={(e)=>removeOne(e, index, i)}// TODO- needs work
+																	>
+																		<FontAwesomeIcon fixedWidth width="0" icon={faTrashAlt} />
+																	</button>
 																</div>
-
-																<div>
-																	<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
-																	{/* start dynamically added fields - right panel */}
-																	{renderDynamicFields(col, false)}
-																</div>
-
 															</div>
 
+															<div>
+																<label style={{fontSize: '11px'}}>{col.label} {(col.required ? '*' : null)}</label>
+																{/* start dynamically added fields - right panel */}
+																{renderDynamicFields(col, false)}
+															</div>
 
 														</div>
-													</motion.div>
+
+
+													</div>
+													{/* </motion.div> */}
 												</div>
 											)
 										})}
@@ -1112,15 +1104,12 @@ export default function FormBuilderBeta() {
 							</button>
 						</div>
 						<div className="modal-body">
-							<div>
-								{/* TODO - add link to learn more hint - read text below*/}
-								Your Paseon tag is this simple! If you wish to further customoze it, change the recipient or change it in any other way refer to the cusomization link.
-								{/* Add condtional for if form saved */}
-								{/* if saved - display tags else display please save message */}
-
+							<div style={{margin: '20px'}}>
+								{`<script type="module" src="https://paseon-forms.web.app/src/paseonForm.js">`}
 							</div>
-							{`<paseon-form></paseon-form>`}
-
+							<div style={{margin: '20px'}}>
+								{`<paseon-form></paseon-form>`}
+							</div>
 							{/* PREVIEW FORM */}
 							{/* 
       {fieldList.map((item, index) => {

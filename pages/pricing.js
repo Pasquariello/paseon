@@ -206,7 +206,7 @@ const Pricing = props => {
   );
 }
 Pricing.getInitialProps = async function({ req }) {
-  const res = await fetch(`https://paseon.herokuapp.com/api/build-checkout`);
+  const res = await fetch(`http://localhost:3000/api/build-checkout`);
   const data = await res.json();
   console.log('DATA', data)
   return {

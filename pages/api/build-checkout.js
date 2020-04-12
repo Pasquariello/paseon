@@ -1,53 +1,39 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-// export default async (req, res) => {
-//   const session = await stripe.checkout.sessions.create({
-//     payment_method_types: ["card"],
-//     line_items: [
-//       {
-//         name: "T-shirt",
-//         description: "Comfortable cotton t-shirt",
-//         images: ["https://example.com/t-shirt.png"],
-//         amount: 500,
-//         currency: "usd",
-//         quantity: 1
-//       }
-//     ],
-//     success_url: "https://example.com/success",
-//     cancel_url: "https://example.com/cancel"
-//   });
-//   res.json(session);
-// };
+
 export default async (req, res) => {
-  let paymentImag = ''
-  let sessions = [];
-  const basic_plan_session = await stripe.checkout.sessions.create({
-    client_reference_id: 'basic',
+  console.log('reg===', req)
+	let paymentImag = ''
+	let sessions = [];
+	const basic_plan_session = await stripe.checkout.sessions.create({
+		client_reference_id: 'basic',
     payment_method_types: ['card'],
-    subscription_data: {
-      items: [
-        {
-          plan: 'plan_GHYBg5qcDFyUQQ', //BASIC
-        }
-    ],
+		subscription_data: {
+			items: [
+				{
+					plan: 'plan_GHYBg5qcDFyUQQ', //BASIC
+				}
+			],
     },
-    success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+		success_url: 'http://localhost:3000/payment_success?session_id={CHECKOUT_SESSION_ID}',
     cancel_url: 'https://example.com/cancel',
-  });
-  const pro_plan_session = await stripe.checkout.sessions.create({
-    client_reference_id: 'pro',
-    payment_method_types: ['card'],
-    subscription_data: {
-      items: [
-        {
-          plan: 'plan_GHYDJPvzC8Rn6P', //PRO
-        }
-    ],
+    //customer_email: 'customer@example.com'
+	});
+	const pro_plan_session = await stripe.checkout.sessions.create({
+		client_reference_id: 'pro',
+		payment_method_types: ['card'],
+		subscription_data: {
+			items: [
+				{
+					plan: 'plan_GHYDJPvzC8Rn6P', //PRO
+				}
+			],
     },
-    success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+		success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
     cancel_url: 'https://example.com/cancel',
-  });
-  sessions.push(basic_plan_session, pro_plan_session);
-  res.json(sessions);
+    //customer_email: 'customer@example.com',
+	});
+	sessions.push(basic_plan_session, pro_plan_session);
+	res.json(sessions);
 }
 // stripe.plans.create({
 //   nickname: "Car Wash Volume Pricing",

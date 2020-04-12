@@ -122,7 +122,6 @@ function Campaigns(props) {
 				Cell: props => {
 					return  <input name={props.cell.row.original.id} onChange={(e) => selectCampaigns(e, props.cell.row.original.id)} checked={checkedItems[props.cell.row.original.id]} type="checkbox"></input>
 				}
-				// Cell: props => <input onChange={() => setIdList([props.original.id])} type="checkbox"></input>
 
 			},
 			{
@@ -131,14 +130,14 @@ function Campaigns(props) {
 				accessor: 'campaign_name',
 				Cell: props => {
 					return <CampaignLink id={props.cell.row.original.id} title={props.cell.value} directory="campaignManagment"/>
-				}//<CampaignLink id={props.original.id} title={props.value} directory="campaignManagment"/>
+				}
 
 			},
 			{
 				id: 'date_created',
 				Header: 'Date Created',
 				accessor: 'date_created',
-				// Cell: props => moment(props.value).format('LLL')
+				Cell: props => moment(props.cell.value).format('LLL')
 
 			},
 			{
@@ -177,9 +176,9 @@ function Campaigns(props) {
 			</div>
             
 			<div className="row">
-				<h3>My Campaigns:</h3> 
+				<h3>My Campaigns: </h3> 
 				<Link href="/campaignManagment/new_campaign">
-					<a>+ New</a>
+					<a className="btn btn-outline-primary">Add New</a>
 				</Link>
 			</div>
 			<div style={{marginTop: '20px'}}>
