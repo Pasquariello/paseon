@@ -232,7 +232,7 @@ const NewCampaign = (props) =>  {
 			<>
 				<p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
 				{/* <Form_Builder parentCallback={handleAddInput} removeSingle={removeSingle} fieldList={campaignForm.fields}/> */}
-				<FormBuilderBeta addFields={setFormStructure}/>
+				<FormBuilderBeta addFields={setFormStructure} campaignId={props.campaignId} data={props.data}/>
 			</>
 		)
 	}
@@ -298,13 +298,13 @@ const NewCampaign = (props) =>  {
 					</div>
 				</div>
 		
-			
+				 
 				<form style={{clear:'both'}}>
 
-					<div className="form-group">
+					{/* <div className="form-group">
 						<label htmlFor="campaign_name">Campaign Name</label>
 						<input value={campaignForm.campaign_name} type="text" className="form-control" id="campaign_name" placeholder="Campaign Name" onChange={(e) => setCampaignForm({...campaignForm, campaign_name: e.target.value})}></input>
-					</div>
+					</div> */}
 
 					<fieldset className="form-group">
 						<div className="row">

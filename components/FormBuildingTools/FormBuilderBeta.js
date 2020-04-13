@@ -22,7 +22,7 @@ import Browser from '../Assets/Broswer';
 
 
 
-export default function FormBuilderBeta({addFields}) {
+export default function FormBuilderBeta({addFields, data}) {
 	/////////////////////////////////////////
 	////////START INPUT OBJECTSSSSSS/////////
 	/////////////////////////////////////////
@@ -222,6 +222,13 @@ export default function FormBuilderBeta({addFields}) {
 		addFields(formStruct)
 	}, [formStruct])
 
+	useEffect(()=>{
+		// TODO - fetch form_schema
+		if (data) {
+			setFormStruct(data)
+		}
+	},[])
+
 
 
 	function clearList(e){
@@ -287,9 +294,8 @@ export default function FormBuilderBeta({addFields}) {
 						value={copy.placeholder}
 						onChange={(e)=> {
 							copy.placeholder = e.target.value
-							//setCampaignForm({...campaignForm, fields:copy})
-						}
-						}
+							setCampaignForm({...campaignForm, fields:copy})
+						}}
 					></input>
 
 					<div className="form-group">
@@ -301,9 +307,8 @@ export default function FormBuilderBeta({addFields}) {
 							placeholder="Enter Custom Label"
 							onChange={(e)=> {
 								copy.default = e.target.value
-								//setCampaignForm({...campaignForm, fields:copy})
-							}
-							}
+								setCampaignForm({...campaignForm, fields:copy})
+							}}
 						></input>
 					</div>
 				</div>
@@ -764,7 +769,7 @@ export default function FormBuilderBeta({addFields}) {
 		}
 	}
 
-
+	// REMEMBER -  https://stackoverflow.com/questions/21868610/make-column-fixed-position-in-bootstrap
 	return (
 		<>
 
@@ -776,7 +781,6 @@ export default function FormBuilderBeta({addFields}) {
 						{editToggle != null && formStruct.length ? renderEditInputView() : 
 							<>
 							
-								<hr></hr>
 							
 								<label htmlFor="elem">Frequently Used</label>
 
