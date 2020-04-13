@@ -3,6 +3,7 @@ import fetch from 'isomorphic-unfetch';
 // import ReactTable from 'react-table';
 import moment from 'moment';
 import { CSVLink, CSVDownload } from "react-csv";
+import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileCsv } from '@fortawesome/free-solid-svg-icons'
@@ -78,7 +79,9 @@ function Campaign(props) {
 			<p>Campaign Name:</p>
 			<h3>{props.data.data_schema[0].campaign_name}</h3>
 			<p>Date Created: {moment(props.data.data_schema[0].date_created).format('LLL')}</p>
-
+			<Link href={`/campaignManagment/campaign/[id]`}  as={`/campaignManagment/campaign/${props.id}`}>
+				<a className="btn btn-outline-primary">Edit</a>
+			</Link>
 			{props.data.form_data ? renderTable() : null}
 
 		</Layout>
@@ -87,12 +90,16 @@ function Campaign(props) {
 
 Campaign.getInitialProps = async function(context, props) {
 	const {id} = context.query;
-  
+	//const userId = await auth(context)
+
 	// this will need to be a req to DB
-	const res = await fetch(`${getUrl}/campaign/get_campaign_details/${id}`);
+	const res = await fetch(`${getUrl}/campaign/get_campaign_details/${id}`); // TODO - needs to also get by user_id
 	const data = await res.json();
     
-	return {data}
+	return {
+		data,
+		id
+	}
 	// TODO 
 	// table columns need to be form fields mapped to columns - make editable?
 };

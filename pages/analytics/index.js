@@ -30,7 +30,7 @@ Analytics.getInitialProps = async function(ctx) {
     
   
 	//   // this will need to be a req to DB
-	//     const res = await fetch(`http://localhost:3001/campaign/get_campaign_details/${id}`);
+	//     const res = await fetch(`http://localhost:3001/campaign/get_campaign_details/${id}`); TODO - needs to be set up to get by yser_id too
 	//     const data = await res.json();
 	// let data =   [
 	//         { x: 'Test Label', y: 5 },

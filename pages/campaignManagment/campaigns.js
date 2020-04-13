@@ -178,7 +178,7 @@ function Campaigns(props) {
             
 			<div className="row">
 				<h3 style={{marginRight: '20px'}}>My Campaigns: </h3> 
-				<Link href="/campaignManagment/new_campaign">
+				<Link href="/campaignManagment/campaign/new">
 					<a className="btn btn-outline-primary">Add New</a>
 				</Link>
 			</div>

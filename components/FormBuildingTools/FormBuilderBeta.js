@@ -22,7 +22,7 @@ import Browser from '../Assets/Broswer';
 
 
 
-export default function FormBuilderBeta({addFields, data}) {
+export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 	/////////////////////////////////////////
 	////////START INPUT OBJECTSSSSSS/////////
 	/////////////////////////////////////////
@@ -204,6 +204,10 @@ export default function FormBuilderBeta({addFields, data}) {
 	const [campaignForm, setCampaignForm] = useState(
 		{ 
 			campaign_name: '',
+			form_type: '', 
+			email_bool: 'no',
+			shareable: 'no',
+			recipient_email: '', 
 			fields: []
 		}
 	)
@@ -727,12 +731,61 @@ export default function FormBuilderBeta({addFields, data}) {
 		);
 	}
 
-	function handleSubmit() {
-		addFields(formStruct);
+	// function handleSubmit() {
+	// 	addFields(formStruct);
+	// }
+
+	async function handleSubmit (e) {
+		e.preventDefault()
+		console.log('hit handle submit!', campaignForm)
+		// setUserData(Object.assign({}, userData, { error: '' }))
+		let form = campaignForm
+		const method = campaignId === 'new' ? 'POST' : 'PUT'
+		//const username = userData.username
+		let url = `${getUrl}/campaign/${userId}`
+
+		try {
+			console.log('try', url)
+			const response = await fetch(url, {
+            
+				method,
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(campaignForm)
+			}).then(response => response.json())
+				.then(data => {console.log('data', data)
+					console.log('icoming data',data)
+
+					dispatch({
+						type: 'ADD_CAMPAIGN',
+						payload: data[0]
+					});
+				})
+			//   .then((res)=>{
+			//       console.log('taylor', res)
+			//   }).then(response => console.log('items', response))
+			//   if (response.status === 200) {
+			//     console.log(response )
+			//     console.log('success')
+           
+			//   } else {
+			//     console.log('Post failed.')
+			//     let error = new Error(response.statusText)
+			//     error.response = response
+			//     throw error
+			//   }
+		} catch (error) {
+			console.error(
+				'You have an error in your code or there are Network issues.',
+				error
+			)
+    
+			const { response } = error
+
+		}
 	}
 
 
-	async function handleSubmitORIG(e) {
+	async function handleSubmit111(e) {
 		e.preventDefault()
   
 		// setUserData(Object.assign({}, userData, { error: '' }))
@@ -740,13 +793,14 @@ export default function FormBuilderBeta({addFields, data}) {
 		//const username = userData.username
 
 		//let url = `${getUrl}/campaign/new_campaign/${props.userId}`
-		let url = `${getUrl}/campaign/new_campaign/2`
+		let url = `${getUrl}/campaign/${userId}`
+		const method = campaignId === 'new' ? 'POST' : 'PUT'
 
 		try {
 			console.log('try', url)
 			const response = await fetch(url, {
-      
-				method: 'POST',
+    
+				method,
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(campaignForm)
 			}).then(response => response.json())
@@ -772,11 +826,18 @@ export default function FormBuilderBeta({addFields, data}) {
 	// REMEMBER -  https://stackoverflow.com/questions/21868610/make-column-fixed-position-in-bootstrap
 	return (
 		<>
+			
 
 			<div className="row">
 				<div className="col-md-5">
 					{/* Remove this container div */}
 					<LeftBar> 
+						<div>
+
+							<label style={{fontSize: '11px'}}>Campaign Name</label>
+							<input className="input" onChange={(e)=>setCampaignForm({...campaignForm, campaign_name:e.target.value })}></input>
+
+						</div>
 		
 						{editToggle != null && formStruct.length ? renderEditInputView() : 
 							<>
