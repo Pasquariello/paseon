@@ -201,15 +201,6 @@ function Register (props) {
 							placeholder="Password"
 							required></input>
 					</div>
-					<div className="form-group">
-						<label htmlFor="inputCompany">Company</label>
-						<input 
-							onChange={(e) => setFormValuesToState(e, 'company')}
-							type="text" 
-							className="form-control" 
-							id="inputCompany" 
-							placeholder="Company"></input>
-					</div>
 
 					<div className="form-group" style={{width: '100%'}}>
 						<label htmlFor="">Account Type</label> <br/>
