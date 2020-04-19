@@ -130,24 +130,24 @@ const Pricing = props => {
 								</tr>
 								<tr>
 									<th scope="row">Mobile Friendly Forms</th>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
 								</tr>
 								<tr>
 									<th scope="row">Custom Embedable Forms</th>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
 								</tr>
 								<tr>
 									<th scope="row">Prebuilt Forms</th>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
 								</tr>
 								{/* <tr>
             <th scope="row">Custom Email templates</th>
@@ -164,44 +164,56 @@ const Pricing = props => {
 								</tr>
 								<tr>
 									<th scope="row">Form Building Tool</th>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
 								</tr>
 								<tr>
 									<th scope="row">Anaytics</th>
 									<td></td>
-									<td>x</td>
-									<td>x</td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
 								</tr>
 								<tr>
 									<th scope="row">Shareable Templates</th>
 									<td></td>
 									<td></td>
-									<td>x</td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
+									<td><span className="dot"></span></td>
 								</tr>
 								<tr>
 									<th scope="row">No Label Forms</th>
 									<td></td>
 									<td></td>
 									<td></td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
 								</tr>
 								<tr>
-									<th scope="row">Customer Success</th>
+									<th scope="row">HIPPA compliance</th>
 									<td></td>
 									<td></td>
 									<td></td>
-									<td>x</td>
+									<td><span className="dot"></span></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</Layout>
+
+			<style jsx>{`
+
+				.dot {
+					height: 10px;
+					width: 10px;
+					background-color: #4BB543;
+					border-radius: 50%;
+					display: inline-block;
+				}
+
+			`}</style>
 		</>
 	);
 }

@@ -37,7 +37,8 @@ export default function About() {
 								<h2 className="font-weight-light">Keep it simple</h2>
 								<p className="font-italic text-muted mb-4">
                   Use Paseon to build forms, analyze submission data, and manage user input all in one easy to use app.
-								</p><a href="#" className="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+								</p>
+								{/* <a href="#" className="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a> */}
 							</div>
 							<div className="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834139/img-1_e25nvh.jpg" alt="" className="img-fluid mb-4 mb-lg-0"/></div>
 						</div>
@@ -47,7 +48,8 @@ export default function About() {
 								<h2 className="font-weight-light">Email SMTP services</h2>
 								<p className="font-italic text-muted mb-4">
                   All our forms are preconfigured to handle email submission through a secure SMTP Service.  Recipient Emails are encrypted and protected from malicious users
-								</p><a href="#" className="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+								</p>
+								{/* <a href="#" className="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a> */}
 							</div>
 						</div>
             <div className="row align-items-center" style={{marginBottom: '100px'}}>
@@ -55,7 +57,8 @@ export default function About() {
 								<h2 className="font-weight-light">Drag and drop</h2>
 								<p className="font-italic text-muted mb-4">
                   Choose to use our drag and drop form building tool, or write your own custom HTML, we've got you covered! 
-								</p><a href="#" className="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+								</p>
+								{/* <a href="#" className="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a> */}
 							</div>
 							<div className="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="../static/images/undraw_work_together_h63l.svg" alt="" className="img-fluid mb-4 mb-lg-0"/></div>
 						</div>
@@ -87,7 +90,7 @@ export default function About() {
 							{/* <!-- End--> */}
 
 							{/* <!-- Team item--> */}
-							<div className="col-xl-3 col-sm-6 mb-5">
+							{/* <div className="col-xl-3 col-sm-6 mb-5">
 								<div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834132/avatar-4_ozhrib.png " alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
 									<h5 className="mb-0">Samuel Hardy</h5><span className="small text-uppercase text-muted">CEO - Founder</span>
 									<ul className="social mb-0 list-inline mt-3">
@@ -97,11 +100,11 @@ export default function About() {
 										<li className="list-inline-item"><a href="#" className="social-link"><i className="fa fa-linkedin"></i></a></li>
 									</ul>
 								</div>
-							</div>
+							</div> */}
 							{/* <!-- End--> */}
 
 							{/* <!-- Team item--> */}
-							<div className="col-xl-3 col-sm-6 mb-5">
+							{/* <div className="col-xl-3 col-sm-6 mb-5">
 								<div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-2_f8dowd.png" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
 									<h5 className="mb-0">Tom Sunderland</h5><span className="small text-uppercase text-muted">CEO - Founder</span>
 									<ul className="social mb-0 list-inline mt-3">
@@ -111,11 +114,11 @@ export default function About() {
 										<li className="list-inline-item"><a href="#" className="social-link"><i className="fa fa-linkedin"></i></a></li>
 									</ul>
 								</div>
-							</div>
+							</div> */}
 							{/* <!-- End--> */}
 
 							{/* <!-- Team item--> */}
-							<div className="col-xl-3 col-sm-6 mb-5">
+							{/* <div className="col-xl-3 col-sm-6 mb-5">
 								<div className="bg-white rounded shadow-sm py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-1_s02nlg.png" alt="" width="100" className="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"/>
 									<h5 className="mb-0">John Tarly</h5><span className="small text-uppercase text-muted">CEO - Founder</span>
 									<ul className="social mb-0 list-inline mt-3">
@@ -125,7 +128,7 @@ export default function About() {
 										<li className="list-inline-item"><a href="#" className="social-link"><i className="fa fa-linkedin"></i></a></li>
 									</ul>
 								</div>
-							</div>
+							</div> */}
 							{/* <!-- End--> */}
 						</div>
 					</div>

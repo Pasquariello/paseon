@@ -52,20 +52,15 @@ return (
         </Link>    
       </li>
       <li className="nav-item ">
-        <Link href="/">
-          <a className="nav-link">FORM BUILDER</a>
-        </Link>    
-      </li>
-      <li className="nav-item ">
       <Link href="/pricing">
         <a className="nav-link">PRICING</a>
       </Link>    
       </li>
-      <li className="nav-item ">
+      {/* <li className="nav-item ">
       <Link href="/">
         <a className="nav-link">FREE/BASIC FORMS</a>
       </Link>
-      </li>
+      </li> */}
       <li className="nav-item ">
       <Link href="/login">
         <a className="nav-link">LOGIN</a>
