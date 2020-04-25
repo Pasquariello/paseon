@@ -220,12 +220,19 @@ const NewCampaign = (props) =>  {
   
 	}
 
+	const setFormStructure = (fields) => {
+		console.log('HELLLLLOO', fields)
+		fields.flat(2);
+		setCampaignForm({...campaignForm, fields: fields});    
+
+	}
+
 	const renderCustomFormBuilder = () => {
 		return (
 			<>
 				<p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
 				{/* <Form_Builder parentCallback={handleAddInput} removeSingle={removeSingle} fieldList={campaignForm.fields}/> */}
-                <FormBuilderBeta/>
+				<FormBuilderBeta addFields={setFormStructure} campaignId={props.campaignId} data={props.data}/>
 			</>
 		)
 	}
@@ -237,6 +244,7 @@ const NewCampaign = (props) =>  {
 
 		fields.map(field => {
 			build.push({
+				id: field.id,
 				Header: field.label,
 				accessor: field.label,
 			});
@@ -260,6 +268,8 @@ const NewCampaign = (props) =>  {
 		)
 	}
 
+	
+
 
 	// campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : renderBasicForms(campaignForm.form_type)}
     
@@ -280,13 +290,21 @@ const NewCampaign = (props) =>  {
 		<LayoutApp>
 			<div>
 				<div style={{marginBottom: '50px'}}>
-					<h3>New Campaign</h3>
+					<div style={{float: 'left'}}>
+						<h3>New Campaign</h3>
+					</div>
+					<div style={{float: 'right'}}>
+						<button className="btn btn-outline-primary" onClick={handleSubmit}>Submit</button>
+					</div>
 				</div>
-				<form onSubmit={handleSubmit}>
-					<div className="form-group">
+		
+				 
+				<form style={{clear:'both'}}>
+
+					{/* <div className="form-group">
 						<label htmlFor="campaign_name">Campaign Name</label>
 						<input value={campaignForm.campaign_name} type="text" className="form-control" id="campaign_name" placeholder="Campaign Name" onChange={(e) => setCampaignForm({...campaignForm, campaign_name: e.target.value})}></input>
-					</div>
+					</div> */}
 
 					<fieldset className="form-group">
 						<div className="row">
@@ -401,16 +419,16 @@ const NewCampaign = (props) =>  {
             
 						{/* this will show the defualt form fields with each selection */}
 
-						{campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : null }
                                                
-						{campaignForm.fields.length ? renderTable(campaignForm.fields) : null}
+						{/* {campaignForm.fields.length ? renderTable(campaignForm.fields.flat(2)) : null} */}
 					</div>
+					{campaignForm.form_type == 'custom' ? renderCustomFormBuilder() : null }
+
 					{/* <div className="form-group">
                         <label for="inputState">set additional form fields</label>
                         <button onClick={(e) => addField(e)} >Add</button> 
                     </div> */}
 					{/* If custom let them set fields here! so backend can pick up what to do with it all */}
-					<input className="btn btn-primary" type="submit"/>
 				</form>
 				<div>
 					{/* render a table design for set fields */}

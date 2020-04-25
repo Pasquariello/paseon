@@ -21,10 +21,7 @@ export const getCampaignData  = async (ctx) =>  {
 		});
     
 	} catch (error) {
-		console.error('You have an error in your code or there are Network issues.',error)
-
-		//const { response } = error
-   
+		console.log(error)
 	}
   
 }

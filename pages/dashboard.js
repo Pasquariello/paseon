@@ -29,7 +29,7 @@ function Dashboard ({campaignList}) {
 
 	campaignList.forEach(campaign => {
       
-		totalSubmissions = totalSubmissions + campaign.jsonb_array_length
+		totalSubmissions = 0 //totalSubmissions + campaign.jsonb_array_length
       
 	})
 
@@ -52,9 +52,9 @@ function Dashboard ({campaignList}) {
 				<h3>Dashboard</h3> 
 			</div>
 
-			<QuickAnalytics
+			{/* <QuickAnalytics
 				data={quickAnalyticsData}
-			/>
+			/> */}
 
 			<div className="row"> 
 
@@ -63,7 +63,11 @@ function Dashboard ({campaignList}) {
 				>
 					<div className="card shadow mb-4">
 						<div className="card-header py-3">
-							<h6 className="m-0 font-weight-bold text-primary">Create a New Campaign</h6>
+							<Link href="/campaignManagment/new_campaign">
+								{/* <h6 className="m-0 font-weight-bold text-primary">Create a New Campaign</h6>\ */}
+								<a>Create a New Campaign</a>
+
+							</Link>
 						</div>
 						<div className="card-body">
 							<div className="text-center">

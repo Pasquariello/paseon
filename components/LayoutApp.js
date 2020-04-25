@@ -18,43 +18,14 @@ import { useDispatch } from 'react-redux'
 // const LayoutApp  => (
 const LayoutApp = props => {
 
-
-	const [sideNavWidth, setsideNavWidth] = useState(true)
-	const [navBtn, setNavBtn] = useState(false)
-	const [isActive, setIsActive] = useState(false)
-
-
-	const [ hoverState, setHoverState ] = useState(false)
-
-
-	const toggleState = () => {
-		setHoverState(!hoverState)
-	} 
-
-	const dispatch = useDispatch()
-
-	const logout = () => {
-
-		// to support logging out from all windows
-		// window.localStorage.setItem('logout', Date.now())
-		dispatch({
-			type: 'LOGOUT',
-		});
-		// Router.push('/login')
-	}
-
-
 	return (
 
 		<>
 
-				<SideBarLayout/>
+			<SideBarLayout/>
    
 
-			<div id="content-wrapper">
-				{/* <button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning ${sideNavWidth ? 'inactive' : '' }`} onClick={toggleWidth}>Toggle Nav</button> */}
-				<button style={{fontSize:'12px', width: '100px', marginBottom: '15px'}} className={`btn btn-warning`} onClick={()=>logout()}>Logout</button>
-           
+			<div id="content-wrapper">           
 				{props.children}
 			</div>
       

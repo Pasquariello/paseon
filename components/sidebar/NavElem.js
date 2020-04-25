@@ -9,29 +9,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // const SideBar = props => (
 export default function NavElem(props) {
   
-  return(
-    <React.Fragment>
-      {/* style={{background:'#e040fb', borderRadius:'0 50px 50px 0'}} */}
-      {/* style={{borderRight:'2px solid #e040fb'}} */}
-    <li className="sidebar-item"> 
-    <Link href={props.data.link}>
-      <button className="btn btn-link">
-        <div>
-            <span 
-              className="icon"
-              // style={{marginLeft: '15px'}}
-            > 
-              {props.data.icon && <FontAwesomeIcon fixedWidth width="0" icon={props.data.icon} />}
-            </span>
-            <span className="item-title"
-              style={{visibility: props.hoverState ? 'visible': 'hidden' , position: 'absolute'}}
-            >{props.data.title}</span>
-        </div>
-        </button>
-    </Link>    
-  </li>
+	return(
+		<React.Fragment>
+			{/* style={{background:'#e040fb', borderRadius:'0 50px 50px 0'}} */}
+			{/* style={{borderRight:'2px solid #e040fb'}} */}
+			<li className="sidebar-item"> 
+				<Link href={props.data.link}>
+					<button className="btn btn-link">
+						<div>
+							<span 
+								className="icon"
+							> 
+								{props.data.icon && <FontAwesomeIcon fixedWidth width="0" icon={props.data.icon} />}
+							</span>
+							<span className="item-title"
+								style={{visibility: props.hoverState ? 'visible': 'hidden' , position: 'absolute'}}
+							>{props.data.title}</span>
+						</div>
+					</button>
+				</Link>    
+			</li>
 
-<style jsx>{`
+			<style jsx>{`
 
 .btn, .btn-link{
   color: black
@@ -54,9 +53,9 @@ export default function NavElem(props) {
  }
 
  `}
- </style>
+			</style>
 
- </React.Fragment>
-  )
+		</React.Fragment>
+	)
 
-  }
+}

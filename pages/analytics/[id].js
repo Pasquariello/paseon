@@ -5,36 +5,36 @@ import TimeBarChart from '../../components/Charts/timeBarChart';
 
 import getUrl from '../../utils/getUrl';
 import {
-  useTable,
-  useGroupBy,
-  useFilters,
-  useSortBy,
-  useExpanded,
-  usePagination,
+	useTable,
+	useGroupBy,
+	useFilters,
+	useSortBy,
+	useExpanded,
+	usePagination,
 } from 'react-table'
 
 function Campaign_Analytics(props) {
 
 
-return (
+	return (
 
-  <Layout>
+		<Layout>
       HELLO
-      <TimeBarChart/>
-  </Layout>
-);
+			<TimeBarChart/>
+		</Layout>
+	);
 }
 
 Campaign_Analytics.getInitialProps = async function(context, props) {
-    const {id} = context.query;
+	const {id} = context.query;
   
-  // this will need to be a req to DB
-    const res = await fetch(`${getUrl}/campaign/get_campaign_details/${id}`);
-    const data = await res.json();
-    console.log('DUDE')
+	// this will need to be a req to DB
+	const res = await fetch(`${getUrl}/campaign/get_campaign_details/${id}`); // needs body to send user_id
+	const data = await res.json();
+	console.log('DUDE')
 
-  console.log('DATA', data)
-    return {data}
+	console.log('DATA', data)
+	return {data}
 };
 
 export default Campaign_Analytics;

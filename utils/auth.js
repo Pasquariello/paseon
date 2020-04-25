@@ -57,6 +57,49 @@ export const getUserData  = async (ctx) =>  {
 
 
 
+export const editUserData  = async (userData) =>  {
+	console.log('in auth', userData)
+	let url = `${getUrl}/account/edit_user_acct`
+  
+	try {
+
+		await fetch(url, {
+      
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(userData)
+      
+		}).then(
+			async function(response) {
+				if (response.status !== 200) {
+					let error = new Error(response.statusText)
+					error.response = response
+					throw error
+				}
+
+				await response.json().then(function(data){
+					console.log('==========', data)
+					//const { dispatch } = ctx.reduxStore;
+
+					// dispatch({
+					// 	type: 'USER_LOADED',
+					// 	payload: data
+					// });
+				})
+			}
+		)
+    
+	} catch (error) {
+		console.error('You have an error in your code or there are Network issues.',error)
+
+		//const { response } = error
+   
+	}
+}
+
+
+
+
 
 
 export const auth = async ctx => {

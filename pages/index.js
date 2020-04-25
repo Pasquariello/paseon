@@ -17,7 +17,9 @@ export default function Index() {
 						<div className="headerText">
 							<h1>PASEON</h1>
 							<p>Easy, customizable, copy and paste submission forms. We handle all the backend so you have time to focus on the important stuff.</p>
-							<button className="action-button white-btn ">LEARN MORE</button>
+							<Link href="/about">
+						    <button className="action-button white-btn">LEARN MORE</button>
+					    </Link>
 						</div>
 					</div>
 					{/* float: 'right',  */}
@@ -81,7 +83,7 @@ export default function Index() {
 				</div>
 				<div className="grid-container grid-container--fit">
 					<div className="grid-element">
-						<p>Try a test submission! Add your email inbetween the quotes in the HTML below then fill out and submit the form.</p>
+						{/* <p>Try a test submission! Add your email inbetween the quotes in the HTML below then fill out and submit the form.</p> */}
             
 						{/* <div contenteditable="true" style={{border: '1px solid black', padding:'30px'}}>
             This text can be edited by the user.
@@ -181,10 +183,11 @@ export default function Index() {
 
 					<h1>Step 4</h1>
 					<p>Customize the labels, colors, and success message of your form by adding and editing the HTML attributes of the Paseon tags. </p>
-					<p>To see a list of options click the button below.</p>
+					{/* <p>To see a list of options click the button below.</p> */}
              
-					<button style={{display: 'block'}} className="action-button black-btn">Learn More</button>
-
+					<Link href="/about">
+						<button className="action-button black-btn">LEARN MORE</button>
+					</Link>
 				</div>
 			</div>
 			{/* </div> */}
