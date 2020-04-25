@@ -295,8 +295,8 @@ function Register (props) {
 }
 
 Register.getInitialProps = async () => {
-	//https://paseon.taylorpasq.now.sh/
-	const res = await fetch(`https://paseon.taylorpasq.now.sh/api/build-checkout`);
+	//https://paseon.herokuapp.com/
+	const res = await fetch(`https://paseon.herokuapp.com/api/build-checkout`);
 	const data = await res.json();
 
 	console.log('DATA', data)
