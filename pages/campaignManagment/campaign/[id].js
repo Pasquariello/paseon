@@ -35,65 +35,60 @@ const CampaignBeta = ({id, data, userId}) =>  {
 		}
 	)
     
-	async function handleSubmit (e) {
-		//e.preventDefault()
-		//console.log('hit handle submit!', campaignForm)
-		// setUserData(Object.assign({}, userData, { error: '' }))
-		//const username = userData.username
-		let url = `${getUrl}/campaign/${userId}`
-		const method = campaignId === 'new' ? 'POST' : 'PUT'
-		try {
-			console.log('try', url)
-			const response = await fetch(url, {
+	// async function handleSubmit (e) {
+	// 	e.preventDefault()
+
+	// 	let url = `${getUrl}/campaign/${userId}`
+	// 	console.log('campaignForm', campaignForm)
+	// 	//const method = campaignId === 'new' ? 'POST' : 'PUT'
+	// 	try {
+	// 		console.log('try', url)
+	// 		const response = await fetch(url, {
             
-				method,
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					campaingForm:campaignForm
-				})
-			}).then(response => response.json())
-				.then(data => {console.log('data', data)
-					console.log('icoming data',data)
+	// 			method: 'POST',
+	// 			headers: { 'Content-Type': 'application/json' },
+	// 			body: JSON.stringify(
+	// 				campaignForm
+	// 			)
+	// 		}).then(response => response.json())
+	// 			.then(data => {console.log('data', data)
+	// 				console.log('icoming data',data)
 
-					dispatch({
-						type: 'ADD_CAMPAIGN',
-						payload: data[0]
-					});
-				})
-			//   .then((res)=>{
-			//       console.log('taylor', res)
-			//   }).then(response => console.log('items', response))
-			//   if (response.status === 200) {
-			//     console.log(response )
-			//     console.log('success')
-           
-			//   } else {
-			//     console.log('Post failed.')
-			//     let error = new Error(response.statusText)
-			//     error.response = response
-			//     throw error
-			//   }
-		} catch (error) {
-			console.error(
-				'You have an error in your code or there are Network issues.',
-				error
-			)
+	// 				// dispatch({
+	// 				// 	type: 'ADD_CAMPAIGN',
+	// 				// 	payload: data[0]
+	// 				// });
+	// 			})
+		
+	// 	} catch (error) {
+	// 		console.error(
+	// 			'You have an error in your code or there are Network issues.',
+	// 			error
+	// 		)
     
-			const { response } = error
+	// 		const { response } = error
 
-		}
-	}
+	// 	}
+	// }
     
 	const setFormStructure = (fields) => {
-		console.log('HELLLLLOO', fields)
 		fields.flat(2);
 		setCampaignForm({...campaignForm, fields: fields});    
 
 	}
+
     
 	return (
 		<LayoutApp>
-			<FormBuilderBeta addFields={setFormStructure} userId={userId} campaignId={id} data={data}/>
+			<FormBuilderBeta 
+				// addFields={setFormStructure} 
+				// handleSetCampaignName={(name)=>{setCampaignForm({...campaignForm, campaign_name: name})}}
+				// handleSetCampaignType={()=>{}}
+				userId={userId} 
+				// campaignId={id} 
+				data={data} 
+				//handleSubmit={handleSubmit}
+			/>
 		</LayoutApp>
 
 	)

@@ -1,12 +1,16 @@
 // TODO - fix the way item to edit gets set! similar to setItemToMoveIndex? 
 // TODO: bug on delete last index error
 // TODO - set open edit toggle to ID!
-import LeftBar from '../LeftBar';
-import CheckBoxBuilderEdit from './FormBuilders/CheckboxBuilderEdit';
-import FormSandBox from '../FormSandBox';
-import Router from 'next/router'
 
-import React, { useEffect, useRef, useState } from 'react';
+
+//todo currently edit togggle gets set to an object - this works for the initial setting of the form input objects so they can be 'edited' 
+// this does NOT work for updating formStruct
+
+import LeftBar from '../LeftBar';
+import FormSandBox from '../FormSandBox';
+
+import React, { useEffect, useState } from 'react';
+import getUrl  from '../../utils/getUrl';
 
 import classNames from 'classnames'
 import {states} from '../../utils/states';
@@ -14,15 +18,14 @@ import {states} from '../../utils/states';
 //TODO: reflect edit field changes in paseon and raw form HTML view
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import { motion } from "framer-motion";
-import getUrl  from '../../utils/getUrl';
+// import { motion } from "framer-motion";
 import uuid from 'react-uuid'
 
 import Browser from '../Assets/Broswer';
+import EditFormFields from './EditFormFields';
 
 
-
-export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
+export default function FormBuilderBeta({data, userId}) {
 	/////////////////////////////////////////
 	////////START INPUT OBJECTSSSSSS/////////
 	/////////////////////////////////////////
@@ -38,9 +41,8 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		value: '',
 		required: false,
 		default: '', // LAST SPOT TOUCH
-		placholder: '',
-		float: 'right',
-		width: 'col-md-6'
+		placeholder: '',
+
 	}
 
 	const last_name_obj = {
@@ -51,9 +53,8 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		name: 'last_name',
 		value: '',
 		required: false,
-		placholder: '',
+		placeholder: '',
 		float: 'left',
-		width: 'col-md-6'
 	}
 
 	const phone_number_obj = {
@@ -64,8 +65,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		name: 'phone_number',
 		value: '',
 		required: false,
-		placholder: '',
-		width: 'col-md-12'
+		placeholder: '',
 	}
 
 	const email_obj = {
@@ -76,8 +76,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		name: 'email',
 		value: '',
 		required: false,
-		placholder: '',
-		width: 'col-md-12'
+		placeholder: '',
 	}
 
 	const street_address_obj = {
@@ -88,8 +87,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		name: 'street_address',
 		value: '',
 		required: false,
-		placholder: '',
-		width: 'col-md-12'
+		placeholder: '',
 	}
 
 	const city_obj = {
@@ -100,8 +98,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		name: 'city',
 		value: '',
 		required: false,
-		placholder: '',
-		width: 'col-md-12'
+		placeholder: '',
 	}
 	//todo: change for select
 	const state_region_obj = {
@@ -113,8 +110,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		value: '',
 		options: state_names,
 		required: false,
-		placholder: '',
-		width: 'col-md-12'
+		placeholder: '',
 	}
 
 	const zip_code_obj = {
@@ -125,8 +121,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		name: 'zip_code_obj',
 		value: '',
 		required: false,
-		placholder: '',
-		width: 'col-md-12'
+		placeholder: '',
 	}
 
 	// const blank_obj = { 
@@ -137,7 +132,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 	// 	name: '',
 	// 	value: '',
 	// 	required: false,
-	// 	placholder: '',
+	// 	placeholder: '',
 	// 	width: 'col-md-12'
 	// }
 
@@ -148,14 +143,13 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		tag: 'input',
 		label: '',
 		placeholder: '',
-		placholder2: {
+		placeholder2: {
 			name: 'Placeholder',
 			value: ''
 		},
 		name: '',
 		value: '',
 		required: false,
-		width: 'col-md-12'
 	}
 
 	const multiline_text_obj = {
@@ -163,14 +157,13 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		tag: 'textarea',
 		label: '',
 		placeholder: '',
-		placholder2: {
+		placeholder2: {
 			name: 'Placeholder',
 			value: ''
 		},
 		name: '',
 		value: '',
 		required: false,
-		width: 'col-md-12'
 	}
 
 	const select_obj = {
@@ -181,7 +174,6 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		name: '',
 		value: '',
 		required: false,
-		width: 'col-md-12'
 	}
 
 	const single_checkbox_obj = {
@@ -191,7 +183,6 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		label: '',
 		value: false,
 		required: false,
-		width: 'col-md-12'
 	}
 
 
@@ -208,30 +199,35 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 			email_bool: 'no',
 			shareable: 'no',
 			recipient_email: '', 
-			fields: []
 		}
 	)
 
+	const [editFieldState, setEditFieldState] = useState([]);
+
 	const [editItemDetails, setEditItemDetails] = useState({outer: null, inner: null})
 	const [itemToMoveIndex, setItemToMoveIndex] = useState({outer: null, inner: null});
+	const [fieldToEditIndecies, setFieldToEditIndecies] = useState({outer: null, inner: null});
+
 	const [activeDropZone, setActiveDropZone] = useState();
 	const [initDrag, setInitDrag] = useState();
 	// TODO - keep this but remove campainForm fields array
 	const [formStruct, setFormStruct] = useState([]);
 	const [editToggle, setEditToggle] = useState()
 
-	
-	
-	useEffect(()=> {
-		addFields(formStruct)
-	}, [formStruct])
+	const [recipientEmailToggle, setRecipientEmailToggle] = useState()
 
-	useEffect(()=>{
-		// TODO - fetch form_schema
-		if (data) {
-			setFormStruct(data)
-		}
-	},[])
+	
+	
+	// useEffect(()=> {
+	// 	addFields(formStruct)
+	// }, [formStruct])
+
+	// useEffect(()=>{
+	// 	// TODO - fetch form_schema
+	// 	if (data) {
+	// 		setFormStruct(data)
+	// 	}
+	// },[])
 
 
 
@@ -247,7 +243,6 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		if (!input_obj.label) {
 			setEditToggle(input_obj)
 		}
-		console.log("window", window)
 		// Router.push(`/zTestPage/#${input_obj.id }`)
 		window.scrollTo(0,document.body.scrollHeight);
 
@@ -255,20 +250,27 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		setFormStruct([...formStruct, [input_obj]])
 	}
 
+	function handleEditFieldData(e) {
+		const {outer, inner} = fieldToEditIndecies;
+
+		let newArr = [...formStruct]; 
+		newArr[outer][inner][e.target.name] = e.target.value;
+		setFormStruct(newArr);
+	}
 
 	// TODO - break out into sep components for each differnet type of thing being edited
 	function renderEditInputView() {
-		//const {outer, inner} = editToggle
-		// TODO - rename
-		const copy = editToggle
 
+		
+		const {outer, inner} = fieldToEditIndecies;
+		const activeField = formStruct[outer][inner]
+		
 		let field;
-		console.log('copy', copy)
-		if (copy.type == 'checkbox' ) {
+
+		if (activeField.type == 'checkbox' ) {
 			field = <CheckBoxBuilderEdit  />
 	
-		} else if (copy.tag == 'select') {
-			console.log('hi')
+		} else if (activeField.tag == 'select') {
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Add Option</label> 
@@ -276,17 +278,16 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 						className="form-control" 
 						id="cust_placeholder" 
 						placeholder="Enter a Comma separated list for new dropdown options..."
-						value={copy.options}
+						value={activeField.options}
 						onChange={(e)=> {
 							let optionsArray = e.target.value.split(',');
-							copy.options = optionsArray
-							//setCampaignForm({...campaignForm, fields:copy})
+							activeField.options = optionsArray
 						}
 						}
 					></textarea>
 
 				</div> 
-			)} else if (copy.tag == 'input'){
+			)} else if (activeField.tag == 'input'){
 			field = (
 				<div className="form-group">
 					<label htmlFor="cust_placeholder">Placeholder</label>
@@ -295,11 +296,9 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 						className="form-control" 
 						id="cust_placeholder" 
 						placeholder="Enter Custom Placeholder"
-						value={copy.placeholder}
-						onChange={(e)=> {
-							copy.placeholder = e.target.value
-							setCampaignForm({...campaignForm, fields:copy})
-						}}
+						value={activeField.placeholder}
+						name="placeholder"
+						onChange={handleEditFieldData}
 					></input>
 
 					<div className="form-group">
@@ -308,11 +307,9 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 							type="text"
 							className="form-control" 
 							id="cust_default" 
-							placeholder="Enter Custom Label"
-							onChange={(e)=> {
-								copy.default = e.target.value
-								setCampaignForm({...campaignForm, fields:copy})
-							}}
+							placeholder="Default Field Value"
+							name="default"
+							onChange={handleEditFieldData}
 						></input>
 					</div>
 				</div>
@@ -324,7 +321,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		return (
 			<>
 				<div>
-					<label htmlFor="elem">Edit: {copy.label} </label>
+					<label htmlFor="elem">Edit: {activeField.label} </label>
 					<div style={{float: 'right'}} onClick={()=>setEditToggle() }>
 						<button className="btn-outline-danger btn-circle btn-sm">X</button>
 					</div>
@@ -338,13 +335,9 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 							className="form-control" 
 							id="cust_label" 
 							placeholder="Enter Custom Label"
-							value={copy.label}
-							onChange={(e)=> {
-								copy.label = e.target.value
-								setCampaignForm({...campaignForm, fields:copy})
-							}
-              
-							} 
+							value={activeField.label}
+							name="label"
+							onChange={handleEditFieldData}
 						></input>
 					</div>
 
@@ -356,15 +349,16 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 					<div className="custom-control custom-switch">
      
 						<input 
-							onChange={()=> {
-								copy.required = !copy.required
-								setCampaignForm({...campaignForm, fields:copy})
+							onChange={(e)=> {
+								activeField.required = !activeField.required
+								handleEditFieldData(e)
+								//setCampaignForm({...campaignForm, fields:activeField})
 
 							}
               
 							} 
 							type="checkbox" 
-							checked={copy.required}
+							checked={activeField.required}
 							className="custom-control-input" 
 							id="customSwitch1"
 						></input>
@@ -391,6 +385,8 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		)
 
 	}
+
+	
 
 	// TODO- needs work
 	function removeOne(e, outerIndex, innerIndex) {
@@ -490,15 +486,14 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		let arrayCopy = formStruct; // going to/manipulating this
 		let elementFrom = formStruct[itemToMoveIndex.outer][itemToMoveIndex.inner] // this is the element being dragged
 
-		//let rowTo = arrayCopy[outerIndexTo]; // this is the row we are moving the element into this is the same as arrayCopy[outerIndexTo]
 		
 
-		if (innerIndexTo > itemToMoveIndex.inner  && innerIndexTo != 0) {
-			innerIndexTo = innerIndexTo -1
+		if (innerIndexTo > itemToMoveIndex.inner && innerIndexTo != 0) {
+			innerIndexTo = innerIndexTo -1;
 		} 
 
 		if (itemToMoveIndex.outer !== outerIndexTo) {
-			innerIndexTo = innerIndexTo  + 1
+			innerIndexTo = innerIndexTo  - 1;
 		}
 
 		// TODO add check IF FROM OTHER ROW
@@ -516,16 +511,12 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 
 		// Clean up all empty rows
 		arrayCopy = arrayCopy.filter(function(x) {
-			console.log('clean up?', x, x.length, arrayCopy)
 			return x.length;
 		});
-
-		console.log('arrayCopy', arrayCopy)
 
 		setFormStruct(arrayCopy)
 		event
 			.dataTransfer
-			//a.clearData();
 	}
 
 	function bottomDrop(event) {
@@ -541,10 +532,8 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		arr.push([element]);
 	
 		if (arr[itemToMoveIndex.outer].length === 1) {
-			console.log('here')
 			arr.splice([itemToMoveIndex.outer], 1);
 		} else {
-			console.log('here oooo')
 			arr[itemToMoveIndex.outer].splice(itemToMoveIndex.inner, 1);
 		}
 		
@@ -590,10 +579,10 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		return (
 			<div>
 				{/* TODO- move out of return */}
-				{item.tag == 'input' && <input className='input' placeholder={item.placeholder} disabled={initDrag || disabled} type={item.type} value={item.default}></input>  }
-				{item.tag == 'textarea' && <textarea disabled={initDrag || disabled}></textarea> }
+				{item.tag == 'input' && <input className='input' placeholder={item.placeholder} disabled type={item.type} value={item.default}></input>  }
+				{item.tag == 'textarea' && <textarea disabled></textarea> }
 
-				{ item.tag == 'select' && <select className="select" id="elem" name="elem" disabled={initDrag || disabled} >
+				{ item.tag == 'select' && <select className="select" id="elem" name="elem" disabled >
 					{ item.options ? 
 						item.options.map((value, index) => {
 							return (
@@ -725,54 +714,40 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 			'elemContainer',
 			{
 				'elemContainerHighlight': editItemDetails.outer == position.outer && editItemDetails.inner == position.inner,
-				// 'hoverDropZone': activeDropZone == index,
-				// 'dropZoned': initDrag
 			}
 		);
 	}
 
-	// function handleSubmit() {
-	// 	addFields(formStruct);
-	// }
 
 	async function handleSubmit (e) {
 		e.preventDefault()
-		console.log('hit handle submit!', campaignForm)
-		// setUserData(Object.assign({}, userData, { error: '' }))
-		let form = campaignForm
-		const method = campaignId === 'new' ? 'POST' : 'PUT'
-		//const username = userData.username
+
 		let url = `${getUrl}/campaign/${userId}`
 
+		//const method = campaignId === 'new' ? 'POST' : 'PUT'
 		try {
 			console.log('try', url)
 			const response = await fetch(url, {
             
-				method,
+				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(campaignForm)
+				body: JSON.stringify({
+					campaign_name: campaignForm.campaign_name,
+					recipient_email: campaignForm.recipient_email,
+					fields: formStruct
+				}
+					
+				)
 			}).then(response => response.json())
 				.then(data => {console.log('data', data)
 					console.log('icoming data',data)
 
-					dispatch({
-						type: 'ADD_CAMPAIGN',
-						payload: data[0]
-					});
+					// dispatch({
+					// 	type: 'ADD_CAMPAIGN',
+					// 	payload: data[0]
+					// });
 				})
-			//   .then((res)=>{
-			//       console.log('taylor', res)
-			//   }).then(response => console.log('items', response))
-			//   if (response.status === 200) {
-			//     console.log(response )
-			//     console.log('success')
-           
-			//   } else {
-			//     console.log('Post failed.')
-			//     let error = new Error(response.statusText)
-			//     error.response = response
-			//     throw error
-			//   }
+		
 		} catch (error) {
 			console.error(
 				'You have an error in your code or there are Network issues.',
@@ -784,43 +759,33 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 		}
 	}
 
+	// function handleSetCampaignForm (value) {
+	// 	console.log('VAL', value)
+	// 	let newArr = [...formStruct]; // copying the old array
+	// 	const {outer, inner} = fieldToEditIndecies;
+	// 	newArr[outer][inner] = {...newArr[outer][inner], placeholder: value}; // replace e.target.value with whatever you want to change it to
+	// 	setFormStruct(newArr); // ??
+	// }
 
-	async function handleSubmit111(e) {
-		e.preventDefault()
-  
-		// setUserData(Object.assign({}, userData, { error: '' }))
-		let form = campaignForm
-		//const username = userData.username
 
-		//let url = `${getUrl}/campaign/new_campaign/${props.userId}`
-		let url = `${getUrl}/campaign/${userId}`
-		const method = campaignId === 'new' ? 'POST' : 'PUT'
+	function handleSelectFormType(e) {
+		
+		e.target.value === 'basic_contact' && setRecipientEmailToggle(true);
 
-		try {
-			console.log('try', url)
-			const response = await fetch(url, {
-    
-				method,
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(campaignForm)
-			}).then(response => response.json())
-				.then(data => {console.log('data', data)
-					console.log('icoming data',data)
-
-					dispatch({
-						type: 'ADD_CAMPAIGN',
-						payload: data[0]
-					});
-				})
-		} catch (error) {
-			console.error(
-				'You have an error in your code or there are Network issues.',
-				error
-			)
-
-			const { response } = error
-
+		// THIS WILL NEED TO BE FETCHED DATA AT SOME POINT
+		let basic_forms = {
+			basic_contact: [
+				[{...email_obj, name: 'email',  required: true}],
+				[{...single_text_obj, label: 'Subject', name: 'subject'}],
+				[{...multiline_text_obj, label: 'Body', name: 'body', required: true}]
+			],
+			basic_rsvp: { 
+					
+			},
 		}
+
+		setFormStruct(basic_forms[e.target.value]);
+		
 	}
 
 	// REMEMBER -  https://stackoverflow.com/questions/21868610/make-column-fixed-position-in-bootstrap
@@ -835,11 +800,40 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 						<div>
 
 							<label style={{fontSize: '11px'}}>Campaign Name</label>
-							<input className="input" onChange={(e)=>setCampaignForm({...campaignForm, campaign_name:e.target.value })}></input>
+							<input className="input" 
+								value={campaignForm.campaign_name}
+								onChange={
+									(e)=>setCampaignForm({...campaignForm, campaign_name:e.target.value })
+								}
+							></input>
 
+							<label style={{fontSize: '11px'}} htmlFor="formType">Form Type</label>
+							<select id="formType" className="form-control" value={campaignForm.form_type} onChange={handleSelectFormType}>
+								<option value="choose">Choose...</option>
+								<option value="basic_contact">Basic Contact</option>
+								<option value="basic_rsvp">Basic RSVP</option>
+								<option value="basic_sign_up">Basic Sign Up</option>
+								<option value="basic_mailing_list">Basic Mailing List</option>
+								<option value="custom">Custom</option>
+							</select> 	
+
+							{recipientEmailToggle ? 
+								<>
+									<label style={{fontSize: '11px'}}>Recipient Email</label>
+									<input className="input" 
+										value={campaignForm.recipient_email}
+										onChange={
+											(e)=>setCampaignForm({...campaignForm, recipient_email:e.target.value })
+										}
+									></input> 
+								</>: null }
+					
+							<hr/>
 						</div>
 		
-						{editToggle != null && formStruct.length ? renderEditInputView() : 
+						{editToggle != null && formStruct.length ? renderEditInputView() :
+						//<EditFormFields thing={formStruct[fieldToEditIndecies.outer][fieldToEditIndecies.inner]} setEditToggle={setEditToggle} handleSetCampaignForm={(value) => handleSetCampaignForm(value)}/> :
+						//renderEditInputView() :  formStruct[fieldToEditIndecies.outer][fieldToEditIndecies.inner]
 							<>
 							
 							
@@ -993,7 +987,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 				<div className="col-md-7">
 					<FormSandBox>
 
-						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#saveModal">Save</button>   
+						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" onClick={handleSubmit}>Save</button>   
 
 						<button className="btn btn-outline-info" style={{margin: '10px'}} type="button" data-toggle="modal" data-target="#previewFormModal">
 							Preview
@@ -1031,7 +1025,6 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 										className="flex-container"
 									>
 									
-										{/* (formStruct && itemToMoveIndex.outer && formStruct[itemToMoveIndex.outer].length !== 1 ) ||  */}
 										
 										{( (formStruct[itemToMoveIndex.outer] && formStruct[itemToMoveIndex.outer].length !== 1 ) || (row.length !== 1 && index !== itemToMoveIndex.outer + 1) || (index !== itemToMoveIndex.outer+1  && index !== itemToMoveIndex.outer )) && dropZoneRow(index, 'top')} 
 
@@ -1040,10 +1033,8 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 												
 												<div 
 													key={col.id}
-													//className={row.length === 1 ? 'flex-item-full': 'flex-item-half'}
 													style={{width: `${100 /row.length}%`, padding: '5px'}}
 												>
-													{console.log(100/row.length)}
 													{/* <motion.div
 														//style={{row.length === 1 ? 'col-md-12': 'col-md-6'}}
 														// className={row.length === 1 ? 'flex-item-half': 'flex-item-half'}
@@ -1074,6 +1065,7 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 															onMouseLeave={() => setEditItemDetails({outer: null, inner: null})}  
 															onClick={()=> {
 																setEditToggle(col)
+																setFieldToEditIndecies({outer: index, inner: i});
 															}}
 														>
 
@@ -1176,17 +1168,6 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 								{`<paseon-form></paseon-form>`}
 							</div>
 							{/* PREVIEW FORM */}
-							{/* 
-      {fieldList.map((item, index) => {
-          return (
-            <>
-              <label style={{fontSize: '11px'}}>{item.label} {(item.required ? '*' : null)}</label>
-              {renderDynamicFields(item)}
-            </>
-          )
-        }
-        )} 
-*/}
 
 						</div>
 						<div className="modal-footer">
@@ -1212,7 +1193,6 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 							<div style={{marginBottom: '50px'}}>
 								<div className="btn-group btn-group-toggle" data-toggle="buttons">
 									<button 
-										active
 										className="btn btn-outline-primary active" 
 										onClick={()=>{}}
 									>
@@ -1228,13 +1208,10 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 
 							{ 
 								formStruct.length ? <Browser> { formStruct.map((row, index) => {
-
-									return ( 
-											
+									return ( 		
 										<div key={index} 
 											className="flex-container"
 										>
-
 											{row.map((col, i) => {
 												return (
 													<div key={i} style={{width: `${100 /row.length}%`, padding: '5px'}}>
@@ -1253,34 +1230,6 @@ export default function FormBuilderBeta({addFields, data, userId, campaignId}) {
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-			<div className="modal fade" id="saveModal" tabIndex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
-				<div className="modal-dialog modal-xl" role="document">
-					<div className="modal-content">
-						<div className="modal-header">
-							<h5 className="modal-title" id="saveModalLabel">Save Campaign</h5>
-							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div className="modal-body">
-
-      
-							<label style={{fontSize: '11px'}}>Campaign Name</label>
-							<input className="input" onChange={(e)=>setCampaignForm({...campaignForm, campaign_name:e.target.value })}></input>
-
-      
-
-						</div>
-						<div className="modal-footer">
-							<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="button" className="btn btn-primary" onClick={(e)=>handleSubmit(e)}>Save Campaign</button>
 						</div>
 					</div>
 				</div>
