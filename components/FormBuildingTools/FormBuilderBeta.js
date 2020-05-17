@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // TODO - fix the way item to edit gets set! similar to setItemToMoveIndex? 
 // TODO: bug on delete last index error
 // TODO - set open edit toggle to ID!
@@ -23,6 +24,8 @@ import uuid from 'react-uuid'
 
 import Browser from '../Assets/Broswer';
 import EditFormFields from './EditFormFields';
+
+import CheckBoxBuilderEdit from '../FormBuildingTools/CheckboxBuilder'
 
 
 export default function FormBuilderBeta({data, userId}) {
@@ -124,19 +127,6 @@ export default function FormBuilderBeta({data, userId}) {
 		placeholder: '',
 	}
 
-	// const blank_obj = { 
-	// 	id: '',
-	// 	type: 'text',
-	// 	tag: 'input',
-	// 	label: '',
-	// 	name: '',
-	// 	value: '',
-	// 	required: false,
-	// 	placeholder: '',
-	// 	width: 'col-md-12'
-	// }
-
-
 	const single_text_obj = {
 		id: '',
 		type: 'text',
@@ -194,15 +184,15 @@ export default function FormBuilderBeta({data, userId}) {
 	/////state values
 	const [campaignForm, setCampaignForm] = useState(
 		{ 
-			campaign_name: '',
-			form_type: '', 
+			campaign_name: data.data_schema ? data.data_schema[0].campaign_name : '',
+			form_type: '',
 			email_bool: 'no',
 			shareable: 'no',
 			recipient_email: '', 
 		}
 	)
 
-	const [editFieldState, setEditFieldState] = useState([]);
+	const initialFormdShema = data.data_schema ? data.data_schema[0].form_schema : []
 
 	const [editItemDetails, setEditItemDetails] = useState({outer: null, inner: null})
 	const [itemToMoveIndex, setItemToMoveIndex] = useState({outer: null, inner: null});
@@ -211,25 +201,10 @@ export default function FormBuilderBeta({data, userId}) {
 	const [activeDropZone, setActiveDropZone] = useState();
 	const [initDrag, setInitDrag] = useState();
 	// TODO - keep this but remove campainForm fields array
-	const [formStruct, setFormStruct] = useState([]);
+	const [formStruct, setFormStruct] = useState(initialFormdShema);
 	const [editToggle, setEditToggle] = useState()
 
 	const [recipientEmailToggle, setRecipientEmailToggle] = useState()
-
-	
-	
-	// useEffect(()=> {
-	// 	addFields(formStruct)
-	// }, [formStruct])
-
-	// useEffect(()=>{
-	// 	// TODO - fetch form_schema
-	// 	if (data) {
-	// 		setFormStruct(data)
-	// 	}
-	// },[])
-
-
 
 	function clearList(e){
 		e.preventDefault();
@@ -239,11 +214,10 @@ export default function FormBuilderBeta({data, userId}) {
 
 	function addToForm (input_obj) {
 		input_obj.id = uuid();
-
-		if (!input_obj.label) {
-			setEditToggle(input_obj)
-		}
-		// Router.push(`/zTestPage/#${input_obj.id }`)
+		console.log('addToForm')
+		// if (!input_obj.label) {
+		// 	setEditToggle(input_obj)
+		// }
 		window.scrollTo(0,document.body.scrollHeight);
 
 		// todo - set input_obj id so I have a unique identifier to grab values off later
@@ -263,6 +237,7 @@ export default function FormBuilderBeta({data, userId}) {
 
 		
 		const {outer, inner} = fieldToEditIndecies;
+		console.log('here',formStruct, outer, inner)
 		const activeField = formStruct[outer][inner]
 		
 		let field;
@@ -352,8 +327,6 @@ export default function FormBuilderBeta({data, userId}) {
 							onChange={(e)=> {
 								activeField.required = !activeField.required
 								handleEditFieldData(e)
-								//setCampaignForm({...campaignForm, fields:activeField})
-
 							}
               
 							} 
@@ -724,12 +697,12 @@ export default function FormBuilderBeta({data, userId}) {
 
 		let url = `${getUrl}/campaign/${userId}`
 
-		//const method = campaignId === 'new' ? 'POST' : 'PUT'
+		const method = campaignId === 'new' ? 'POST' : 'PUT'
 		try {
 			console.log('try', url)
 			const response = await fetch(url, {
             
-				method: 'POST',
+				method,
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					campaign_name: campaignForm.campaign_name,
@@ -758,15 +731,7 @@ export default function FormBuilderBeta({data, userId}) {
 
 		}
 	}
-
-	// function handleSetCampaignForm (value) {
-	// 	console.log('VAL', value)
-	// 	let newArr = [...formStruct]; // copying the old array
-	// 	const {outer, inner} = fieldToEditIndecies;
-	// 	newArr[outer][inner] = {...newArr[outer][inner], placeholder: value}; // replace e.target.value with whatever you want to change it to
-	// 	setFormStruct(newArr); // ??
-	// }
-
+	
 
 	function handleSelectFormType(e) {
 		
@@ -779,20 +744,22 @@ export default function FormBuilderBeta({data, userId}) {
 				[{...single_text_obj, label: 'Subject', name: 'subject'}],
 				[{...multiline_text_obj, label: 'Body', name: 'body', required: true}]
 			],
-			basic_rsvp: { 
-					
-			},
+			basic_rsvp: [
+				[{...first_name_obj, name: 'First Name', rquired: true}, {...last_name_obj, name: 'Last Name', rquired: true}],
+				[{...email_obj, name: 'email',  required: true}],
+				[{...phone_number_obj, label: 'Phone', name: 'phone', required: true}],
+				[{...single_text_obj, label: 'Count', name: 'count', required: true, type: 'number'}]
+			],
 		}
-
-		setFormStruct(basic_forms[e.target.value]);
+		
+		setCampaignForm({...campaignForm, form_type: e.target.value})
+		setFormStruct([...formStruct, ...basic_forms[e.target.value]]);
 		
 	}
 
 	// REMEMBER -  https://stackoverflow.com/questions/21868610/make-column-fixed-position-in-bootstrap
 	return (
 		<>
-			
-
 			<div className="row">
 				<div className="col-md-5">
 					{/* Remove this container div */}
@@ -830,13 +797,8 @@ export default function FormBuilderBeta({data, userId}) {
 					
 							<hr/>
 						</div>
-		
 						{editToggle != null && formStruct.length ? renderEditInputView() :
-						//<EditFormFields thing={formStruct[fieldToEditIndecies.outer][fieldToEditIndecies.inner]} setEditToggle={setEditToggle} handleSetCampaignForm={(value) => handleSetCampaignForm(value)}/> :
-						//renderEditInputView() :  formStruct[fieldToEditIndecies.outer][fieldToEditIndecies.inner]
 							<>
-							
-							
 								<label htmlFor="elem">Frequently Used</label>
 
 								<div className="row"> 
@@ -917,8 +879,6 @@ export default function FormBuilderBeta({data, userId}) {
 									</div>
 
 								</div>    
-
-
 
 								<hr></hr>
 								{/* Start Advanced build tools */}
@@ -1035,19 +995,7 @@ export default function FormBuilderBeta({data, userId}) {
 													key={col.id}
 													style={{width: `${100 /row.length}%`, padding: '5px'}}
 												>
-													{/* <motion.div
-														//style={{row.length === 1 ? 'col-md-12': 'col-md-6'}}
-														// className={row.length === 1 ? 'flex-item-half': 'flex-item-half'}
-														initial={{ scale: 0 }}
-														animate={{  scale: 1 }}
-														transition={{
-															type: "spring",
-															stiffness: 260,
-															damping: 20
-														}}
-													> */}
-
-
+											
 													<div 
 														style={{ display: 'flex', flexDirection: 'row', padding: '10px'}}
 														className={buildContainerClasses({outer: index, inner: i})}

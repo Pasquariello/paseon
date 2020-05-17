@@ -19,7 +19,6 @@ function Campaign_Analytics(props) {
 	return (
 
 		<Layout>
-      HELLO
 			<TimeBarChart/>
 		</Layout>
 	);

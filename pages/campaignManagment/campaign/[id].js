@@ -34,42 +34,7 @@ const CampaignBeta = ({id, data, userId}) =>  {
 			fields: []
 		}
 	)
-    
-	// async function handleSubmit (e) {
-	// 	e.preventDefault()
-
-	// 	let url = `${getUrl}/campaign/${userId}`
-	// 	console.log('campaignForm', campaignForm)
-	// 	//const method = campaignId === 'new' ? 'POST' : 'PUT'
-	// 	try {
-	// 		console.log('try', url)
-	// 		const response = await fetch(url, {
-            
-	// 			method: 'POST',
-	// 			headers: { 'Content-Type': 'application/json' },
-	// 			body: JSON.stringify(
-	// 				campaignForm
-	// 			)
-	// 		}).then(response => response.json())
-	// 			.then(data => {console.log('data', data)
-	// 				console.log('icoming data',data)
-
-	// 				// dispatch({
-	// 				// 	type: 'ADD_CAMPAIGN',
-	// 				// 	payload: data[0]
-	// 				// });
-	// 			})
-		
-	// 	} catch (error) {
-	// 		console.error(
-	// 			'You have an error in your code or there are Network issues.',
-	// 			error
-	// 		)
-    
-	// 		const { response } = error
-
-	// 	}
-	// }
+	console.log('props', data)
     
 	const setFormStructure = (fields) => {
 		fields.flat(2);
@@ -107,9 +72,10 @@ CampaignBeta.getInitialProps = async function(context) {
 	if (id !== 'new') {
 		console.log('NOT NEW')
 		res = await fetch(`${getUrl}/campaign/get_campaign_details/${id}`);
-		let data1  = await res.json();  
-		console.log('heerr', data1)
-		data =  data1.data_schema[0].form_schema
+		data = await res.json();
+		// let data1  = await res.json();  
+		// console.log('heerr', data1)
+		// data =  data1.data_schema[0].form_schema
 	}
 	//console.log('DATA', data2.data_schema[0].form_schema)
 	//const data = data.data_schema[0].form_schema 

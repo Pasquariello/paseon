@@ -106,19 +106,6 @@ const NewCampaign = (props) =>  {
 	}
 
 
-
-	const handleAddInput = (obj) => {
-		console.log('I made it to the top!', obj)
-		// add new field object to campaignForm field array
-		// setSelectList([...selectList, { ...val }]);
-		setCampaignForm({...campaignForm, fields:[...campaignForm.fields, obj]})
-		console.log('Do I have what I need?', campaignForm);
-        
-
-	}
-
-    
-
 	const renderBasicForms = (form) => {
 		// THIS WILL NEED TO BE FETCHED DATA AT SOME POINT
 		let basic_forms = {
@@ -204,35 +191,13 @@ const NewCampaign = (props) =>  {
 		setCampaignForm({...campaignForm, fields : fields, form_type: form});    
 	}
 
-	const removeSingle = (newFields) => {
-		console.log('newFields',newFields)
-		// e.preventDefault();
-		// console.log('HELLO', val)
-		// console.log(index)
-		// let newList = selectList.filter((item, i) =>  i != index)
-		// console.log('newList', newList)
-		// setSelectList(newList);
-  
-		// this will eventually be handled with REDUX ?
-		// props.parentCallback(val)
-		setCampaignForm({...campaignForm, fields : newFields});    
-
-  
-	}
-
-	const setFormStructure = (fields) => {
-		console.log('HELLLLLOO', fields)
-		fields.flat(2);
-		setCampaignForm({...campaignForm, fields: fields});    
-
-	}
 
 	const renderCustomFormBuilder = () => {
 		return (
 			<>
 				<p>Use the form builder tool below to create your new campaign data collection and visualization.</p>
 				{/* <Form_Builder parentCallback={handleAddInput} removeSingle={removeSingle} fieldList={campaignForm.fields}/> */}
-				<FormBuilderBeta addFields={setFormStructure} campaignId={props.campaignId} data={props.data}/>
+				<FormBuilderBeta campaignId={props.campaignId} data={props.data}/>
 			</>
 		)
 	}
@@ -300,11 +265,6 @@ const NewCampaign = (props) =>  {
 		
 				 
 				<form style={{clear:'both'}}>
-
-					{/* <div className="form-group">
-						<label htmlFor="campaign_name">Campaign Name</label>
-						<input value={campaignForm.campaign_name} type="text" className="form-control" id="campaign_name" placeholder="Campaign Name" onChange={(e) => setCampaignForm({...campaignForm, campaign_name: e.target.value})}></input>
-					</div> */}
 
 					<fieldset className="form-group">
 						<div className="row">
