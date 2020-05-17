@@ -237,7 +237,6 @@ export default function FormBuilderBeta({data, userId}) {
 
 		
 		const {outer, inner} = fieldToEditIndecies;
-		console.log('here',formStruct, outer, inner)
 		const activeField = formStruct[outer][inner]
 		
 		let field;
